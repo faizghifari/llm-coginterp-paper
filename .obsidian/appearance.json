@@ -1,0 +1,8 @@
+{
+  "theme": "system",
+  "accentColor": "#e2c179",
+  "textFontFamily": "Fira Sans",
+  "interfaceFontFamily": "Fira Sans",
+  "monospaceFontFamily": "Fira Mono",
+  "baseFontSize": 16
+}

@@ -1,0 +1,271 @@
+{
+  "main": {
+    "id": "2c7a67932089342f",
+    "type": "split",
+    "children": [
+      {
+        "id": "894cec47509284e6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0219082cd6093e2c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Main.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Main"
+            }
+          },
+          {
+            "id": "fa5080c586474713",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "References.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "References"
+            }
+          },
+          {
+            "id": "3b170a503faf6f2f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "12. Kasmaran Kali Terakhir.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "12. Kasmaran Kali Terakhir"
+            }
+          },
+          {
+            "id": "1e4617889696fb24",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "about.me.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "about.me"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "033b4f1381e3551e",
+    "type": "split",
+    "children": [
+      {
+        "id": "251e2a34144ae53b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "39a3ab12f8015aa4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "3fe5fe289dcb0ec6",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "4786543273c86161",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 325.5
+  },
+  "right": {
+    "id": "d8979859c2db4958",
+    "type": "split",
+    "children": [
+      {
+        "id": "9858d04db05372a3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ac8c3bb632c38540",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Tokek.md",
+                "collapseAll": true,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": true,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Tokek"
+            }
+          },
+          {
+            "id": "9a84ee1ccb5c2dbd",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Tokek.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Tokek"
+            }
+          },
+          {
+            "id": "421bfcc615d14a65",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "7f9377bdf3b52d68",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Untitled.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Untitled"
+            }
+          },
+          {
+            "id": "ff48f949f63e38e4",
+            "type": "leaf",
+            "state": {
+              "type": "annotations-outline",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "Plugin no longer active"
+            }
+          },
+          {
+            "id": "5a10cf72a4585ae0",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          },
+          {
+            "id": "c845d7ba948cd00d",
+            "type": "leaf",
+            "state": {
+              "type": "annotations-outline",
+              "state": {},
+              "icon": "message-square",
+              "title": "Enhanced Annotations"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "bases:Create new base": false,
+      "switcher:Open quick switcher": true,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "fa5080c586474713",
+  "lastOpenFiles": [
+    "Main.md",
+    "References.md",
+    "9. Kelak ke Mana Nyawa Berlari.md",
+    "4. Ketahanan Mencintai.md",
+    "7. Anak Bermain.md",
+    "8. Orang Ramah.md",
+    "6. Pekarangan Mengarat.md",
+    "11. Padahal Jamnya Jalan.md",
+    "10. Bekas Berkencana.md",
+    "12. Kasmaran Kali Terakhir.md",
+    "about.me.md",
+    "5. Wanita Meninggal.md",
+    "2. Tamasyanya Ini.md",
+    "3. Sekeriuhan.md",
+    "1. Kita telah dalam Tautan.md",
+    "Naskah.md",
+    "Bunga.md",
+    "Puisi/Cakar.md",
+    "Tokek.md",
+    "Puisi",
+    "Untitled 1.md",
+    "Welcome.md"
+  ]
+}
