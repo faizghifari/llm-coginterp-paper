@@ -8,7 +8,7 @@
 ##  Machine intelligence is idiosyncratic and incoherently structured
 ###  Abstract
 
-We take a multi-order latent variable approach to intelligence in language models, similar to how psychometricians formulate psychological traits. Performance in every specific problem set is influenced by a domain-specific and a domain-agnostic latent factor. Using factor analysis as a dimension-reduction technique, we analyse the scores of 3476 language models across 841 different benchmarks. Due to the super-sparse nature of the dataset, we triangulate our analysis across different data densifiers and imputation methods. A robust pattern across different modes of bias is that 1. factor patterns are only partially interpretable and often incoherent, 2. no silver-bullet "general intelligence" factor exists. Our findings goes against current endeavors of defining, identifying, and targeting general intelligence in language model development. It is not possible to develop a generally-intelligent language model by targeting single conceptual ability: general intelligence is only achievable by training on the first-order intelligence domains, but these are often partially idiosyncratic and not identifiable in practice.
+We take a multi-order latent variable approach to intelligence in language models, similar to how psychometricians formulate psychological traits. Performance in every specific problem set is influenced by a domain-specific and a domain-agnostic latent factor. Using factor analysis as a dimension-reduction technique, we analyse 14,838 published evaluation scores covering 1310 language models across 455 different benchmarks. Due to the super-sparse nature of the dataset, we triangulate our analysis across different data densifiers and imputation methods. A robust pattern across different modes of bias is that 1. factor patterns are only partially interpretable and often incoherent, 2. no silver-bullet "general intelligence" factor exists. Our findings goes against current endeavors of defining, identifying, and targeting general intelligence in language model development. It is not possible to develop a generally-intelligent language model by targeting single conceptual ability: general intelligence is only achievable by training on the first-order intelligence domains, but these are often partially idiosyncratic and not identifiable in practice.
 
 ### Introduction
 
@@ -33,6 +33,10 @@ Within the context of prior work, our study presents an unprecedentedly large fa
 
 ### Methodology
 
+%% Drafted separately in [[Methodology]] — heading levels there are already set to slot
+in directly under this stub, so combining is a straight paste over the placeholders
+below. Supporting detail lives in [[Appendix-Methods]]. %%
+
 %% benchmark and model inclusion criteria
  main sources: papers (arxiv, acl, openreview, google scholar, dblp, orcid, semantic scholar), pwc, kaggle, stanford helm, hf leaderboard, artificial analysis, lmsys arena, lmstats, etc.
  must be general-purpose model able to do arbitrary task
@@ -44,6 +48,10 @@ Within the context of prior work, our study presents an unprecedentedly large fa
 #### Sparsity Handling
 
 ### Analysis
+
+%% Drafted separately in [[Analysis]] — heading levels there are already set to slot in
+directly under this stub. Holds the robustness/sensitivity design (moved here out of
+Methodology). %%
 
 ### Results
 

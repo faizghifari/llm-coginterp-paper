@@ -41,3 +41,44 @@ Result has 3 major factors. Limited number of benchmarks.
 
 ## Ablation studies
 
+## Methods and statistical tools
+
+%% Cited from [[Methodology]] / [[Appendix-Methods]]. Not yet chased down to final
+bibliographic form — years and venues below are from the method sources as used. %%
+
+Factor retention: the random-baseline eigenvalue criterion we use to choose the number of factors
+- Horn, J. L. (1965). A rationale and test for the number of common factors. _Psychometrika_, _30_(2), 179-185.
+
+Hierarchical-to-bifactor transformation underlying our $\omega_h$ / $\omega_{total}$ decomposition
+- Schmid, J., & Leiman, J. M. (1957). The development of hierarchical factor solutions. _Psychometrika_, _22_(1), 53-61.
+
+Omega coefficients as reliability of the general vs. group factors; also the `psych` implementation we run
+- Revelle, W., & Zinbarg, R. E. (2009). Coefficients alpha, beta, omega, and the glb: Comments on Sijtsma. _Psychometrika_, _74_(1), 145-154.
+- Revelle, W. (2024). _psych: Procedures for Psychological, Psychometric, and Personality Research_. R package.
+
+Factor congruence as the cross-method agreement statistic
+- Lorenzo-Seva, U., & ten Berge, J. M. (2006). Tucker's congruence coefficient as a meaningful index of factor similarity. _Methodology_, _2_(2), 57-64.
+
+Matrix completion — our primary cell-level imputer
+- Mazumder, R., Hastie, T., & Tibshirani, R. (2010). Spectral regularization algorithms for learning large incomplete matrices. _Journal of Machine Learning Research_, _11_, 2287-2322.
+
+Matrix completion — the correlation-level estimators
+- Cao, Y., Liang, Y., & Valiant, G. (2023). One-sided matrix completion from two observations per row. _ICML_.
+- Keshavan, R. H., Montanari, A., & Oh, S. (2010). Matrix completion from a few entries. _IEEE Transactions on Information Theory_, _56_(6), 2980-2998.
+- Chatterjee, S. (2015). Matrix estimation by universal singular value thresholding. _The Annals of Statistics_, _43_(1), 177-214.
+
+Nonparametric and multiple-imputation baselines
+- Stekhoven, D. J., & Bühlmann, P. (2012). MissForest — non-parametric missing value imputation for mixed-type data. _Bioinformatics_, _28_(1), 112-118.
+- van Buuren, S., & Groothuis-Oudshoorn, K. (2011). mice: Multivariate imputation by chained equations in R. _Journal of Statistical Software_, _45_(3), 1-67.
+
+Nearest positive-definite correlation matrix projection, used before conditional-Gaussian prediction
+- Higham, N. J. (2002). Computing the nearest correlation matrix — a problem from finance. _IMA Journal of Numerical Analysis_, _22_(3), 329-343.
+
+Missing-data mechanism terminology (MNAR), which is the core difficulty of our dataset
+- Rubin, D. B. (1976). Inference and missing data. _Biometrika_, _63_(3), 581-592.
+
+Benchmark sources requiring citation in the methodology
+- Liang, P., Bommasani, R., Lee, T., et al. (2023). Holistic evaluation of language models (HELM). _TMLR_.
+- Fourrier, C., Habib, N., Lozovskaya, A., Szafer, K., & Wolf, T. (2024). Open LLM Leaderboard v2. Hugging Face.
+- Chiang, W. L., Zheng, L., Sheng, Y., et al. (2024). Chatbot Arena: An open platform for evaluating LLMs by human preference. _ICML_.
+
