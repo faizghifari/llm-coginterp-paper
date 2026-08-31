@@ -1,3 +1,9 @@
+---
+title: "Machine intelligence is idiosyncratic and incoherently structured"
+abstract: |
+  We take a multi-order latent variable approach to intelligence in language models, similar to how psychometricians formulate psychological traits. Performance in every specific problem set is influenced by a domain-specific and a domain-agnostic latent factor. Using factor analysis as a dimension-reduction technique, we analyse 14,838 published evaluation scores covering 1310 language models across 455 different benchmarks. Due to the super-sparse nature of the dataset, we triangulate our analysis across different data densifiers and imputation methods. A robust pattern across different modes of bias is that 1. factor patterns are only partially interpretable and often incoherent, 2. no silver-bullet "general intelligence" factor exists. Our findings goes against current endeavors of defining, identifying, and targeting general intelligence in language model development. It is not possible to develop a generally-intelligent language model by targeting single conceptual ability: general intelligence is only achievable by training on the first-order intelligence domains, but these are often partially idiosyncratic and not identifiable in practice.
+---
+
 %% contoh judul
  The covariance structure of machine intelligence
  On the degree of generality in machine intelligence
@@ -5,12 +11,8 @@
  The dimensionality of machine intelligence is only partially interpretable
  Machine intelligence is idiosyncratic and uninterpretably structured 
 %%
-##  Machine intelligence is idiosyncratic and incoherently structured
-###  Abstract
 
-We take a multi-order latent variable approach to intelligence in language models, similar to how psychometricians formulate psychological traits. Performance in every specific problem set is influenced by a domain-specific and a domain-agnostic latent factor. Using factor analysis as a dimension-reduction technique, we analyse 14,838 published evaluation scores covering 1310 language models across 455 different benchmarks. Due to the super-sparse nature of the dataset, we triangulate our analysis across different data densifiers and imputation methods. A robust pattern across different modes of bias is that 1. factor patterns are only partially interpretable and often incoherent, 2. no silver-bullet "general intelligence" factor exists. Our findings goes against current endeavors of defining, identifying, and targeting general intelligence in language model development. It is not possible to develop a generally-intelligent language model by targeting single conceptual ability: general intelligence is only achievable by training on the first-order intelligence domains, but these are often partially idiosyncratic and not identifiable in practice.
-
-### Introduction
+# Introduction
 
 The field of artificial intelligence is rife with theories and conceptualization about what intelligence "is" (). With neural network specifically, a longstanding issue is how the models are "overfitting" their training set, and thus their performance in various tasks ("intelligence", so to say) lack powerful generalizability that cognitive entities like humans have. Thus, the development of advanced intelligent systems rely on a working notion of intelligence as adaptive and effective across diverse tasks: a singular notion of "generalizability."
 
@@ -31,7 +33,7 @@ A common weakness of both papers, though, are the relatively few number of bench
 Within the context of prior work, our study presents an unprecedentedly large factor analysis of benchmark scores, with our raw data comprising up to 1310 models and 455 benchmarks. Crucially, our pool of benchmarks covers a highly diverse set of tasks, including those quite outside of the mainstream. Covering only few popular benchmarks like prior work does is problematic. First, given their popularity, these benchmarks may well be correlated due to what we call a common-investment bias: there is a high chance their correlations substantially polluted by the fact that organizations expend more efforts to perform well in said benchmarks. Second, there should be no discrimination as to what tasks are important and which aren't: whether a task appears miscellaneous is also no reason to exclude them. A useful analogy is that reaction time in humans is correlated to intelligence (Kranzler & Jensen, 1989): no matter how seemingly unimportant a task may be, it may provide useful information that is entirely unintuitive to our subjective understanding.
 
 
-### Methodology
+# Methodology
 
 %% Drafted separately in [[Methodology]] — heading levels there are already set to slot
 in directly under this stub, so combining is a straight paste over the placeholders
@@ -42,32 +44,32 @@ below. Supporting detail lives in [[Appendix-Methods]]. %%
  must be general-purpose model able to do arbitrary task
  etc2. %%
 
-#### Dataset
+## Dataset
 
 
-#### Sparsity Handling
+## Sparsity Handling
 
-### Analysis
+# Analysis
 
 %% Drafted separately in [[Analysis]] — heading levels there are already set to slot in
 directly under this stub. Holds the robustness/sensitivity design (moved here out of
 Methodology). %%
 
-### Results
+# Results
 
-### Discussion
+# Discussion
 
-#### The g-factor is only partially coherent
+## The g-factor is only partially coherent
 %% 
 Note: many items ahve .99 loadings to the g-factor, mostly low-observations data.
 If this is not
 %%
-#### Bottom-up theories of LLM intelligence
+## Bottom-up theories of LLM intelligence
 
 Importantly what we find is that, unlike theories of human psychology () where intelligence are explicitly assumed to possess higher-order structure, with fluid intelligence as a higher-order factor that have theoretical causal effects () to the performance of other cognitive abilities, fluid intelligence, wikipedia memorization, agentic tool use, are more likely to be horizontal with respect to each other with no clear higher-order structure. Ablation studies provide experimental evidence to this point: ...
 
 This is also not to say that LLMs are not intelligent (in our private view, they very clearly are). But it is important to realize that just as humans and ants are differentially but equally "cognitive", LLMs are intelligent in a considerably different way to humans. This means that a theory of intelligence requires a blank-slate, bottom-up empirical approach without overfitting theories of human intelligence into systems that possess significant architectural and functional divergence from humans.
 
-#### Mechanisms for a possible g-factor
+## Mechanisms for a possible g-factor
 
-### References
+# References

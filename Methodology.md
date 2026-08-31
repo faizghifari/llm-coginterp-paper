@@ -41,13 +41,25 @@ Scores are transcribed from public evaluation records, not re-run by us. We draw
 | LiveBench | 55 | 1 |
 | Unattributed | 87 | 14 |
 
-Two properties of this composition matter downstream. First, source volume is highly unequal: two source families supply two-thirds of all records, so the *missingness pattern* is largely inherited from those two suites' model selection policies. Second, benchmark breadth and row volume are anti-correlated — Papers With Code contributes the most distinct benchmarks but relatively few rows per benchmark, while the Open LLM Leaderboard contributes 12 benchmarks with very deep model coverage. This is precisely the structure that makes the densification choice in [[#Sparsity Handling]] consequential rather than cosmetic, and it is what motivates the per-benchmark influence analysis in [[Analysis#Robustness and sensitivity analyses]].
+##### Sources partition the matrix
+
+One consequence of this composition deserves stating before any of the machinery, because it constrains what the analysis can recover. Benchmark columns are largely *owned* by a single evaluation suite, and the suites evaluate near-disjoint sets of models. Measuring co-observation between columns, grouped by the source that supplies most of each column's rows:
+
+| column pair | median models observed on both | pairs with <2 shared models (correlation not estimable) |
+|---|---:|---:|
+| HELM × HELM | 4 | 33 % |
+| Open LLM Leaderboard × Open LLM Leaderboard | 160 | 0 % |
+| **HELM × Open LLM Leaderboard** | **0** | **87 %** |
+
+The matrix is therefore closer to two weakly-connected blocks than to one sparse whole: within the Open LLM Leaderboard block, correlations rest on ~160 shared models; across the two blocks, 87 % of column pairs cannot support a correlation estimate at all. This is not a curation artefact we can repair — it is a direct consequence of which models each leaderboard chooses to evaluate — and it means any general factor recovered here is at risk of being a within-block factor. We return to it when interpreting the results, and it is the structural reason the cross-densifier comparison matters: the column-primary peel retains famous benchmarks, which are disproportionately the densely-connected block.
+
+Two further properties matter downstream. First, source volume is highly unequal: two source families supply two-thirds of all records, so the *missingness pattern* is largely inherited from those two suites' model selection policies. Second, benchmark breadth and row volume are anti-correlated — Papers With Code contributes the most distinct benchmarks but relatively few rows per benchmark, while the Open LLM Leaderboard contributes 12 benchmarks with very deep model coverage. This is precisely the structure that makes the densification choice in [[#Sparsity Handling]] consequential rather than cosmetic, and it is what motivates the per-benchmark influence analysis in [[Analysis#Robustness and sensitivity analyses]].
 
 ##### Collection protocol
 
 Collection follows a **strict source-verification** rule: a field is populated only if the benchmark's authors or the evaluator explicitly documented it. No value is inferred from a plausible default — we never assume, for example, that an open-weights model was evaluated with a particular inference stack, or that an undocumented decoding configuration was greedy. Undocumented fields are left blank. The one class of exception is a small set of deductive rules that cannot be wrong given the record itself (e.g. a closed model accessed over a vendor API cannot have been run locally); these are enumerated in [[Appendix-Methods#A Data sources and extraction|Appendix A]].
 
-Records are stored in three linked tables — `benchmarks` (one row per benchmark), `models` (one row per model), and `results` (one row per model × benchmark × evaluation setup). Multiple scores for the same model–benchmark pair are **kept as separate rows** whenever they differ in evaluation setup, evaluator, or language, rather than being averaged at collection time; they are reconciled only at the aggregation step ([[#Aggregation]]), where the choice is explicit and reversible. Scores are normalised to a 0–100 scale, with documented exceptions for metrics that have no natural percentage interpretation (perplexity, bits-per-byte, Elo); metric direction is recorded rather than used to rescale ([[Appendix-Methods#C Normalisation rules|Appendix C]]).
+Records are stored in three linked tables — `benchmarks` (one row per benchmark), `models` (one row per model), and `results` (one row per model × benchmark × evaluation setup). Both `benchmarks` and `models` additionally carry a `release_date` (year-month) and a `release_date_source` recording how that date was established, since the sources differ sharply in reliability — from arXiv identifiers decoded exactly, through dates corroborated by two independent systems, down to single uncorroborated model answers with a measured error rate near 30 %. Any analysis using release date should filter on that column rather than treating the field as uniform. %% coverage as of 2026-08-31: 623/624 benchmarks, 2008/2014 models; an authoritative HuggingFace `createdAt` sweep over the weakest tier is in progress and will shift the mix toward the reliable end. %% Multiple scores for the same model–benchmark pair are **kept as separate rows** whenever they differ in evaluation setup, evaluator, or language, rather than being averaged at collection time; they are reconciled only at the aggregation step ([[#Aggregation]]), where the choice is explicit and reversible. Scores are normalised to a 0–100 scale, with documented exceptions for metrics that have no natural percentage interpretation (perplexity, bits-per-byte, Elo); metric direction is recorded rather than used to rescale ([[Appendix-Methods#C Normalisation rules|Appendix C]]).
 
 Inclusion criteria are applied at both axes. A **model** is included if it is a generative language model that accepts arbitrary prompts; encoder-only classifiers, narrow task-specific systems (dedicated MT/ASR/TTS models), and undocumented community uploads are excluded, and different *setups* of one model (context length, reasoning effort, prompting scheme) are recorded as setup attributes rather than as distinct models. A **benchmark** is included if it has at least one in-scope result row; zero-result stubs are removed. We deliberately impose no relevance filter on benchmark content: a task is not excluded for appearing miscellaneous or unrelated to "intelligence", for the reason given in the introduction. Full criteria, and the review procedure applied to every borderline case, are in [[Appendix-Methods#B Inclusion and exclusion criteria|Appendix B]].
 
@@ -82,7 +94,48 @@ Model identity is then resolved at **two granularities**, run as parallel condit
 
 The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed; the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. Neither is correct *a priori*, which is why both are carried forward. The token-level rules are given in [[Appendix-Methods#F Model-identity collapse|Appendix F]].
 
+##### Metric selection
+
+A benchmark is frequently reported under several metrics — 92 of ours were — and the aggregation above would average them into one cell. That is not merely untidy: on `truthfulqa` the cell would mix a "% informative" rate with a BLEU *difference* score, which can be negative. Worse, **which** metric a model received is largely determined by which leaderboard evaluated it, so the resulting column carries variance attributable to its source rather than to capability. On `truthfulqa`, 325 models are scored by accuracy (mean 46.9) and 67 by exact match (mean 27.5), with the two populations essentially disjoint; on `ifeval` the corresponding gap is 46 points. Because no model is scored under both, the offset cannot even be estimated and removed from within the data.
+
+We therefore keep exactly **one metric per benchmark**. Metric names are first normalised for case and whitespace — without which `Accuracy` and `accuracy` count as rivals and `gsm8k` would forfeit 149 rows to a capitalisation difference — then a small curated alias map merges verified spelling variants of one measurement (e.g. `bits per byte` and `bpb`). Where a genuine choice remains, we keep the metric covering the most distinct models, so the widest comparable population survives; a per-benchmark override list handles cases where coverage alone chooses badly. This drops 1,420 result rows and 706 model-cells.
+
+Two residual defects sit *below* the metric name and need separate treatment. `gpqa` carried one metric name covering two incompatible conventions: 447 of its 454 rows are Open LLM Leaderboard v2 **normalised** accuracy, in which the random-chance baseline is mapped to zero (range 0–24.9), while the remaining 7 are raw accuracy from papers (range 39–94). Since correlations are unchanged by a linear rescaling of an entire column, a normalised column is perfectly usable *provided every row shares the convention*; we therefore keep the 447 and drop the 7, rather than back-transforming on an assumed formula. The caveat is that 13 % of those rows sit exactly at the clamp, so the column under-discriminates among weak models. `elephant` is removed outright: its metric field holds model configurations rather than metrics, so no choice among them measures anything. (`vectara`, whose two metrics were complements, and `pwc_lambada`, which mixed accuracy with perplexity, are both resolved by the metric filter itself.)
+
 Finally, benchmarks observed for only one model are dropped, since a single observation contributes no covariance. The resulting matrices are:
+
+%% PROVISIONAL — Tables 2 and 3 below were read off matrices generated 2026-07-20,
+which PREDATE the 2026-08-10 score-redundancy pruning. They still contain all 47
+pruned columns (31 MultiLoKo language splits, LiveCodeBench v1-v6, the 4 GPQA
+variants, etc.), so they describe a corpus the surrounding text says we removed.
+
+They also predate the canonical-metric filter and the source-scale fix (see
+"Metric selection" below). Recomputed with ALL of them applied (same code,
+aggregation only — no R needed):
+
+  Corpus    456 benchmarks, 1,618 models, 13,251 result rows
+            (was 459 / 1,682 / 14,838 pre-filter; the further drop is the
+             2026-08-31 removal of 12 non-model scraping artifacts and their
+             3 orphaned benchmarks, plus two model merges)
+
+  Table 2   all_standard    1,269 x 405   11,097 cells   2.16 %   (was 1,310 x 455 / 13,888 / 2.33 %)
+            all_aggressive    337 x 381    4,478 cells   3.49 %   (was   350 x 431 /  5,358 / 3.55 %)
+
+  Table 3 (MIN_OBS = 2, matching how the current tables were built):
+            C all_standard    757 x  78   12.6 %  retained 67 %   (was 735 x  90 / 13.08 % / 62.3 %)
+            C all_aggressive  225 x 101   12.5 %  retained 63 %   (was 226 x 115 / 12.58 % / 61.0 %)
+            S all_standard    669 x 124   10.0 %  retained 75 %   (was 652 x 164 / 10.01 % / 77.1 %)
+            S all_aggressive  124 x 293   10.0 %  retained 81 %   (was 131 x 344 / 10.01 % / 84.2 %)
+            R all_standard    175 x 323   11.0 %  retained 56 %   (was 227 x 382 / 10.85 % / 67.8 %)
+            R all_aggressive   96 x 353   10.6 %  retained 80 %   (was 106 x 404 / 10.50 % / 83.9 %)
+
+Note R/all_standard: 227 -> 174 models. Removing the MultiLoKo splits changes the
+peel path materially, not just the column count — worth a sentence in Results if
+it survives the re-run.
+
+Do NOT paste these in yet: the imputation and factoring results are still from the
+old matrices, so swapping the tables alone would make the paper internally
+inconsistent. Swap all of them together once the pipeline re-runs. %%
 
 **Table 2.** Aggregated model × benchmark matrices, text-only corpus.
 
@@ -129,11 +182,11 @@ Every densified matrix is still ~90 % missing, so a completion step is required 
 
 **Cell-level imputation** estimates the missing entries directly: **SoftImpute** (nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD; assumes a low-rank signal plus noise, and is our primary cell-level method); **k-NN** (each missing cell filled from the $k$ most similar models — an assumption-light baseline with no low-rank, linearity, or normality assumption); **missForest** (iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent); and **MICE** (multiple imputation by chained equations, where factoring receives the mean of the $m$ completions while the spread across completions is the only natively probabilistic uncertainty estimate available to us).
 
-**Correlation-level recovery** exploits the fact that factor analysis needs a correlation matrix, not a data matrix. When observations are too sparse to complete cells reliably, the correlation structure may still be recoverable — a substantially weaker requirement. This family estimates the benchmark × benchmark correlation matrix directly and never claims to know individual cells: **OneSidedMC** (Cao, Liang & Valiant, 2023) recovers the benchmark-space right singular vectors from pairwise products of co-observed scores, yielding an estimate $\hat{\Theta}$ of the benchmark covariance; **SoftImpute-corr**, **OptSpace** (Keshavan, Montanari & Oh, 2010), and **USVT** (Chatterjee, 2015) apply matrix-completion estimators to the *observed pairwise correlation matrix*, whose missing entries are exactly the benchmark pairs that were never co-observed.
+**Correlation-level recovery** exploits the fact that factor analysis needs a correlation matrix, not a data matrix. When observations are too sparse to complete cells reliably, the correlation structure may still be recoverable — a substantially weaker requirement. This family estimates the benchmark × benchmark correlation matrix directly and never claims to know individual cells: **OneSidedMC** (Cao, Liang & Valiant, 2023) recovers the benchmark-space right singular vectors from pairwise products of co-observed scores, yielding an estimate $\hat{\Theta}$ of the benchmark covariance; **SoftImpute-corr**, **OptSpace** (Keshavan, Montanari & Oh, 2010), and **USVT** (Chatterjee, 2015) apply matrix-completion estimators to the *observed pairwise correlation matrix*, whose missing entries are exactly the benchmark pairs that were never co-observed; and two structured completions target positive-definiteness directly — a **maximum-determinant** SDP completion, which maximises $\log\det\Sigma$ subject to $\Sigma \succeq 0$ and to each observed correlation lying within a per-pair Fisher-*z* confidence band scaled to that pair's co-observation count, and a **Gaussian graphical model** MLE completion over the observed-pair graph.
 
 Because these methods produce a correlation matrix rather than data, two shared devices make them commensurable with the cell-level family. First, the completed correlation matrix is symmetrised and projected to the nearest valid (positive definite, unit-diagonal) correlation matrix, so every principal submatrix is invertible. Second, a **covariance-matched surrogate** data matrix is synthesised whose sample covariance equals the recovered correlation matrix, on the original column scale, and that surrogate is handed to the identical factoring code used for every other method. The surrogate is explicitly *not* an estimate of the real cells; it is a device for passing a covariance structure through a data-matrix interface, and no per-model quantity computed from it is interpretable ([[Appendix-Methods#H Completion methods|Appendix H]]).
 
-**No-imputation baselines** bound how much of any recovered structure is manufactured by imputation. The undensified matrix is also factored with no completion at all, from a pairwise-complete correlation matrix. Because that matrix has undefined entries (never co-observed pairs) and is generally indefinite, four treatments are compared: filling with the mean off-diagonal correlation, filling with zero (treating absent co-observation as absent association), a maximum-determinant positive-semidefinite completion solved as a convex program with per-pair Fisher-*z* confidence bands scaled to each pair's co-observation count, and a Gaussian-graphical-model MLE completion. Only pairs with sufficient co-observation are trusted as constraints; the remainder are left for the completion to determine ([[Appendix-Methods#H Completion methods|Appendix H]]).
+**No-imputation baselines** bound how much of any recovered structure is manufactured by imputation. The undensified matrix is also factored with no completion at all, from a pairwise-complete correlation matrix. Because that matrix has undefined entries (never co-observed pairs) and is generally indefinite, two treatments are compared: filling with the mean off-diagonal correlation, and filling with zero (treating absent co-observation as absent association). Both are then PSD-smoothed before factoring ([[Appendix-Methods#H Completion methods|Appendix H]]).
 
 ##### Evaluating the completion
 
@@ -161,7 +214,7 @@ Every cell of the design is factored **twice**: once at the parallel-analysis fa
 
 Corpus construction, densification, and analysis scripts are implemented in Python; imputation and factor analysis in R, with the OneSidedMC estimator in Julia invoked as a subprocess and its output routed through the identical R factoring path. All results are persisted to a single relational store keyed by (method, dataset, run), so the full design is queryable rather than reconstructed from file names, and environments are pinned per language. [[Appendix-Methods#K Software environment and reproduction|Appendix K]] lists exact packages and the commands that reproduce every table above.
 
-%% Open item: SoftImpute-corr, OptSpace, USVT and the two convex/graphical raw variants
+%% Open item: SoftImpute-corr, OptSpace, USVT, CVXR and GGM
 were added most recently and have not yet been run across the full design; reported results
 so far cover SoftImpute, k-NN, missForest and OneSidedMC. State per-table method coverage
 in Results. See [[Appendix-Methods#L Known limitations and deviations|Appendix L]]. %%
