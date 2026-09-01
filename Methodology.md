@@ -24,22 +24,22 @@ All analyses reported here use the **text-only** subset of the corpus (see [[#Mo
 
 Scores are transcribed from public evaluation records, not re-run by us. We draw from four kinds of source, in descending order of volume: (i) large curated evaluation suites, (ii) aggregate leaderboards, (iii) benchmark-specific leaderboards, and (iv) primary papers. Concretely, the corpus draws on the **Stanford HELM** family (Classic, Lite, Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR, Finance), the **HuggingFace Open LLM Leaderboard** (v1 and v2), **Papers With Code** evaluation tables, **Kaggle AI Benchmarks**, **Chatbot Arena / LMArena**, **llm-stats.com**, **Artificial Analysis**, **Vellum**, and **LiveBench**, together with benchmark-specific leaderboards (e.g. BigCodeBench, CRUXEval, SWE-bench, BFCL/Gorilla, VMLU, SEA-LION) and primary arXiv/ACL papers reporting original evaluations. Table 1 gives the composition of the text-only corpus by source family; [[Appendix-Methods#A Data sources and extraction|Appendix A]] lists every named source and the extraction route used for each.
 
-**Table 1.** Composition of the text-only corpus by source family (14,838 result rows over 459 benchmarks and 1,682 models).
+**Table 1.** Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). Families are aggregated from the recorded `source_organization` field.
 
 | Source family | Result rows | Distinct benchmarks |
 |---|---:|---:|
-| Stanford HELM (11 sub-leaderboards) | 5,344 | 145 |
+| Stanford HELM (11 sub-leaderboards) | 4,942 | 138 |
 | HF Open LLM Leaderboard (v1 + v2) | 4,529 | 12 |
-| Papers With Code | 1,916 | 159 |
-| Kaggle AI Benchmarks | 892 | 27 |
-| Primary papers (arXiv / ACL / journals) | 795 | 104 |
-| Other named leaderboards and papers (35 sources) | 706 | 60 |
-| Chatbot Arena / LMArena | 195 | 1 |
-| llm-stats.com | 164 | 16 |
+| Papers With Code | 1,378 | 151 |
+| Kaggle AI Benchmarks | 844 | 26 |
+| Primary papers (arXiv / ACL / journals) | 430 | 69 |
+| Other named leaderboards and papers (26 sources) | 300 | 37 |
+| Unattributed | 295 | 40 |
+| Chatbot Arena / LMArena | 202 | 1 |
+| llm-stats.com | 121 | 11 |
 | Vellum | 84 | 7 |
 | Artificial Analysis | 71 | 2 |
 | LiveBench | 55 | 1 |
-| Unattributed | 87 | 14 |
 
 ##### Sources partition the matrix
 
@@ -59,7 +59,13 @@ Two further properties matter downstream. First, source volume is highly unequal
 
 Collection follows a **strict source-verification** rule: a field is populated only if the benchmark's authors or the evaluator explicitly documented it. No value is inferred from a plausible default — we never assume, for example, that an open-weights model was evaluated with a particular inference stack, or that an undocumented decoding configuration was greedy. Undocumented fields are left blank. The one class of exception is a small set of deductive rules that cannot be wrong given the record itself (e.g. a closed model accessed over a vendor API cannot have been run locally); these are enumerated in [[Appendix-Methods#A Data sources and extraction|Appendix A]].
 
-Records are stored in three linked tables — `benchmarks` (one row per benchmark), `models` (one row per model), and `results` (one row per model × benchmark × evaluation setup). Both `benchmarks` and `models` additionally carry a `release_date` (year-month) and a `release_date_source` recording how that date was established, since the sources differ sharply in reliability — from arXiv identifiers decoded exactly, through dates corroborated by two independent systems, down to single uncorroborated model answers with a measured error rate near 30 %. Any analysis using release date should filter on that column rather than treating the field as uniform. %% coverage as of 2026-08-31: 623/624 benchmarks, 2008/2014 models; an authoritative HuggingFace `createdAt` sweep over the weakest tier is in progress and will shift the mix toward the reliable end. %% Multiple scores for the same model–benchmark pair are **kept as separate rows** whenever they differ in evaluation setup, evaluator, or language, rather than being averaged at collection time; they are reconciled only at the aggregation step ([[#Aggregation]]), where the choice is explicit and reversible. Scores are normalised to a 0–100 scale, with documented exceptions for metrics that have no natural percentage interpretation (perplexity, bits-per-byte, Elo); metric direction is recorded rather than used to rescale ([[Appendix-Methods#C Normalisation rules|Appendix C]]).
+Records are stored in three linked tables — `benchmarks` (one row per benchmark), `models` (one row per model), and `results` (one row per model × benchmark × evaluation setup). Both `benchmarks` and `models` additionally carry a `release_date` (year-month) and a `release_date_source` recording *how* that date was established. The second column is not bookkeeping: the sources differ sharply enough in reliability that treating the date field as uniform would be a category error, and the tiers are ordered so that an analysis can filter on them ([[Appendix-Methods#A.5 Release-date provenance|Appendix A.5]]).
+
+The governing principle is that **a dating source is trustworthy only when the model's identity is *given* rather than inferred**. An arXiv identifier encodes its submission month exactly; a HuggingFace repository whose name *is* the model reports its own creation timestamp; a publisher's launch announcement names what it is announcing. By contrast, any procedure that must normalise a model name before matching it discards precisely the tokens that separate a model from its family, and so systematically mis-dates a version to its family's launch. We adopted this rule after two search-based sources failed it on measurement rather than on principle, and after finding the same error already present in the corpus: twenty models sat at GPT-4's launch month, among them `GPT-4.1 mini` and `GPT-4.1 nano`, which postdate it by two years.
+
+Coverage is 2,007/2,014 models (99.7 %) and 623/624 benchmarks (99.8 %). The two tables are **not** of comparable quality, and the near-identical coverage figures conceal this: 78 % of model dates now rest on an exact identifier, a repository timestamp, or a verified announcement, against 0.5 % of benchmark dates, 85 % of which remain on the weakest tiers. Model dates are at month precision in 97.3 % of rows; benchmark dates in 73.4 %. Any temporal analysis should therefore be run on the model axis and treat the benchmark axis as provisional ([[Appendix-Methods#L Known limitations and deviations|Appendix L.8]]). No stage of the pipeline reads `release_date` — densification, completion and factoring operate on the score matrix alone — so none of the results reported here depend on it.
+
+Multiple scores for the same model–benchmark pair are **kept as separate rows** whenever they differ in evaluation setup, evaluator, or language, rather than being averaged at collection time; they are reconciled only at the aggregation step ([[#Aggregation]]), where the choice is explicit and reversible. Scores are normalised to a 0–100 scale, with documented exceptions for metrics that have no natural percentage interpretation (perplexity, bits-per-byte, Elo); metric direction is recorded rather than used to rescale ([[Appendix-Methods#C Normalisation rules|Appendix C]]).
 
 Inclusion criteria are applied at both axes. A **model** is included if it is a generative language model that accepts arbitrary prompts; encoder-only classifiers, narrow task-specific systems (dedicated MT/ASR/TTS models), and undocumented community uploads are excluded, and different *setups* of one model (context length, reasoning effort, prompting scheme) are recorded as setup attributes rather than as distinct models. A **benchmark** is included if it has at least one in-scope result row; zero-result stubs are removed. We deliberately impose no relevance filter on benchmark content: a task is not excluded for appearing miscellaneous or unrelated to "intelligence", for the reason given in the introduction. Full criteria, and the review procedure applied to every borderline case, are in [[Appendix-Methods#B Inclusion and exclusion criteria|Appendix B]].
 
@@ -71,7 +77,7 @@ All analyses in this paper are performed on a **text-only** subset. The motivati
 
 The restriction is applied by an auditable classifier rather than by hand. Each benchmark's identifier and free-text metadata (category, subcategory, task type, domain, name, description) are pooled and matched against a fixed vocabulary of non-text modality terms under **whole-word** matching, which avoids the substring false positives (e.g. *vision* inside *revisionism*) that a naive contains-check produces. Because leaderboard metadata is itself unreliable, the classifier is bracketed by two manually curated, mutually disjoint override sets consulted before the pattern match: an **allow-list** of benchmarks whose metadata suggests a non-text modality but which are text-only on inspection (e.g. a music benchmark in ABC notation, a clinical-note task whose "spoken dialogue" is supplied as a transcript), and a **deny-list** of benchmarks confirmed non-text despite absent or mislabelled metadata (e.g. an entry named "Chinese Multilingual MMLU" whose rows in fact cite CMMMU, a multimodal benchmark, and were scored on vision-language models). Every override carries a written justification and the evidence used ([[Appendix-Methods#D Text-only classifier|Appendix D]]).
 
-Classification is followed by a **cascade removal**: each non-text benchmark is dropped together with all of its result rows, and any model left with zero remaining results is dropped in turn; the integrity checks are re-run on the result. The derived copy is regenerated from the canonical tables by script and is never hand-edited, so re-running it after any corpus change or any revision to the pattern and override sets is a single deterministic operation. This step removes 121 of 627 benchmarks (2,024 result rows) and, by cascade, 346 models.
+Classification is followed by a **cascade removal**: each non-text benchmark is dropped together with all of its result rows, and any model left with zero remaining results is dropped in turn; the integrity checks are re-run on the result. The derived copy is regenerated from the canonical tables by script and is never hand-edited, so re-running it after any corpus change or any revision to the pattern and override sets is a single deterministic operation. This step removes 121 of 624 benchmarks (2,100 result rows) and, by cascade, 345 models, leaving 503 benchmarks and 1,669 models.
 
 ##### Score-redundant benchmark splits
 
@@ -81,7 +87,7 @@ Pruning is evidence-driven, not name-driven. For each suspected family we comput
 
 A separate, earlier pass removed *translation duplicates* at corpus level — benchmarks that are literal translations of an original already present — while retaining multilingual benchmarks whose per-language content is independently sourced. That distinction is a content judgement made against each benchmark's source paper, not a heuristic ([[Appendix-Methods#C Normalisation rules|Appendix C]]).
 
-After both passes the text-only corpus contains **459 benchmarks, 1,682 models, and 14,838 result rows**.
+After both passes, and after the canonical-metric filter and scale fix described below remove a further 1,463 rows, the text-only corpus contains **456 benchmarks, 1,618 models, and 13,251 result rows** — from a canonical archive of 624 benchmarks, 2,014 models and 19,030 result rows.
 
 ##### Aggregation
 
@@ -137,7 +143,7 @@ Do NOT paste these in yet: the imputation and factoring results are still from t
 old matrices, so swapping the tables alone would make the paper internally
 inconsistent. Swap all of them together once the pipeline re-runs. %%
 
-**Table 2.** Aggregated model × benchmark matrices, text-only corpus.
+**Table 2.** Aggregated model × benchmark matrices, text-only corpus. *Provisional — these matrices predate the score-redundancy pruning and the canonical-metric filter, and are superseded by the recomputed values recorded above; they are retained only until the imputation and factoring results are re-run against the current corpus, so that Tables 2, 3 and the Results tables can be replaced together ([[Appendix-Methods#L Known limitations and deviations|Appendix L.3a]]).*
 
 | Collapse strategy | Models | Benchmarks | Observed cells | Density |
 |---|---:|---:|---:|---:|

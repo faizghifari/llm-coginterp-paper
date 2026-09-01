@@ -53,6 +53,38 @@ Two rules are applied, both entailed by the record rather than inferred from it:
 
 Everything else — inference stack for open models, decoding parameters for benchmarks whose papers omit them, and all fields for "bring your own predictions" benchmarks — is left blank. Aggregator sources that do not publish their engineering stack contribute no inference metadata at all.
 
+#### A.5 Release-date provenance
+
+`release_date` is recorded as year-month, and `release_date_source` records the evidence class it came from. The tiers are ordered, and the ordering is the point: a filter on this column is the only way to use the field responsibly.
+
+| tier | evidence | models | benchmarks |
+|---|---|---:|---:|
+| `arxiv_id` | an arXiv identifier already in the record; `YYMM.NNNNN` decodes to the month exactly | 0 | 1 |
+| `hf_createdat` | `createdAt` of a HuggingFace repository whose name *is* the model | 921 | 0 |
+| `verified_arxiv` | the model's own paper, confirmed by reading its title | 39 | 2 |
+| `name_stamp` | the identifier carries its own date (`gpt-4-1106-preview`) | 1 | 0 |
+| `web_verified` | a page fetched and confirmed to name this model *and* carry this date | 605 | 0 |
+| `sourced_evidence` | a citation exists but could not be re-read by a non-browser client | 129 | 86 |
+| `corroborated_month` | two independent systems agreed to the month | 9 | 5 |
+| `web_cited` | a real citation whose page is bot-blocked, paywalled, or JS-only | 135 | 0 |
+| `corroborated_year` | two systems agreed to the year only | 36 | 162 |
+| `base_model_date` | an eval/method variant inheriting its base model's date | 2 | — |
+| `single_hermes`, `single_haiku` | one uncorroborated model answer; measured error ≈ 30 % | 103 | 65 |
+| `existing` | a date already present before this pass, of unrecorded origin | 27 | 302 |
+| (blank) | undated | 7 | 1 |
+
+Grouping the first five as *strong*: **1,566 of 2,014 model rows (78 %)** against **3 of 624 benchmark rows (0.5 %)**.
+
+**A.5.1 Verification is three-way, not binary.** Every dated answer carrying a citation was re-checked by fetching the cited page and asking two questions: does it name this model, and does it carry this date. The outcomes are **verified**, **unverifiable** (the page is bot-blocked, paywalled, or JavaScript-only — no evidence either way), and **contradicted** (the page read cleanly and did not support the claim). Only the third is evidence of an error. Of 565 dated answers, 404 verified (72 %), 96 were unverifiable and 65 contradicted.
+
+The distinction that matters is that **a contradicted verdict impugns the citation, not necessarily the date**, and in this corpus the two came apart in both directions. `starcoder2-15b` answered 2023-05 and cited the StarCoder *2* paper, which is 2024-02: the citation is right and the answer wrong. `starcoderbase` answered 2023-05 and cited an unrelated paper: the answer is right and only the citation wrong. Because the same verdict demanded opposite handling, the bucket could not be applied or discarded wholesale, and all 65 rows were re-checked individually against evidence independent of the original citation. 61 were resolved and are recorded with their per-row evidence in the repository's `notes/release_date_hand_resolutions.md`; four were left at their existing values because no identity-given source could be found.
+
+**A.5.2 Two lower bounds, and only one of them is sound.** A repository cannot postdate the model it distributes, so `createdAt` is a genuine lower bound — but it can sit well below the release: `bigcode/starcoder2-3b` was created 2023-11-29 for a model that became public in 2024-02. A paper date is *not* a lower bound, because papers routinely trail the release: `EleutherAI/pythia-12b` had a public, archived model page on 2023-02-03, two months before the Pythia paper. We built a guard taking the later of the two, and discarded it after measuring it — of the seven rows it moved, one was right and at least five were wrong. `hf_createdat` is therefore used unmodified and documented as a lower bound, with individual cases corrected by hand rather than by rule.
+
+**A.5.3 Failure modes that recur.** Three are worth naming because each produced errors that survived an earlier pass. (i) *Family attribution*: a page about the family, or about a later version, supplies a real date for the wrong artefact. (ii) *Staged releases*, which are family attribution inside a single model line — GPT-2 shipped in four tranches (124M 2019-02, 355M 2019-05, 774M 2019-08, 1.5B 2019-11, each datable from the publisher's own commits), and six corpus rows had collapsed them onto one date. (iii) *Name collision*: `SGPT-2.7B-msmarco` was dated 2019-02 as though it were a GPT-2 variant; it is SGPT, 2022-02.
+
+**A.5.4 The known bias is toward being early.** Dates produced by asking a language model run systematically early for models released after that model's training cutoff. Correcting the weak tiers moved 119 model dates, 85 of them later — the bias being paid down where it was concentrated. Twenty rows moved by a year or more, several by two (`GPT-4.1` 2023-03 → 2025-04, `Gemini 3 Pro` 2023-12 → 2025-11).
+
 ---
 
 ### B Inclusion and exclusion criteria
@@ -204,9 +236,9 @@ Removal is transitive: benchmark → its result rows → any model with zero rem
 
 | | Canonical | After modality filter |
 |---|---:|---:|
-| Benchmarks | 627 | 506 |
-| Models | 2,028 | 1,682 |
-| Result rows | 19,078 | 17,054 |
+| Benchmarks | 624 | 503 |
+| Models | 2,014 | 1,669 |
+| Result rows | 19,030 | 16,930 |
 
 The 121 removed benchmarks by declared category: Visual QA 29 + 3, Multimodal 13 + 7 + 2, vision/multimodal 12, Audio/Speech 6 + 6, multilingual 6, general knowledge 4 + 3, alignment and safety 4 + 2, chart and figure tasks 3 + 2, and a tail of single-entry categories.
 
@@ -227,7 +259,7 @@ Applied to the text-only copy only, after [[#D Text-only classifier]]. Each fami
 | Stanford HELM ThaiExam sub-splits | Two clusters, not uniform redundancy: {ONET, IC, A-Level} at $r = 0.92$–$0.95$; {TGAT, TPAT1} correlate weakly with that cluster ($r = 0.70$–$0.88$). The TGAT/A-Level gap was verified as systematic, not noise (several multilingual models score 35–45 points higher on TGAT) | Drop ONET and IC; **keep** A-Level as the knowledge-cluster representative and keep TGAT and TPAT1, which carry distinct variance | 84 |
 | | | **Total** | **2,216** |
 
-Two of the eight audited families were thus deliberately left partially or fully intact, which is the point of auditing by correlation rather than by name. Resulting corpus: **459 benchmarks, 1,682 models, 14,838 result rows**.
+Two of the eight audited families were thus deliberately left partially or fully intact, which is the point of auditing by correlation rather than by name. This pass leaves 456 benchmarks; the canonical-metric filter ([[#C.5 Canonical metric selection]]), the source-scale fix and the single-row anomaly removal ([[#L Known limitations and deviations|L.1a]]) then drop a further 1,463 result rows, for a final corpus of **456 benchmarks, 1,618 models, 13,251 result rows**.
 
 ---
 
@@ -255,7 +287,7 @@ Take the first alphabetic token of `model_family` if it is non-numeric; otherwis
 
 #### F.3 Post-collapse filtering
 
-Benchmarks observed for only one collapse key are dropped, then collapse keys with no remaining benchmarks are dropped. This yields Table 2 of [[Methodology]] (1,310 × 455 at 2.33 %; 350 × 431 at 3.55 %) from 2,294 distinct source-level model identifiers.
+Benchmarks observed for only one collapse key are dropped, then collapse keys with no remaining benchmarks are dropped. This yields Table 2 of [[Methodology]] (1,310 × 455 at 2.33 %; 350 × 431 at 3.55 % — provisional, from matrices predating the score-redundancy pruning; recomputed on the current corpus these are 1,269 × 405 at 2.16 % and 337 × 381 at 3.49 %) from 2,297 distinct source-level model identifiers.
 
 ---
 
@@ -474,3 +506,7 @@ Three residues remain. (i) **Direction** is recorded but not applied, so a lower
 **L.6 Surrogate matrices are not data.** For OneSidedMC and the correlation-level methods, what reaches the factoring stage is a covariance-matched synthetic matrix ([[#H.3 Correlation-matrix completion and surrogate synthesis]]). Any per-model statistic computed from those matrices is meaningless; only benchmark-space (loading) quantities are interpretable.
 
 **L.7 Score provenance is transcribed, not re-run.** All scores are as published. Where two sources disagree about the same evaluation, we resolve by trust tier and recency rather than by re-evaluation, and we do not attempt to correct for differences in undocumented evaluation setup between sources.
+
+**L.8 Benchmark dates are much weaker than model dates.** Coverage on the two axes is almost identical (99.7 % of models, 99.8 % of benchmarks) and the similarity is misleading. The model axis was repaired to the point where 78 % of rows rest on an exact identifier, a repository timestamp, or a verified announcement; the benchmark axis has had no equivalent pass, and 85 % of its rows remain on `existing` (302) or `corroborated_year` (162). A quarter of benchmark dates are year-only, against 2.3 % of model dates. Any temporal analysis should therefore run on the model axis; benchmark dates are usable for coarse ordering at best. The repair should be cheaper on this axis than it was on the other, because nearly every benchmark has a paper and an arXiv identifier decodes to an exact month with no fetching at all — the `arxiv_id` tier currently contains a single row.
+
+**L.9 Release date is metadata, not an analysis input.** No stage of the pipeline reads `release_date`: densification, completion and factoring operate on the score matrix alone. The field exists for cohort and temporal analyses and for the corpus's value as a standalone artefact, and none of the results reported here depend on it. This also means the dating work described in [[#A.5 Release-date provenance]] cannot have influenced any reported factor structure.
