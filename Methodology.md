@@ -10,11 +10,7 @@ factor, $F$ the first-order domain factors, $U$ benchmark-specific unique varian
 
 We ask whether the covariance among language models' published benchmark scores admits a low-dimensional latent structure, and in particular whether it supports a global general factor $G$ in the sense of [[Appendix#Definitions]]. The empirical object is a **model × benchmark score matrix** assembled from public evaluation records. That matrix is extremely sparse and its missingness is not at random: widely-known models are evaluated on widely-used benchmarks, while obscure benchmarks co-occur with almost nothing. Our methodology is therefore organised around a single principle — **no single repair of the matrix is trustworthy on its own** — so we run a cross-product of deliberately different repairs and treat their agreement or disagreement as the finding, rather than selecting one recipe and reporting its output as the answer.
 
-The pipeline has five stages:
-
-```
-collection → scoping → aggregation → densification → completion → factor analysis
-```
+The pipeline has five stages: *collection* → *scoping* → *aggregation* → *densification* → *completion* → *factor analysis*.
 
 All analyses reported here use the **text-only** subset of the corpus (see [[#Modality scope]]); the multimodal-inclusive corpus is used only as a contrast condition where explicitly stated.
 
