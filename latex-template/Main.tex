@@ -1,0 +1,1110 @@
+% ICLR 2027 pandoc template. Canonical copy lives here, in /latex-template at
+% the repo root, alongside its style files (iclr2027_conference.sty/.bst/.bib,
+% fancyhdr.sty, natbib.sty, math_commands.tex), sourced from
+% https://media.iclr.cc/Conferences/ICLR2027/iclr-2027-style-files.zip
+%
+% The Obsidian "Enhancing Export" plugin's "ICLR 2027" preset is hard-coded to
+% look up "neurips.tex" inside its own plugin folder's textemplate/ dir, so
+% that directory holds symlinks back to the files here rather than copies --
+% edit the files in /latex-template, not the symlinks.
+% This template was tested with Pandoc 3.4. It should be backwards compatible with older version of pandoc..
+\documentclass{article} % For LaTeX2e
+
+
+% ready for submission (author names hidden, "Under review" header).
+% Uncomment \iclrfinalcopy below for the camera-ready version.
+\usepackage{iclr2027_conference,times}
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{xcolor}         % colors
+\usepackage{graphicx}
+\usepackage{longtable} % Add support for Pandoc's longtable if needed
+\usepackage{array}     % For table alignment improvements
+\usepackage{amsmath}
+\usepackage{textcomp}
+\setlength{\LTcapwidth}{\textwidth} % To make captions fit within page width
+\usepackage{calc} % arithmetic in table column-width specs (pandoc's multi-column
+                   % longtable output needs this regardless of citeproc/csl-refs)
+
+% pdfTeX (unlike xelatex/lualatex) can't set most Unicode math/arrow symbols
+% directly even under utf8 inputenc + T1 fontenc -- map the ones the Obsidian
+% source actually uses to their LaTeX math equivalents. Extend this list if a
+% future draft introduces new Unicode symbols outside Latin-1.
+\usepackage{newunicodechar}
+\newunicodechar{≫}{\ensuremath{\gg}}
+\newunicodechar{≪}{\ensuremath{\ll}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
+
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+\makeatother
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\title{Machine intelligence is idiosyncratic and incoherently
+structured}
+
+
+% Authors must not appear in the submitted version -- the iclr2027_conference
+% style automatically prints "Anonymous authors / Paper under double-blind
+% review" instead of the block below as long as \iclrfinalcopy stays commented
+% out. Fill in real authors here for the camera-ready version.
+\author{%
+}
+
+
+%\iclrfinalcopy % Uncomment for camera-ready version, but NOT for submission.
+\begin{document}
+
+
+\maketitle
+
+
+\begin{abstract}
+    We take a multi-order latent variable approach to intelligence in
+    language models, similar to how psychometricians formulate
+    psychological traits. Performance in every specific problem set is
+    influenced by a domain-specific and a domain-agnostic latent factor.
+    Using factor analysis as a dimension-reduction technique, we analyse
+    13,251 published evaluation scores covering 1,618 language models
+    across 456 different text-only benchmarks. Due to the super-sparse
+    nature of the dataset, we triangulate our analysis across different
+    data densifiers and imputation methods. A robust pattern across
+    different modes of bias is that 1. factor patterns are only
+    partially interpretable and often incoherent, 2. no silver-bullet
+    ``general intelligence'' factor exists. Our findings goes against
+    current endeavors of defining, identifying, and targeting general
+    intelligence in language model development. It is not possible to
+    develop a generally-intelligent language model by targeting single
+    conceptual ability: general intelligence is only achievable by
+    training on the first-order intelligence domains, but these are
+    often partially idiosyncratic and not identifiable in practice.
+  \end{abstract}
+
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+The field of artificial intelligence is rife with theories and
+conceptualization about what intelligence ``is'' (). With neural network
+specifically, a longstanding issue is how the models are ``overfitting''
+their training set, and thus their performance in various tasks
+(``intelligence'', so to say) lack powerful generalizability that
+cognitive entities like humans have. Thus, the development of advanced
+intelligent systems rely on a working notion of intelligence as adaptive
+and effective across diverse tasks: a singular notion of
+``generalizability.''
+
+There is, in this endeavor, an implicit and subtle assumption: it is
+that in neural networks, much like humans, cognitive abilities are
+structured according to a causal hierarchy. The word causal is important
+here. A popular notion of general intelligence in the field is the
+concept ``fluid intelligence'' borrowed from psychometric research,
+defined loosely as the ability to perform well in any tasks regardless
+of the content (i.e., a ``domain-free'' cognitive capacity). By
+definition this construct holds a causal relation, where an increase of
+fluid intelligence leads to an increase in the mastery of every other
+cognitive task. In other words, domain-general ability \emph{precedes
+and builds} domain-specific abilities.
+
+It is, therefore, useful to ascertain whether it is plausible that
+cognitive abilities in neural networks follow a coherent hierarchical
+causal structure. An important implication is that if such structures
+prove to be incoherent or idiosyncratic, then the entire program of
+general intelligence as a silver bullet construct (e.g., ``AGI'') falls
+apart and is entirely impossible: there is no efficient way to achieve
+perfect-general intelligence without brute-forcing the training set to
+cover the universe of all possible tasks, as there are no coherent
+higher-order facets that researchers can target.
+
+Why this causal hierarchy assumption is so rife in the first place is,
+in our view, the application of both our theories and common sense about
+our own intelligences to neural networks. No matter what one's stance on
+the cognitive nature of AI is--whether or not they are conscious,
+intelligent, or if they have internal representations proper--it is
+reasonable to assert that AI are not humans. As such, the application of
+top-down, human-based theories of intelligence to neural network models
+are a category error. We cannot describe what machine intelligence is
+like by overfitting theories of human intelligence on neural networks.
+
+For this reason it is important to study the structure of machine
+intelligence in a bottom-up manner. Borrowing from psychometrics yet
+again, the application of exploratory factor analysis, a
+dimension-reduction statistical method, allows us to summarize
+performance in a series of abilities (measured through benchmarks) as
+influenced by a higher-order latent variable in a plausibly causal
+manner.
+
+Prior work has tried applying factor analysis to benchmark scores. Ilica
+\& Gignac (2024) have applied factor analysis to hundreds of models and
+found that the models' performance fits a human-informed causal
+structure. However, the study is flawed by their use of confirmatory
+factor analysis, which is a hypothesis-testing procedure, and follows
+the mistake of fitting a human-informed theory rather than understanding
+model intelligence from the bottom-up. It is also severely flawed in
+that a large proportion of their benchmarks are simply variants of the
+popular MMLU benchmark (), heightens the risk of common-method bias
+polluting the model fit.
+
+Another relevant work is Burnell et al.~(2023), which correctly applied
+EFA to model benchmark scores. They found that LLM abilities are
+hierarchically structured under three major factors. However, they did
+not do higher-order factor analysis, where EFA is run on the resulting
+factor loadings, thus allowing us to understand to what extent are
+latent factors influenced by a presumable g-factor.
+
+A common weakness of both papers, though, are the relatively few number
+of benchmarks or variables derived thereof. Ilica \& Gignac (2024) fit a
+model with 20 variables, while Burnell et al.~(2023) uses 23 variables.
+Most of these benchmarks are popular benchmarks measuring ``smartness''
+for a lack of better term, like mathematics, academic knowledge, and
+common-sense reasoning.
+
+Within the context of prior work, our study presents an unprecedentedly
+large factor analysis of benchmark scores. The curated archive holds
+2,014 models and 624 benchmarks; the text-only subset all analyses run
+on comprises 1,618 models and 456 benchmarks over 13,251 evaluation
+scores. Crucially, our pool of benchmarks covers a highly diverse set of
+tasks, including those quite outside of the mainstream. Covering only
+few popular benchmarks like prior work does is problematic. First, given
+their popularity, these benchmarks may well be correlated due to what we
+call a common-investment bias: there is a high chance their correlations
+substantially polluted by the fact that organizations expend more
+efforts to perform well in said benchmarks. Second, there should be no
+discrimination as to what tasks are important and which aren't: whether
+a task appears miscellaneous is also no reason to exclude them. A useful
+analogy is that reaction time in humans is correlated to intelligence
+(Kranzler \& Jensen, 1989): no matter how seemingly unimportant a task
+may be, it may provide useful information that is entirely unintuitive
+to our subjective understanding.
+
+\hypertarget{methodology}{%
+\section{Methodology}\label{methodology}}
+
+We ask whether the covariance among language models' published benchmark
+scores admits a low-dimensional latent structure, and in particular
+whether it supports a global general factor \(G\) in the sense of
+\url{Appendix\#Definitions}. The empirical object is a \textbf{model ×
+benchmark score matrix} assembled from public evaluation records. That
+matrix is extremely sparse and its missingness is not at random:
+widely-known models are evaluated on widely-used benchmarks, while
+obscure benchmarks co-occur with almost nothing. Our methodology is
+therefore organised around a single principle --- \textbf{no single
+repair of the matrix is trustworthy on its own} --- so we run a
+cross-product of deliberately different repairs and treat their
+agreement or disagreement as the finding, rather than selecting one
+recipe and reporting its output as the answer.
+
+The pipeline has five stages: \emph{collection} → \emph{scoping} →
+\emph{aggregation} → \emph{densification} → \emph{completion} →
+\emph{factor analysis}.
+
+All analyses reported here use the \textbf{text-only} subset of the
+corpus (see \protect\hyperlink{Modalityux20scope}{\#Modality scope});
+the multimodal-inclusive corpus is used only as a contrast condition
+where explicitly stated.
+
+\hypertarget{dataset}{%
+\paragraph{Dataset}\label{dataset}}
+
+\hypertarget{sources}{%
+\subparagraph{Sources}\label{sources}}
+
+Scores are transcribed from public evaluation records, not re-run by us.
+We draw from four kinds of source, in descending order of volume: (i)
+large curated evaluation suites, (ii) aggregate leaderboards, (iii)
+benchmark-specific leaderboards, and (iv) primary papers. Concretely,
+the corpus draws on the \textbf{Stanford HELM} family (Classic, Lite,
+Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR,
+Finance), the \textbf{HuggingFace Open LLM Leaderboard} (v1 and v2),
+\textbf{Papers With Code} evaluation tables, \textbf{Kaggle AI
+Benchmarks}, \textbf{Chatbot Arena / LMArena}, \textbf{llm-stats.com},
+\textbf{Artificial Analysis}, \textbf{Vellum}, and \textbf{LiveBench},
+together with benchmark-specific leaderboards (e.g.~BigCodeBench,
+CRUXEval, SWE-bench, BFCL/Gorilla, VMLU, SEA-LION) and primary arXiv/ACL
+papers reporting original evaluations. Table 1 gives the composition of
+the text-only corpus by source family;
+\href{Appendix-Methods\#A\%20Data\%20sources\%20and\%20extraction}{Appendix A}
+lists every named source and the extraction route used for each.
+
+\textbf{Table 1.} Composition of the text-only corpus by source family
+(13,251 result rows over 456 benchmarks and 1,618 models). Families are
+aggregated from the recorded \texttt{source\_organization} field.
+
+\begin{longtable}[]{@{}lrr@{}}
+\toprule\noalign{}
+Source family & Result rows & Distinct benchmarks \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Stanford HELM (11 sub-leaderboards) & 4,942 & 138 \\
+HF Open LLM Leaderboard (v1 + v2) & 4,529 & 12 \\
+Papers With Code & 1,378 & 151 \\
+Kaggle AI Benchmarks & 844 & 26 \\
+Primary papers (arXiv / ACL / journals) & 430 & 69 \\
+Other named leaderboards and papers (26 sources) & 300 & 37 \\
+Unattributed & 295 & 40 \\
+Chatbot Arena / LMArena & 202 & 1 \\
+llm-stats.com & 121 & 11 \\
+Vellum & 84 & 7 \\
+Artificial Analysis & 71 & 2 \\
+LiveBench & 55 & 1 \\
+\end{longtable}
+
+\hypertarget{sources-partition-the-matrix}{%
+\subparagraph{Sources partition the
+matrix}\label{sources-partition-the-matrix}}
+
+One consequence of this composition deserves stating before any of the
+machinery, because it constrains what the analysis can recover.
+Benchmark columns are largely \emph{owned} by a single evaluation suite,
+and the suites evaluate near-disjoint sets of models. Measuring
+co-observation between columns, grouped by the source that supplies most
+of each column's rows:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2727}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3636}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3636}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+column pair
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+median models observed on both
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+pairs with \textless2 shared models (correlation not estimable)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HELM × HELM & 4 & 33 \% \\
+Open LLM Leaderboard × Open LLM Leaderboard & 160 & 0 \% \\
+\textbf{HELM × Open LLM Leaderboard} & \textbf{0} & \textbf{87 \%} \\
+\end{longtable}
+
+The matrix is therefore closer to two weakly-connected blocks than to
+one sparse whole: within the Open LLM Leaderboard block, correlations
+rest on \textasciitilde160 shared models; across the two blocks, 87 \%
+of column pairs cannot support a correlation estimate at all. This is
+not a curation artefact we can repair --- it is a direct consequence of
+which models each leaderboard chooses to evaluate --- and it means any
+general factor recovered here is at risk of being a within-block factor.
+We return to it when interpreting the results, and it is the structural
+reason the cross-densifier comparison matters: the column-primary peel
+retains famous benchmarks, which are disproportionately the
+densely-connected block.
+
+Two further properties matter downstream. First, source volume is highly
+unequal: two source families supply two-thirds of all records, so the
+\emph{missingness pattern} is largely inherited from those two suites'
+model selection policies. Second, benchmark breadth and row volume are
+anti-correlated --- Papers With Code contributes the most distinct
+benchmarks but relatively few rows per benchmark, while the Open LLM
+Leaderboard contributes 12 benchmarks with very deep model coverage.
+This is precisely the structure that makes the densification choice in
+\protect\hyperlink{Sparsityux20Handling}{\#Sparsity Handling}
+consequential rather than cosmetic, and it is what motivates the
+per-benchmark influence analysis in
+\url{Analysis\#Robustness\%20and\%20sensitivity\%20analyses}.
+
+\hypertarget{collection-protocol}{%
+\subparagraph{Collection protocol}\label{collection-protocol}}
+
+Collection follows a \textbf{strict source-verification} rule: a field
+is populated only if the benchmark's authors or the evaluator explicitly
+documented it. No value is inferred from a plausible default --- we
+never assume, for example, that an open-weights model was evaluated with
+a particular inference stack, or that an undocumented decoding
+configuration was greedy. Undocumented fields are left blank. The one
+class of exception is a small set of deductive rules that cannot be
+wrong given the record itself (e.g.~a closed model accessed over a
+vendor API cannot have been run locally); these are enumerated in
+\href{Appendix-Methods\#A\%20Data\%20sources\%20and\%20extraction}{Appendix A}.
+
+Records are stored in three linked tables --- \texttt{benchmarks} (one
+row per benchmark), \texttt{models} (one row per model), and
+\texttt{results} (one row per model × benchmark × evaluation setup).
+Both \texttt{benchmarks} and \texttt{models} additionally carry a
+\texttt{release\_date} (year-month) and a \texttt{release\_date\_source}
+recording \emph{how} that date was established. The second column is not
+bookkeeping: the sources differ sharply enough in reliability that
+treating the date field as uniform would be a category error, and the
+tiers are ordered so that an analysis can filter on them
+(\href{Appendix-Methods\#A.5\%20Release-date\%20provenance}{Appendix A.5}).
+
+The governing principle is that \textbf{a dating source is trustworthy
+only when the model's identity is \emph{given} rather than inferred}. An
+arXiv identifier encodes its submission month exactly; a HuggingFace
+repository whose name \emph{is} the model reports its own creation
+timestamp; a publisher's launch announcement names what it is
+announcing. By contrast, any procedure that must normalise a model name
+before matching it discards precisely the tokens that separate a model
+from its family, and so systematically mis-dates a version to its
+family's launch. We adopted this rule after two search-based sources
+failed it on measurement rather than on principle, and after finding the
+same error already present in the corpus: twenty models sat at GPT-4's
+launch month, among them \texttt{GPT-4.1\ mini} and
+\texttt{GPT-4.1\ nano}, which postdate it by two years.
+
+Coverage is 2,007/2,014 models (99.7 \%) and 623/624 benchmarks (99.8
+\%). The two tables are \textbf{not} of comparable quality, and the
+near-identical coverage figures conceal this: 78 \% of model dates now
+rest on an exact identifier, a repository timestamp, or a verified
+announcement, against 0.5 \% of benchmark dates, 85 \% of which remain
+on the weakest tiers. Model dates are at month precision in 97.3 \% of
+rows; benchmark dates in 73.4 \%. Any temporal analysis should therefore
+be run on the model axis and treat the benchmark axis as provisional
+(\href{Appendix-Methods\#L\%20Known\%20limitations\%20and\%20deviations}{Appendix L.8}).
+No stage of the pipeline reads \texttt{release\_date} --- densification,
+completion and factoring operate on the score matrix alone --- so none
+of the results reported here depend on it.
+
+Multiple scores for the same model--benchmark pair are \textbf{kept as
+separate rows} whenever they differ in evaluation setup, evaluator, or
+language, rather than being averaged at collection time; they are
+reconciled only at the aggregation step
+(\protect\hyperlink{Aggregation}{\#Aggregation}), where the choice is
+explicit and reversible. Scores are normalised to a 0--100 scale, with
+documented exceptions for metrics that have no natural percentage
+interpretation (perplexity, bits-per-byte, Elo); metric direction is
+recorded rather than used to rescale
+(\href{Appendix-Methods\#C\%20Normalisation\%20rules}{Appendix C}).
+
+Inclusion criteria are applied at both axes. A \textbf{model} is
+included if it is a generative language model that accepts arbitrary
+prompts; encoder-only classifiers, narrow task-specific systems
+(dedicated MT/ASR/TTS models), and undocumented community uploads are
+excluded, and different \emph{setups} of one model (context length,
+reasoning effort, prompting scheme) are recorded as setup attributes
+rather than as distinct models. A \textbf{benchmark} is included if it
+has at least one in-scope result row; zero-result stubs are removed. We
+deliberately impose no relevance filter on benchmark content: a task is
+not excluded for appearing miscellaneous or unrelated to
+``intelligence'', for the reason given in the introduction. Full
+criteria, and the review procedure applied to every borderline case, are
+in
+\href{Appendix-Methods\#B\%20Inclusion\%20and\%20exclusion\%20criteria}{Appendix B}.
+
+Every edit to the corpus is followed by an automated integrity pass:
+referential integrity in both directions, absence of orphan rows on
+either axis, duplicate detection on a composite evaluation-identity key,
+and a flag for benchmarks with implausibly few rows. Duplicate detection
+distinguishes \emph{pure redundancy} (the same evaluation transcribed
+twice) from \emph{conflicts} (different scores for what should be the
+same evaluation); conflicts are resolved by source-trust tier and
+recency, never silently averaged
+(\href{Appendix-Methods\#C\%20Normalisation\%20rules}{Appendix C}).
+
+\hypertarget{modality-scope}{%
+\subparagraph{Modality scope}\label{modality-scope}}
+
+All analyses in this paper are performed on a \textbf{text-only} subset.
+The motivation is construct validity: a vision- or audio-conditioned
+benchmark scores a model's perceptual front-end at least as much as its
+language ability, so including such benchmarks mixes two different
+latent spaces into one covariance matrix. A pilot comparison
+additionally showed that removing them changes held-out predictive
+accuracy and factor counts materially, i.e.~the distinction is not
+cosmetic.
+
+The restriction is applied by an auditable classifier rather than by
+hand. Each benchmark's identifier and free-text metadata (category,
+subcategory, task type, domain, name, description) are pooled and
+matched against a fixed vocabulary of non-text modality terms under
+\textbf{whole-word} matching, which avoids the substring false positives
+(e.g.~\emph{vision} inside \emph{revisionism}) that a naive
+contains-check produces. Because leaderboard metadata is itself
+unreliable, the classifier is bracketed by two manually curated,
+mutually disjoint override sets consulted before the pattern match: an
+\textbf{allow-list} of benchmarks whose metadata suggests a non-text
+modality but which are text-only on inspection (e.g.~a music benchmark
+in ABC notation, a clinical-note task whose ``spoken dialogue'' is
+supplied as a transcript), and a \textbf{deny-list} of benchmarks
+confirmed non-text despite absent or mislabelled metadata (e.g.~an entry
+named ``Chinese Multilingual MMLU'' whose rows in fact cite CMMMU, a
+multimodal benchmark, and were scored on vision-language models). Every
+override carries a written justification and the evidence used
+(\href{Appendix-Methods\#D\%20Text-only\%20classifier}{Appendix D}).
+
+Classification is followed by a \textbf{cascade removal}: each non-text
+benchmark is dropped together with all of its result rows, and any model
+left with zero remaining results is dropped in turn; the integrity
+checks are re-run on the result. The derived copy is regenerated from
+the canonical tables by script and is never hand-edited, so re-running
+it after any corpus change or any revision to the pattern and override
+sets is a single deterministic operation. This step removes 121 of 624
+benchmarks (2,100 result rows) and, by cascade, 345 models, leaving 503
+benchmarks and 1,669 models.
+
+\hypertarget{score-redundant-benchmark-splits}{%
+\subparagraph{Score-redundant benchmark
+splits}\label{score-redundant-benchmark-splits}}
+
+Public leaderboards frequently publish one benchmark as several
+near-identical columns --- version-dated re-releases, difficulty or
+subset variants, per-language splits of a translated test set, or the
+same benchmark re-imported from a second source. Each such column enters
+the matrix as a nominally distinct benchmark, and a factor analysis will
+duly recover a ``factor'' that is nothing more than one benchmark's
+identity replicated \(k\) times. Because our factor-count and
+general-factor estimates are exactly the quantities such duplication
+inflates --- and because this is one of the criticisms we level at prior
+work --- we prune these before analysis.
+
+Pruning is evidence-driven, not name-driven. For each suspected family
+we compute the full pairwise Pearson correlation among its columns over
+the models evaluated on both, and decide per family: a family is
+collapsed to a single representative only when its columns are
+near-perfectly correlated across a non-trivial shared model set. Where
+correlations reveal genuine structure instead of redundancy, the family
+is kept intact --- and in two of the eight audited families it was kept,
+wholly or partly, for that reason. This yields seven removals in total
+(version splits, dialect splits, difficulty and shot variants,
+per-language splits of a translated benchmark, a cross-source re-import,
+a corrupted composite identifier, and one partially redundant
+national-exam trio), for 47 benchmark identifiers and 2,216 result rows.
+Every decision, with its correlation statistics and the reasoning for
+keeping or dropping, is recorded in
+\href{Appendix-Methods\#E\%20Score-redundancy\%20pruning}{Appendix E}.
+
+A separate, earlier pass removed \emph{translation duplicates} at corpus
+level --- benchmarks that are literal translations of an original
+already present --- while retaining multilingual benchmarks whose
+per-language content is independently sourced. That distinction is a
+content judgement made against each benchmark's source paper, not a
+heuristic
+(\href{Appendix-Methods\#C\%20Normalisation\%20rules}{Appendix C}).
+
+After both passes, and after the canonical-metric filter and scale fix
+described below remove a further 1,463 rows, the text-only corpus
+contains \textbf{456 benchmarks, 1,618 models, and 13,251 result rows}
+--- from a canonical archive of 624 benchmarks, 2,014 models and 19,030
+result rows.
+
+\hypertarget{aggregation}{%
+\subparagraph{Aggregation}\label{aggregation}}
+
+Factor analysis requires one score per model--benchmark cell, so the
+multiple evaluation rows retained at collection time are averaged within
+each (model, benchmark) pair. Averaging is deliberately placed here,
+after all identity cleanup, so that it never masks a duplicate that
+should have been removed.
+
+Model identity is then resolved at \textbf{two granularities}, run as
+parallel conditions throughout the rest of the pipeline:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\texttt{all\_standard}} --- variant-level. Source-specific
+  model identifiers are normalised (organisation prefixes stripped,
+  release dates and checkpoint stamps removed, context-length and
+  reasoning-effort tags dropped, parameter counts canonicalised) so that
+  different spellings of the same released variant collapse together,
+  while genuinely different variants (sizes, generations, named tiers)
+  stay distinct.
+\item
+  \textbf{\texttt{all\_aggressive}} --- family-level. Every model is
+  collapsed to its base family token, so all sizes and generations of a
+  family form one row.
+\end{itemize}
+
+The two strategies trade sample size against row homogeneity: the
+standard collapse preserves more rows but leaves each row thinly
+observed; the aggressive collapse produces far fewer, much
+better-observed rows at the cost of treating a 7B and a 405B model of
+one family as one entity. Neither is correct \emph{a priori}, which is
+why both are carried forward. The token-level rules are given in
+\href{Appendix-Methods\#F\%20Model-identity\%20collapse}{Appendix F}.
+
+\hypertarget{metric-selection}{%
+\subparagraph{Metric selection}\label{metric-selection}}
+
+A benchmark is frequently reported under several metrics --- 92 of ours
+were --- and the aggregation above would average them into one cell.
+That is not merely untidy: on \texttt{truthfulqa} the cell would mix a
+``\% informative'' rate with a BLEU \emph{difference} score, which can
+be negative. Worse, \textbf{which} metric a model received is largely
+determined by which leaderboard evaluated it, so the resulting column
+carries variance attributable to its source rather than to capability.
+On \texttt{truthfulqa}, 325 models are scored by accuracy (mean 46.9)
+and 67 by exact match (mean 27.5), with the two populations essentially
+disjoint; on \texttt{ifeval} the corresponding gap is 46 points. Because
+no model is scored under both, the offset cannot even be estimated and
+removed from within the data.
+
+We therefore keep exactly \textbf{one metric per benchmark}. Metric
+names are first normalised for case and whitespace --- without which
+\texttt{Accuracy} and \texttt{accuracy} count as rivals and
+\texttt{gsm8k} would forfeit 149 rows to a capitalisation difference ---
+then a small curated alias map merges verified spelling variants of one
+measurement (e.g.~\texttt{bits\ per\ byte} and \texttt{bpb}). Where a
+genuine choice remains, we keep the metric covering the most distinct
+models, so the widest comparable population survives; a per-benchmark
+override list handles cases where coverage alone chooses badly. This
+drops 1,420 result rows and 706 model-cells.
+
+Two residual defects sit \emph{below} the metric name and need separate
+treatment. \texttt{gpqa} carried one metric name covering two
+incompatible conventions: 447 of its 454 rows are Open LLM Leaderboard
+v2 \textbf{normalised} accuracy, in which the random-chance baseline is
+mapped to zero (range 0--24.9), while the remaining 7 are raw accuracy
+from papers (range 39--94). Since correlations are unchanged by a linear
+rescaling of an entire column, a normalised column is perfectly usable
+\emph{provided every row shares the convention}; we therefore keep the
+447 and drop the 7, rather than back-transforming on an assumed formula.
+The caveat is that 13 \% of those rows sit exactly at the clamp, so the
+column under-discriminates among weak models. \texttt{elephant} is
+removed outright: its metric field holds model configurations rather
+than metrics, so no choice among them measures anything.
+(\texttt{vectara}, whose two metrics were complements, and
+\texttt{pwc\_lambada}, which mixed accuracy with perplexity, are both
+resolved by the metric filter itself.)
+
+Finally, benchmarks observed for only one model are dropped, since a
+single observation contributes no covariance. The resulting matrices
+are:
+
+\textbf{Table 2.} Aggregated model × benchmark matrices, text-only
+corpus. \emph{Provisional --- these matrices predate the
+score-redundancy pruning and the canonical-metric filter, and are
+superseded by the recomputed values recorded above; they are retained
+only until the imputation and factoring results are re-run against the
+current corpus, so that Tables 2, 3 and the Results tables can be
+replaced together
+(\href{Appendix-Methods\#L\%20Known\%20limitations\%20and\%20deviations}{Appendix L.3a}).}
+
+\begin{longtable}[]{@{}lrrrr@{}}
+\toprule\noalign{}
+Collapse strategy & Models & Benchmarks & Observed cells & Density \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{all\_standard} (variant-level) & 1,310 & 455 & 13,888 & 2.33
+\% \\
+\texttt{all\_aggressive} (family-level) & 350 & 431 & 5,358 & 3.55 \% \\
+\end{longtable}
+
+\hypertarget{sparsity-handling}{%
+\paragraph{Sparsity Handling}\label{sparsity-handling}}
+
+At 2--4 \% observed, neither matrix admits a classical factor analysis:
+the correlation matrix cannot be estimated by listwise deletion, since
+there are no complete cases, and pairwise-complete estimation leaves
+many benchmark pairs with zero or near-zero co-observation. The
+missingness is moreover \textbf{not at random} --- a benchmark is
+missing for a model precisely because that model was not considered
+interesting enough to evaluate on it, which is itself a function of the
+latent ability we are trying to measure.
+
+\hypertarget{densification}{%
+\subparagraph{Densification}\label{densification}}
+
+We therefore construct \textbf{densified sub-matrices}, and we construct
+several of them with deliberately opposed biases rather than one
+``best'' one. All three densifiers greedily peel the matrix toward a
+common target density (10 \%), differing only in which axis they
+sacrifice:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{C (column-primary)} --- repeatedly drop the least-observed
+  \emph{benchmark}, then any model left empty. Retains famous benchmarks
+  with wide model coverage.
+\item
+  \textbf{R (row-primary)} --- repeatedly drop the least-observed
+  \emph{model}, then any benchmark left empty. Retains a broad benchmark
+  set, including obscure ones, over a small set of heavily-evaluated
+  models.
+\item
+  \textbf{S (symmetric)} --- at each step drop whichever marginal has
+  the lowest \emph{fill-rate}, privileging neither axis.
+\end{itemize}
+
+After peeling, a floor is enforced on both axes so that every retained
+model and benchmark has at least two observed scores; columns with zero
+variance among observed values are also dropped, since they carry no
+correlational signal. The peel targets density only. We deliberately do
+\textbf{not} optimise pairwise overlap or positive-definiteness, because
+those are the success criteria of particular downstream estimators ---
+optimising them here would tilt the comparison in
+\protect\hyperlink{Matrixux20completion}{\#Matrix completion} toward the
+methods that need them. The algorithm is given in
+\href{Appendix-Methods\#G\%20Densification\%20algorithm}{Appendix G}.
+
+\textbf{Table 3.} Densified matrices (text-only corpus). ``Retained'' is
+the fraction of observed cells surviving the peel.
+
+\begin{longtable}[]{@{}lllrr@{}}
+\toprule\noalign{}
+Densifier & Strategy & Shape & Density & Retained \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+C & \texttt{all\_standard} & 735 × 90 & 13.08 \% & 62.3 \% \\
+C & \texttt{all\_aggressive} & 226 × 115 & 12.58 \% & 61.0 \% \\
+S & \texttt{all\_standard} & 652 × 164 & 10.01 \% & 77.1 \% \\
+S & \texttt{all\_aggressive} & 131 × 344 & 10.01 \% & 84.2 \% \\
+R & \texttt{all\_standard} & 227 × 382 & 10.85 \% & 67.8 \% \\
+R & \texttt{all\_aggressive} & 106 × 404 & 10.50 \% & 83.9 \% \\
+\end{longtable}
+
+The three densifiers span the aspect-ratio space: C yields tall matrices
+(models ≫ benchmarks), R yields wide ones (benchmarks ≫ models), and S
+sits between. Since the identifiability of a factor solution depends
+strongly on that ratio, disagreement between C, S, and R is itself a
+diagnostic, and we report it as one. The undensified matrix is
+additionally carried through the pipeline as a \texttt{raw} contrast
+level, analysed without imputation.
+
+\hypertarget{matrix-completion}{%
+\subparagraph{Matrix completion}\label{matrix-completion}}
+
+Every densified matrix is still \textasciitilde90 \% missing, so a
+completion step is required before factoring. We use \textbf{three
+families} of method with different --- in places incompatible ---
+assumptions, so that a structure recovered by all of them is unlikely to
+be an artefact of any one.
+
+\textbf{Cell-level imputation} estimates the missing entries directly:
+\textbf{SoftImpute} (nuclear-norm-penalised low-rank completion by
+iterative soft-thresholded SVD; assumes a low-rank signal plus noise,
+and is our primary cell-level method); \textbf{k-NN} (each missing cell
+filled from the \(k\) most similar models --- an assumption-light
+baseline with no low-rank, linearity, or normality assumption);
+\textbf{missForest} (iterative random-forest imputation, nonparametric,
+able to capture nonlinear dependence the low-rank methods cannot
+represent); and \textbf{MICE} (multiple imputation by chained equations,
+where factoring receives the mean of the \(m\) completions while the
+spread across completions is the only natively probabilistic uncertainty
+estimate available to us).
+
+\textbf{Correlation-level recovery} exploits the fact that factor
+analysis needs a correlation matrix, not a data matrix. When
+observations are too sparse to complete cells reliably, the correlation
+structure may still be recoverable --- a substantially weaker
+requirement. This family estimates the benchmark × benchmark correlation
+matrix directly and never claims to know individual cells:
+\textbf{OneSidedMC} (Cao, Liang \& Valiant, 2023) recovers the
+benchmark-space right singular vectors from pairwise products of
+co-observed scores, yielding an estimate \(\hat{\Theta}\) of the
+benchmark covariance; \textbf{SoftImpute-corr}, \textbf{OptSpace}
+(Keshavan, Montanari \& Oh, 2010), and \textbf{USVT} (Chatterjee, 2015)
+apply matrix-completion estimators to the \emph{observed pairwise
+correlation matrix}, whose missing entries are exactly the benchmark
+pairs that were never co-observed; and two structured completions target
+positive-definiteness directly --- a \textbf{maximum-determinant} SDP
+completion, which maximises \(\log\det\Sigma\) subject to
+\(\Sigma \succeq 0\) and to each observed correlation lying within a
+per-pair Fisher-\emph{z} confidence band scaled to that pair's
+co-observation count, and a \textbf{Gaussian graphical model} MLE
+completion over the observed-pair graph.
+
+Because these methods produce a correlation matrix rather than data, two
+shared devices make them commensurable with the cell-level family.
+First, the completed correlation matrix is symmetrised and projected to
+the nearest valid (positive definite, unit-diagonal) correlation matrix,
+so every principal submatrix is invertible. Second, a
+\textbf{covariance-matched surrogate} data matrix is synthesised whose
+sample covariance equals the recovered correlation matrix, on the
+original column scale, and that surrogate is handed to the identical
+factoring code used for every other method. The surrogate is explicitly
+\emph{not} an estimate of the real cells; it is a device for passing a
+covariance structure through a data-matrix interface, and no per-model
+quantity computed from it is interpretable
+(\href{Appendix-Methods\#H\%20Completion\%20methods}{Appendix H}).
+
+\textbf{No-imputation baselines} bound how much of any recovered
+structure is manufactured by imputation. The undensified matrix is also
+factored with no completion at all, from a pairwise-complete correlation
+matrix. Because that matrix has undefined entries (never co-observed
+pairs) and is generally indefinite, two treatments are compared: filling
+with the mean off-diagonal correlation, and filling with zero (treating
+absent co-observation as absent association). Both are then PSD-smoothed
+before factoring
+(\href{Appendix-Methods\#H\%20Completion\%20methods}{Appendix H}).
+
+\hypertarget{evaluating-the-completion}{%
+\subparagraph{Evaluating the
+completion}\label{evaluating-the-completion}}
+
+All methods, in all three families, are scored on \textbf{one held-out
+metric}, which is what makes them comparable at all. We mask
+\textasciitilde20 \% of the observed cells using a
+\textbf{column-stratified} split --- sampling within each benchmark, so
+that no benchmark is absent from the evaluation set and high-frequency
+benchmarks cannot monopolise it --- subject to leaving at least two
+training observations in every column. Columns are standardised using
+\textbf{training-cell moments only}; rows are never standardised,
+because rows are models and row-standardisation would remove exactly the
+between-model level differences that a general factor consists of.
+
+Held-out cells are scored in standard-deviation units against a baseline
+that predicts each column's \emph{training} mean:
+
+\[\text{RMSE} = \sqrt{\overline{(\hat z - z)^2}}, \qquad R^2 = 1 - \frac{\text{MSE}}{\text{MSE}_{\text{baseline}}}\]
+
+so \(R^2 = 0\) is no-skill and \(R^2 = 1\) is exact. Both quantities are
+\textbf{column-balanced} by default: per-column errors are aggregated
+with equal weight per benchmark rather than per cell, because
+cell-weighting lets a handful of densely-evaluated famous benchmarks
+dominate the score and renders it nearly insensitive to densification.
+\(R^2\) is computed as a \emph{single pooled ratio} of column-balanced
+error to column-balanced baseline, never as an average of per-column
+\(R^2\) values, which is unstable when a thin column has a small
+baseline. Methods that do not natively predict cells still report this
+metric, by predicting each held-out cell from the row's surviving
+observed cells via the conditional-Gaussian (best linear) predictor
+implied by their recovered correlation matrix. Definitions and the exact
+estimator for each family are in
+\href{Appendix-Methods\#I\%20Held-out\%20metric}{Appendix I}.
+
+This metric is used for hyperparameter selection within each method
+(rank, \(k\), number of trees, number of imputations), and as a
+\textbf{gate}: a completed matrix whose held-out \(R^2\) falls below 0.4
+is not factored at all, on the grounds that a factor structure extracted
+from predictions no better than a column mean is not interpretable.
+Gating is reported alongside the results, so that a method's failure to
+clear it is visible rather than silently absent.
+
+\hypertarget{factor-analysis}{%
+\paragraph{Factor analysis}\label{factor-analysis}}
+
+Factoring is \textbf{held identical across every completed matrix}, so
+that the imputation input is the only thing that varies. We use
+minimum-residual exploratory factor analysis with promax (oblique)
+rotation on the correlation matrix of the completed or surrogate data.
+Rotation is oblique by design: the whole question at issue is whether
+the first-order domain factors \(F\) correlate strongly enough to imply
+a higher-order \(G\), and an orthogonal rotation would answer that by
+assumption.
+
+The number of factors is chosen by \textbf{Horn's parallel analysis}:
+the observed eigenvalues of the correlation matrix are compared
+position-by-position against the 95th percentile of eigenvalues from
+random Gaussian matrices of the same shape, and the factor count is the
+number of positions where the observed value exceeds the random cutoff.
+Because the random baseline depends only on the matrix shape and not on
+the data, it is computed once per shape and cached; it is emphatically
+\emph{not} a global cutoff, and reusing one across shapes would be
+invalid. The retained count is capped at 20 for tractability and further
+capped at the numeric rank the matrix can actually support; where the
+estimator fails at the chosen count it is decremented until it succeeds,
+and the count actually used is reported
+(\href{Appendix-Methods\#J\%20Factor\%20analysis\%20details}{Appendix J}).
+
+Because the rotation is oblique the first-order factors are correlated,
+and that correlation is the object of interest. We therefore decompose
+the hierarchy with a \textbf{Schmid--Leiman bifactor transformation}, in
+which every benchmark loads directly on the global general factor \(G\)
+and on its domain factor \(F\) --- an estimator of exactly the
+decomposition \(B_i = F_i + G_i + U_i\) set out in
+\url{Appendix\#Definitions}. This yields three reported quantities:
+\(\omega_h\), the proportion of total score variance attributable to
+\(G\); \(\omega_{total}\), the proportion attributable to all common
+factors; and the vector \(\omega_{hs}\) of domain-factor reliabilities.
+The ratio \(\omega_h / \omega_{total}\) reads as ``of the common
+variance, how much is general'' --- the direct analogue of the
+\(g\)-saturation question in human psychometrics, and the quantity on
+which our central claim turns. We note that this is an exploratory
+Schmid--Leiman solution, not a confirmatory bifactor model with
+cross-loadings constrained to zero, and we interpret it accordingly; the
+contrast with Ilica \& Gignac's (2024) confirmatory approach is
+deliberate.
+
+Every cell of the design is factored \textbf{twice}: once at the
+parallel-analysis factor count, and once \textbf{forced to two factors}.
+The forced-2 run exists because the parallel-analysis count is itself
+unstable under this data's sparsity --- a finding we report rather than
+hide --- and fixing the count makes the \(G\)-related quantities
+comparable across cells whose data-driven counts differ, at the cost of
+certainly under-factoring some of them.
+
+\hypertarget{implementation}{%
+\paragraph{Implementation}\label{implementation}}
+
+Corpus construction, densification, and analysis scripts are implemented
+in Python; imputation and factor analysis in R, with the OneSidedMC
+estimator in Julia invoked as a subprocess and its output routed through
+the identical R factoring path. All results are persisted to a single
+relational store keyed by (method, dataset, run), so the full design is
+queryable rather than reconstructed from file names, and environments
+are pinned per language.
+\href{Appendix-Methods\#K\%20Software\%20environment\%20and\%20reproduction}{Appendix K}
+lists exact packages and the commands that reproduce every table above.
+
+\hypertarget{analysis}{%
+\section{Analysis}\label{analysis}}
+
+\hypertarget{robustness-and-sensitivity-analyses}{%
+\paragraph{Robustness and sensitivity
+analyses}\label{robustness-and-sensitivity-analyses}}
+
+The design is a cross-product of \{3 densifiers + raw\} × \{2 collapse
+strategies\} × \{completion methods\}
+(\url{Methodology\#Sparsity\%20Handling}), and its cells are compared
+along four axes:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Across densifiers and collapse strategies.} Since C, S, and R
+  embody different selection biases over the same underlying corpus, and
+  the two collapse strategies embody different model-identity
+  assumptions, systematic variation across them is the closest available
+  proxy for sensitivity to the MNAR mechanism itself.
+\item
+  \textbf{Across completion methods.} Where two solutions have the same
+  number of factors, we compute pairwise factor congruence
+  (sign-invariant cosine similarity between loading vectors, matched
+  after sorting by explained variance), grouped by dataset, solution
+  type, and shape, so that only like-for-like solutions are compared
+  (\href{Appendix-Methods\#J.6\%20Cross-method\%20congruence}{Appendix J.6}).
+\item
+  \textbf{Across held-out splits.} An optional seed sweep refits each
+  method across repeated random holdouts, reporting the distribution of
+  held-out error, of the selected hyperparameter, and of \(\omega_h\).
+  We stress that this quantifies \emph{split} variance under a fixed
+  missingness pattern; it does \textbf{not} measure robustness to the
+  MNAR mechanism, since every split inherits the same selection.
+\item
+  \textbf{Per-benchmark influence.} A leave-one-covariate-out analysis
+  recomputes \(\omega_h\) with each benchmark removed in turn, giving
+  \(\Delta\omega_h\) per benchmark
+  (\href{Appendix-Methods\#J.5\%20Leave-one-covariate-out}{Appendix J.5}).
+  Correlating \(\Delta\omega_h\) with each benchmark's observation
+  frequency tests directly whether the general factor is driven by
+  capability structure or by evaluation volume --- the concern raised by
+  the highly unequal source composition in Table 1 of \url{Methodology},
+  and the same common-investment bias we raise against prior work in the
+  introduction.
+\end{enumerate}
+
+Three commitments follow and constrain how we read our own results.
+First, \textbf{held-out accuracy is not evidence of factor validity}: a
+method can predict held-out cells well and still deliver an unstable
+rotation, so our findings rest on agreement across methods and stability
+across design cells, not on predictive fit. Second, \textbf{the factor
+count is weakly identified} on data this sparse, and we report that
+instability as a result rather than resolving it by fiat. Third, a
+factor that is dominated by a single benchmark family is a fact about
+the corpus, not about language models; the influence analysis above
+exists to make such cases visible.
+
+\hypertarget{results}{%
+\section{Results}\label{results}}
+
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
+
+\hypertarget{the-g-factor-is-only-partially-coherent}{%
+\subsection{The g-factor is only partially
+coherent}\label{the-g-factor-is-only-partially-coherent}}
+
+\hypertarget{bottom-up-theories-of-llm-intelligence}{%
+\subsection{Bottom-up theories of LLM
+intelligence}\label{bottom-up-theories-of-llm-intelligence}}
+
+Importantly what we find is that, unlike theories of human psychology ()
+where intelligence are explicitly assumed to possess higher-order
+structure, with fluid intelligence as a higher-order factor that have
+theoretical causal effects () to the performance of other cognitive
+abilities, fluid intelligence, wikipedia memorization, agentic tool use,
+are more likely to be horizontal with respect to each other with no
+clear higher-order structure. Ablation studies provide experimental
+evidence to this point: \ldots{}
+
+This is also not to say that LLMs are not intelligent (in our private
+view, they very clearly are). But it is important to realize that just
+as humans and ants are differentially but equally ``cognitive'', LLMs
+are intelligent in a considerably different way to humans. This means
+that a theory of intelligence requires a blank-slate, bottom-up
+empirical approach without overfitting theories of human intelligence
+into systems that possess significant architectural and functional
+divergence from humans.
+
+\hypertarget{mechanisms-for-a-possible-g-factor}{%
+\subsection{Mechanisms for a possible
+g-factor}\label{mechanisms-for-a-possible-g-factor}}
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{psychometric-g-factor}{%
+\subsection{Psychometric g-factor}\label{psychometric-g-factor}}
+
+\begin{itemize}
+\tightlist
+\item
+  Waterhouse, L. (2023). Why multiple intelligences theory is a
+  neuromyth. \emph{Frontiers in psychology}, \emph{14}, 1217288.
+\item
+  Pokropek, A., Marks, G. N., \& Borgonovi, F. (2022). How much do
+  students' scores in PISA reflect general intelligence and how much do
+  they reflect specific abilities? \emph{Journal of Educational
+  Psychology}, \emph{114}(5), 1121.
+\item
+  Johnson, W., Bouchard Jr, T. J., Krueger, R. F., McGue, M., \&
+  Gottesman, I. I. (2004). Just one g: Consistent results from three
+  test batteries. \emph{Intelligence}, \emph{32}(1), 95-107.
+\item
+  Johnson, W., Te Nijenhuis, J., \& Bouchard Jr, T. J. (2008). Still
+  just 1 g: Consistent results from five test batteries.
+  \emph{Intelligence}, \emph{36}(1), 81-95.
+\item
+  Van der Maas, H. L., Kan, K. J., \& Borsboom, D. (2014). Intelligence
+  is what the intelligence test measures. Seriously. \emph{Journal of
+  Intelligence}, \emph{2}(1), 12-15.
+\item
+  Major, J. T., Johnson, W., \& Bouchard Jr, T. J. (2011). The
+  dependability of the general factor of intelligence: Why small,
+  single-factor models do not adequately represent g.
+  \emph{Intelligence}, \emph{39}(5), 418-433.
+\item
+  Kranzler, J. H., \& Jensen, A. R. (1989). Inspection time and
+  intelligence: A meta-analysis. \emph{Intelligence}, \emph{13}(4),
+  329-347.
+\item
+  Jensen, A. R. (2002). Psychometric g: Definition and substantiation.
+  In \emph{The general factor of intelligence} (pp.~51-66). Psychology
+  Press.
+\end{itemize}
+
+\hypertarget{intelligence-in-aimlcompsci}{%
+\subsection{Intelligence in
+AI/ML/Compsci}\label{intelligence-in-aimlcompsci}}
+
+\begin{itemize}
+\tightlist
+\item
+  Morris, M. R., Sohl-Dickstein, J., Fiedel, N., Warkentin, T., Dafoe,
+  A., Faust, A., \ldots{} \& Legg, S. (2023). Levels of AGI for
+  Operationalizing Progress on the Path to AGI. \emph{arXiv preprint
+  arXiv:2311.02462}.
+\item
+  Chollet, F., Knoop, M., Kamradt, G., Landers, B., \& Pinkard, H.
+  (2025). Arc-agi-2: A new challenge for frontier ai reasoning systems.
+  \emph{arXiv preprint arXiv:2505.11831}.
+\end{itemize}
+
+\hypertarget{prior-work}{%
+\subsection{Prior work}\label{prior-work}}
+
+\begin{itemize}
+\tightlist
+\item
+  Ilica, D., \& Gignac, G. E. (2024). Evidence of interrelated
+  cognitive-like capabilities in large language models: Indications of
+  artificial general intelligence or achievement? \emph{Intelligence},
+  \emph{106}, 101858.
+\item
+  Burnell, R., Hao, H., Conway, A. R., \& Orallo, J. H. (2023).
+  Revealing the structure of language model capabilities. \emph{arXiv
+  preprint arXiv:2306.10062}.
+\end{itemize}
+
+\hypertarget{methods-and-statistical-tools}{%
+\subsection{Methods and statistical
+tools}\label{methods-and-statistical-tools}}
+
+\begin{itemize}
+\tightlist
+\item
+  Horn, J. L. (1965). A rationale and test for the number of common
+  factors. \emph{Psychometrika}, \emph{30}(2), 179-185.
+\item
+  Schmid, J., \& Leiman, J. M. (1957). The development of hierarchical
+  factor solutions. \emph{Psychometrika}, \emph{22}(1), 53-61.
+\item
+  Revelle, W., \& Zinbarg, R. E. (2009). Coefficients alpha, beta,
+  omega, and the glb: Comments on Sijtsma. \emph{Psychometrika},
+  \emph{74}(1), 145-154.
+\item
+  Revelle, W. (2024). \emph{psych: Procedures for Psychological,
+  Psychometric, and Personality Research}. R package.
+\item
+  Lorenzo-Seva, U., \& ten Berge, J. M. (2006). Tucker's congruence
+  coefficient as a meaningful index of factor similarity.
+  \emph{Methodology}, \emph{2}(2), 57-64.
+\item
+  Mazumder, R., Hastie, T., \& Tibshirani, R. (2010). Spectral
+  regularization algorithms for learning large incomplete matrices.
+  \emph{Journal of Machine Learning Research}, \emph{11}, 2287-2322.
+\item
+  Cao, Y., Liang, Y., \& Valiant, G. (2023). One-sided matrix completion
+  from two observations per row. \emph{ICML}.
+\item
+  Keshavan, R. H., Montanari, A., \& Oh, S. (2010). Matrix completion
+  from a few entries. \emph{IEEE Transactions on Information Theory},
+  \emph{56}(6), 2980-2998.
+\item
+  Chatterjee, S. (2015). Matrix estimation by universal singular value
+  thresholding. \emph{The Annals of Statistics}, \emph{43}(1), 177-214.
+\item
+  Stekhoven, D. J., \& Bühlmann, P. (2012). MissForest ---
+  non-parametric missing value imputation for mixed-type data.
+  \emph{Bioinformatics}, \emph{28}(1), 112-118.
+\item
+  van Buuren, S., \& Groothuis-Oudshoorn, K. (2011). mice: Multivariate
+  imputation by chained equations in R. \emph{Journal of Statistical
+  Software}, \emph{45}(3), 1-67.
+\item
+  Higham, N. J. (2002). Computing the nearest correlation matrix --- a
+  problem from finance. \emph{IMA Journal of Numerical Analysis},
+  \emph{22}(3), 329-343.
+\item
+  Rubin, D. B. (1976). Inference and missing data. \emph{Biometrika},
+  \emph{63}(3), 581-592.
+\item
+  Liang, P., Bommasani, R., Lee, T., et al.~(2023). Holistic evaluation
+  of language models (HELM). \emph{TMLR}.
+\item
+  Fourrier, C., Habib, N., Lozovskaya, A., Szafer, K., \& Wolf, T.
+  (2024). Open LLM Leaderboard v2. Hugging Face.
+\item
+  Chiang, W. L., Zheng, L., Sheng, Y., et al.~(2024). Chatbot Arena: An
+  open platform for evaluating LLMs by human preference. \emph{ICML}.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliography{iclr2027_conference}
+\bibliographystyle{iclr2027_conference}
+
+\end{document}
