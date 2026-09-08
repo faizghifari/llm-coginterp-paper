@@ -31,6 +31,18 @@
 \usepackage{amsmath}
 \usepackage{textcomp}
 \setlength{\LTcapwidth}{\textwidth} % To make captions fit within page width
+\usepackage{calc} % arithmetic in table column-width specs (pandoc's multi-column
+                   % longtable output needs this regardless of citeproc/csl-refs)
+
+% pdfTeX (unlike xelatex/lualatex) can't set most Unicode math/arrow symbols
+% directly even under utf8 inputenc + T1 fontenc -- map the ones the Obsidian
+% source actually uses to their LaTeX math equivalents. Extend this list if a
+% future draft introduces new Unicode symbols outside Latin-1.
+\usepackage{newunicodechar}
+\newunicodechar{≫}{\ensuremath{\gg}}
+\newunicodechar{≪}{\ensuremath{\ll}}
+\newunicodechar{→}{\ensuremath{\rightarrow}}
+\newunicodechar{←}{\ensuremath{\leftarrow}}
 
 \makeatletter
 \newsavebox\pandoc@box
