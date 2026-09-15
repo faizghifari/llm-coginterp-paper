@@ -20,6 +20,16 @@
               "icon": "lucide-file",
               "title": "Main"
             }
+          },
+          {
+            "id": "be2ace44c13c8ebd",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
           }
         ]
       }
@@ -205,8 +215,8 @@
   },
   "active": "d6a564de3ece0b5d",
   "lastOpenFiles": [
-    "tmp.md",
     "Main.md",
+    "tmp.md",
     "Draft.md",
     "Topics.md",
     "References.md",
