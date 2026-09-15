@@ -1,7 +1,6 @@
 ---
-title: "Machine intelligence is idiosyncratic and incoherently structured"
-abstract: |
-  We take a multi-order latent variable approach to intelligence in language models, similar to how psychometricians formulate psychological traits. Performance in every specific problem set is influenced by a domain-specific and a domain-agnostic latent factor. Using factor analysis as a dimension-reduction technique, we analyse 13,251 published evaluation scores covering 1,618 language models across 456 different text-only benchmarks. Due to the super-sparse nature of the dataset, we triangulate our analysis across different data densifiers and imputation methods. A robust pattern across different modes of bias is that 1. factor patterns are only partially interpretable and often incoherent, 2. no silver-bullet "general intelligence" factor exists. Our findings goes against current endeavors of defining, identifying, and targeting general intelligence in language model development. It is not possible to develop a generally-intelligent language model by targeting single conceptual ability: general intelligence is only achievable by training on the first-order intelligence domains, but these are often partially idiosyncratic and not identifiable in practice.
+title: Machine intelligence is idiosyncratic and incoherently structured
+abstract: 'We take a multi-order latent variable approach to intelligence in language models, similar to how psychometricians formulate psychological traits. Performance in every specific problem set is influenced by a domain-specific and a domain-agnostic latent factor. Using factor analysis as a dimension-reduction technique, we analyse 13,251 published evaluation scores covering 1,618 language models across 456 different text-only benchmarks. Due to the super-sparse nature of the dataset, we triangulate our analysis across different data densifiers and imputation methods. A robust pattern across different modes of bias is that 1. factor patterns are only partially interpretable and often incoherent, 2. no silver-bullet "general intelligence" factor exists. Our findings goes against current endeavors of defining, identifying, and targeting general intelligence in language model development. It is not possible to develop a generally-intelligent language model by targeting single conceptual ability: general intelligence is only achievable by training on the first-order intelligence domains, but these are often partially idiosyncratic and not identifiable in practice.'
 ---
 
 %% NOTE ON NUMBERS: the abstract and §Introduction now quote the CORPUS
@@ -37,11 +36,6 @@ Prior work has tried applying factor analysis to benchmark scores. Ilica & Gigna
 
 Another relevant work is Burnell et al. (2023), which correctly applied EFA to model benchmark scores. They found that LLM abilities are hierarchically structured under three major factors. However, they did not do higher-order factor analysis, where EFA is run on the resulting factor loadings, thus allowing us to understand to what extent are latent factors influenced by a presumable g-factor.
 
-<!-- need to add related paper from Krauker 2026: rise and fall of G in AGI. need to study how they come up with the selection, grouping/categorization, etc. then find 
-differentiation between this paper and that paper except from the wide range of models and datasets. 
-What i am thinking of, maybe discussing the theories like what happened in Krauker 2026? But since we are different in terms of data and models to analyze, then what kind
-of theories that makes a different to that paper? Maybe the -->
-
 A common weakness of both papers, though, are the relatively few number of benchmarks or variables derived thereof. Ilica & Gignac (2024) fit a model with 20 variables, while Burnell et al. (2023) uses 23 variables. Most of these benchmarks are popular benchmarks measuring "smartness" for a lack of better term, like mathematics, academic knowledge, and common-sense reasoning.
 
 Within the context of prior work, our study presents an unprecedentedly large factor analysis of benchmark scores. The curated archive holds 2,014 models and 624 benchmarks; the text-only subset all analyses run on comprises 1,618 models and 456 benchmarks over 13,251 evaluation scores. Crucially, our pool of benchmarks covers a highly diverse set of tasks, including those quite outside of the mainstream. Covering only few popular benchmarks like prior work does is problematic. First, given their popularity, these benchmarks may well be correlated due to what we call a common-investment bias: there is a high chance their correlations substantially polluted by the fact that organizations expend more efforts to perform well in said benchmarks. Second, there should be no discrimination as to what tasks are important and which aren't: whether a task appears miscellaneous is also no reason to exclude them. A useful analogy is that reaction time in humans is correlated to intelligence (Kranzler & Jensen, 1989): no matter how seemingly unimportant a task may be, it may provide useful information that is entirely unintuitive to our subjective understanding.
@@ -49,14 +43,19 @@ Within the context of prior work, our study presents an unprecedentedly large fa
 
 # Methodology
 
-In this study we investigate the low-dimensional structure of model benchmark scores, which comprise of distinct but correlated latent factors that each dominantly affects different clusters of benchmarks, and a $G$ factor that accounts for the variances of all benchmarks. To this end we collect a raw data matrix with size $1,618 \times 456$. One challenge in analyzing this dataset is that the raw matrix is supersparse (~1.8% density). Both benchmarks and models differ in popularity, so famous benchmarks and models have considerably higher observations. To handle this issue, we implement multiple peeling strategy to drop columns and/or rows to improve the matrix density, and applied several missing data imputation strategy. Given the dataset's difficult conditions we prefer a collection or aggregate of results from different densification and imputation methods (wherein each introduce their own biases and assumptions), with the goal to triangulate each of their results to find a common characteristic.
+We ask whether the covariance among language models' published benchmark scores admits a low-dimensional latent structure, and in particular whether it supports a global general factor $G$ in the sense of [[Appendix#Definitions]]. The empirical object is a **model × benchmark score matrix** assembled from public evaluation records. That matrix is extremely sparse and its missingness is not at random: widely-known models are evaluated on widely-used benchmarks, while obscure benchmarks co-occur with almost nothing. Our methodology is therefore organised around a single principle — **no single repair of the matrix is trustworthy on its own** — so we run a cross-product of deliberately different repairs and treat their agreement or disagreement as the finding, rather than selecting one recipe and reporting its output as the answer.
+
+The pipeline has five stages: *collection* → *scoping* → *aggregation* → *densification* → *completion* → *factor analysis*.
+
+All analyses reported here use the **text-only** subset of the corpus (see [[#Modality scope]]); the multimodal-inclusive corpus is used only as a contrast condition where explicitly stated.
 
 #### Dataset
 
 ##### Sources
-We draw benchmarking data from four kinds of source, in descending order of volume: (i) large curated evaluation suites, (ii) aggregate leaderboards, (iii) benchmark-specific leaderboards, and (iv) primary papers. Concretely, the corpus draws on the Stanford HELM family (Classic, Lite, Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR, Finance), the HuggingFace Open LLM Leaderboard (v1 and v2), Papers With Code evaluation tables, Kaggle AI Benchmarks, Chatbot Arena / LMArena, llm-stats.com, Artificial Analysis, Vellum, and **LiveBench**, together with benchmark-specific leaderboards (e.g. BigCodeBench, CRUXEval, SWE-bench, BFCL/Gorilla, VMLU, SEA-LION) and primary arXiv/ACL papers reporting original evaluations. Table 1 gives the composition of the text-only corpus by source family; [[Appendix-Methods#A Data sources and extraction|Appendix A]] lists every named source and the extraction route used for each.
 
-**Table 1.** Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models).
+Scores are transcribed from public evaluation records, not re-run by us. We draw from four kinds of source, in descending order of volume: (i) large curated evaluation suites, (ii) aggregate leaderboards, (iii) benchmark-specific leaderboards, and (iv) primary papers. Concretely, the corpus draws on the **Stanford HELM** family (Classic, Lite, Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR, Finance), the **HuggingFace Open LLM Leaderboard** (v1 and v2), **Papers With Code** evaluation tables, **Kaggle AI Benchmarks**, **Chatbot Arena / LMArena**, **llm-stats.com**, **Artificial Analysis**, **Vellum**, and **LiveBench**, together with benchmark-specific leaderboards (e.g. BigCodeBench, CRUXEval, SWE-bench, BFCL/Gorilla, VMLU, SEA-LION) and primary arXiv/ACL papers reporting original evaluations. Table 1 gives the composition of the text-only corpus by source family; [[Appendix-Methods#A Data sources and extraction|Appendix A]] lists every named source and the extraction route used for each.
+
+**Table 1.** Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). Families are aggregated from the recorded `source_organization` field.
 
 | Source family | Result rows | Distinct benchmarks |
 |---|---:|---:|
@@ -72,6 +71,20 @@ We draw benchmarking data from four kinds of source, in descending order of volu
 | Vellum | 84 | 7 |
 | Artificial Analysis | 71 | 2 |
 | LiveBench | 55 | 1 |
+
+##### Sources partition the matrix
+
+One consequence of this composition deserves stating before any of the machinery, because it constrains what the analysis can recover. Benchmark columns are largely *owned* by a single evaluation suite, and the suites evaluate near-disjoint sets of models. Measuring co-observation between columns, grouped by the source that supplies most of each column's rows:
+
+| column pair | median models observed on both | pairs with <2 shared models (correlation not estimable) |
+|---|---:|---:|
+| HELM × HELM | 4 | 33 % |
+| Open LLM Leaderboard × Open LLM Leaderboard | 160 | 0 % |
+| **HELM × Open LLM Leaderboard** | **0** | **87 %** |
+
+The matrix is therefore closer to two weakly-connected blocks than to one sparse whole: within the Open LLM Leaderboard block, correlations rest on ~160 shared models; across the two blocks, 87 % of column pairs cannot support a correlation estimate at all. This is not a curation artefact we can repair — it is a direct consequence of which models each leaderboard chooses to evaluate — and it means any general factor recovered here is at risk of being a within-block factor. We return to it when interpreting the results, and it is the structural reason the cross-densifier comparison matters: the column-primary peel retains famous benchmarks, which are disproportionately the densely-connected block.
+
+Two further properties matter downstream. First, source volume is highly unequal: two source families supply two-thirds of all records, so the *missingness pattern* is largely inherited from those two suites' model selection policies. Second, benchmark breadth and row volume are anti-correlated — Papers With Code contributes the most distinct benchmarks but relatively few rows per benchmark, while the Open LLM Leaderboard contributes 12 benchmarks with very deep model coverage. This is precisely the structure that makes the densification choice in [[#Sparsity Handling]] consequential rather than cosmetic, and it is what motivates the per-benchmark influence analysis in [[Analysis#Robustness and sensitivity analyses]].
 
 ##### Collection protocol
 
@@ -91,32 +104,82 @@ Every edit to the corpus is followed by an automated integrity pass: referential
 
 ##### Modality scope
 
-All analyses in this paper are performed on a text-only benchmarks (no multimodality). This restriction is applied by a classifier step described in [[Appendix-Methods#D Text-only classifier|Appendix D]]. Classification is followed by a cascade removal, leaving 121 of 624 benchmarks (2,100 result rows) and 345 models, leaving 503 benchmarks and 1,669 models.
+All analyses in this paper are performed on a **text-only** subset. The motivation is construct validity: a vision- or audio-conditioned benchmark scores a model's perceptual front-end at least as much as its language ability, so including such benchmarks mixes two different latent spaces into one covariance matrix. A pilot comparison additionally showed that removing them changes held-out predictive accuracy and factor counts materially, i.e. the distinction is not cosmetic.
+
+The restriction is applied by an auditable classifier rather than by hand. Each benchmark's identifier and free-text metadata (category, subcategory, task type, domain, name, description) are pooled and matched against a fixed vocabulary of non-text modality terms under **whole-word** matching, which avoids the substring false positives (e.g. *vision* inside *revisionism*) that a naive contains-check produces. Because leaderboard metadata is itself unreliable, the classifier is bracketed by two manually curated, mutually disjoint override sets consulted before the pattern match: an **allow-list** of benchmarks whose metadata suggests a non-text modality but which are text-only on inspection (e.g. a music benchmark in ABC notation, a clinical-note task whose "spoken dialogue" is supplied as a transcript), and a **deny-list** of benchmarks confirmed non-text despite absent or mislabelled metadata (e.g. an entry named "Chinese Multilingual MMLU" whose rows in fact cite CMMMU, a multimodal benchmark, and were scored on vision-language models). Every override carries a written justification and the evidence used ([[Appendix-Methods#D Text-only classifier|Appendix D]]).
+
+Classification is followed by a **cascade removal**: each non-text benchmark is dropped together with all of its result rows, and any model left with zero remaining results is dropped in turn; the integrity checks are re-run on the result. The derived copy is regenerated from the canonical tables by script and is never hand-edited, so re-running it after any corpus change or any revision to the pattern and override sets is a single deterministic operation. This step removes 121 of 624 benchmarks (2,100 result rows) and, by cascade, 345 models, leaving 503 benchmarks and 1,669 models.
 
 ##### Score-redundant benchmark splits
 
-For each suspected family we compute the full pairwise Pearson correlation among its columns over the models evaluated on both, and decide per family: a family is collapsed to a single representative only when its columns are near-perfectly correlated across a non-trivial shared model set. This yields seven removals in total (version splits, dialect splits, difficulty and shot variants, per-language splits of a translated benchmark, a cross-source re-import, a corrupted composite identifier, and one partially redundant national-exam trio), for 47 benchmark identifiers and 2,216 result rows
+Public leaderboards frequently publish one benchmark as several near-identical columns — version-dated re-releases, difficulty or subset variants, per-language splits of a translated test set, or the same benchmark re-imported from a second source. Each such column enters the matrix as a nominally distinct benchmark, and a factor analysis will duly recover a "factor" that is nothing more than one benchmark's identity replicated $k$ times. Because our factor-count and general-factor estimates are exactly the quantities such duplication inflates — and because this is one of the criticisms we level at prior work — we prune these before analysis.
 
-A separate, earlier pass removed translation duplicates at corpus level, i.e. benchmarks that are literal translations of an original already present,  while retaining multilingual benchmarks whose per-language content is independently sourced. After both passes, and after the canonical-metric filter and scale fix described below remove a further 1,463 rows, the text-only corpus contains 456 benchmarks, 1,618 models, and 13,251 result rows from a canonical archive of 624 benchmarks, 2,014 models and 19,030 result rows.
+Pruning is evidence-driven, not name-driven. For each suspected family we compute the full pairwise Pearson correlation among its columns over the models evaluated on both, and decide per family: a family is collapsed to a single representative only when its columns are near-perfectly correlated across a non-trivial shared model set. Where correlations reveal genuine structure instead of redundancy, the family is kept intact — and in two of the eight audited families it was kept, wholly or partly, for that reason. This yields seven removals in total (version splits, dialect splits, difficulty and shot variants, per-language splits of a translated benchmark, a cross-source re-import, a corrupted composite identifier, and one partially redundant national-exam trio), for 47 benchmark identifiers and 2,216 result rows. Every decision, with its correlation statistics and the reasoning for keeping or dropping, is recorded in [[Appendix-Methods#E Score-redundancy pruning|Appendix E]].
+
+A separate, earlier pass removed *translation duplicates* at corpus level — benchmarks that are literal translations of an original already present — while retaining multilingual benchmarks whose per-language content is independently sourced. That distinction is a content judgement made against each benchmark's source paper, not a heuristic ([[Appendix-Methods#C Normalisation rules|Appendix C]]).
+
+After both passes, and after the canonical-metric filter and scale fix described below remove a further 1,463 rows, the text-only corpus contains **456 benchmarks, 1,618 models, and 13,251 result rows** — from a canonical archive of 624 benchmarks, 2,014 models and 19,030 result rows.
 
 ##### Aggregation
 
-The collected datasets contain same models evaluated under different conditions, e.g., chain-of-thought vs. no chain-of-thought. Since including the same models would lead to a violation of independence of distribution, multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Averaging is done after identity cleanup, so that it never masks a duplicate that should have been removed.
+Factor analysis requires one score per model–benchmark cell, so the multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Averaging is deliberately placed here, after all identity cleanup, so that it never masks a duplicate that should have been removed.
 
-Model identity is then resolved at two granularities, run as parallel conditions throughout the rest of the pipeline:
+Model identity is then resolved at **two granularities**, run as parallel conditions throughout the rest of the pipeline:
 
 - **`all_standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
 - **`all_aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row.
 
-The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed; the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. Neither is correct a priori, which is why both are carried forward. The token-level rules are given in [[Appendix-Methods#F Model-identity collapse|Appendix F]].
+The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed; the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. Neither is correct *a priori*, which is why both are carried forward. The token-level rules are given in [[Appendix-Methods#F Model-identity collapse|Appendix F]].
 
 ##### Metric selection
 
+A benchmark is frequently reported under several metrics — 92 of ours were — and the aggregation above would average them into one cell. That is not merely untidy: on `truthfulqa` the cell would mix a "% informative" rate with a BLEU *difference* score, which can be negative. Worse, **which** metric a model received is largely determined by which leaderboard evaluated it, so the resulting column carries variance attributable to its source rather than to capability. On `truthfulqa`, 325 models are scored by accuracy (mean 46.9) and 67 by exact match (mean 27.5), with the two populations essentially disjoint; on `ifeval` the corresponding gap is 46 points. Because no model is scored under both, the offset cannot even be estimated and removed from within the data.
 
-About 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we kept exactly one metric per benchmark. Given a choice between several metrics, we keep the metric covering the most distinct models, so the widest comparable population survives; a per-benchmark override list handles cases where coverage alone chooses badly. This drops 1,420 result rows and 706 model-cells.
+We therefore keep exactly **one metric per benchmark**. Metric names are first normalised for case and whitespace — without which `Accuracy` and `accuracy` count as rivals and `gsm8k` would forfeit 149 rows to a capitalisation difference — then a small curated alias map merges verified spelling variants of one measurement (e.g. `bits per byte` and `bpb`). Where a genuine choice remains, we keep the metric covering the most distinct models, so the widest comparable population survives; a per-benchmark override list handles cases where coverage alone chooses badly. This drops 1,420 result rows and 706 model-cells.
+
+Two residual defects sit *below* the metric name and need separate treatment. `gpqa` carried one metric name covering two incompatible conventions: 447 of its 454 rows are Open LLM Leaderboard v2 **normalised** accuracy, in which the random-chance baseline is mapped to zero (range 0–24.9), while the remaining 7 are raw accuracy from papers (range 39–94). Since correlations are unchanged by a linear rescaling of an entire column, a normalised column is perfectly usable *provided every row shares the convention*; we therefore keep the 447 and drop the 7, rather than back-transforming on an assumed formula. The caveat is that 13 % of those rows sit exactly at the clamp, so the column under-discriminates among weak models. `elephant` is removed outright: its metric field holds model configurations rather than metrics, so no choice among them measures anything. (`vectara`, whose two metrics were complements, and `pwc_lambada`, which mixed accuracy with perplexity, are both resolved by the metric filter itself.)
 
 Finally, benchmarks observed for only one model are dropped, since a single observation contributes no covariance. The resulting matrices are:
 
+%% PROVISIONAL — Tables 2 and 3 below were read off matrices generated 2026-07-20,
+which PREDATE the 2026-08-10 score-redundancy pruning. They still contain all 47
+pruned columns (31 MultiLoKo language splits, LiveCodeBench v1-v6, the 4 GPQA
+variants, etc.), so they describe a corpus the surrounding text says we removed.
+
+They also predate the canonical-metric filter and the source-scale fix (see
+"Metric selection" below). Recomputed with ALL of them applied (same code,
+aggregation only — no R needed):
+
+  Corpus    456 benchmarks, 1,618 models, 13,251 result rows
+            (was 459 / 1,682 / 14,838 pre-filter; the further drop is the
+             2026-08-31 removal of 12 non-model scraping artifacts and their
+             3 orphaned benchmarks, plus two model merges)
+
+  Table 2   all_standard    1,269 x 405   11,097 cells   2.16 %   (was 1,310 x 455 / 13,888 / 2.33 %)
+            all_aggressive    337 x 381    4,478 cells   3.49 %   (was   350 x 431 /  5,358 / 3.55 %)
+
+  Table 3 (MIN_OBS = 2, matching how the current tables were built):
+            C all_standard    757 x  78   12.6 %  retained 67 %   (was 735 x  90 / 13.08 % / 62.3 %)
+            C all_aggressive  225 x 101   12.5 %  retained 63 %   (was 226 x 115 / 12.58 % / 61.0 %)
+            S all_standard    669 x 124   10.0 %  retained 75 %   (was 652 x 164 / 10.01 % / 77.1 %)
+            S all_aggressive  124 x 293   10.0 %  retained 81 %   (was 131 x 344 / 10.01 % / 84.2 %)
+            R all_standard    175 x 323   11.0 %  retained 56 %   (was 227 x 382 / 10.85 % / 67.8 %)
+            R all_aggressive   96 x 353   10.6 %  retained 80 %   (was 106 x 404 / 10.50 % / 83.9 %)
+
+Note R/all_standard: 227 -> 174 models. Removing the MultiLoKo splits changes the
+peel path materially, not just the column count — worth a sentence in Results if
+it survives the re-run.
+
+Do NOT paste these in yet: the imputation and factoring results are still from the
+old matrices, so swapping the tables alone would make the paper internally
+inconsistent. Swap all of them together once the pipeline re-runs. %%
+
+**Table 2.** Aggregated model × benchmark matrices, text-only corpus. *Provisional — these matrices predate the score-redundancy pruning and the canonical-metric filter, and are superseded by the recomputed values recorded above; they are retained only until the imputation and factoring results are re-run against the current corpus, so that Tables 2, 3 and the Results tables can be replaced together ([[Appendix-Methods#L Known limitations and deviations|Appendix L.3a]]).*
+
+| Collapse strategy | Models | Benchmarks | Observed cells | Density |
+|---|---:|---:|---:|---:|
+| `all_standard` (variant-level) | 1,310 | 455 | 13,888 | 2.33 % |
+| `all_aggressive` (family-level) | 350 | 431 | 5,358 | 3.55 % |
 
 #### Sparsity Handling
 
@@ -132,25 +195,29 @@ We therefore construct **densified sub-matrices**, and we construct several of t
 
 After peeling, a floor is enforced on both axes so that every retained model and benchmark has at least two observed scores; columns with zero variance among observed values are also dropped, since they carry no correlational signal. The peel targets density only. We deliberately do **not** optimise pairwise overlap or positive-definiteness, because those are the success criteria of particular downstream estimators — optimising them here would tilt the comparison in [[#Matrix completion]] toward the methods that need them. The algorithm is given in [[Appendix-Methods#G Densification algorithm|Appendix G]].
 
-**Table 3.** **Table 2.** Aggregated model × benchmark matrices, text-only corpus. "Retained" is the fraction of observed cells surviving the densifier peel.
+**Table 3.** Densified matrices (text-only corpus). "Retained" is the fraction of observed cells surviving the peel.
 
-| Densifier | Strategy         | Shape      | Density | Retained |
-| --------- | ---------------- | ---------- | ------: | -------: |
-| raw       | `all_standard`   | 1266 × 404 |    2.2% |          |
-| raw       | `all_aggressive` | 334 × 380  |    3.5% |          |
-| C         | `all_standard`   | 671 × 78   |   13.8% |      65% |
-| C         | `all_aggressive` | 201 × 102  |   13.6% |      63% |
-| S         | `all_standard`   | 669 × 124  |     10% |      75% |
-| S         | `all_aggressive` | 124 × 293  |     10% |      81% |
-| R         | `all_standard`   | 175 × 298  |   11.8% |      55% |
-| R         | `all_aggressive` | 97 × 310   |   11.7% |      78% |
+| Densifier | Strategy | Shape | Density | Retained |
+|---|---|---|---:|---:|
+| C | `all_standard` | 735 × 90 | 13.08 % | 62.3 % |
+| C | `all_aggressive` | 226 × 115 | 12.58 % | 61.0 % |
+| S | `all_standard` | 652 × 164 | 10.01 % | 77.1 % |
+| S | `all_aggressive` | 131 × 344 | 10.01 % | 84.2 % |
+| R | `all_standard` | 227 × 382 | 10.85 % | 67.8 % |
+| R | `all_aggressive` | 106 × 404 | 10.50 % | 83.9 % |
 
-The three densifiers span the aspect-ratio space: C yields tall matrices (models ≫ benchmarks), R yields wide ones (benchmarks ≫ models), and S sits between. The undensified matrix is additionally carried through the pipeline as a `raw` contrast level, analysed without imputation.
+The three densifiers span the aspect-ratio space: C yields tall matrices (models ≫ benchmarks), R yields wide ones (benchmarks ≫ models), and S sits between. Since the identifiability of a factor solution depends strongly on that ratio, disagreement between C, S, and R is itself a diagnostic, and we report it as one. The undensified matrix is additionally carried through the pipeline as a `raw` contrast level, analysed without imputation.
+
+%% Open item: the shipped densified tables were built with a minimum-observation floor of 2,
+but the constant in the current pipeline source is 3. Regenerating without pinning it changes
+every shape in Table 3. Decide which value the paper commits to and regenerate if needed.
+See [[Appendix-Methods#L Known limitations and deviations|Appendix L]]. %%
+
 ##### Matrix completion
 
 Every densified matrix is still ~90 % missing, so a completion step is required before factoring. We use **three families** of method with different — in places incompatible — assumptions, so that a structure recovered by all of them is unlikely to be an artefact of any one.
 
-**Cell-level imputation** estimates the missing entries directly: **SoftImpute** (nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD; assumes a low-rank signal plus noise, and is our primary cell-level method); **k-NN** (each missing cell filled from the $k$ most similar models — an assumption-light baseline with no low-rank, linearity, or normality assumption); **missForest** (iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent); and **MICE** (multiple imputation by chained equations, where factoring receives the mean of the $m$ completions while the spread across completions is the only natively probabilistic uncertainty estimate available to us).
+**Cell-level imputation** estimates the missing entries directly: **SoftImpute** (nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD; assumes a low-rank signal plus noise, and is our primary cell-level method); **k-NN** (each missing cell filled from the $k$ most similar models — an assumption-light baseline with no low-rank, linearity, or normality assumption); **missForest** (iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent).
 
 **Correlation-level recovery** exploits the fact that factor analysis needs a correlation matrix, not a data matrix. When observations are too sparse to complete cells reliably, the correlation structure may still be recoverable — a substantially weaker requirement. This family estimates the benchmark × benchmark correlation matrix directly and never claims to know individual cells: **OneSidedMC** (Cao, Liang & Valiant, 2023) recovers the benchmark-space right singular vectors from pairwise products of co-observed scores, yielding an estimate $\hat{\Theta}$ of the benchmark covariance; **SoftImpute-corr**, **OptSpace** (Keshavan, Montanari & Oh, 2010), and **USVT** (Chatterjee, 2015) apply matrix-completion estimators to the *observed pairwise correlation matrix*, whose missing entries are exactly the benchmark pairs that were never co-observed; and two structured completions target positive-definiteness directly — a **maximum-determinant** SDP completion, which maximises $\log\det\Sigma$ subject to $\Sigma \succeq 0$ and to each observed correlation lying within a per-pair Fisher-*z* confidence band scaled to that pair's co-observation count, and a **Gaussian graphical model** MLE completion over the observed-pair graph.
 
@@ -159,15 +226,16 @@ Because these methods produce a correlation matrix rather than data, two shared 
 **No-imputation baselines** bound how much of any recovered structure is manufactured by imputation. The undensified matrix is also factored with no completion at all, from a pairwise-complete correlation matrix. Because that matrix has undefined entries (never co-observed pairs) and is generally indefinite, two treatments are compared: filling with the mean off-diagonal correlation, and filling with zero (treating absent co-observation as absent association). Both are then PSD-smoothed before factoring ([[Appendix-Methods#H Completion methods|Appendix H]]).
 
 ##### Evaluating the completion
-Given the challenging nature of our dataset's missingness pattern, we need a way to measure the quality of our data imputation. As such, at each stage of the imputation, we masked ~20% of the observed cells as an evaluation set. This mask is column-stratified, such that each benchmark is masked at least once, leaving at least two training observations in every column. Without this column stratification, our evaluation score is inflated by the fact that high-observation benchmarks (which are the least difficult to impute) are sampled more often than low-observation ones. Columns are standardised using training-cell moments only.
 
-Held-out cells are scored in standard-deviation units against a baseline that predicts each column's training mean:
+All methods, in all three families, are scored on **one held-out metric**, which is what makes them comparable at all. We mask ~20 % of the observed cells using a **column-stratified** split — sampling within each benchmark, so that no benchmark is absent from the evaluation set and high-frequency benchmarks cannot monopolise it — subject to leaving at least two training observations in every column. Columns are standardised using **training-cell moments only**; rows are never standardised, because rows are models and row-standardisation would remove exactly the between-model level differences that a general factor consists of.
+
+Held-out cells are scored in standard-deviation units against a baseline that predicts each column's *training* mean:
 
 $$\text{RMSE} = \sqrt{\overline{(\hat z - z)^2}}, \qquad R^2 = 1 - \frac{\text{MSE}}{\text{MSE}_{\text{baseline}}}$$
 
-Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it is difficult to interpret $\text{RMSE}$s at face value as to how well the imputer performs. As such, we use the $\text{R}^2$ as a relative measure to compare how well the imputer predicts held-out values compared to the the expected value of the training cells. Intuitively, by the $\text{MSE}$ division, the $\text{R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}^2$ are also averages of column-wise $\text{MSE}$s.
+so $R^2 = 0$ is no-skill and $R^2 = 1$ is exact. Both quantities are **column-balanced** by default: per-column errors are aggregated with equal weight per benchmark rather than per cell, because cell-weighting lets a handful of densely-evaluated famous benchmarks dominate the score and renders it nearly insensitive to densification. $R^2$ is computed as a *single pooled ratio* of column-balanced error to column-balanced baseline, never as an average of per-column $R^2$ values, which is unstable when a thin column has a small baseline. Methods that do not natively predict cells still report this metric, by predicting each held-out cell from the row's surviving observed cells via the conditional-Gaussian (best linear) predictor implied by their recovered correlation matrix. Definitions and the exact estimator for each family are in [[Appendix-Methods#I Held-out metric|Appendix I]].
 
-This metric is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out $\text{R}^2$ falls below 0.4 is not factored at all, as it indicates that data-fill is not trustworthy.
+This metric is used for hyperparameter selection within each method (rank, $k$, number of trees, number of imputations), and as a **gate**: a completed matrix whose held-out $R^2$ falls below 0.4 is not factored at all, on the grounds that a factor structure extracted from predictions no better than a column mean is not interpretable. Gating is reported alongside the results, so that a method's failure to clear it is visible rather than silently absent.
 
 #### Factor analysis
 
