@@ -22,9 +22,48 @@ presented them as one figure. %%
 
 # Introduction
 
-The field of artificial intelligence is rife with theories and conceptualization about what intelligence "is" (). With neural network specifically, a longstanding issue is how the models are "overfitting" their training set, and thus their performance in various tasks ("intelligence", so to say) lack powerful generalizability that cognitive entities like humans have. Thus, the development of advanced intelligent systems rely on a working notion of intelligence as adaptive and effective across diverse tasks: a singular notion of "generalizability."
+The field of artificial intelligence is rife with theories and conceptualization about what intelligence "is" (CITE). With neural network specifically, a longstanding issue is how the models are "overfitting" their training set, and thus their performance in various tasks ("intelligence", so to say) lack powerful generalizability that cognitive entities like humans have. Thus, the development of advanced intelligent systems rely on a working notion of intelligence as adaptive and effective across diverse tasks: a singular notion of "generalizability."
 
-There is, in this endeavor, an implicit and subtle assumption: it is that in neural networks, much like humans, cognitive abilities are structured according to a causal hierarchy. The word causal is important here. A popular notion of general intelligence in the field is the concept "fluid intelligence" borrowed from psychometric research, defined loosely as the ability to perform well in any tasks regardless of the content (i.e., a "domain-free" cognitive capacity). By definition this construct holds a causal relation, where an increase of fluid intelligence leads to an increase in the mastery of every other cognitive task. In other words, domain-general ability *precedes and builds* domain-specific abilities. 
+There is, in this endeavor, an implicit and subtle assumption: it is that in neural networks, much like humans, cognitive abilities are structured according to a causal hierarchy. The word causal is important here. A popular notion of general intelligence in the field is the concept "fluid intelligence" borrowed from psychometric research, defined loosely as the ability to perform well in any tasks regardless of the content (i.e., a "domain-free" cognitive capacity). By definition this construct holds a causal relation, where an increase of fluid intelligence leads to an increase in the mastery of every other cognitive task. In other words, domain-general ability *precedes and builds* domain-specific abilities.
+
+## Hierarchical Causal Structure of Psychometric Measurements
+
+A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual (CITE). This assumption applies to all sorts of measurements, from arbitrary attitudinal surveys to psychological primitives like personality and intelligence.
+
+The two is worth discussing as background. In the early days of personality research, the pioneering psychometrician Allport & Odberg (1936) ran an ingenious idea: extract all or most of words from the English dictionary that can describe someone's personality, and then have a large sample of test takers to self-report how well the word describe themselves. The exhaustive dictionary search effectively allows Cattell to measure as much of "the universe of all possible personalities". Following this, keyword self-reports are subject dimensional-reduction techniques like factor analysis, and the resulting low-dimensional latent factor is interpreted as a latent variable that causally influence the variance of all possible personality traits (John et al. 1988).
+
+The same is true for research of human intelligence. In the early days, Spearman (1904) collected the scores of students in several different school subjects, like mathematics and language. He subjected this data to principal components analysis (PCA), and found that the variance of different subjects overwhelmingly load to a single principal component. Although the dataset is hardly exhaustive in modern standards, he led to the conclusion that human intelligence is at least partly founded on a single, wide-breadth latent variable called the $G$ factor (Jensen, 2002). This idea continues to grow, but is generally accepted by modern scholarship (Johnson et al. 2004; Johnson et al. 2008).
+
+Personality and intelligence research are prime examples of the psychometric paradigm. Exhaustively measure observable behaviors or reports, subject the data to dimensional-reduction techniques, and draw theories from interpreting the resulting latent factor. Subsequent research aims to decompose the causal hierarchy further. Personality research are concerned with dimensions and facets (Lee & Ashton, 2018; DeYoung et al. 2007), while intelligence research with abstract but specific cognitive abilities, like quantitative knowledge, long-term retrieval, etc. (Schneider & McGrew, 2018).
+
+It must be stressed, however, that the theories in question largely depend on a causal interpretation. Succinctly, Borsboom et al. (2004) spoke against a purely operational psychometric paradigm. Individuals differ in some latent factor; hence, individuals differ in some observable outcomes. If there is no causal latent factors, then observable behavior would have emerged *ex nihilo*, which made little sense. Everything has a cause, including human behavior.
+
+## Machine Intelligence Theories Are Implicitly Causal
+
+Whether or not intelligence theories are causal concerns, as Borsboom et al. (2004) described for psychometrics, the need to explain the origins of indicator covariance. It is evident that various LLM benchmarks are intercorrelated. Where does this correlation originate? 
+
+We argue that benchmark correlations are causally originated from latent variables, and add that existing paradigms of machine intelligence are implicitly causal. First off, to leave out a common denominator, generalizability would be impossible if there is no common factor to begin with. In the most abstract sense, two tasks sharing a common dominant factor means that the tasks are decomposable into a similar lower-level representation (Caruana, 1997; Menghi et al. 2025). The ability of the network to discern similar features is hence the latent variable that causally affects performance on the tasks. 
+
+More theoretically, in improving the capabilities of neural networks, the notion of a "general intelligence" has permeated the field. A common sentiment (Chollet, 2019) is that intelligence is an abstract, higher-order ability that contrasts performance like memorization or domain-specific abilities. It is "content-free", and precedes performance across the universe of all possible cognitive tasks.
+
+By itself this precedence already implies a causal assumption, but there is a more concrete example. In aiming to achieve "general intelligence", model developers are searching for efficient and parsimonious ways to train smarter models. Crucially these developments tend to be *targeted*: improve the model's reasoning trace, increase their ability in "pure" logical tasks, and we will see models with better tool-calling, agentic long-horizon tasks, coding, etc (CITE). If you can improve the model's ability in this one or few specific, supposedly "content-free" task, you will see an improvement generalized to other tasks. This is a direct causal relation!
+
+**Definition 1**: Let $G \in \mathbb{R}$ be a scalar, and let $T$ be the set of performance scores for all possible tasks,
+$$T = \{\, t_i \mid i \in \mathcal{I} \,\}, \qquad G \longrightarrow T \;\;\text{but}\;\; T \not\longrightarrow G,$$
+i.e., changes in $G$ lead to changes in $T$, but not the other way around.
+
+Nevertheless, a causal view is only one way to understand the origins of a covariance. Alternatives to the causal view above is the formative and mutualist paradigm (Van der Maas et al. 2014). The formative paradigm, usually associated with PCA (because it does not try to partition out error variance), makes no claim about the nature of the resultant principal components. It is sometimes described that the indicator variables collectively "cause" variation of the principal component, instead of a latent factor causing variation among all indicators. On the other hand, the relatively new mutualist paradigm, usually associated with network analysis (CITE), describe indicator variables as a nodes in a graph of mutual causality. In this sense there is no single derived variable that explains or needs explaining.
+
+## Why Study Machine Intelligence Structure?
+
+### The existence of a "general" intelligence factor
+### The possibility of a differential structure
+## Definitions
+
+## Prior works and their caveats
+
+## The present study
+
 
 It is, therefore, useful to ascertain whether it is plausible that cognitive abilities in neural networks follow a coherent hierarchical causal structure. An important implication is that if such structures prove to be incoherent or idiosyncratic, then the entire program of general intelligence as a silver bullet construct (e.g., "AGI") falls apart and is entirely impossible: there is no efficient way to achieve perfect-general intelligence without brute-forcing the training set to cover the universe of all possible tasks, as there are no coherent higher-order facets that researchers can target.
 
@@ -32,7 +71,7 @@ Why this causal hierarchy assumption is so rife in the first place is, in our vi
 
 For this reason it is important to study the structure of machine intelligence in a bottom-up manner. Borrowing from psychometrics yet again, the application of exploratory factor analysis, a dimension-reduction statistical method, allows us to summarize performance in a series of abilities (measured through benchmarks) as influenced by a higher-order latent variable in a plausibly causal manner.
 
-Prior work has tried applying factor analysis to benchmark scores. Ilica & Gignac (2024) have applied factor analysis to hundreds of models and found that the models' performance fits a human-informed causal structure. However, the study is flawed by their use of confirmatory factor analysis, which is a hypothesis-testing procedure, and follows the mistake of fitting a human-informed theory rather than understanding model intelligence from the bottom-up. It is also severely flawed in that a large proportion of their benchmarks are simply variants of the popular MMLU benchmark (), heightens the risk of common-method bias polluting the model fit.
+Prior work has tried applying factor analysis to benchmark scores. Ilica & Gignac (2024) have applied factor analysis to hundreds of models and found that the models' performance fits a human-informed causal structure. However, the study is flawed by their use of confirmatory factor analysis, which is a hypothesis-testing procedure, and follows the mistake of fitting a human-informed theory rather than understanding model intelligence from the bottom-up. It is also severely flawed in that a large proportion of their benchmarks are simply variants of the popular MMLU benchmark (CITE), heightens the risk of common-method bias polluting the model fit.
 
 Another relevant work is Burnell et al. (2023), which correctly applied EFA to model benchmark scores. They found that LLM abilities are hierarchically structured under three major factors. However, they did not do higher-order factor analysis, where EFA is run on the resulting factor loadings, thus allowing us to understand to what extent are latent factors influenced by a presumable g-factor.
 
@@ -155,13 +194,13 @@ This metric is used for hyperparameter selection within each method (rank, $k$, 
 
 #### Factor analysis
 
-We dedicate this section to be a little longer, as we use methodologies that are standard in psychometric research, but critically lacking in LLM intelligence research (). There are 3 issues common in LLM intelligence research: 1. The use of principal components analysis (PCA) over exploratory factor analysis (EFA), 2. Not rotating factor solutions, 3. Not using bifactor transformation and reporting $\omega$ coefficients.
+We dedicate this section to be a little longer, as we use methodologies that are standard in psychometric research, but critically lacking in LLM intelligence research (CITE). There are 3 issues common in LLM intelligence research: 1. The use of principal components analysis (PCA) over exploratory factor analysis (EFA), 2. Not rotating factor solutions, 3. Not using bifactor transformation and reporting $\omega$ coefficients.
 
-First, the use of EFA over PCA is informed by the causal effect of the latent variables over the benchmark scores. As described in the introduction, an abstract, "raw" intelligence is assumed, by existing literature, to precedes performance in domain-specific skills (), correlations between benchmarks are directly and causally influenced by variance of the lower-dimensional latent variables. Crucially, direct eigendecomposition does not try to exclude or partition any variance, so principal components captures both systematic and error/random variance. The same is not true for EFA's multi-step algorithm. Psychometricians would call this this distinction between PCA and EFA to be formative vs. causal ().
+First, the use of EFA over PCA is informed by the causal effect of the latent variables over the benchmark scores. As described in the introduction, an abstract, "raw" intelligence is assumed, by existing literature, to precedes performance in domain-specific skills (CITE), correlations between benchmarks are directly and causally influenced by variance of the lower-dimensional latent variables. Crucially, direct eigendecomposition does not try to exclude or partition any variance, so principal components captures both systematic and error/random variance. The same is not true for EFA's multi-step algorithm. Psychometricians would call this this distinction between PCA and EFA to be formative vs. causal (CITE).
 
 Another important step, also standard in psychometrics but rarely done in ML, is the rotation of the resulting loading matrix. The matrix results of PCA and EFA are rotation-invariant, which tends to group all variances in the first latent factor. However, this means that the result of factor analysis tends to be difficult to interpret. Factor rotation means to find an alternative solution that rearranges loadings to be more cleanly partitioned (a "simple structure"; Gorsuch, 2004) between all of the extracted factors. Factor rotation can be thought of as improving the "cluster" of the variables to group closer to their cluster centroid. Another advantage of factor rotation is that it allows the loadings vectors to be positively correlated, while bare eigendecomposition yields orthogonal factors.
 
-The last important step, particularly with respect to the inquiries about a $G$ factor, is the use of Schmid-Leiman bifactor transformation. In essence, this technique ran factor analysis hierarchically, yielding one additional factor that causally affects the rest of the extracted factor. Yet again, this technique is quite well-used in psychometric research explicitly about a $G$ factor of intelligence () that have been missing in LLM research. 
+The last important step, particularly with respect to the inquiries about a $G$ factor, is the use of Schmid-Leiman bifactor transformation. In essence, this technique ran factor analysis hierarchically, yielding one additional factor that causally affects the rest of the extracted factor. Yet again, this technique is quite well-used in psychometric research explicitly about a $G$ factor of intelligence (CITE) that have been missing in LLM research. 
 
 This yields three reported quantities: $\omega_h$, the proportion of total score variance attributable to $G$; $\omega_{total}$, the proportion attributable to all common factors; and the vector $\omega_{hs}$ of domain-factor reliabilities. The ratio $\omega_h / \omega_{total}$ reads as "of the common variance, how much is general" — the direct analogue of the $g$-saturation question in human psychometrics
 
@@ -180,7 +219,7 @@ If this is not
 %%
 ## Bottom-up theories of LLM intelligence
 
-Importantly what we find is that, unlike theories of human psychology () where intelligence are explicitly assumed to possess higher-order structure, with fluid intelligence as a higher-order factor that have theoretical causal effects () to the performance of other cognitive abilities, fluid intelligence, wikipedia memorization, agentic tool use, are more likely to be horizontal with respect to each other with no clear higher-order structure. Ablation studies provide experimental evidence to this point: ...
+Importantly what we find is that, unlike theories of human psychology (CITE) where intelligence are explicitly assumed to possess higher-order structure, with fluid intelligence as a higher-order factor that have theoretical causal effects (CITE) to the performance of other cognitive abilities, fluid intelligence, wikipedia memorization, agentic tool use, are more likely to be horizontal with respect to each other with no clear higher-order structure. Ablation studies provide experimental evidence to this point: ...
 
 This is also not to say that LLMs are not intelligent (in our private view, they very clearly are). But it is important to realize that just as humans and ants are differentially but equally "cognitive", LLMs are intelligent in a considerably different way to humans. This means that a theory of intelligence requires a blank-slate, bottom-up empirical approach without overfitting theories of human intelligence into systems that possess significant architectural and functional divergence from humans.
 
@@ -188,21 +227,33 @@ This is also not to say that LLMs are not intelligent (in our private view, they
 
 # References
 
-%% Compiled from [[References]], grouped by theme as drafted there. Inline citation
-keys in Introduction/Methodology/Discussion (the bare `()` placeholders and named
-author-year mentions) are not yet wired to these entries — that pass, plus final
-citation-style formatting, is still open. %%
+- Allport, G. W., & Odbert, H. S. (1936). Trait-names: A psycho-lexical study. _Psychological monographs_, _47_(1), i.
+- Borsboom, D., Mellenbergh, G. J., & Van Heerden, J. (2004). The concept of validity. _Psychological review_, _111_(4), 1061.
+- Caruana, Rich. "Multitask learning." _Machine learning_ 28.1 (1997): 41-75.
+- DeYoung, C. G., Quilty, L. C., & Peterson, J. B. (2007). Between facets and domains: 10 aspects of the Big Five. _Journal of personality and social psychology_, _93_(5), 880.
+- Burnell, R., Hao, H., Conway, A. R., & Orallo, J. H. (2023). Revealing the structure of language model capabilities. *arXiv preprint arXiv:2306.10062*.
+- Chollet, F. (2019). On the measure of intelligence. _arXiv preprint arXiv:1911.01547_.
+- Horn, J. L. (1965). A rationale and test for the number of common factors. *Psychometrika*, *30*(2), 179-185.
+- Ilica, D., & Gignac, G. E. (2024). Evidence of interrelated cognitive-like capabilities in large language models: Indications of artificial general intelligence or achievement? *Intelligence*, *106*, 101858.
+- Jensen, A. R. (2002). Psychometric g: Definition and substantiation. In *The general factor of intelligence* (pp. 51-66). Psychology Press.
+- John, O. P., Angleitner, A., & Ostendorf, F. (1988). The lexical approach to personality: A historical review of trait taxonomic research. _European journal of Personality_, _2_(3), 171-203.
+- Lee, K., & Ashton, M. C. (2018). Psychometric properties of the HEXACO-100. _Assessment_, _25_(5), 543-556.
+- Johnson, W., Bouchard Jr, T. J., Krueger, R. F., McGue, M., & Gottesman, I. I. (2004). Just one g: Consistent results from three test batteries. *Intelligence*, *32*(1), 95-107.
+- Johnson, W., Te Nijenhuis, J., & Bouchard Jr, T. J. (2008). Still just 1 g: Consistent results from five test batteries. *Intelligence*, *36*(1), 81-95.
+- Menghi, N., Johnston, W. J., Vigano’, S., Hinrichs, M. A. B., Maess, B., Fusi, S., & Doeller, C. F. (2025). The effects of task similarity during representation learning in brains and neural networks. _Nature Communications_, _16_(1), 10812.
+- Schneider, W. J., & McGrew, K. S. (2018). The Cattell-Horn-Carroll theory of cognitive abilities. _Contemporary intellectual assessment: Theories, tests, and issues_, _733_(163), 6.
+- Spearman, C. (1904). “General Intelligence,” Objectively Determined and Measured. _The American Journal of Psychology_, _15_(2), 201–292. https://doi.org/10.2307/1412107
+- Van der Maas, H. L., Kan, K. J., & Borsboom, D. (2014). Intelligence is what the intelligence test measures. Seriously. *Journal of Intelligence*, *2*(1), 12-15.
 
+
+## Reading list
+%% uncited sources %%
 ## Psychometric g-factor
 
 - Waterhouse, L. (2023). Why multiple intelligences theory is a neuromyth. *Frontiers in psychology*, *14*, 1217288.
 - Pokropek, A., Marks, G. N., & Borgonovi, F. (2022). How much do students' scores in PISA reflect general intelligence and how much do they reflect specific abilities? *Journal of Educational Psychology*, *114*(5), 1121.
-- Johnson, W., Bouchard Jr, T. J., Krueger, R. F., McGue, M., & Gottesman, I. I. (2004). Just one g: Consistent results from three test batteries. *Intelligence*, *32*(1), 95-107.
-- Johnson, W., Te Nijenhuis, J., & Bouchard Jr, T. J. (2008). Still just 1 g: Consistent results from five test batteries. *Intelligence*, *36*(1), 81-95.
-- Van der Maas, H. L., Kan, K. J., & Borsboom, D. (2014). Intelligence is what the intelligence test measures. Seriously. *Journal of Intelligence*, *2*(1), 12-15.
 - Major, J. T., Johnson, W., & Bouchard Jr, T. J. (2011). The dependability of the general factor of intelligence: Why small, single-factor models do not adequately represent g. *Intelligence*, *39*(5), 418-433.
 - Kranzler, J. H., & Jensen, A. R. (1989). Inspection time and intelligence: A meta-analysis. *Intelligence*, *13*(4), 329-347.
-- Jensen, A. R. (2002). Psychometric g: Definition and substantiation. In *The general factor of intelligence* (pp. 51-66). Psychology Press.
 
 ## Intelligence in AI/ML/Compsci
 
@@ -211,12 +262,10 @@ citation-style formatting, is still open. %%
 
 ## Prior work
 
-- Ilica, D., & Gignac, G. E. (2024). Evidence of interrelated cognitive-like capabilities in large language models: Indications of artificial general intelligence or achievement? *Intelligence*, *106*, 101858.
-- Burnell, R., Hao, H., Conway, A. R., & Orallo, J. H. (2023). Revealing the structure of language model capabilities. *arXiv preprint arXiv:2306.10062*.
 
 ## Methods and statistical tools
 
-- Horn, J. L. (1965). A rationale and test for the number of common factors. *Psychometrika*, *30*(2), 179-185.
+
 - Schmid, J., & Leiman, J. M. (1957). The development of hierarchical factor solutions. *Psychometrika*, *22*(1), 53-61.
 - Revelle, W., & Zinbarg, R. E. (2009). Coefficients alpha, beta, omega, and the glb: Comments on Sijtsma. *Psychometrika*, *74*(1), 145-154.
 - Revelle, W. (2024). *psych: Procedures for Psychological, Psychometric, and Personality Research*. R package.
