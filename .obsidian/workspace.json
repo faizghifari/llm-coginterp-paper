@@ -80,7 +80,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 325.5
+    "width": 325.5,
+    "collapsed": true
   },
   "right": {
     "id": "d8979859c2db4958",
@@ -188,7 +189,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 284.453125
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -202,7 +203,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "39a3ab12f8015aa4",
+  "active": "d6a564de3ece0b5d",
   "lastOpenFiles": [
     "tmp.md",
     "Main.md",
