@@ -1,4 +1,33 @@
 
+%% Moved from Main.md's manual "# References" section -- these are the
+Introduction-section background citations not otherwise annotated below.
+Now redundant with the compiled bibliography (latex-template/iclr2027_conference.bib,
+driven by \citep/\citet in Main.md), kept here as the human-readable staging list. %%
+
+## Cited in main text
+
+- Allport, G. W., & Odbert, H. S. (1936). Trait-names: A psycho-lexical study. _Psychological monographs_, _47_(1), i.
+- Borsboom, D., & Cramer, A. O. (2013). Network analysis: an integrative approach to the structure of psychopathology. _Annual review of clinical psychology_, _9_(1), 91-121.
+- Borsboom, D., Mellenbergh, G. J., & Van Heerden, J. (2004). The concept of validity. _Psychological review_, _111_(4), 1061.
+- Caruana, Rich. "Multitask learning." _Machine learning_ 28.1 (1997): 41-75.
+- DeYoung, C. G., Quilty, L. C., & Peterson, J. B. (2007). Between facets and domains: 10 aspects of the Big Five. _Journal of personality and social psychology_, _93_(5), 880.
+- Burnell, R., Hao, H., Conway, A. R., & Orallo, J. H. (2023). Revealing the structure of language model capabilities. *arXiv preprint arXiv:2306.10062*.
+- Chollet, F. (2019). On the measure of intelligence. _arXiv preprint arXiv:1911.01547_.
+- Horn, J. L. (1965). A rationale and test for the number of common factors. *Psychometrika*, *30*(2), 179-185.
+- Ilica, D., & Gignac, G. E. (2024). Evidence of interrelated cognitive-like capabilities in large language models: Indications of artificial general intelligence or achievement? *Intelligence*, *106*, 101858.
+- Jensen, A. R. (2002). Psychometric g: Definition and substantiation. In *The general factor of intelligence* (pp. 51-66). Psychology Press.
+- John, O. P., Angleitner, A., & Ostendorf, F. (1988). The lexical approach to personality: A historical review of trait taxonomic research. _European journal of Personality_, _2_(3), 171-203.
+- Lee, K., & Ashton, M. C. (2018). Psychometric properties of the HEXACO-100. _Assessment_, _25_(5), 543-556.
+- Johnson, W., Bouchard Jr, T. J., Krueger, R. F., McGue, M., & Gottesman, I. I. (2004). Just one g: Consistent results from three test batteries. *Intelligence*, *32*(1), 95-107.
+- Johnson, W., Te Nijenhuis, J., & Bouchard Jr, T. J. (2008). Still just 1 g: Consistent results from five test batteries. *Intelligence*, *36*(1), 81-95.
+- Kranzler, J. H., & Jensen, A. R. (1989). Inspection time and intelligence: A meta-analysis. *Intelligence*, *13*(4), 329-347.
+- Menghi, N., Johnston, W. J., Vigano', S., Hinrichs, M. A. B., Maess, B., Fusi, S., & Doeller, C. F. (2025). The effects of task similarity during representation learning in brains and neural networks. _Nature Communications_, _16_(1), 10812.
+- Schneider, W. J., & McGrew, K. S. (2018). The Cattell-Horn-Carroll theory of cognitive abilities. _Contemporary intellectual assessment: Theories, tests, and issues_, _733_(163), 6.
+- Spearman, C. (1904). "General Intelligence," Objectively Determined and Measured. _The American Journal of Psychology_, _15_(2), 201–292. https://doi.org/10.2307/1412107
+- Van der Maas, H. L., Kan, K. J., & Borsboom, D. (2014). Intelligence is what the intelligence test measures. Seriously. *Journal of Intelligence*, *2*(1), 12-15.
+
+Also cited in Main.md (added after this file's Reading List sections below were last synced): Krakauer (2026, arXiv:2604.09911), Haznitrama, Ardi & Oh (2026, arXiv:2603.02540), Federiakin (2025, arXiv:2501.17200), Ye et al. (2025, arXiv:2505.08245), Kearns (2026, arXiv:2602.15532), Holm, Hansen & Nielsen (2024, arXiv:2410.22839), Hendrycks et al. (2021, MMLU), Batzner et al. (2026, EveryEvalEver, arXiv:2606.14516), DeepSeek-AI (2025, arXiv:2501.12948), and Gorsuch (1983 / 2015, factor rotation -- year still unconfirmed, see Main.md's inline editorial note). Full bibliographic form for all of these is in `latex-template/iclr2027_conference.bib`.
+
 ## Psychometric g-factor
 
 Human intelligence is intercorrelated
