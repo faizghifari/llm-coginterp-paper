@@ -70,11 +70,24 @@ if command -v pdflatex >/dev/null 2>&1; then
   (
     cd "$OUT_DIR"
     BASE="$(basename "${OUT%.tex}")"
+    # First pass emits the .aux with \citation/\bibdata commands for bibtex to
+    # read; only then can the two follow-up passes resolve \cite references
+    # and settle cross-references/page numbers. Skipped if bibtex isn't
+    # installed -- the two-pass loop below still runs so a .tex-only or
+    # no-bibtex environment still gets a PDF, just with unresolved [?] cites.
+    if command -v bibtex >/dev/null 2>&1; then
+      pdflatex -interaction=nonstopmode -halt-on-error "$BASE.tex" >"$BASE.pdflatex.log" 2>&1 \
+        || { echo "pdflatex failed — see $OUT_DIR/$BASE.pdflatex.log" >&2; tail -40 "$BASE.pdflatex.log" >&2; exit 1; }
+      bibtex "$BASE" >"$BASE.bibtex.log" 2>&1 \
+        || { echo "bibtex failed — see $OUT_DIR/$BASE.bibtex.log" >&2; tail -40 "$BASE.bibtex.log" >&2; exit 1; }
+    else
+      echo "(no bibtex found on this machine, so citations will render as [?] in the PDF)"
+    fi
     for _ in 1 2; do
       pdflatex -interaction=nonstopmode -halt-on-error "$BASE.tex" >"$BASE.pdflatex.log" 2>&1 \
         || { echo "pdflatex failed — see $OUT_DIR/$BASE.pdflatex.log" >&2; tail -40 "$BASE.pdflatex.log" >&2; exit 1; }
     done
-    rm -f "$BASE.aux" "$BASE.log" "$BASE.out" "$BASE.bbl" "$BASE.blg" "$BASE.pdflatex.log"
+    rm -f "$BASE.aux" "$BASE.log" "$BASE.out" "$BASE.bbl" "$BASE.blg" "$BASE.pdflatex.log" "$BASE.bibtex.log"
     echo "wrote $OUT_DIR/$BASE.pdf"
   )
 else
