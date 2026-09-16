@@ -113,7 +113,9 @@ In this study we investigate the low-dimensional structure of model benchmark sc
 **Redundancy.** We handle redundancy at two levels. At the row level, we deduplicate rows given a (model, benchmark) pair with the same evaluation setup by collapsing them to one row and resolve them by source-trust tier and recency ([[Appendix-Methods#C.4 Duplicate detection and integrity checks|Appendix C.4]]).
 Surviving rows for the same (model, benchmark) pair are later averaged into a single score (see Aggregation below). At the benchmark level, some benchmark identifiers measure the same thing under different attributes such as version, dialect, difficulty, num sample, or language splits of a translated benchmark. For each suspected case we compute the pairwise Pearson correlation between its columns over the models evaluated on both, and collapse the family to one representative only when correlations are near-perfect across a non-trivial shared model set. This removes 47 benchmark identifiers and 2,216 rows across seven families ([[Appendix-Methods#E Score-redundancy pruning|Appendix E]]). A separate, earlier pass removes literal-translation duplicates at the corpus level, keeping multilingual benchmarks whose per-language content is independently sourced. After both passes, the text-only corpus stands at 456 benchmarks, 1,618 models, and 13,251 result rows.
 
-##### Aggregation
+## Data Processing
+
+### Aggregation
 
 The collected datasets contain same models evaluated under different conditions, e.g., chain-of-thought vs. no chain-of-thought. Since including the same models would lead to a violation of independence of distribution, multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Averaging is done after identity cleanup, so that it never masks a duplicate that should have been removed. Model identity is then resolved at two granularities, run as parallel conditions throughout the rest of the pipeline:
 
@@ -122,11 +124,11 @@ The collected datasets contain same models evaluated under different conditions,
 
 The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed; the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. Neither is correct a priori, which is why both are carried forward. The token-level rules are given in [[Appendix-Methods#F Model-identity collapse|Appendix F]].
 
-##### Metric selection
+### Metric selection
 
 About 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we kept exactly one metric per benchmark. Given a choice between several metrics, we keep the metric covering the most distinct models, so the widest comparable population survives; a per-benchmark override list handles cases where coverage alone chooses badly. This drops 1,420 result rows and 706 model-cells. Finally, benchmarks observed for only one model are dropped.
 
-#### Sparsity Handling
+### Densification
 
 At 2–4 % observed, the raw data is ineligible for virtually any data analysis. We therefore improve the dataset density by applying several additional steps that discard missing data, described below. All three densifiers greedily peel the matrix toward a common target density (10 %), differing only in which axis they sacrifice:
 
@@ -150,7 +152,7 @@ After peeling, a floor is enforced on both axes so that every retained model and
 | R         | `all_aggressive` | 97 × 310   |   11.7% |      78% |
 
 
-##### Matrix completion
+### Matrix completion
 
 As mentioned before, the densifier leaves only around 10% density for each dataset. This number is still far from being usable for any analysis. Moreover, the dataset exhibits a missing not at random (MNAR) pattern. Popular models are more likely to be benchmarked, and popular benchmarks are more likely to be administered. Our solution to this problem is to instead run multiple different imputations, comparing the performance of each, and aggregating the results. The core idea is, since the distribution of the missing data is impossible to recover, it is better to triangulate results from different densifiers and different imputers, each with their own biases and assumptions, and recover common patterns as the kernel of truth. There are 2 families of imputers we use: full dataset imputers, and correlation/reduced matrix imputers.
 
@@ -160,7 +162,7 @@ Full dataset imputers estimates the missing entries of the dataset directly: **S
 **Correlation-level recovery** exploits the fact that factor analysis needs a correlation matrix, not a data matrix. When observations are too sparse to complete cells reliably, the correlation structure may still be recoverable — a substantially weaker requirement. This family estimates the benchmark × benchmark correlation matrix directly and never claims to know individual cells: **OneSidedMC** (Cao, Liang & Valiant, 2023) recovers the benchmark-space right singular vectors from pairwise products of co-observed scores, yielding an estimate $\hat{\Theta}$ of the benchmark covariance; **SoftImpute-corr**, **OptSpace** (Keshavan, Montanari & Oh, 2010), and **USVT** (Chatterjee, 2015) apply matrix-completion estimators to the *observed pairwise correlation matrix*, whose missing entries are exactly the benchmark pairs that were never co-observed; and two structured completions target positive-definiteness directly — a **maximum-determinant** SDP completion, which maximises $\log\det\Sigma$ subject to $\Sigma \succeq 0$ and to each observed correlation lying within a per-pair Fisher-*z* confidence band scaled to that pair's co-observation count, and a **Gaussian graphical model** MLE completion over the observed-pair graph.
 
 
-##### Evaluating the completion
+### Evaluating the completion
 Given the challenging nature of our dataset's missingness pattern, we need a way to measure the quality of our data imputation. As such, at each stage of the imputation, we masked ~20% of the observed cells as an evaluation set. This mask is column-stratified, such that each benchmark is masked at least once, leaving at least two training observations in every column. Without this column stratification, our evaluation score is inflated by the fact that high-observation benchmarks (which are the least difficult to impute) are sampled more often than low-observation ones. Columns are standardised using training-cell moments only.
 
 Held-out cells are scored in standard-deviation units against a baseline that predicts each column's training mean:
@@ -171,7 +173,7 @@ Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it i
 
 This metric is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out $\text{R}^2$ falls below 0.4 is not factored at all, as it indicates that data-fill is not trustworthy.
 
-#### Factor analysis
+## Factor analysis
 
 We dedicate this section to be a little longer, as we use methodologies that are standard in psychometric research, but critically lacking in LLM intelligence research (CITE). There are 3 issues common in LLM intelligence research: 1. The use of principal components analysis (PCA) over exploratory factor analysis (EFA), 2. Not rotating factor solutions, 3. Not using bifactor transformation and reporting $\omega$ coefficients.
 
