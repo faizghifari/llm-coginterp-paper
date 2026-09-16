@@ -340,61 +340,55 @@ priors whatsoever is the correct way to start our inquiry.
 \subsection{Prior works and their
 caveats}\label{prior-works-and-their-caveats}}
 
-Prior work has tried applying factor analysis to benchmark scores.
-\citet{ilicagignac2024} have applied factor analysis to hundreds of
-models and found that the models' performance fits a human-informed
-causal structure. However, the study is flawed by their use of
-confirmatory factor analysis, which is a hypothesis-testing procedure,
-and follows the mistake of fitting a human-informed theory rather than
-understanding model intelligence from the bottom-up. It is also severely
-flawed in that a large proportion of their benchmarks are simply
-variants of the popular MMLU benchmark \citep{hendrycks2021}, heightens
-the risk of common-method bias polluting the model fit.
-
-Another relevant work is \citet{burnell2023}, which correctly applied
-EFA to model benchmark scores. They found that LLM abilities are
+Prior work has tried applying factor analysis to benchmark scores, but
+always at a much smaller scale. \citet{ilicagignac2024} applied factor
+analysis to hundreds of models and found that the models' performance
+fits a human-informed causal structure. However, their use of
+confirmatory factor analysis repeats the mistake of fitting a
+human-informed theory rather than understanding model intelligence from
+the bottom-up. Also, a large proportion of their benchmarks are simply
+variants of the popular MMLU benchmark \citep{hendrycks2021}, posing the
+risk of common-method bias polluting the model fit. \citet{burnell2023}
+applied EFA to model benchmark scores and found that LLM abilities are
 hierarchically structured under three major factors. However, they did
 not do higher-order factor analysis, where EFA is run on the resulting
-factor loadings, thus allowing us to understand to what extent are
-latent factors influenced by a presumable g-factor.
+factor loadings, so cannot say to what extent latent factors are
+influenced by a presumable g-factor.
 
-A third relevant work is \citet{krakauer2026}, which applies PCA to 39
-models and 14 benchmarks spanning 2019-2025 and finds a strong positive
-manifold, with a first principal component explaining as much as 90\% of
-variance early on but declining to 64\% by 2024. This is interpreted as
-a ``rotation'' in the \(G\) factor as models increasingly outsource
-reasoning to external tools. Like \citet{ilicagignac2024}, this work
-relies on PCA rather than EFA, which, as we discuss in the Methodology,
-does not partition out systematic from error variance and so cannot be
-trusted to isolate a genuine \(G\) factor from noise; a declining PC1 is
-equally consistent with the benchmark composition simply becoming less
-homogeneous over time. A fourth is \citet{haznitrama2026}, who run
-factor analysis across 156 models and 10 benchmarks and likewise report
-a unified general factor, before showing that a
+Three more recent studies extend this line of work at similarly small
+scale. \citet{krakauer2026} applies PCA to 39 models and 14 benchmarks
+spanning 2019-2025 and finds a strong positive manifold, with a first
+principal component explaining as much as 90\% of variance early on but
+declining to 64\% by 2024 --- interpreted as a ``rotation'' in the \(G\)
+factor as models increasingly outsource reasoning to external tools.
+Similar to \citet{ilicagignac2024}, this work relies on PCA rather than
+EFA, which, as we discuss in the Methodology, does not partition out
+systematic from error variance and so cannot be trusted to isolate a
+genuine \(G\) factor from noise. \citet{haznitrama2026} run factor
+analysis across 156 models and 10 benchmarks and likewise report a
+unified general factor, before showing that a
 neuropsychologically-grounded benchmark battery reveals cognitive gaps
-that this general factor otherwise masks. A fifth,
-\citet{federiakin2025}, fits a single-factor confirmatory factor
-analysis (CFA) to the HuggingFace Open LLM Leaderboard to re-rank models
-by a psychometrically-derived score; like \citet{ilicagignac2024},
-imposing a single-factor structure by construction forecloses the
-question of whether the data actually supports one, which only EFA can
-answer.
+that this general factor otherwise masks. \citet{federiakin2025} fits a
+single-factor confirmatory factor analysis (CFA) to the HuggingFace Open
+LLM Leaderboard to re-rank models by a psychometrically-derived score.
+However, similar to \citet{ilicagignac2024}, imposing a single-factor
+structure by construction forecloses the question of whether the data
+actually supports one, which only EFA can answer.
 
-A common weakness of these papers, though, are the relatively few number
-of benchmarks or variables derived thereof. \citet{ilicagignac2024} fit
-a model with 20 variables, \citet{burnell2023} uses 23 variables,
-\citet{krakauer2026} uses only 14, and \citet{haznitrama2026} uses only
-10; \citet{federiakin2025} is narrower still, fitting to the handful of
-aggregate tasks on a single leaderboard. Most of these benchmarks are
-popular benchmarks measuring ``smartness'' for a lack of better term,
-like mathematics, academic knowledge, and common-sense reasoning (an
-even more extreme case is \citep{holm2024}, where a single factor
-explains 95\% of variance across just 8 scenarios in one language).
-
-A related methodological concern is raised by \citet{kearns2026}, who
-show that latent factor models fit to LLM benchmark scores can conflate
-the extracted capability factor with model scale unless scaling
-relationships are explicitly modeled.
+A common weakness of all five papers, though, is the relatively few
+number of benchmarks or variables derived thereof:
+\citet{ilicagignac2024} fit a model with 20 variables,
+\citet{burnell2023} uses 23, \citet{krakauer2026} only 14, and
+\citet{haznitrama2026} only 10. \citet{federiakin2025} is narrower
+still, fitting to the handful of aggregate tasks on a single
+leaderboard. Most of these benchmarks measure ``smartness'' for a lack
+of better term, like mathematics, academic knowledge, and common-sense
+reasoning (an even more extreme case is \citep{holm2024}, where a single
+factor explains 95\% of variance across just 8 scenarios in one
+language). A related methodological concern, raised by
+\citet{kearns2026}, is that latent factor models fit to LLM benchmark
+scores can conflate the extracted capability factor with model scale
+unless scaling relationships are explicitly modeled.
 
 \hypertarget{the-present-study}{%
 \subsection{The present study}\label{the-present-study}}
