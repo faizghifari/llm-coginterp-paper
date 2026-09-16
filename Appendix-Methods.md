@@ -319,10 +319,10 @@ All R-side methods share one contract — sparse matrix in; completed matrix, sw
 
 | Method | Package | Swept parameter | Grid |
 |---|---|---|---|
-| SoftImpute | `softImpute` | rank | 1…10 (capped at $\min(n,p)-1$); at each rank, a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts |
+| SoftImpute \citep{mazumder2010} | `softImpute` | rank | 1…10 (capped at $\min(n,p)-1$); at each rank, a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts |
 | k-NN | `VIM` | $k$ | 1…10 (capped below $n$), Gower distance over benchmarks, weighted-mean aggregation |
-| missForest | `missForest` | `ntree` | {50, 100, 200, 400}, `maxiter = 10` |
-| MICE | `mice` | $m$ | {5, 10, 20}, `method = "pmm"`, `maxit = 5` |
+| missForest \citep{stekhoven2012} | `missForest` | `ntree` | {50, 100, 200, 400}, `maxiter = 10` |
+| MICE \citep{vanbuuren2011} | `mice` | $m$ | {5, 10, 20}, `method = "pmm"`, `maxit = 5` |
 
 SoftImpute selects $\lambda$ within a rank by cell-weighted held-out RMSE (an internal minimisation only) and *reports* the column-balanced score; the completed matrix returned is a refit on the full data at the selected $(\text{rank}, \lambda)$, while the reported score comes from the masked-train fit's predictions. The two must not be conflated, or the metric leaks.
 
@@ -332,7 +332,7 @@ MICE requires two departures from its defaults on this matrix, which is wide and
 
 #### H.2 OneSidedMC
 
-Implemented in Julia (Cao, Liang & Valiant, 2023). The premise is that when observations are too sparse to complete cells, the **right singular vectors** — the benchmark-space factors — may still be recoverable. The estimator forms $\hat{\Theta} = \frac{1}{m}X^\top X$ from pairwise products of co-observed standardised scores and fits $\hat{\Theta} = \hat V \hat V^\top$.
+Implemented in Julia \citep{cao2023}. The premise is that when observations are too sparse to complete cells, the **right singular vectors** — the benchmark-space factors — may still be recoverable. The estimator forms $\hat{\Theta} = \frac{1}{m}X^\top X$ from pairwise products of co-observed standardised scores and fits $\hat{\Theta} = \hat V \hat V^\top$.
 
 Adaptations required for this data:
 
@@ -350,7 +350,7 @@ Shared machinery for SoftImpute-corr, OptSpace, USVT, CVXR, and GGM:
 1. Split the holdout, then standardise columns by **training-cell** moments.
 2. Compute the observed pairwise-complete correlation matrix. Entries for pairs never co-observed are `NA`; these are exactly the completion target. No minimum co-observation threshold is applied here, because the floor is already enforced upstream by the densifier and the degenerate-column guard.
 3. Complete the correlation matrix with the method's estimator.
-4. Symmetrise, then project to the nearest valid correlation matrix (`nearPD` with unit diagonal and a final eigenvalue projection), guaranteeing positive definiteness rather than near-definiteness — so every principal submatrix $R_{SS}$ is invertible.
+4. Symmetrise, then project to the nearest valid correlation matrix (`nearPD` \citep{higham2002} with unit diagonal and a final eigenvalue projection), guaranteeing positive definiteness rather than near-definiteness — so every principal submatrix $R_{SS}$ is invertible.
 5. Predict each held-out cell from the row's surviving observed cells by the conditional-Gaussian predictor $\hat z_j = R_{jS} R_{SS}^{-1} z_S$ (an empty conditioning set degenerates to the z-mean, 0), and score with the shared metric ([[#I Held-out metric]]).
 6. Refit on the **full** correlation matrix and synthesise an $n \times p$ surrogate $X = ZW^\top$ with $Z \sim N(0, I_p)$ and $W = Q\Lambda^{1/2}$ from the eigendecomposition, then un-standardise to the original column scale by the observed-cell moments — so $\operatorname{cov}(X) = R$ by construction.
 
@@ -358,9 +358,9 @@ Estimators:
 
 | Estimator | Implementation | Configuration |
 |---|---|---|
-| SoftImpute-corr | `softImpute` | sweeps rank 1…10 with the same nested $\lambda$ grid as [[#H.1 Cell-level methods]] |
-| OptSpace | `filling::fill.OptSpace` | automatic rank estimation, `niter = 50`, `tol = 1e-6`; no sweep |
-| USVT | `filling::fill.USVT` | fixed singular-value threshold $\eta = 0.01$; no sweep |
+| SoftImpute-corr \citep{mazumder2010} | `softImpute` | sweeps rank 1…10 with the same nested $\lambda$ grid as [[#H.1 Cell-level methods]] |
+| OptSpace \citep{keshavan2010} | `filling::fill.OptSpace` | automatic rank estimation, `niter = 50`, `tol = 1e-6`; no sweep |
+| USVT \citep{chatterjee2015} | `filling::fill.USVT` | fixed singular-value threshold $\eta = 0.01$; no sweep |
 | CVXR | `CVXR` + SCS | maximise $\log\det\Sigma$ s.t. $\Sigma \succeq 0$, diagonal matched exactly, each observed off-diagonal constrained to $\tanh(z_{ij} \pm c\,/\sqrt{n_{ij}-3})$ with $c = 2$; no sweep |
 | GGM | `ggm::fitConGraph` | graphical-model MLE with the observed-pair graph as the conditional-independence structure; handles non-chordal patterns; no sweep |
 
@@ -418,11 +418,11 @@ Two properties are deliberate. The column-balanced RMSE is an **average of per-c
 
 #### J.1 Estimator
 
-`psych::fa` with `fm = "minres"` (minimum residual) and `rotate = "promax"` when $nf > 1$, else no rotation. Where the default (SMC communality start) errors on a singular correlation matrix, the fit is retried with `SMC = FALSE` (unity diagonal); only hard errors trigger the fallback — `psych`'s benign warnings still return a usable fit.
+`psych::fa` \citep{revelle2024} with `fm = "minres"` (minimum residual) and `rotate = "promax"` when $nf > 1$, else no rotation. Where the default (SMC communality start) errors on a singular correlation matrix, the fit is retried with `SMC = FALSE` (unity diagonal); only hard errors trigger the fallback — `psych`'s benign warnings still return a usable fit.
 
 #### J.2 Factor count
 
-Horn's parallel analysis in its PC flavour: the observed eigenvalues of the correlation matrix are compared position-by-position against the 95th percentile of eigenvalues from 100 random $n \times p$ standard-normal matrices' correlation matrices, and
+Horn's \citep{horn1965} parallel analysis in its PC flavour: the observed eigenvalues of the correlation matrix are compared position-by-position against the 95th percentile of eigenvalues from 100 random $n \times p$ standard-normal matrices' correlation matrices, and
 
 $$nf = \#\{i : \lambda_i^{\text{obs}} > \lambda_i^{\text{cut}}\},\quad nf \geq 2.$$
 
@@ -432,7 +432,7 @@ The count is then capped: at 20 (tractability — beyond that the bifactor fits 
 
 #### J.3 Bifactor decomposition
 
-`psych::omega` with `fm = "minres"`, `flip = FALSE`, Schmid–Leiman transformation. Recorded per cell: the full SL loading matrix (general factor plus domain factors, per benchmark), $\omega_h$, its asymptotic variant, $\omega_{total}$, and the per-group $\omega_{hs}$ vector. Also recorded from the first-order solution: cumulative variance explained, per-factor proportions, and the inter-factor correlation matrix $\Phi$ with its mean off-diagonal.
+`psych::omega` \citep{revelle2009} with `fm = "minres"`, `flip = FALSE`, Schmid–Leiman \citep{schmidleiman1957} transformation. Recorded per cell: the full SL loading matrix (general factor plus domain factors, per benchmark), $\omega_h$, its asymptotic variant, $\omega_{total}$, and the per-group $\omega_{hs}$ vector. Also recorded from the first-order solution: cumulative variance explained, per-factor proportions, and the inter-factor correlation matrix $\Phi$ with its mean off-diagonal.
 
 Two runs per cell: `pa` (at the parallel-analysis count) and `forced2f` (at exactly 2 factors). This is an exploratory Schmid–Leiman solution — cross-loadings are not constrained to zero — and is not equivalent to a confirmatory bifactor CFA.
 
@@ -446,7 +446,7 @@ For each benchmark $i$: delete row and column $i$ from the correlation matrix, r
 
 #### J.6 Cross-method congruence
 
-Pairwise factor congruence between solutions is the absolute cosine similarity between loading vectors, computed after sorting factors by sum of squared loadings and taken sign-invariantly. Solutions are compared only within the same dataset, the same solution type, and the same shape — and therefore only when two methods happen to agree on the factor count, which on this data is rare enough to be a reportable limitation in itself.
+Pairwise factor congruence \citep{lorenzoseva2006} between solutions is the absolute cosine similarity between loading vectors, computed after sorting factors by sum of squared loadings and taken sign-invariantly. Solutions are compared only within the same dataset, the same solution type, and the same shape — and therefore only when two methods happen to agree on the factor count, which on this data is rare enough to be a reportable limitation in itself.
 
 ---
 
