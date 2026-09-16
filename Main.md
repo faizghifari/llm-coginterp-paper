@@ -95,36 +95,27 @@ In this study we investigate the low-dimensional structure of model benchmark sc
 
 | Source family | Result rows | Distinct benchmarks |
 |---|---:|---:|
-| Stanford HELM (11 sub-leaderboards) | 4,942 | 138 |
-| HF Open LLM Leaderboard (v1 + v2) | 4,529 | 12 |
+| Stanford HELM | 4,942 | 138 |
+| HF Open LLM Leaderboard | 4,529 | 12 |
 | Papers With Code | 1,378 | 151 |
 | Kaggle AI Benchmarks | 844 | 26 |
-| Primary papers (arXiv / ACL / journals) | 430 | 69 |
-| Other named leaderboards and papers (26 sources) | 300 | 37 |
-| Unattributed | 295 | 40 |
+| Primary papers | 587 | 95 |
+| Other named leaderboards | 420 | 45 |
 | Chatbot Arena / LMArena | 202 | 1 |
 | llm-stats.com | 121 | 11 |
-| Vellum | 84 | 7 |
-| Artificial Analysis | 71 | 2 |
+| Vellum | 96 | 7 |
+| Artificial Analysis | 77 | 2 |
 | LiveBench | 55 | 1 |
 
 
 **Protocol.** Given the large number of fields from the EveryEvalEver schema, we follows a strict source-verification protocol. For every row, each field is populated only if the verified source explicitly documented it. In exception, there are some fields that can be inferred from the source and record itself using some deductive rules with small risk of error (full deductive rules are enumerated in [[Appendix-Methods#A Data sources and extraction|Appendix A]]). In particular, we put some focus on obtaining the release date field for both models and benchmarks, since we do some analysis on the temporal evolution of model intelligence. We only accept a release date if it is explicitly documented in the source, with principle that a dating source is trustworthy only when the model's identity is *given* or can be safely inferred. The release date info coverage is 2,007/2,014 models (99.7 %) and 623/624 benchmarks (99.8 %). However, since the quality of the model and benchmark release dates are different (97.3% vs 73.4% at month precision), we focus on temporal analysis on the model axis and treat the benchmark axis as provisional (see [[Appendix-Methods#L Known limitations and deviations|Appendix L.8]]).
 
-##### Score-redundant benchmark splits
-
-<!-- redundancy -> separate paragraph points or combined to protocol -->
-<!-- Need to add redundancy handling on same model and benchmark pair result rows from different sources. i think it handled somewhere in the protocol -->
-
-For each suspected family we compute the full pairwise Pearson correlation among its columns over the models evaluated on both, and decide per family: a family is collapsed to a single representative only when its columns are near-perfectly correlated across a non-trivial shared model set. This yields seven removals in total (version splits, dialect splits, difficulty and shot variants, per-language splits of a translated benchmark, a cross-source re-import, a corrupted composite identifier, and one partially redundant national-exam trio), for 47 benchmark identifiers and 2,216 result rows
-
-A separate, earlier pass removed translation duplicates at corpus level, i.e. benchmarks that are literal translations of an original already present,  while retaining multilingual benchmarks whose per-language content is independently sourced. After both passes, and after the canonical-metric filter and scale fix described below remove a further 1,463 rows, the text-only corpus contains 456 benchmarks, 1,618 models, and 13,251 result rows from a canonical archive of 624 benchmarks, 2,014 models and 19,030 result rows.
+**Redundancy.** We handle redundancy at two levels. At the row level, we deduplicate rows given a (model, benchmark) pair with the same evaluation setup by collapsing them to one row and resolve them by source-trust tier and recency ([[Appendix-Methods#C.4 Duplicate detection and integrity checks|Appendix C.4]]).
+Surviving rows for the same (model, benchmark) pair are later averaged into a single score (see Aggregation below). At the benchmark level, some benchmark identifiers measure the same thing under different attributes such as version, dialect, difficulty, num sample, or language splits of a translated benchmark. For each suspected case we compute the pairwise Pearson correlation between its columns over the models evaluated on both, and collapse the family to one representative only when correlations are near-perfect across a non-trivial shared model set. This removes 47 benchmark identifiers and 2,216 rows across seven families ([[Appendix-Methods#E Score-redundancy pruning|Appendix E]]). A separate, earlier pass removes literal-translation duplicates at the corpus level, keeping multilingual benchmarks whose per-language content is independently sourced. After both passes, the text-only corpus stands at 456 benchmarks, 1,618 models, and 13,251 result rows.
 
 ##### Aggregation
 
-The collected datasets contain same models evaluated under different conditions, e.g., chain-of-thought vs. no chain-of-thought. Since including the same models would lead to a violation of independence of distribution, multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Averaging is done after identity cleanup, so that it never masks a duplicate that should have been removed.
-
-Model identity is then resolved at two granularities, run as parallel conditions throughout the rest of the pipeline:
+The collected datasets contain same models evaluated under different conditions, e.g., chain-of-thought vs. no chain-of-thought. Since including the same models would lead to a violation of independence of distribution, multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Averaging is done after identity cleanup, so that it never masks a duplicate that should have been removed. Model identity is then resolved at two granularities, run as parallel conditions throughout the rest of the pipeline:
 
 - **`all_standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
 - **`all_aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row.
