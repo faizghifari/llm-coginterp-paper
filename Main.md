@@ -28,7 +28,7 @@ There is, in this endeavor, an implicit and subtle assumption: it is that in neu
 
 ## Hierarchical Causal Structure of Psychometric Measurements
 
-A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2004}. This assumption applies to all sorts of measurements, from arbitrary attitudinal surveys to psychological primitives like personality and intelligence.
+A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2004}, a distinction now also drawn explicitly in the design of LLM benchmarks \citep{federiakin2025}. This assumption applies to all sorts of measurements, from arbitrary attitudinal surveys to psychological primitives like personality and intelligence.
 
 The two is worth discussing as background. In the early days of personality research, the pioneering psychometrician \citet{allport1936} ran an ingenious idea: extract all or most of words from the English dictionary that can describe someone's personality, and then have a large sample of test takers to self-report how well the word describe themselves. The exhaustive dictionary search effectively allows researchers to measure as much of "the universe of all possible personalities". Following this, keyword self-reports are subject dimensional-reduction techniques like factor analysis, and the resulting low-dimensional latent factor is interpreted as a latent variable that causally influence the variance of all possible personality traits \citep{john1988}.
 
@@ -74,9 +74,11 @@ Prior work has tried applying factor analysis to benchmark scores. \citet{ilicag
 
 Another relevant work is \citet{burnell2023}, which correctly applied EFA to model benchmark scores. They found that LLM abilities are hierarchically structured under three major factors. However, they did not do higher-order factor analysis, where EFA is run on the resulting factor loadings, thus allowing us to understand to what extent are latent factors influenced by a presumable g-factor.
 
-A third relevant work is \citet{krakauer2026}, which applies PCA to 39 models and 14 benchmarks spanning 2019-2025 and finds a strong positive manifold, with a first principal component explaining as much as 90% of variance early on but declining to 64% by 2024. This is interpreted as a "rotation" in the $G$ factor as models increasingly outsource reasoning to external tools. Like \citet{ilicagignac2024}, this work relies on PCA rather than EFA, which, as we discuss in the Methodology, does not partition out systematic from error variance and so cannot be trusted to isolate a genuine $G$ factor from noise; a declining PC1 is equally consistent with the benchmark composition simply becoming less homogeneous over time. A fourth is \citet{haznitrama2026}, who run factor analysis across 156 models and 10 benchmarks and likewise report a unified general factor, before showing that a neuropsychologically-grounded benchmark battery reveals cognitive gaps that this general factor otherwise masks.
+A third relevant work is \citet{krakauer2026}, which applies PCA to 39 models and 14 benchmarks spanning 2019-2025 and finds a strong positive manifold, with a first principal component explaining as much as 90% of variance early on but declining to 64% by 2024. This is interpreted as a "rotation" in the $G$ factor as models increasingly outsource reasoning to external tools. Like \citet{ilicagignac2024}, this work relies on PCA rather than EFA, which, as we discuss in the Methodology, does not partition out systematic from error variance and so cannot be trusted to isolate a genuine $G$ factor from noise; a declining PC1 is equally consistent with the benchmark composition simply becoming less homogeneous over time. A fourth is \citet{haznitrama2026}, who run factor analysis across 156 models and 10 benchmarks and likewise report a unified general factor, before showing that a neuropsychologically-grounded benchmark battery reveals cognitive gaps that this general factor otherwise masks. A fifth, \citet{federiakin2025}, fits a single-factor confirmatory factor analysis (CFA) to the HuggingFace Open LLM Leaderboard to re-rank models by a psychometrically-derived score; like \citet{ilicagignac2024}, imposing a single-factor structure by construction forecloses the question of whether the data actually supports one, which only EFA can answer.
 
-A common weakness of all four papers, though, are the relatively few number of benchmarks or variables derived thereof. \citet{ilicagignac2024} fit a model with 20 variables, \citet{burnell2023} uses 23 variables, \citet{krakauer2026} uses only 14, and \citet{haznitrama2026} uses only 10. Most of these benchmarks are popular benchmarks measuring "smartness" for a lack of better term, like mathematics, academic knowledge, and common-sense reasoning.
+A common weakness of these papers, though, are the relatively few number of benchmarks or variables derived thereof. \citet{ilicagignac2024} fit a model with 20 variables, \citet{burnell2023} uses 23 variables, \citet{krakauer2026} uses only 14, and \citet{haznitrama2026} uses only 10; \citet{federiakin2025} is narrower still, fitting to the handful of aggregate tasks on a single leaderboard. Most of these benchmarks are popular benchmarks measuring "smartness" for a lack of better term, like mathematics, academic knowledge, and common-sense reasoning (an even more extreme case is \citep{holm2024}, where a single factor explains 95% of variance across just 8 scenarios in one language).
+
+A related methodological concern is raised by \citet{kearns2026}, who show that latent factor models fit to LLM benchmark scores can conflate the extracted capability factor with model scale unless scaling relationships are explicitly modeled.
 
 ## The present study
 
@@ -177,7 +179,7 @@ This metric is used for hyperparameter selection within each method (rank, $k$, 
 
 ## Factor analysis
 
-We dedicate this section to be a little longer, as we use methodologies that are standard in psychometric research, but critically lacking in LLM intelligence research \citep{ilicagignac2024,burnell2023}. There are 3 issues common in LLM intelligence research: 1. The use of principal components analysis (PCA) over exploratory factor analysis (EFA), 2. Not rotating factor solutions, 3. Not using bifactor transformation and reporting $\omega$ coefficients.
+We dedicate this section to be a little longer, as we use methodologies that are standard in psychometric research, but critically lacking in LLM intelligence research \citep{ilicagignac2024,burnell2023,ye2025}. There are 3 issues common in LLM intelligence research: 1. The use of principal components analysis (PCA) over exploratory factor analysis (EFA), 2. Not rotating factor solutions, 3. Not using bifactor transformation and reporting $\omega$ coefficients.
 
 First, the use of EFA over PCA is informed by the causal effect of the latent variables over the benchmark scores. As described in the introduction, an abstract, "raw" intelligence is assumed, by existing literature, to precedes performance in domain-specific skills \citep{schneider2018}, correlations between benchmarks are directly and causally influenced by variance of the lower-dimensional latent variables. Crucially, direct eigendecomposition does not try to exclude or partition any variance, so principal components captures both systematic and error/random variance. The same is not true for EFA's multi-step algorithm. Psychometricians would call this this distinction between PCA and EFA to be formative vs. causal \citep{vandermaas2014}.
 
@@ -208,61 +210,3 @@ This is also not to say that LLMs are not intelligent (in our private view, they
 
 ## Mechanisms for a possible g-factor
 
-# References
-
-- Allport, G. W., & Odbert, H. S. (1936). Trait-names: A psycho-lexical study. _Psychological monographs_, _47_(1), i.
-- Borsboom, D., & Cramer, A. O. (2013). Network analysis: an integrative approach to the structure of psychopathology. _Annual review of clinical psychology_, _9_(1), 91-121.
-- Borsboom, D., Mellenbergh, G. J., & Van Heerden, J. (2004). The concept of validity. _Psychological review_, _111_(4), 1061.
-- Caruana, Rich. "Multitask learning." _Machine learning_ 28.1 (1997): 41-75.
-- DeYoung, C. G., Quilty, L. C., & Peterson, J. B. (2007). Between facets and domains: 10 aspects of the Big Five. _Journal of personality and social psychology_, _93_(5), 880.
-- Burnell, R., Hao, H., Conway, A. R., & Orallo, J. H. (2023). Revealing the structure of language model capabilities. *arXiv preprint arXiv:2306.10062*.
-- Chollet, F. (2019). On the measure of intelligence. _arXiv preprint arXiv:1911.01547_.
-- Horn, J. L. (1965). A rationale and test for the number of common factors. *Psychometrika*, *30*(2), 179-185.
-- Ilica, D., & Gignac, G. E. (2024). Evidence of interrelated cognitive-like capabilities in large language models: Indications of artificial general intelligence or achievement? *Intelligence*, *106*, 101858.
-- Jensen, A. R. (2002). Psychometric g: Definition and substantiation. In *The general factor of intelligence* (pp. 51-66). Psychology Press.
-- John, O. P., Angleitner, A., & Ostendorf, F. (1988). The lexical approach to personality: A historical review of trait taxonomic research. _European journal of Personality_, _2_(3), 171-203.
-- Lee, K., & Ashton, M. C. (2018). Psychometric properties of the HEXACO-100. _Assessment_, _25_(5), 543-556.
-- Johnson, W., Bouchard Jr, T. J., Krueger, R. F., McGue, M., & Gottesman, I. I. (2004). Just one g: Consistent results from three test batteries. *Intelligence*, *32*(1), 95-107.
-- Johnson, W., Te Nijenhuis, J., & Bouchard Jr, T. J. (2008). Still just 1 g: Consistent results from five test batteries. *Intelligence*, *36*(1), 81-95.
-- Kranzler, J. H., & Jensen, A. R. (1989). Inspection time and intelligence: A meta-analysis. *Intelligence*, *13*(4), 329-347.
-- Menghi, N., Johnston, W. J., Vigano’, S., Hinrichs, M. A. B., Maess, B., Fusi, S., & Doeller, C. F. (2025). The effects of task similarity during representation learning in brains and neural networks. _Nature Communications_, _16_(1), 10812.
-- Schneider, W. J., & McGrew, K. S. (2018). The Cattell-Horn-Carroll theory of cognitive abilities. _Contemporary intellectual assessment: Theories, tests, and issues_, _733_(163), 6.
-- Spearman, C. (1904). “General Intelligence,” Objectively Determined and Measured. _The American Journal of Psychology_, _15_(2), 201–292. https://doi.org/10.2307/1412107
-- Van der Maas, H. L., Kan, K. J., & Borsboom, D. (2014). Intelligence is what the intelligence test measures. Seriously. *Journal of Intelligence*, *2*(1), 12-15.
-
-
-## Reading list
-%% uncited sources %%
-## Psychometric g-factor
-
-- Waterhouse, L. (2023). Why multiple intelligences theory is a neuromyth. *Frontiers in psychology*, *14*, 1217288.
-- Pokropek, A., Marks, G. N., & Borgonovi, F. (2022). How much do students' scores in PISA reflect general intelligence and how much do they reflect specific abilities? *Journal of Educational Psychology*, *114*(5), 1121.
-- Major, J. T., Johnson, W., & Bouchard Jr, T. J. (2011). The dependability of the general factor of intelligence: Why small, single-factor models do not adequately represent g. *Intelligence*, *39*(5), 418-433.
-
-
-## Intelligence in AI/ML/Compsci
-
-- Morris, M. R., Sohl-Dickstein, J., Fiedel, N., Warkentin, T., Dafoe, A., Faust, A., ... & Legg, S. (2023). Levels of AGI for Operationalizing Progress on the Path to AGI. *arXiv preprint arXiv:2311.02462*.
-- Chollet, F., Knoop, M., Kamradt, G., Landers, B., & Pinkard, H. (2025). Arc-agi-2: A new challenge for frontier ai reasoning systems. *arXiv preprint arXiv:2505.11831*.
-
-## Prior work
-
-
-## Methods and statistical tools
-
-
-- Schmid, J., & Leiman, J. M. (1957). The development of hierarchical factor solutions. *Psychometrika*, *22*(1), 53-61.
-- Revelle, W., & Zinbarg, R. E. (2009). Coefficients alpha, beta, omega, and the glb: Comments on Sijtsma. *Psychometrika*, *74*(1), 145-154.
-- Revelle, W. (2024). *psych: Procedures for Psychological, Psychometric, and Personality Research*. R package.
-- Lorenzo-Seva, U., & ten Berge, J. M. (2006). Tucker's congruence coefficient as a meaningful index of factor similarity. *Methodology*, *2*(2), 57-64.
-- Mazumder, R., Hastie, T., & Tibshirani, R. (2010). Spectral regularization algorithms for learning large incomplete matrices. *Journal of Machine Learning Research*, *11*, 2287-2322.
-- Cao, Y., Liang, Y., & Valiant, G. (2023). One-sided matrix completion from two observations per row. *ICML*.
-- Keshavan, R. H., Montanari, A., & Oh, S. (2010). Matrix completion from a few entries. *IEEE Transactions on Information Theory*, *56*(6), 2980-2998.
-- Chatterjee, S. (2015). Matrix estimation by universal singular value thresholding. *The Annals of Statistics*, *43*(1), 177-214.
-- Stekhoven, D. J., & Bühlmann, P. (2012). MissForest — non-parametric missing value imputation for mixed-type data. *Bioinformatics*, *28*(1), 112-118.
-- van Buuren, S., & Groothuis-Oudshoorn, K. (2011). mice: Multivariate imputation by chained equations in R. *Journal of Statistical Software*, *45*(3), 1-67.
-- Higham, N. J. (2002). Computing the nearest correlation matrix — a problem from finance. *IMA Journal of Numerical Analysis*, *22*(3), 329-343.
-- Rubin, D. B. (1976). Inference and missing data. *Biometrika*, *63*(3), 581-592.
-- Liang, P., Bommasani, R., Lee, T., et al. (2023). Holistic evaluation of language models (HELM). *TMLR*.
-- Fourrier, C., Habib, N., Lozovskaya, A., Szafer, K., & Wolf, T. (2024). Open LLM Leaderboard v2. Hugging Face.
-- Chiang, W. L., Zheng, L., Sheng, Y., et al. (2024). Chatbot Arena: An open platform for evaluating LLMs by human preference. *ICML*.
