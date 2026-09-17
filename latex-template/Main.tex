@@ -756,106 +756,6 @@ different imputation algorithms.
 
 \section{Results}\label{results}
 
-\subsection{Dataset characteristics}\label{dataset-characteristics}
-
-Table 3 below shows the
-
-\textbf{Table 3}. Benchmark statistics with respect of their computable
-pairwise Pearson correlation. A pairwise correlation is computable when
-n \textgreater= 4. Compt. = computable benchmarks, Corrs = correlations.
-
-{\def\LTcaptype{none} % do not increment counter
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.2222}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0370}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0988}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1358}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1235}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1235}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1358}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1235}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Dataset
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-N
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-N Compt.
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Mean Corrs.
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Max Corrs.
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Min Avg. N
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Mean Avg. N
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Max Avg. N
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-raw\_all\_standard & 404 & 312 & 61.6 & 229 & 0.0 & 7.6 & 39.4 \\
-raw\_all\_aggressive & 380 & 301 & 106.6 & 254 & 0.0 & 4.6 & 10.9 \\
-C\_all\_standard & 78 & 78 & 47.2 & 77 & 5.8 & 28.6 & 54.9 \\
-C\_all\_aggressive & 102 & 102 & 78.5 & 101 & 4.4 & 9.6 & 18.1 \\
-R\_all\_standard & 298 & 270 & 81.4 & 228 & 0.0 & 8.8 & 30.5 \\
-R\_all\_aggressive & 310 & 283 & 130.2 & 254 & 0.0 & 5.3 & 9.9 \\
-S\_all\_standard & 124 & 124 & 67.7 & 118 & 5.7 & 20.2 & 47.1 \\
-S\_all\_aggressive & 293 & 292 & 138.1 & 254 & 0.0 & 5.8 & 10.0 \\
-\end{longtable}
-}
-
-\textbf{Table 4.} Per-benchmark pairs statistics: Shared n and
-\textbar r\textbar{} of computable correlations. Compt. = computable
-pairs.
-
-{\def\LTcaptype{none} % do not increment counter
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.2308}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0641}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1026}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1026}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1410}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1282}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1282}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1026}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Dataset
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-N
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-N Compt.
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-\% Compt.
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Mean N/pair
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Max N/pair
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Mean \textbar r\textbar{}
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-SD \textbar r\textbar{}
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-raw\_all\_standard & 81406 & 12442 & 15.3 & 11.3 & 332 & 0.505 &
-0.287 \\
-raw\_all\_aggressive & 72010 & 20261 & 28.1 & 6.2 & 105 & 0.466 &
-0.281 \\
-C\_all\_standard & 3003 & 1840 & 61.3 & 30.2 & 332 & 0.539 & 0.271 \\
-C\_all\_aggressive & 5151 & 4006 & 77.8 & 9.9 & 105 & 0.432 & 0.264 \\
-R\_all\_standard & 44253 & 12134 & 27.4 & 10.3 & 109 & 0.503 & 0.287 \\
-R\_all\_aggressive & 47895 & 20188 & 42.2 & 6.1 & 64 & 0.466 & 0.281 \\
-S\_all\_standard & 7626 & 4198 & 55.0 & 20.0 & 332 & 0.485 & 0.273 \\
-S\_all\_aggressive & 42778 & 20230 & 47.3 & 6.1 & 70 & 0.466 & 0.281 \\
-\end{longtable}
-}
-
 \subsection{Imputation quality}\label{imputation-quality}
 
 We present the result of the imputations
@@ -902,6 +802,64 @@ C\_all\_standard & softimpute\_corr & 0.8126 & 0.317 & rank=5 (swept
 1..7) \\
 \end{longtable}
 }
+
+\subsection{Omega}\label{omega}
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2535}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2113}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0423}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0845}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1408}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2676}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Imputer
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+k
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Var\%
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(\omega_h\)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\(\phi_{\text{avg}}\)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+C\_all\_standard & default & 20 & 85.6\% & 0.747 & 0.090 \\
+raw\_all\_standard & default & 20 & 46.0\% & 0.701 & 0.071 \\
+C\_all\_standard & missforest & 4 & 88.4\% & 0.695 & 0.398 \\
+S\_all\_standard & softimpute\_corr & 5 & 46.6\% & 0.676 & 0.306 \\
+S\_all\_standard & default & 20 & 73.2\% & 0.675 & 0.066 \\
+C\_all\_standard & zeros & 20 & 84.9\% & 0.661 & 0.080 \\
+R\_all\_standard & default & 20 & 51.4\% & 0.649 & 0.094 \\
+S\_all\_standard & zeros & 20 & 72.5\% & 0.562 & 0.033 \\
+C\_all\_standard & softimpute\_corr & 4 & 58.6\% & 0.514 & 0.247 \\
+R\_all\_standard & zeros & 20 & 49.9\% & 0.484 & 0.033 \\
+raw\_all\_standard & zeros & 20 & 38.3\% & 0.459 & 0.024 \\
+R\_all\_aggressive & zeros & 20 & 66.4\% & 0.457 & -0.003 \\
+S\_all\_aggressive & zeros & 20 & 67.4\% & 0.454 & 0.004 \\
+raw\_all\_aggressive & zeros & 20 & 57.1\% & 0.445 & 0.012 \\
+R\_all\_aggressive & default & 20 & 66.4\% & 0.431 & -0.002 \\
+S\_all\_aggressive & default & 20 & 67.4\% & 0.410 & -0.008 \\
+raw\_all\_aggressive & default & 20 & 58.4\% & 0.332 & 0.023 \\
+S\_all\_standard & softimpute & 5 & 91.3\% & 0.257 & 0.094 \\
+C\_all\_standard & softimpute & 9 & 94.3\% & 0.242 & 0.038 \\
+C\_all\_aggressive & softimpute & 5 & 89.0\% & 0.183 & -0.001 \\
+C\_all\_aggressive & default & 20 & 83.6\% & 0.072 & 0.025 \\
+C\_all\_aggressive & zeros & 20 & 83.6\% & 0.072 & 0.044 \\
+C\_all\_standard & onesidedmc & 2 & 100.0\% & 0.036 & 0.054 \\
+S\_all\_standard & missforest & 4 & 90.0\% & 0.032 & 0.054 \\
+S\_all\_standard & onesidedmc & 2 & 100.0\% & 0.006 & 0.015 \\
+\end{longtable}
+}
+
+\subsection{Factor loadings}\label{factor-loadings}
 
 \begin{figure}
 \centering
