@@ -125,8 +125,7 @@ interpretable}
   \end{abstract}
 
 
-\hypertarget{introduction}{%
-\section{Introduction}\label{introduction}}
+\section{Introduction}\label{introduction}
 
 The field of artificial intelligence is rife with theories and
 conceptualization about what intelligence ``is''
@@ -181,12 +180,9 @@ no silver-bullet ``general intelligence'' factor exists, meaning a
 generally-intelligent language model cannot be reached by targeting a
 single conceptual ability alone.
 
-\hypertarget{background-and-related-work}{%
-\section{Background and Related
-Work}\label{background-and-related-work}}
+\section{Background and Related Work}\label{background-and-related-work}
 
-\hypertarget{psychometric-background}{%
-\subsection{Psychometric Background}\label{psychometric-background}}
+\subsection{Psychometric Background}\label{psychometric-background}
 
 A common theoretical ground in psychometric measurement is that
 observable human behaviors are \textbf{causally} influenced by latent
@@ -239,9 +235,8 @@ observable outcomes. If there is no causal latent factors, then
 observable behavior would have emerged \emph{ex nihilo}, which made
 little sense. Everything has a cause, including human behavior.
 
-\hypertarget{causality-in-machine-intelligence}{%
 \subsection{Causality in Machine
-Intelligence}\label{causality-in-machine-intelligence}}
+Intelligence}\label{causality-in-machine-intelligence}
 
 Whether or not intelligence theories are causal concerns, as
 \citet{borsboom2004} described for psychometrics, the need to explain
@@ -311,8 +306,7 @@ for example, coding improves reasoning improves coding. There are no
 temporal precedence within a static neural network weights or a
 plausible mechanism for online cyclical learning.
 
-\hypertarget{theoretical-rationale}{%
-\subsection{Theoretical Rationale}\label{theoretical-rationale}}
+\subsection{Theoretical Rationale}\label{theoretical-rationale}
 
 Understanding the patterns of benchmark correlation (which is what
 factor analysis do) is theoretically relevant to cognitive science.
@@ -379,8 +373,7 @@ appear extreme, we argue that it is a reasonable position to expect that
 LLMs work in ways entirely unintuitive to the human mind, and having no
 priors whatsoever is the correct way to start our inquiry.
 
-\hypertarget{related-work}{%
-\subsection{Related Work}\label{related-work}}
+\subsection{Related Work}\label{related-work}
 
 Prior work has tried applying factor analysis to benchmark scores, but
 always at a much smaller scale. \citet{ilicagignac2024} applied factor
@@ -432,8 +425,7 @@ language). A related methodological concern, raised by
 scores can conflate the extracted capability factor with model scale
 unless scaling relationships are explicitly modeled.
 
-\hypertarget{methodology}{%
-\section{Methodology}\label{methodology}}
+\section{Methodology}\label{methodology}
 
 In this study we investigate the low-dimensional structure of model
 benchmark scores, which comprise of distinct but correlated latent
@@ -451,8 +443,7 @@ different densification and imputation methods (wherein each introduce
 their own biases and assumptions), with the goal to triangulate each of
 their results to find a common characteristic.
 
-\hypertarget{data-collection}{%
-\subsection{Data Collection}\label{data-collection}}
+\subsection{Data Collection}\label{data-collection}
 
 \textbf{Scope.} The scope of this study is limited to the evaluation of
 generative language models on a set of text-only benchmarks. We define
@@ -466,7 +457,8 @@ The schema includes fields for model, benchmark, metric, score, and
 other metadata such as inference setup, metric interpretation,
 evaluation date, and source. Full inclusion and exclusion criteria are
 given in
-\href{Appendix-Methods\#B\%20Inclusion\%20and\%20exclusion\%20criteria}{Appendix B}.
+\href{Appendix-Methods\#B\%20Inclusion\%20and\%20exclusion\%20criteria}{Appendix
+B}.
 
 \textbf{Sources.} We collect the benchmark data from four types of
 source, in descending order of volume: (i) large curated evaluation
@@ -480,12 +472,13 @@ Artificial Analysis, Vellum, and LiveBench, together with
 benchmark-specific leaderboards and primary papers reporting original
 evaluations. Table 1 gives the composition of the text-only corpus by
 source family.
-\href{Appendix-Methods\#A\%20Data\%20sources\%20and\%20extraction}{Appendix A}
-lists every named source and the extraction route used for each.
+\href{Appendix-Methods\#A\%20Data\%20sources\%20and\%20extraction}{Appendix
+A} lists every named source and the extraction route used for each.
 
 \textbf{Table 1.} Composition of the text-only corpus by source family
 (13,251 result rows over 456 benchmarks and 1,618 models).
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lrr@{}}
 \toprule\noalign{}
 Source family & Result rows & Distinct benchmarks \\
@@ -505,6 +498,7 @@ Vellum & 96 & 7 \\
 Artificial Analysis & 77 & 2 \\
 LiveBench & 55 & 1 \\
 \end{longtable}
+}
 
 \textbf{Protocol.} Given the large number of fields from the
 EveryEvalEver schema, we follows a strict source-verification protocol.
@@ -512,27 +506,29 @@ For every row, each field is populated only if the verified source
 explicitly documented it. In exception, there are some fields that can
 be inferred from the source and record itself using some deductive rules
 with small risk of error (full deductive rules are enumerated in
-\href{Appendix-Methods\#A\%20Data\%20sources\%20and\%20extraction}{Appendix A}).
-In particular, we put some focus on obtaining the release date field for
-both models and benchmarks, since we do some analysis on the temporal
-evolution of model intelligence. We only accept a release date if it is
-explicitly documented in the source, with principle that a dating source
-is trustworthy only when the model's identity is \emph{given} or can be
-safely inferred. The release date info coverage is 2,007/2,014 models
-(99.7 \%) and 623/624 benchmarks (99.8 \%). However, since the quality
-of the model and benchmark release dates are different (97.3\% vs 73.4\%
-at month precision), we focus on temporal analysis on the model axis and
-treat the benchmark axis as provisional (see
-\href{Appendix-Methods\#L\%20Known\%20limitations\%20and\%20deviations}{Appendix L.8}).
+\href{Appendix-Methods\#A\%20Data\%20sources\%20and\%20extraction}{Appendix
+A}). In particular, we put some focus on obtaining the release date
+field for both models and benchmarks, since we do some analysis on the
+temporal evolution of model intelligence. We only accept a release date
+if it is explicitly documented in the source, with principle that a
+dating source is trustworthy only when the model's identity is
+\emph{given} or can be safely inferred. The release date info coverage
+is 2,007/2,014 models (99.7 \%) and 623/624 benchmarks (99.8 \%).
+However, since the quality of the model and benchmark release dates are
+different (97.3\% vs 73.4\% at month precision), we focus on temporal
+analysis on the model axis and treat the benchmark axis as provisional
+(see
+\href{Appendix-Methods\#L\%20Known\%20limitations\%20and\%20deviations}{Appendix
+L.8}).
 
 \textbf{Redundancy.} We handle redundancy at two levels. At the row
 level, we deduplicate rows given a (model, benchmark) pair with the same
 evaluation setup by collapsing them to one row and resolve them by
 source-trust tier and recency
-(\href{Appendix-Methods\#C.4\%20Duplicate\%20detection\%20and\%20integrity\%20checks}{Appendix C.4}).
-Surviving rows for the same (model, benchmark) pair are later averaged
-into a single score (see Aggregation below). At the benchmark level,
-some benchmark identifiers measure the same thing under different
+(\href{Appendix-Methods\#C.4\%20Duplicate\%20detection\%20and\%20integrity\%20checks}{Appendix
+C.4}). Surviving rows for the same (model, benchmark) pair are later
+averaged into a single score (see Aggregation below). At the benchmark
+level, some benchmark identifiers measure the same thing under different
 attributes such as version, dialect, difficulty, num sample, or language
 splits of a translated benchmark. For each suspected case we compute the
 pairwise Pearson correlation between its columns over the models
@@ -546,11 +542,9 @@ corpus level, keeping multilingual benchmarks whose per-language content
 is independently sourced. After both passes, the text-only corpus stands
 at 456 benchmarks, 1,618 models, and 13,251 result rows.
 
-\hypertarget{data-processing}{%
-\subsection{Data Processing}\label{data-processing}}
+\subsection{Data Processing}\label{data-processing}
 
-\hypertarget{aggregation}{%
-\subsubsection{Aggregation}\label{aggregation}}
+\subsubsection{Aggregation}\label{aggregation}
 
 The collected datasets contain same models evaluated under different
 conditions, e.g., chain-of-thought vs.~no chain-of-thought. Since
@@ -585,8 +579,7 @@ one family as one entity. Neither is correct a priori, which is why both
 are carried forward. The token-level rules are given in
 \href{Appendix-Methods\#F\%20Model-identity\%20collapse}{Appendix F}.
 
-\hypertarget{metric-selection}{%
-\subsubsection{Metric selection}\label{metric-selection}}
+\subsubsection{Metric selection}\label{metric-selection}
 
 About 92 of our collected benchmarks were reported under several
 metrics. As different metrics are not comparable, we kept exactly one
@@ -597,8 +590,7 @@ coverage alone chooses badly. This drops 1,420 result rows and 706
 model-cells. Finally, benchmarks observed for only one model are
 dropped.
 
-\hypertarget{densification}{%
-\subsubsection{Densification}\label{densification}}
+\subsubsection{Densification}\label{densification}
 
 At 2--4 \% observed, the raw data is ineligible for virtually any data
 analysis. We therefore improve the dataset density by applying several
@@ -634,6 +626,7 @@ so that we can include as much different benchmarks as possible.
 corpus. ``Retained'' is the fraction of observed cells surviving the
 densifier peel.
 
+{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lllrr@{}}
 \toprule\noalign{}
 Densifier & Strategy & Shape & Density & Retained \\
@@ -650,9 +643,9 @@ S & \texttt{all\_aggressive} & 124 × 293 & 10\% & 81\% \\
 R & \texttt{all\_standard} & 175 × 298 & 11.8\% & 55\% \\
 R & \texttt{all\_aggressive} & 97 × 310 & 11.7\% & 78\% \\
 \end{longtable}
+}
 
-\hypertarget{matrix-completion}{%
-\subsubsection{Matrix completion}\label{matrix-completion}}
+\subsubsection{Matrix completion}\label{matrix-completion}
 
 As mentioned before, the densifier leaves only around 10\% density for
 each dataset. This number is still far from being usable for any
@@ -699,9 +692,8 @@ correlation lying within a per-pair Fisher-\emph{z} confidence band
 scaled to that pair's co-observation count, and a \textbf{Gaussian
 graphical model} MLE completion over the observed-pair graph.
 
-\hypertarget{evaluating-the-completion}{%
 \subsubsection{Evaluating the
-completion}\label{evaluating-the-completion}}
+completion}\label{evaluating-the-completion}
 
 Given the challenging nature of our dataset's missingness pattern, we
 need a way to measure the quality of our data imputation. As such, at
@@ -736,8 +728,7 @@ This metric is used for hyperparameter selection within each method
 Imputation results whose held-out \(\text{R}^2\) falls below 0.4 is not
 factored at all, as it indicates that data-fill is not trustworthy.
 
-\hypertarget{factor-analysis}{%
-\subsection{Factor analysis}\label{factor-analysis}}
+\subsection{Factor analysis}\label{factor-analysis}
 
 We dedicate this section to be a little longer, as we use methodologies
 that are standard in psychometric research, but critically lacking in
@@ -801,19 +792,161 @@ factors to 2 (not including the bifactor \(G\) factor). The forced-2 run
 exists because the parallel-analysis count is itself unstable under
 different imputation algorithms.
 
-\hypertarget{results}{%
-\section{Results}\label{results}}
+\section{Results}\label{results}
 
-\hypertarget{discussion}{%
-\section{Discussion}\label{discussion}}
+\subsection{Dataset characteristics}\label{dataset-characteristics}
 
-\hypertarget{the-g-factor-is-only-partially-coherent}{%
+Table 3 below shows the
+
+\textbf{Table 3}. Benchmark statistics with respect of their computable
+pairwise Pearson correlation. A pairwise correlation is computable when
+n \textgreater= 4. Compt. = computable, Corrs = correlations.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.2222}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0370}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0988}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1358}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1235}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1235}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1358}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1235}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+N
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+N Compt.
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Mean Corrs.
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Max Corrs.
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Min Avg. N
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Mean Avg. N
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Max Avg. N
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+raw\_all\_standard & 404 & 312 & 61.6 & 229 & 0.0 & 7.6 & 39.4 \\
+raw\_all\_aggressive & 380 & 301 & 106.6 & 254 & 0.0 & 4.6 & 10.9 \\
+C\_all\_standard & 78 & 78 & 47.2 & 77 & 5.8 & 28.6 & 54.9 \\
+C\_all\_aggressive & 102 & 102 & 78.5 & 101 & 4.4 & 9.6 & 18.1 \\
+R\_all\_standard & 298 & 270 & 81.4 & 228 & 0.0 & 8.8 & 30.5 \\
+R\_all\_aggressive & 310 & 283 & 130.2 & 254 & 0.0 & 5.3 & 9.9 \\
+S\_all\_standard & 124 & 124 & 67.7 & 118 & 5.7 & 20.2 & 47.1 \\
+S\_all\_aggressive & 293 & 292 & 138.1 & 254 & 0.0 & 5.8 & 10.0 \\
+\end{longtable}
+}
+
+\textbf{Table 4.} Per-benchmark pairs statistics: Shared n and
+\textbar r\textbar{} of computable correlations. Compt. = correlations.
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.2308}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.0641}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1026}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1026}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1410}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1282}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1282}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 14\tabcolsep) * \real{0.1026}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+N
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+N Compt.
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+\% Compt.
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Mean N/pair
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Max N/pair
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Mean \textbar r\textbar{}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+SD \textbar r\textbar{}
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+raw\_all\_standard & 81406 & 12442 & 15.3 & 11.3 & 332 & 0.505 &
+0.287 \\
+raw\_all\_aggressive & 72010 & 20261 & 28.1 & 6.2 & 105 & 0.466 &
+0.281 \\
+C\_all\_standard & 3003 & 1840 & 61.3 & 30.2 & 332 & 0.539 & 0.271 \\
+C\_all\_aggressive & 5151 & 4006 & 77.8 & 9.9 & 105 & 0.432 & 0.264 \\
+R\_all\_standard & 44253 & 12134 & 27.4 & 10.3 & 109 & 0.503 & 0.287 \\
+R\_all\_aggressive & 47895 & 20188 & 42.2 & 6.1 & 64 & 0.466 & 0.281 \\
+S\_all\_standard & 7626 & 4198 & 55.0 & 20.0 & 332 & 0.485 & 0.273 \\
+S\_all\_aggressive & 42778 & 20230 & 47.3 & 6.1 & 70 & 0.466 & 0.281 \\
+\end{longtable}
+}
+
+\subsection{Imputation quality}\label{imputation-quality}
+
+We present the result of the imputations
+
+\textbf{Table 4} Goodness-of-fit of accepted imputations (R²
+\textgreater{} 0.3).
+
+{\def\LTcaptype{none} % do not increment counter
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2105}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1974}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0789}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0658}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.4474}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Dataset
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Imputer
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+RMSE
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+R²
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Parameters
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+S\_all\_standard & softimpute & 0.6338 & 0.504 & rank=5 (swept 1..10) \\
+C\_all\_standard & softimpute & 0.6575 & 0.493 & rank=9 (swept 1..10) \\
+S\_all\_standard & missforest & 0.6798 & 0.471 & ntree=400 (swept
+{[}50,100,200,400{]}) \\
+C\_all\_standard & missforest & 0.7321 & 0.399 & ntree=50 (swept
+{[}50,100,200,400{]}) \\
+S\_all\_standard & softimpute\_corr & 0.7637 & 0.378 & rank=6 (swept
+1..10) \\
+S\_all\_standard & onesidedmc & 0.7500 & 0.340 & r=2 (swept 1..10) \\
+C\_all\_aggressive & softimpute & 0.6739 & 0.337 & rank=5 (swept
+1..10) \\
+C\_all\_standard & onesidedmc & 0.8213 & 0.333 & r=2 (swept 1..10) \\
+C\_all\_standard & softimpute\_corr & 0.8126 & 0.317 & rank=5 (swept
+1..7) \\
+\end{longtable}
+}
+
+\section{Discussion}\label{discussion}
+
 \subsection{The g-factor is only partially
-coherent}\label{the-g-factor-is-only-partially-coherent}}
+coherent}\label{the-g-factor-is-only-partially-coherent}
 
-\hypertarget{bottom-up-theories-of-llm-intelligence}{%
 \subsection{Bottom-up theories of LLM
-intelligence}\label{bottom-up-theories-of-llm-intelligence}}
+intelligence}\label{bottom-up-theories-of-llm-intelligence}
 
 Importantly what we find is that, unlike theories of human psychology
 \citep{schneider2018} where intelligence are explicitly assumed to
@@ -834,9 +967,8 @@ empirical approach without overfitting theories of human intelligence
 into systems that possess significant architectural and functional
 divergence from humans.
 
-\hypertarget{mechanisms-for-a-possible-g-factor}{%
 \subsection{Mechanisms for a possible
-g-factor}\label{mechanisms-for-a-possible-g-factor}}
+g-factor}\label{mechanisms-for-a-possible-g-factor}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
