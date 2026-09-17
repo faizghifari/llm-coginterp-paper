@@ -120,53 +120,68 @@ interpretable}
   \end{abstract}
 
 
-\section{Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
 The field of artificial intelligence is rife with theories and
 conceptualization about what intelligence ``is''
-\citep{chollet2019,morris2023,waterhouse2023}. With neural network
-specifically, a longstanding issue is how the models are ``overfitting''
-their training set, and thus their performance in various tasks
-(``intelligence'', so to say) lack powerful generalizability that
-cognitive entities like humans have. Thus, the development of advanced
-intelligent systems rely on a working notion of intelligence as adaptive
-and effective across diverse tasks: a singular notion of
-``generalizability.''
-
-There is, in this endeavor, an implicit and subtle assumption: it is
-that in neural networks, much like humans, cognitive abilities are
-structured according to a causal hierarchy. The word causal is important
-here. A popular notion of general intelligence in the field is the
+\citep{chollet2019,morris2023,waterhouse2023}. With neural networks
+specifically, a longstanding issue is how models ``overfit'' their
+training set, and thus their performance across various tasks
+(``intelligence'') lacks the powerful generalizability that cognitive
+entities like humans have. In pursuit of this generalizability, there is
+an implicit and subtle assumption that in neural networks, much like
+humans, cognitive abilities are structured according to a causal
+hierarchy. A popular notion of general intelligence in the field is the
 concept ``fluid intelligence'' borrowed from psychometric research,
 defined loosely as the ability to perform well in any tasks regardless
-of the content (i.e., a ``domain-free'' cognitive capacity). By
-definition this construct holds a causal relation, where an increase of
-fluid intelligence leads to an increase in the mastery of every other
-cognitive task. In other words, domain-general ability \emph{precedes
-and builds} domain-specific abilities.
+of content (i.e., a ``domain-free'' cognitive capacity). By definition
+this construct holds a causal relation, where an increase of fluid
+intelligence leads to an increase in the mastery of every other
+cognitive task, so domain-general ability \emph{precedes and builds}
+domain-specific abilities. Yet this assumption is rarely tested
+directly, and where it has been, only at a much smaller scale.
 
-\subsection{The present study}\label{the-present-study}
+Prior work has tried applying factor analysis to benchmark scores, but
+always at a much smaller scale, and often by fitting a human-informed
+structure rather than discovering one bottom-up. \citet{ilicagignac2024}
+fit confirmatory factor analysis to a human-informed causal structure,
+\citet{burnell2023} found three major factors via EFA without testing
+for a higher-order \(G\), and
+\citet{krakauer2026,federiakin2025,haznitrama2026} each report a unified
+general factor at similarly small scale. A common weakness across these
+studies is the relatively few number of benchmarks or variables, ranging
+from 10 to 23, most of which measure ``smartness'' narrowly
+(mathematics, academic knowledge, common-sense reasoning) and which risk
+conflating the extracted capability factor with model scale
+\citep{kearns2026}.
 
 Within the context of prior work, our study presents an unprecedentedly
 large factor analysis of benchmark scores. The collection comprises
 1,618 models and 456 benchmarks over 13,251 evaluation scores.
 Crucially, our pool of benchmarks covers a highly diverse set of tasks,
-including those quite outside of the mainstream. Covering only few
+including those quite outside of the mainstream. Covering only a few
 popular benchmarks like prior work does is problematic. First, given
 their popularity, these benchmarks may well be correlated due to what we
-call a common-investment bias: there is a high chance their correlations
-substantially polluted by the fact that organizations expend more
-efforts to perform well in said benchmarks. Second, there should be no
-discrimination as to what tasks are important and which aren't: whether
-a task appears miscellaneous is also no reason to exclude them. A useful
+call a common-investment bias, since organizations expend more effort to
+perform well specifically on them. Second, there should be no
+discrimination as to what tasks are important and which aren't, since a
+task appearing miscellaneous is no reason to exclude it. A useful
 analogy is that reaction time in humans is correlated to intelligence
-\citep{kranzler1989}: no matter how seemingly unimportant a task may be,
-it may provide useful information that is entirely unintuitive to our
-subjective understanding.
+\citep{kranzler1989}, showing that no matter how seemingly unimportant a
+task may be, it may provide information entirely unintuitive to our
+subjective understanding. Across this analysis, we find that factor
+patterns are only partially interpretable and often incoherent, and that
+no silver-bullet ``general intelligence'' factor exists, meaning a
+generally-intelligent language model cannot be reached by targeting a
+single conceptual ability alone.
 
-\section{Background and Related Work}\label{background-and-related-work}
+\hypertarget{background-and-related-work}{%
+\section{Background and Related
+Work}\label{background-and-related-work}}
 
-\subsection{Psychometric Background}\label{psychometric-background}
+\hypertarget{psychometric-background}{%
+\subsection{Psychometric Background}\label{psychometric-background}}
 
 A common theoretical ground in psychometric measurement is that
 observable human behaviors are \textbf{causally} influenced by latent
@@ -219,8 +234,9 @@ observable outcomes. If there is no causal latent factors, then
 observable behavior would have emerged \emph{ex nihilo}, which made
 little sense. Everything has a cause, including human behavior.
 
+\hypertarget{causality-in-machine-intelligence}{%
 \subsection{Causality in Machine
-Intelligence}\label{causality-in-machine-intelligence}
+Intelligence}\label{causality-in-machine-intelligence}}
 
 Whether or not intelligence theories are causal concerns, as
 \citet{borsboom2004} described for psychometrics, the need to explain
@@ -290,7 +306,8 @@ for example, coding improves reasoning improves coding. There are no
 temporal precedence within a static neural network weights or a
 plausible mechanism for online cyclical learning.
 
-\subsection{Theoretical Rationale}\label{theoretical-rationale}
+\hypertarget{theoretical-rationale}{%
+\subsection{Theoretical Rationale}\label{theoretical-rationale}}
 
 Understanding the patterns of benchmark correlation (which is what
 factor analysis do) is theoretically relevant to cognitive science.
@@ -357,7 +374,8 @@ appear extreme, we argue that it is a reasonable position to expect that
 LLMs work in ways entirely unintuitive to the human mind, and having no
 priors whatsoever is the correct way to start our inquiry.
 
-\subsection{Related Work}\label{related-work}
+\hypertarget{related-work}{%
+\subsection{Related Work}\label{related-work}}
 
 Prior work has tried applying factor analysis to benchmark scores, but
 always at a much smaller scale. \citet{ilicagignac2024} applied factor
@@ -409,7 +427,8 @@ language). A related methodological concern, raised by
 scores can conflate the extracted capability factor with model scale
 unless scaling relationships are explicitly modeled.
 
-\section{Methodology}\label{methodology}
+\hypertarget{methodology}{%
+\section{Methodology}\label{methodology}}
 
 In this study we investigate the low-dimensional structure of model
 benchmark scores, which comprise of distinct but correlated latent
@@ -427,7 +446,8 @@ different densification and imputation methods (wherein each introduce
 their own biases and assumptions), with the goal to triangulate each of
 their results to find a common characteristic.
 
-\subsection{Data Collection}\label{data-collection}
+\hypertarget{data-collection}{%
+\subsection{Data Collection}\label{data-collection}}
 
 \textbf{Scope.} The scope of this study is limited to the evaluation of
 generative language models on a set of text-only benchmarks. We define
@@ -441,8 +461,7 @@ The schema includes fields for model, benchmark, metric, score, and
 other metadata such as inference setup, metric interpretation,
 evaluation date, and source. Full inclusion and exclusion criteria are
 given in
-\href{Appendix-Methods\#B\%20Inclusion\%20and\%20exclusion\%20criteria}{Appendix
-B}.
+\href{Appendix-Methods\#B\%20Inclusion\%20and\%20exclusion\%20criteria}{Appendix B}.
 
 \textbf{Sources.} We collect the benchmark data from four types of
 source, in descending order of volume: (i) large curated evaluation
@@ -456,13 +475,12 @@ Artificial Analysis, Vellum, and LiveBench, together with
 benchmark-specific leaderboards and primary papers reporting original
 evaluations. Table 1 gives the composition of the text-only corpus by
 source family.
-\href{Appendix-Methods\#A\%20Data\%20sources\%20and\%20extraction}{Appendix
-A} lists every named source and the extraction route used for each.
+\href{Appendix-Methods\#A\%20Data\%20sources\%20and\%20extraction}{Appendix A}
+lists every named source and the extraction route used for each.
 
 \textbf{Table 1.} Composition of the text-only corpus by source family
 (13,251 result rows over 456 benchmarks and 1,618 models).
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lrr@{}}
 \toprule\noalign{}
 Source family & Result rows & Distinct benchmarks \\
@@ -482,7 +500,6 @@ Vellum & 96 & 7 \\
 Artificial Analysis & 77 & 2 \\
 LiveBench & 55 & 1 \\
 \end{longtable}
-}
 
 \textbf{Protocol.} Given the large number of fields from the
 EveryEvalEver schema, we follows a strict source-verification protocol.
@@ -490,29 +507,27 @@ For every row, each field is populated only if the verified source
 explicitly documented it. In exception, there are some fields that can
 be inferred from the source and record itself using some deductive rules
 with small risk of error (full deductive rules are enumerated in
-\href{Appendix-Methods\#A\%20Data\%20sources\%20and\%20extraction}{Appendix
-A}). In particular, we put some focus on obtaining the release date
-field for both models and benchmarks, since we do some analysis on the
-temporal evolution of model intelligence. We only accept a release date
-if it is explicitly documented in the source, with principle that a
-dating source is trustworthy only when the model's identity is
-\emph{given} or can be safely inferred. The release date info coverage
-is 2,007/2,014 models (99.7 \%) and 623/624 benchmarks (99.8 \%).
-However, since the quality of the model and benchmark release dates are
-different (97.3\% vs 73.4\% at month precision), we focus on temporal
-analysis on the model axis and treat the benchmark axis as provisional
-(see
-\href{Appendix-Methods\#L\%20Known\%20limitations\%20and\%20deviations}{Appendix
-L.8}).
+\href{Appendix-Methods\#A\%20Data\%20sources\%20and\%20extraction}{Appendix A}).
+In particular, we put some focus on obtaining the release date field for
+both models and benchmarks, since we do some analysis on the temporal
+evolution of model intelligence. We only accept a release date if it is
+explicitly documented in the source, with principle that a dating source
+is trustworthy only when the model's identity is \emph{given} or can be
+safely inferred. The release date info coverage is 2,007/2,014 models
+(99.7 \%) and 623/624 benchmarks (99.8 \%). However, since the quality
+of the model and benchmark release dates are different (97.3\% vs 73.4\%
+at month precision), we focus on temporal analysis on the model axis and
+treat the benchmark axis as provisional (see
+\href{Appendix-Methods\#L\%20Known\%20limitations\%20and\%20deviations}{Appendix L.8}).
 
 \textbf{Redundancy.} We handle redundancy at two levels. At the row
 level, we deduplicate rows given a (model, benchmark) pair with the same
 evaluation setup by collapsing them to one row and resolve them by
 source-trust tier and recency
-(\href{Appendix-Methods\#C.4\%20Duplicate\%20detection\%20and\%20integrity\%20checks}{Appendix
-C.4}). Surviving rows for the same (model, benchmark) pair are later
-averaged into a single score (see Aggregation below). At the benchmark
-level, some benchmark identifiers measure the same thing under different
+(\href{Appendix-Methods\#C.4\%20Duplicate\%20detection\%20and\%20integrity\%20checks}{Appendix C.4}).
+Surviving rows for the same (model, benchmark) pair are later averaged
+into a single score (see Aggregation below). At the benchmark level,
+some benchmark identifiers measure the same thing under different
 attributes such as version, dialect, difficulty, num sample, or language
 splits of a translated benchmark. For each suspected case we compute the
 pairwise Pearson correlation between its columns over the models
@@ -526,9 +541,11 @@ corpus level, keeping multilingual benchmarks whose per-language content
 is independently sourced. After both passes, the text-only corpus stands
 at 456 benchmarks, 1,618 models, and 13,251 result rows.
 
-\subsection{Data Processing}\label{data-processing}
+\hypertarget{data-processing}{%
+\subsection{Data Processing}\label{data-processing}}
 
-\subsubsection{Aggregation}\label{aggregation}
+\hypertarget{aggregation}{%
+\subsubsection{Aggregation}\label{aggregation}}
 
 The collected datasets contain same models evaluated under different
 conditions, e.g., chain-of-thought vs.~no chain-of-thought. Since
@@ -563,7 +580,8 @@ one family as one entity. Neither is correct a priori, which is why both
 are carried forward. The token-level rules are given in
 \href{Appendix-Methods\#F\%20Model-identity\%20collapse}{Appendix F}.
 
-\subsubsection{Metric selection}\label{metric-selection}
+\hypertarget{metric-selection}{%
+\subsubsection{Metric selection}\label{metric-selection}}
 
 About 92 of our collected benchmarks were reported under several
 metrics. As different metrics are not comparable, we kept exactly one
@@ -574,7 +592,8 @@ coverage alone chooses badly. This drops 1,420 result rows and 706
 model-cells. Finally, benchmarks observed for only one model are
 dropped.
 
-\subsubsection{Densification}\label{densification}
+\hypertarget{densification}{%
+\subsubsection{Densification}\label{densification}}
 
 At 2--4 \% observed, the raw data is ineligible for virtually any data
 analysis. We therefore improve the dataset density by applying several
@@ -610,7 +629,6 @@ so that we can include as much different benchmarks as possible.
 corpus. ``Retained'' is the fraction of observed cells surviving the
 densifier peel.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lllrr@{}}
 \toprule\noalign{}
 Densifier & Strategy & Shape & Density & Retained \\
@@ -627,9 +645,9 @@ S & \texttt{all\_aggressive} & 124 × 293 & 10\% & 81\% \\
 R & \texttt{all\_standard} & 175 × 298 & 11.8\% & 55\% \\
 R & \texttt{all\_aggressive} & 97 × 310 & 11.7\% & 78\% \\
 \end{longtable}
-}
 
-\subsubsection{Matrix completion}\label{matrix-completion}
+\hypertarget{matrix-completion}{%
+\subsubsection{Matrix completion}\label{matrix-completion}}
 
 As mentioned before, the densifier leaves only around 10\% density for
 each dataset. This number is still far from being usable for any
@@ -676,8 +694,9 @@ correlation lying within a per-pair Fisher-\emph{z} confidence band
 scaled to that pair's co-observation count, and a \textbf{Gaussian
 graphical model} MLE completion over the observed-pair graph.
 
+\hypertarget{evaluating-the-completion}{%
 \subsubsection{Evaluating the
-completion}\label{evaluating-the-completion}
+completion}\label{evaluating-the-completion}}
 
 Given the challenging nature of our dataset's missingness pattern, we
 need a way to measure the quality of our data imputation. As such, at
@@ -712,7 +731,8 @@ This metric is used for hyperparameter selection within each method
 Imputation results whose held-out \(\text{R}^2\) falls below 0.4 is not
 factored at all, as it indicates that data-fill is not trustworthy.
 
-\subsection{Factor analysis}\label{factor-analysis}
+\hypertarget{factor-analysis}{%
+\subsection{Factor analysis}\label{factor-analysis}}
 
 We dedicate this section to be a little longer, as we use methodologies
 that are standard in psychometric research, but critically lacking in
@@ -776,15 +796,19 @@ factors to 2 (not including the bifactor \(G\) factor). The forced-2 run
 exists because the parallel-analysis count is itself unstable under
 different imputation algorithms.
 
-\section{Results}\label{results}
+\hypertarget{results}{%
+\section{Results}\label{results}}
 
-\section{Discussion}\label{discussion}
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
 
+\hypertarget{the-g-factor-is-only-partially-coherent}{%
 \subsection{The g-factor is only partially
-coherent}\label{the-g-factor-is-only-partially-coherent}
+coherent}\label{the-g-factor-is-only-partially-coherent}}
 
+\hypertarget{bottom-up-theories-of-llm-intelligence}{%
 \subsection{Bottom-up theories of LLM
-intelligence}\label{bottom-up-theories-of-llm-intelligence}
+intelligence}\label{bottom-up-theories-of-llm-intelligence}}
 
 Importantly what we find is that, unlike theories of human psychology
 \citep{schneider2018} where intelligence are explicitly assumed to
@@ -805,8 +829,9 @@ empirical approach without overfitting theories of human intelligence
 into systems that possess significant architectural and functional
 divergence from humans.
 
+\hypertarget{mechanisms-for-a-possible-g-factor}{%
 \subsection{Mechanisms for a possible
-g-factor}\label{mechanisms-for-a-possible-g-factor}
+g-factor}\label{mechanisms-for-a-possible-g-factor}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
