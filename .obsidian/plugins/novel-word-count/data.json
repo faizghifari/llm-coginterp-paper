@@ -71,25 +71,25 @@
       "isCountable": true,
       "targetNodeType": "file",
       "noteCount": 1,
-      "wordCount": 470,
+      "wordCount": 603,
       "wordCountTowardGoal": 0,
       "wordGoal": null,
-      "pageCount": 1.5666666666666667,
-      "characterCount": 6316,
-      "nonWhitespaceCharacterCount": 3716,
-      "readingTimeInMinutes": 1.7735849056603774,
+      "pageCount": 2.01,
+      "characterCount": 7317,
+      "nonWhitespaceCharacterCount": 4455,
+      "readingTimeInMinutes": 2.2754716981132077,
       "linkCount": 0,
       "embedCount": 1,
       "aliases": null,
       "createdDate": 1789655398996,
-      "modifiedDate": 1789657005898,
-      "sizeInBytes": 6318,
+      "modifiedDate": 1789670527016,
+      "sizeInBytes": 7321,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 0.97,
-        "wordCount": 291,
-        "characterCount": 3646,
-        "nonWhitespaceCharacterCount": 2230
+        "pageCount": 2.08,
+        "wordCount": 624,
+        "characterCount": 7455,
+        "nonWhitespaceCharacterCount": 4575
       }
     },
     "sections/Methodology.md": {
@@ -317,31 +317,6 @@
         "nonWhitespaceCharacterCount": 0
       }
     },
-    "latex-template/iclr2027_conference.bib": {
-      "isCountable": false,
-      "targetNodeType": "file",
-      "noteCount": 0,
-      "wordCount": 0,
-      "wordCountTowardGoal": 0,
-      "wordGoal": 0,
-      "pageCount": 0,
-      "characterCount": 0,
-      "nonWhitespaceCharacterCount": 0,
-      "readingTimeInMinutes": 0,
-      "linkCount": 0,
-      "embedCount": 0,
-      "aliases": [],
-      "createdDate": 1789609450775,
-      "modifiedDate": 1789609450775,
-      "sizeInBytes": 13085,
-      "sessionStart": {
-        "noteCount": 0,
-        "pageCount": 0,
-        "wordCount": 0,
-        "characterCount": 0,
-        "nonWhitespaceCharacterCount": 0
-      }
-    },
     "latex-template/fancyhdr.sty": {
       "isCountable": false,
       "targetNodeType": "file",
@@ -367,6 +342,31 @@
         "nonWhitespaceCharacterCount": 0
       }
     },
+    "latex-template/iclr2027_conference.bib": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789609450775,
+      "modifiedDate": 1789609450775,
+      "sizeInBytes": 13085,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
     "latex-template/build.sh": {
       "isCountable": false,
       "targetNodeType": "file",
@@ -382,8 +382,58 @@
       "embedCount": 0,
       "aliases": [],
       "createdDate": 1789655398975,
-      "modifiedDate": 1789655571936,
-      "sizeInBytes": 7625,
+      "modifiedDate": 1789666827486,
+      "sizeInBytes": 7877,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
+    "latex-template/Pasted image 20260918004415.png": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789667279684,
+      "modifiedDate": 1789667055029,
+      "sizeInBytes": 143243,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
+    "latex-template/Pasted image 20260917212152.png": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789655185764,
+      "modifiedDate": 1789654912562,
+      "sizeInBytes": 134084,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -406,9 +456,9 @@
       "linkCount": 0,
       "embedCount": 0,
       "aliases": [],
-      "createdDate": 1789654034962,
-      "modifiedDate": 1789654093737,
-      "sizeInBytes": 47606,
+      "createdDate": 1789655398992,
+      "modifiedDate": 1789667864763,
+      "sizeInBytes": 45920,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -417,29 +467,29 @@
         "nonWhitespaceCharacterCount": 0
       }
     },
-    "conflict-files-obsidian-git.md": {
-      "isCountable": true,
+    "latex-template/Main.pdf": {
+      "isCountable": false,
       "targetNodeType": "file",
-      "noteCount": 1,
-      "wordCount": 80,
+      "noteCount": 0,
+      "wordCount": 0,
       "wordCountTowardGoal": 0,
-      "wordGoal": null,
-      "pageCount": 0.26666666666666666,
-      "characterCount": 600,
-      "nonWhitespaceCharacterCount": 503,
-      "readingTimeInMinutes": 0.3018867924528302,
-      "linkCount": 2,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
       "embedCount": 0,
-      "aliases": null,
-      "createdDate": 1789653831257,
-      "modifiedDate": 1789653831258,
-      "sizeInBytes": 600,
+      "aliases": [],
+      "createdDate": 1789656772961,
+      "modifiedDate": 1789667866409,
+      "sizeInBytes": 346055,
       "sessionStart": {
-        "noteCount": 1,
-        "pageCount": 0.26666666666666666,
-        "wordCount": 80,
-        "characterCount": 600,
-        "nonWhitespaceCharacterCount": 503
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
       }
     },
     "Topics.md": {
@@ -490,6 +540,56 @@
         "wordCount": 1351,
         "characterCount": 10262,
         "nonWhitespaceCharacterCount": 8775
+      }
+    },
+    "Pasted image 20260918004415.png": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789667055029,
+      "modifiedDate": 1789667055029,
+      "sizeInBytes": 143243,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
+    "Pasted image 20260917212152.png": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789654912562,
+      "modifiedDate": 1789654912562,
+      "sizeInBytes": 134084,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
       }
     },
     "Methodology.md": {
@@ -621,7 +721,7 @@
         "nonWhitespaceCharacterCount": 2648
       }
     },
-    "Pasted image 20260917212152.png": {
+    "Untitled.base": {
       "isCountable": false,
       "targetNodeType": "file",
       "noteCount": 0,
@@ -635,9 +735,9 @@
       "linkCount": 0,
       "embedCount": 0,
       "aliases": [],
-      "createdDate": 1789654912562,
-      "modifiedDate": 1789654912562,
-      "sizeInBytes": 134084,
+      "createdDate": 1789667880249,
+      "modifiedDate": 1789667883598,
+      "sizeInBytes": 39,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -646,7 +746,7 @@
         "nonWhitespaceCharacterCount": 0
       }
     },
-    "latex-template/Pasted image 20260917212152.png": {
+    "Pasted image 20260918012219.png": {
       "isCountable": false,
       "targetNodeType": "file",
       "noteCount": 0,
@@ -660,9 +760,9 @@
       "linkCount": 0,
       "embedCount": 0,
       "aliases": [],
-      "createdDate": 1789655185764,
-      "modifiedDate": 1789654912562,
-      "sizeInBytes": 134084,
+      "createdDate": 1789669339553,
+      "modifiedDate": 1789669339553,
+      "sizeInBytes": 57293,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -671,7 +771,7 @@
         "nonWhitespaceCharacterCount": 0
       }
     },
-    "latex-template/Main.pdf": {
+    "latex-template/Pasted image 20260918012219.png": {
       "isCountable": false,
       "targetNodeType": "file",
       "noteCount": 0,
@@ -685,9 +785,59 @@
       "linkCount": 0,
       "embedCount": 0,
       "aliases": [],
-      "createdDate": 1789656772961,
-      "modifiedDate": 1789656772961,
-      "sizeInBytes": 0,
+      "createdDate": 1789669465979,
+      "modifiedDate": 1789669339553,
+      "sizeInBytes": 57293,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
+    "latex-template/Main.pdflatex.log": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789669466369,
+      "modifiedDate": 1789669467926,
+      "sizeInBytes": 6257,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
+    "Pasted image 20260918013843.png": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789670323551,
+      "modifiedDate": 1789670323552,
+      "sizeInBytes": 150707,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,

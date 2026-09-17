@@ -86,13 +86,11 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 325.5,
-    "collapsed": true
+    "width": 325.5
   },
   "right": {
     "id": "d8979859c2db4958",
@@ -216,6 +214,7 @@
   },
   "active": "d6a564de3ece0b5d",
   "lastOpenFiles": [
+    "Pasted image 20260918013843.png",
     "latex-template/Main.bbl",
     "latex-template/Main.blg",
     "latex-template/Main.bibtex.log",
@@ -223,13 +222,21 @@
     "latex-template/Main.aux",
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
+    "latex-template/Pasted image 20260918012219.png",
+    "Pasted image 20260918012219.png",
+    "sections/Background.md",
+    "sections/Introduction.md",
+    "Untitled.base",
+    "Methodology.md",
+    "sections/Results.md",
+    "latex-template/Pasted image 20260918004415.png",
+    "Pasted image 20260918004415.png",
     "latex-template/Main.pdf",
     "latex-template/Pasted image 20260917212152.png",
     "Pasted image 20260917212152.png",
     "sections/Pasted image 20260917212106.png",
     "Pasted image 20260917212106.png",
     "conflict-files-obsidian-git.md",
-    "sections/Results.md",
     "sections/Methodology.md",
     "Main.md",
     "tmp.md",
@@ -250,10 +257,6 @@
     "5. Wanita Meninggal.md",
     "2. Tamasyanya Ini.md",
     "3. Sekeriuhan.md",
-    "1. Kita telah dalam Tautan.md",
-    "Naskah.md",
-    "Bunga.md",
-    "Puisi/Cakar.md",
-    "Puisi"
+    "1. Kita telah dalam Tautan.md"
   ]
 }

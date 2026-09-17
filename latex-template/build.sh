@@ -105,7 +105,11 @@ text = re.sub(r"\n{3,}", "\n\n", text)
 open(dst, "w", encoding="utf-8").write(text)
 PY
 
+# Tables wider than pandoc's --columns would get fixed p{...} column widths
+# derived from the separator-row dash counts (padded with dead space); a large
+# value keeps them as plain l-columns that size to their actual cell contents.
 pandoc -f markdown+wikilinks_title_after_pipe \
+  --columns=200 \
   --resource-path="$REPO_ROOT" \
   --resource-path="$REPO_ROOT/latex-template" \
   --lua-filter="$LUA_DIR/pdf.lua" \
