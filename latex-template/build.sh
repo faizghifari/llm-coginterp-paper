@@ -10,6 +10,14 @@
 # text and leak into the compiled output verbatim (confirmed by running the
 # plugin's own pandoc invocation directly against Main.md unmodified).
 #
+# Before that, Obsidian's ![[Note]] embed syntax is resolved by recursively
+# inlining the referenced file's content, vault-root-relative (same resolution
+# rule as the plain [[Note#Heading|text]] links elsewhere in the paper). This
+# lets the paper be split into one file per section (see sections/) so multiple
+# people can edit concurrently, while pandoc still only ever sees one flattened
+# markdown string -- Obsidian itself renders the same embeds inline too, so the
+# split is also visible when browsing the vault directly.
+#
 # Usage: latex-template/build.sh [source.md] [output.tex]
 #   defaults: Main.md -> latex-template/Main.tex
 #
@@ -38,10 +46,42 @@ fi
 STRIPPED="$(mktemp --suffix=.md)"
 trap 'rm -f "$STRIPPED"' EXIT
 
-python3 - "$SRC" "$STRIPPED" <<'PY'
-import re, sys
-src, dst = sys.argv[1], sys.argv[2]
-text = open(src, encoding="utf-8").read()
+python3 - "$SRC" "$STRIPPED" "$REPO_ROOT" <<'PY'
+import re, sys, os
+src, dst, repo_root = sys.argv[1], sys.argv[2], sys.argv[3]
+
+# Obsidian embed: a line containing only "![[target]]" (optionally "#heading"
+# or "|display", which we don't support resolving into a sub-section -- whole
+# files only). Resolved vault-root-relative, same as Obsidian itself does.
+EMBED_RE = re.compile(r'^!\[\[([^\]\n]+?)\]\][ \t]*$', re.MULTILINE)
+
+def resolve(target, base_dir):
+    target = target.split('#', 1)[0].split('|', 1)[0].strip()
+    cands = [target] if target.endswith(".md") else [target + ".md"]
+    for cand in cands:
+        for base in (base_dir, repo_root):
+            p = os.path.normpath(os.path.join(base, cand))
+            if os.path.isfile(p):
+                return p
+    return None
+
+def expand(path, visited):
+    path = os.path.normpath(path)
+    if path in visited:
+        sys.exit(f"error: circular ![[embed]] detected involving {path}")
+    visited = visited | {path}
+    text = open(path, encoding="utf-8").read()
+    base_dir = os.path.dirname(path)
+    def repl(m):
+        target = m.group(1)
+        resolved = resolve(target, base_dir)
+        if resolved is None:
+            sys.stderr.write(f"warning: could not resolve embed ![[{target}]] referenced from {path}\n")
+            return m.group(0)
+        return expand(resolved, visited)
+    return EMBED_RE.sub(repl, text)
+
+text = expand(src, set())
 # Obsidian comments: %% ... %%, non-greedy, spans multiple lines/paragraphs.
 text = re.sub(r"%%.*?%%", "", text, flags=re.DOTALL)
 # collapse the blank-line runs the removal leaves behind
