@@ -109,15 +109,15 @@
   \end{abstract}
 
 
-\section{Introduction}\label{introduction}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
 
-The field of artificial intelligence is rife with theories and conceptualization about what intelligence ``is'' \citep{chollet2019,morris2023,waterhouse2023}. With neural networks specifically, a
-longstanding issue is how models ``overfit'' their training set, and thus their performance across various tasks (``intelligence'') lacks the powerful generalizability that cognitive entities like
-humans have. In pursuit of this generalizability, there is an implicit and subtle assumption that in neural networks, much like humans, cognitive abilities are structured according to a causal
-hierarchy. A popular notion of general intelligence in the field is the concept ``fluid intelligence'' borrowed from psychometric research, defined loosely as the ability to perform well in any tasks
-regardless of content (i.e., a ``domain-free'' cognitive capacity). By definition this construct holds a causal relation, where an increase of fluid intelligence leads to an increase in the mastery of
-every other cognitive task, so domain-general ability \emph{precedes and builds} domain-specific abilities. Yet this assumption is rarely tested directly, and where it has been, only at a much smaller
-scale.
+The field of artificial intelligence is full with theories about what intelligence ``is'' \citep{chollet2019,morris2023,waterhouse2023}. This is partly because neural networks tend to overfit their
+training data, leading to their performance across tasks lacks the generalizability of human cognition \citep{zhang2017}. In pursuit of this generalizability, models are often implicitly assumed to
+organize cognitive abilities according to a causal hierarchy, much like humans, where a single general-purpose capability underlies and transfers across many specific downstream tasks
+\citep{bommasani2021}. A popular label for this hierarchy, borrowed from psychometric research, is ``fluid intelligence'', defined as the ability to perform well on any task regardless of content
+\citep{cattell1963}. By definition this construct holds a causal relation, where an increase of fluid intelligence leads to an increase in the mastery of every other cognitive task. However, this
+assumption is rarely tested directly, and where it has, only at a much smaller scale.
 
 Prior work has tried applying factor analysis to benchmark scores, but always at a much smaller scale, and often by fitting a human-informed structure rather than discovering one bottom-up.
 \citet{ilicagignac2024} fit confirmatory factor analysis to a human-informed causal structure, \citet{burnell2023} found three major factors via EFA without testing for a higher-order \(G\), and
@@ -125,17 +125,17 @@ Prior work has tried applying factor analysis to benchmark scores, but always at
 variables, ranging from 10 to 23, most of which measure ``smartness'' narrowly (mathematics, academic knowledge, common-sense reasoning) and which risk conflating the extracted capability factor with
 model scale \citep{kearns2026}.
 
-Within the context of prior work, our study presents an unprecedentedly large factor analysis of benchmark scores. The collection comprises 1,618 models and 456 benchmarks over 13,251 evaluation
-scores. Crucially, our pool of benchmarks covers a highly diverse set of tasks, including those quite outside of the mainstream. Covering only a few popular benchmarks like prior work does is
-problematic. First, given their popularity, these benchmarks may well be correlated due to what we call a common-investment bias, since organizations expend more effort to perform well specifically on
-them. Second, there should be no discrimination as to what tasks are important and which aren't, since a task appearing miscellaneous is no reason to exclude it. A useful analogy is that reaction time
-in humans is correlated to intelligence \citep{kranzler1989}, showing that no matter how seemingly unimportant a task may be, it may provide information entirely unintuitive to our subjective
-understanding. Across this analysis, we find that factor patterns are only partially interpretable and often incoherent, and that no silver-bullet ``general intelligence'' factor exists, meaning a
+Within the context of prior work, our study presents factor analysis of 13,251 evaluation scores from 1,618 models and 456 benchmarks, the largest and most heterogeneous to date according to the best
+of our knowledge. Our pool of benchmarks, unlike previous work, covers a highly diverse set of tasks, including those quite outside of the mainstream. A useful analogy is that reaction time in humans
+is correlated to intelligence \citep{kranzler1989}, showing that no matter how seemingly unimportant a task may be, it may provide information entirely unintuitive to our subjective understanding.
+Across this analysis, we find that factor patterns are only partially interpretable and often incoherent, and that no silver-bullet ``general intelligence'' factor exists, meaning a
 generally-intelligent language model cannot be reached by targeting a single conceptual ability alone.
 
-\section{Background and Related Work}\label{background-and-related-work}
+\hypertarget{background-and-related-work}{%
+\section{Background and Related Work}\label{background-and-related-work}}
 
-\subsection{Psychometric Background}\label{psychometric-background}
+\hypertarget{psychometric-background}{%
+\subsection{Psychometric Background}\label{psychometric-background}}
 
 A common theoretical ground in psychometric measurement is that observable human behaviors are \textbf{causally} influenced by latent variables internal to an individual \citep{borsboom2004}, a
 distinction now also drawn explicitly in the design of LLM benchmarks \citep{federiakin2025}. This assumption applies to all sorts of measurements, from arbitrary attitudinal surveys to psychological
@@ -159,7 +159,8 @@ It must be stressed, however, that the theories in question largely depend on a 
 Individuals differ in some latent factor; hence, individuals differ in some observable outcomes. If there is no causal latent factors, then observable behavior would have emerged \emph{ex nihilo},
 which made little sense. Everything has a cause, including human behavior.
 
-\subsection{Causality in Machine Intelligence}\label{causality-in-machine-intelligence}
+\hypertarget{causality-in-machine-intelligence}{%
+\subsection{Causality in Machine Intelligence}\label{causality-in-machine-intelligence}}
 
 Whether or not intelligence theories are causal concerns, as \citet{borsboom2004} described for psychometrics, the need to explain the origins of indicator covariance. It is evident that various LLM
 benchmarks are intercorrelated. Where does this correlation originate? We argue that benchmark correlations are causally originated from latent variables, and add that existing paradigms of machine
@@ -192,7 +193,8 @@ disorders \citep{borsboom2013}. In this view, symptoms of psychological disorder
 terms these are modeled using a graph of partial correlations between variables, i.e.~network analysis \citep{borsboom2013}. It does not make much sense to say that, for example, coding improves
 reasoning improves coding. There are no temporal precedence within a static neural network weights or a plausible mechanism for online cyclical learning.
 
-\subsection{Theoretical Rationale}\label{theoretical-rationale}
+\hypertarget{theoretical-rationale}{%
+\subsection{Theoretical Rationale}\label{theoretical-rationale}}
 
 Understanding the patterns of benchmark correlation (which is what factor analysis do) is theoretically relevant to cognitive science. First off, this relevance does not regard any one specific factor
 loading pattern. Under a small number of benchmarks (which is true to prior works), the discovered patterns are dependent on the specifically sampled benchmarks, i.e.~not generalizable or exhaustive
@@ -221,7 +223,8 @@ correlations between the \(G\) factor and trivial cognitive observations \citep{
 as much of the set of all possible tasks, which in practical terms include very popular and very obscure benchmarks. While this may appear extreme, we argue that it is a reasonable position to expect
 that LLMs work in ways entirely unintuitive to the human mind, and having no priors whatsoever is the correct way to start our inquiry.
 
-\subsection{Related Work}\label{related-work}
+\hypertarget{related-work}{%
+\subsection{Related Work}\label{related-work}}
 
 Prior work has tried applying factor analysis to benchmark scores, but always at a much smaller scale. \citet{ilicagignac2024} applied factor analysis to hundreds of models and found that the models'
 performance fits a human-informed causal structure. However, their use of confirmatory factor analysis repeats the mistake of fitting a human-informed theory rather than understanding model
@@ -243,7 +246,8 @@ benchmarks measure ``smartness'' for a lack of better term, like mathematics, ac
 explains 95\% of variance across just 8 scenarios in one language). A related methodological concern, raised by \citet{kearns2026}, is that latent factor models fit to LLM benchmark scores can
 conflate the extracted capability factor with model scale unless scaling relationships are explicitly modeled.
 
-\section{Methodology}\label{methodology}
+\hypertarget{methodology}{%
+\section{Methodology}\label{methodology}}
 
 In this study we investigate the low-dimensional structure of model benchmark scores, which comprise of distinct but correlated latent factors that each dominantly affects different clusters of
 benchmarks, and a \(G\) factor that accounts for the variances of all benchmarks. To this end we collect a raw data matrix with size \(1,618 \times 456\). One challenge in analyzing this dataset is
@@ -253,7 +257,8 @@ issue, we implement multiple peeling strategy to drop columns and/or rows to imp
 we prefer a collection or aggregate of results from different densification and imputation methods (wherein each introduce their own biases and assumptions), with the goal to triangulate each of their
 results to find a common characteristic.
 
-\subsection{Data Collection}\label{data-collection}
+\hypertarget{data-collection}{%
+\subsection{Data Collection}\label{data-collection}}
 
 \textbf{Scope.} The scope of this study is limited to the evaluation of generative language models on a set of text-only benchmarks. We define generative language models as those that accept arbitrary
 prompts and produce text completions. Encoder-only classifiers, narrow task-specific systems (dedicated MT/ASR/TTS models), and undocumented community uploads are excluded. Benchmarks are included if
@@ -269,7 +274,6 @@ benchmark-specific leaderboards and primary papers reporting original evaluation
 
 \textbf{Table 1.} Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models).
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lrr@{}}
 \toprule\noalign{}
 Source family & Result rows & Distinct benchmarks \\
@@ -289,7 +293,6 @@ Vellum & 96 & 7 \\
 Artificial Analysis & 77 & 2 \\
 LiveBench & 55 & 1 \\
 \end{longtable}
-}
 
 \textbf{Protocol.} Given the large number of fields from the EveryEvalEver schema, we follows a strict source-verification protocol. For every row, each field is populated only if the verified source
 explicitly documented it. In exception, there are some fields that can be inferred from the source and record itself using some deductive rules with small risk of error (full deductive rules are
@@ -307,9 +310,11 @@ family to one representative only when correlations are near-perfect across a no
 (\href{Appendix-Methods\#E\%20Score-redundancy\%20pruning}{Appendix E}). A separate, earlier pass removes literal-translation duplicates at the corpus level, keeping multilingual benchmarks whose
 per-language content is independently sourced. After both passes, the text-only corpus stands at 456 benchmarks, 1,618 models, and 13,251 result rows.
 
-\subsection{Data Processing}\label{data-processing}
+\hypertarget{data-processing}{%
+\subsection{Data Processing}\label{data-processing}}
 
-\subsubsection{Aggregation}\label{aggregation}
+\hypertarget{aggregation}{%
+\subsubsection{Aggregation}\label{aggregation}}
 
 To deduplicate rows with the same models under different conditions (e.g.~reasoning effort), we average rows under two collapse strategies:
 
@@ -324,13 +329,15 @@ To deduplicate rows with the same models under different conditions (e.g.~reason
 The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed, while the aggressive collapse produces far fewer, much
 better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. The token-level rules are given in \href{Appendix-Methods\#F\%20Model-identity\%20collapse}{Appendix F}.
 
-\subsubsection{Metric selection}\label{metric-selection}
+\hypertarget{metric-selection}{%
+\subsubsection{Metric selection}\label{metric-selection}}
 
 About 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we keep one metric covering the most distinct models, so the widest comparable
 population survives. A per-benchmark override list handles cases where coverage alone chooses badly. This drops 1,420 result rows and 706 model-cells. Finally, benchmarks observed for only one model
 are dropped.
 
-\subsubsection{Densification}\label{densification}
+\hypertarget{densification}{%
+\subsubsection{Densification}\label{densification}}
 
 We further improve the data density by greedily peeling the matrix towards a common target density. We feature three densifiers, differing by the axis they sacrifice:
 
@@ -351,7 +358,6 @@ benchmarks as possible.
 
 \textbf{Table 2.} Aggregated model × benchmark matrices, text-only corpus. ``Retained'' is the fraction of observed cells surviving the densifier peel.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lllrr@{}}
 \toprule\noalign{}
 Densifier & Strategy & Shape & Density & Retained \\
@@ -368,9 +374,9 @@ S & \texttt{all\_aggressive} & 124 × 293 & 10\% & 81\% \\
 R & \texttt{all\_standard} & 175 × 298 & 11.8\% & 55\% \\
 R & \texttt{all\_aggressive} & 97 × 310 & 11.7\% & 78\% \\
 \end{longtable}
-}
 
-\subsubsection{Matrix imputation}\label{matrix-imputation}
+\hypertarget{matrix-imputation}{%
+\subsubsection{Matrix imputation}\label{matrix-imputation}}
 
 We further densify the data using 2 families of imputers:
 
@@ -386,7 +392,8 @@ We further densify the data using 2 families of imputers:
 
 Method-level descriptions and implementation detail for all of the above are given in \href{Appendix-Methods\#H\%20Completion\%20methods}{Appendix H}.
 
-\subsubsection{Evaluating the completion}\label{evaluating-the-completion}
+\hypertarget{evaluating-the-completion}{%
+\subsubsection{Evaluating the completion}\label{evaluating-the-completion}}
 
 At each stage of the imputation, we masked \textasciitilde20\% of the observed cells as an evaluation set. To prevent high-observation benchmarks from inflating the score, we use a column-stratified
 mask, such that each benchmark is masked at least once and leaving at least two training observations in every column. Columns are standardised using training-cell moments only.
@@ -403,7 +410,8 @@ column-wise \(\text{RMSE}\), and the \(\text{MSE}\) used in \(\text{RMSE}^2\) ar
 This metric is used for hyperparameter selection within each method (rank, \(k\), number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out \(\text{R}^2\) falls
 below 0.4 is not factored at all, as it indicates that data-fill is not trustworthy.
 
-\subsection{Factor analysis}\label{factor-analysis}
+\hypertarget{factor-analysis}{%
+\subsection{Factor analysis}\label{factor-analysis}}
 
 We dedicate this section to be a little longer, as we use methodologies that are standard in psychometric research, but critically lacking in LLM intelligence research
 \citep{ilicagignac2024,burnell2023,ye2025}. There are 3 issues common in LLM intelligence research: 1. The use of principal components analysis (PCA) over exploratory factor analysis (EFA), 2. Not
@@ -434,16 +442,17 @@ low-variance factors. To keep wall-clock time tractable we limit the number of f
 We ran 2 factor analysis for each dataset: once using the parallel analysis-derived number of factors, and once by forcing the number of factors to 2 (not including the bifactor \(G\) factor). The
 forced-2 run exists because the parallel-analysis count is itself unstable under different imputation algorithms.
 
-\section{Results}\label{results}
+\hypertarget{results}{%
+\section{Results}\label{results}}
 
-\subsection{Imputation quality}\label{imputation-quality}
+\hypertarget{imputation-quality}{%
+\subsection{Imputation quality}\label{imputation-quality}}
 
 We present the evaluation and parameters of the missing data imputations in table 3 below. Of the many imputation algorithms we applied, only 3 of them yielded an acceptable R² value. Excluding the
 PSD-smoothed correlation matrix imputation, there are 9 usable datasets for the factor analyses.
 
 \textbf{Table 3}. Summary of accepted imputations (R² \textgreater{} 0.3).
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}llrrl@{}}
 \toprule\noalign{}
 Dataset & Imputer & RMSE & R² & Parameters \\
@@ -461,9 +470,9 @@ C\_all\_aggressive & softimpute & 0.6739 & 0.337 & rank=5 (swept 1..10) \\
 C\_all\_standard & onesidedmc & 0.8213 & 0.333 & r=2 (swept 1..10) \\
 C\_all\_standard & softimpute\_corr & 0.8126 & 0.317 & rank=5 (swept 1..7) \\
 \end{longtable}
-}
 
-\subsection{Point summaries}\label{point-summaries}
+\hypertarget{point-summaries}{%
+\subsection{Point summaries}\label{point-summaries}}
 
 Table 4 below shows the point summaries of the factor analyses. The most important statistic here is the \(\omega_h\), which indicates the degree of indicator variances explained by the general
 factor. Two things are worth noting here. First, while \(\omega_h\) has a wide range, by our estimates' maximum, \textbf{a universally causal \(G\) factor accounts, at the most, 74\% of variance in
@@ -471,7 +480,6 @@ model performance}.
 
 \textbf{Table 4}. Point summaries of factor analyses results. k = number of factors extracted. Var\% = percentage of variance explained.
 
-{\def\LTcaptype{none} % do not increment counter
 \begin{longtable}[]{@{}lllllll@{}}
 \toprule\noalign{}
 Dataset & Imputer & k & Var\% & \(\omega_h\) & \(\phi_{\text{avg}}\) & R² \\
@@ -505,30 +513,22 @@ C\_all\_standard & onesidedmc & 2 & 100.0\% & 0.036 & 0.054 & 0.333 \\
 S\_all\_standard & missforest & 4 & 90.0\% & 0.032 & 0.054 & 0.471 \\
 S\_all\_standard & onesidedmc & 2 & 100.0\% & 0.006 & 0.015 & 0.340 \\
 \end{longtable}
-}
 
-\subsection{Benchmark clusters}\label{benchmark-clusters}
+\hypertarget{benchmark-clusters}{%
+\subsection{Benchmark clusters}\label{benchmark-clusters}}
 
-Figure 1 below shows an example of how benchmarks (does not) cluster together.
+Figure 1 below shows a UMAP plot of benchmarks using composite distances aggregated from factor loadings.
 
-\begin{figure}
-\centering
-\pandocbounded{\includegraphics[keepaspectratio,alt={UMAP plot of aggregated raw dataset. Task-similar benchmarks do not necessarily cluster together. Not visible: MMLU and MMLU-Pro dots overlaps each other and with ARC.}]{Pasted image 20260918004415.png}}
-\caption{UMAP plot of aggregated raw dataset. Task-similar benchmarks do not necessarily cluster together. Not visible: MMLU and MMLU-Pro dots overlaps each other and with ARC.}
-\end{figure}
+{[}{[}Pasted image 20260918013843.png{]}{]}
 
-\begin{figure}
-\centering
-\pandocbounded{\includegraphics[keepaspectratio,alt={UMAP plot of S, missforest dataset, with math benchmarks highlighted. While the composite distance shows separable clusters, mathematics performance does not converge in a single cohesive cluster.}]{Pasted image 20260918012219.png}}
-\caption{UMAP plot of S, missforest dataset, with math benchmarks highlighted. While the composite distance shows separable clusters, mathematics performance does not converge in a single cohesive
-cluster.}
-\end{figure}
+\hypertarget{discussion}{%
+\section{Discussion}\label{discussion}}
 
-\section{Discussion}\label{discussion}
+\hypertarget{the-g-factor-is-only-partially-coherent}{%
+\subsection{The g-factor is only partially coherent}\label{the-g-factor-is-only-partially-coherent}}
 
-\subsection{The g-factor is only partially coherent}\label{the-g-factor-is-only-partially-coherent}
-
-\subsection{Bottom-up theories of LLM intelligence}\label{bottom-up-theories-of-llm-intelligence}
+\hypertarget{bottom-up-theories-of-llm-intelligence}{%
+\subsection{Bottom-up theories of LLM intelligence}\label{bottom-up-theories-of-llm-intelligence}}
 
 Importantly what we find is that, unlike theories of human psychology \citep{schneider2018} where intelligence are explicitly assumed to possess higher-order structure, with fluid intelligence as a
 higher-order factor that have theoretical causal effects \citep{vandermaas2014} to the performance of other cognitive abilities, fluid intelligence, wikipedia memorization, agentic tool use, are more
@@ -538,7 +538,8 @@ This is also not to say that LLMs are not intelligent (in our private view, they
 ``cognitive'', LLMs are intelligent in a considerably different way to humans. This means that a theory of intelligence requires a blank-slate, bottom-up empirical approach without overfitting
 theories of human intelligence into systems that possess significant architectural and functional divergence from humans.
 
-\subsection{Mechanisms for a possible g-factor}\label{mechanisms-for-a-possible-g-factor}
+\hypertarget{mechanisms-for-a-possible-g-factor}{%
+\subsection{Mechanisms for a possible g-factor}\label{mechanisms-for-a-possible-g-factor}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
