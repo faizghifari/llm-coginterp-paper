@@ -34,6 +34,14 @@
 \usepackage{calc} % arithmetic in table column-width specs (pandoc's multi-column
                    % longtable output needs this regardless of citeproc/csl-refs)
 
+% Pandoc >= 3.6 emits `\def\LTcaptype{none}` around captionless longtables and
+% typesets their caption through a counter named `none`. Older pandoc (3.4,
+% which this template was tested against) never referenced such a counter, so
+% define it here to stay compatible with both.
+\makeatletter
+\@ifundefined{c@none}{\newcounter{none}}{}
+\makeatother
+
 % pdfTeX (unlike xelatex/lualatex) can't set most Unicode math/arrow symbols
 % directly even under utf8 inputenc + T1 fontenc -- map the ones the Obsidian
 % source actually uses to their LaTeX math equivalents. Extend this list if a
