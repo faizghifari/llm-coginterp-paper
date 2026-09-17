@@ -22,6 +22,8 @@ presented them as one figure. %%
 
 ![[sections/Introduction]]
 
+![[sections/Background]]
+
 ![[sections/Methodology]]
 
 ![[sections/Results]]
