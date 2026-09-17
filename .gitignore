@@ -12,3 +12,5 @@ latex-template/*.bbl
 latex-template/*.blg
 latex-template/*.pdflatex.log
 latex-template/*.pdf
+
+conflict-files-obsidian-git.md

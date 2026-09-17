@@ -317,12 +317,12 @@ All R-side methods share one contract — sparse matrix in; completed matrix, sw
 
 #### H.1 Cell-level methods
 
-| Method | Package | Swept parameter | Grid |
-|---|---|---|---|
-| SoftImpute \citep{mazumder2010} | `softImpute` | rank | 1…10 (capped at $\min(n,p)-1$); at each rank, a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts |
-| k-NN | `VIM` | $k$ | 1…10 (capped below $n$), Gower distance over benchmarks, weighted-mean aggregation |
-| missForest \citep{stekhoven2012} | `missForest` | `ntree` | {50, 100, 200, 400}, `maxiter = 10` |
-| MICE \citep{vanbuuren2011} | `mice` | $m$ | {5, 10, 20}, `method = "pmm"`, `maxit = 5` |
+| Method | Description | Package | Swept parameter | Grid |
+|---|---|---|---|---|
+| SoftImpute \citep{mazumder2010} | Nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD; assumes a low-rank signal plus noise. Primary cell-level method. | `softImpute` | rank | 1…10 (capped at $\min(n,p)-1$); at each rank, a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts |
+| k-NN | Each missing cell filled from the $k$ most similar models; assumption-light baseline with no low-rank, linearity, or normality assumption. | `VIM` | $k$ | 1…10 (capped below $n$), Gower distance over benchmarks, weighted-mean aggregation |
+| missForest \citep{stekhoven2012} | Iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent. | `missForest` | `ntree` | {50, 100, 200, 400}, `maxiter = 10` |
+| MICE \citep{vanbuuren2011} | Multiple imputation by chained equations; produces $m$ completed datasets, averaged before factoring. | `mice` | $m$ | {5, 10, 20}, `method = "pmm"`, `maxit = 5` |
 
 SoftImpute selects $\lambda$ within a rank by cell-weighted held-out RMSE (an internal minimisation only) and *reports* the column-balanced score; the completed matrix returned is a refit on the full data at the selected $(\text{rank}, \lambda)$, while the reported score comes from the masked-train fit's predictions. The two must not be conflated, or the metric leaks.
 
@@ -356,13 +356,13 @@ Shared machinery for SoftImpute-corr, OptSpace, USVT, CVXR, and GGM:
 
 Estimators:
 
-| Estimator | Implementation | Configuration |
-|---|---|---|
-| SoftImpute-corr \citep{mazumder2010} | `softImpute` | sweeps rank 1…10 with the same nested $\lambda$ grid as [[#H.1 Cell-level methods]] |
-| OptSpace \citep{keshavan2010} | `filling::fill.OptSpace` | automatic rank estimation, `niter = 50`, `tol = 1e-6`; no sweep |
-| USVT \citep{chatterjee2015} | `filling::fill.USVT` | fixed singular-value threshold $\eta = 0.01$; no sweep |
-| CVXR | `CVXR` + SCS | maximise $\log\det\Sigma$ s.t. $\Sigma \succeq 0$, diagonal matched exactly, each observed off-diagonal constrained to $\tanh(z_{ij} \pm c\,/\sqrt{n_{ij}-3})$ with $c = 2$; no sweep |
-| GGM | `ggm::fitConGraph` | graphical-model MLE with the observed-pair graph as the conditional-independence structure; handles non-chordal patterns; no sweep |
+| Estimator | Description | Implementation | Configuration |
+|---|---|---|---|
+| SoftImpute-corr \citep{mazumder2010} | Applies SoftImpute's low-rank completion to the observed pairwise correlation matrix rather than the data matrix, whose missing entries are exactly the benchmark pairs never co-observed. | `softImpute` | sweeps rank 1…10 with the same nested $\lambda$ grid as [[#H.1 Cell-level methods]] |
+| OptSpace \citep{keshavan2010} | Manifold-optimisation low-rank completion of the correlation matrix, with automatic rank estimation. | `filling::fill.OptSpace` | automatic rank estimation, `niter = 50`, `tol = 1e-6`; no sweep |
+| USVT \citep{chatterjee2015} | Universal singular value thresholding: completes the correlation matrix by hard-thresholding its singular values. | `filling::fill.USVT` | fixed singular-value threshold $\eta = 0.01$; no sweep |
+| CVXR (maximum-determinant SDP) | Structured completion targeting positive-definiteness directly: maximises $\log\det\Sigma$ subject to $\Sigma \succeq 0$ and each observed correlation lying within a per-pair Fisher-*z* confidence band scaled to that pair's co-observation count. | `CVXR` + SCS | maximise $\log\det\Sigma$ s.t. $\Sigma \succeq 0$, diagonal matched exactly, each observed off-diagonal constrained to $\tanh(z_{ij} \pm c\,/\sqrt{n_{ij}-3})$ with $c = 2$; no sweep |
+| GGM (Gaussian graphical model) | MLE completion over the observed-pair graph, treating it as the conditional-independence structure. | `ggm::fitConGraph` | graphical-model MLE with the observed-pair graph as the conditional-independence structure; handles non-chordal patterns; no sweep |
 
 Only SoftImpute-corr sweeps a hyperparameter; the other four take a single fixed configuration, so their reported "sweep" is a single point.
 

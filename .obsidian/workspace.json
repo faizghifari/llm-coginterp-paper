@@ -22,6 +22,20 @@
             }
           },
           {
+            "id": "0baabe2e4a1a045d",
+            "type": "leaf",
+            "state": {
+              "type": "split-diff-view",
+              "state": {
+                "aFile": "conflict-files-obsidian-git.md",
+                "bFile": "conflict-files-obsidian-git.md",
+                "aRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: conflict-files-obsidian-git"
+            }
+          },
+          {
             "id": "be2ace44c13c8ebd",
             "type": "leaf",
             "state": {
@@ -31,7 +45,8 @@
               "title": "New tab"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -214,8 +229,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d6a564de3ece0b5d",
+  "active": "0baabe2e4a1a045d",
   "lastOpenFiles": [
+    "conflict-files-obsidian-git.md",
+    "sections/Results.md",
     "latex-template/Main.bbl",
     "latex-template/Main.blg",
     "latex-template/Main.bibtex.log",
@@ -224,7 +241,6 @@
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
     "sections/Methodology.md",
-    "sections/Results.md",
     "Main.md",
     "tmp.md",
     "Draft.md",
