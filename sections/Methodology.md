@@ -1,6 +1,6 @@
 # Methodology
 
-In this study we investigate the low-dimensional structure of model benchmark scores, which comprise of distinct but correlated latent factors that each dominantly affects different clusters of benchmarks, and a $G$ factor that accounts for the variances of all benchmarks. To this end we collect a raw data matrix with size $1,618 \times 456$. One challenge in analyzing this dataset is that the raw matrix is supersparse (~1.8% density). Both benchmarks and models differ in popularity, so famous benchmarks and models have considerably higher observations. To handle this issue, we implement multiple peeling strategy to drop columns and/or rows to improve the matrix density, and applied several missing data imputation strategy. Given the dataset's difficult conditions we prefer a collection or aggregate of results from different densification and imputation methods (wherein each introduce their own biases and assumptions), with the goal to triangulate each of their results to find a common characteristic.
+In this study we investigate the low-dimensional structure of model benchmark scores, which comprise of distinct but correlated latent factors that each dominantly affects different clusters of benchmarks, and a $G$ factor that accounts for the variances of all benchmarks. To this end we collect a raw data matrix with size $1,618 \times 456$. One challenge in analyzing this dataset is that the raw matrix is supersparse (~1.8% density). Both benchmarks and models differ in popularity, so famous benchmarks and models have considerably higher observations. Moreover, The dataset exhibits a missing not at random (MNAR) pattern \citep{rubin1976}. Popular models are more likely to be benchmarked, and popular benchmarks are more likely to be administered. To handle this issue, we implement multiple peeling strategy to drop columns and/or rows to improve the matrix density, and applied several missing data imputation strategy. Given the dataset's difficult conditions we prefer a collection or aggregate of results from different densification and imputation methods (wherein each introduce their own biases and assumptions), with the goal to triangulate each of their results to find a common characteristic.
 
 ## Data Collection
 
@@ -34,26 +34,33 @@ Surviving rows for the same (model, benchmark) pair are later averaged into a si
 
 ### Aggregation
 
-The collected datasets contain same models evaluated under different conditions, e.g., chain-of-thought vs. no chain-of-thought. Since including the same models would lead to a violation of independence of distribution, multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Averaging is done after identity cleanup, so that it never masks a duplicate that should have been removed. Model identity is then resolved at two granularities, run as parallel conditions throughout the rest of the pipeline:
+<!-- The collected datasets contain same models evaluated under different conditions, e.g., chain-of-thought vs. no chain-of-thought. Since including the same models would lead to a violation of independence of distribution, multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Model identity is then resolved at two choices of granularities: -->
 
-- **`all_standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
-- **`all_aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row.
+To deduplicate rows with the same models under different conditions (e.g. reasoning effort), we average rows under two collapse strategies:
 
-The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed; the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. Neither is correct a priori, which is why both are carried forward. The token-level rules are given in [[Appendix-Methods#F Model-identity collapse|Appendix F]].
+<!-- - **`all_standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
+- **`all_aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row. -->
+
+- **`all_standard`**: variant-level. Keeps different version numbers and parameter count, while collapsing reasoning effort, knowledge cutoff, etc.
+- **`all_aggressive`**: family-level. Every model is collapsed to its base family token (Claude, Llama, etc.), so all sizes and generations of a family form one row.
+
+The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed, while the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. The token-level rules are given in [[Appendix-Methods#F Model-identity collapse|Appendix F]].
 
 ### Metric selection
 
-About 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we kept exactly one metric per benchmark. Given a choice between several metrics, we keep the metric covering the most distinct models, so the widest comparable population survives; a per-benchmark override list handles cases where coverage alone chooses badly. This drops 1,420 result rows and 706 model-cells. Finally, benchmarks observed for only one model are dropped.
+About 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we keep one metric covering the most distinct models, so the widest comparable population survives. A per-benchmark override list handles cases where coverage alone chooses badly. This drops 1,420 result rows and 706 model-cells. Finally, benchmarks observed for only one model are dropped.
 
 ### Densification
 
-At 2–4 % observed, the raw data is ineligible for virtually any data analysis. We therefore improve the dataset density by applying several additional steps that discard missing data, described below. All three densifiers greedily peel the matrix toward a common target density (10 %), differing only in which axis they sacrifice:
+<!-- At 2–4 % observed, the raw data is ineligible for virtually any data analysis. We therefore improve the dataset density by applying several additional steps that discard missing data, described below. All three densifiers greedily peel the matrix toward a common target density, differing only in which axis they sacrifice: -->
 
-- **C (column-primary)** — repeatedly drop the least-observed benchmark, then any model left empty. Retains famous benchmarks with wide model coverage.
-- **R (row-primary)** — repeatedly drop the least-observed model, then any benchmark left empty. Retains a broad benchmark set, including obscure ones, over a small set of heavily-evaluated models. This densifier leads to having more observations than variables. 
-- **S (symmetric)** — at each step drop whichever marginal has the lowest fill-rate, privileging neither axis.
+We further improve the data density by greedily peeling the matrix towards a common target density. We feature three densifiers, differing by the axis they sacrifice:
 
-After peeling, a floor is enforced on both axes so that every retained model and benchmark has at least 3 observed scores. columns with zero variance among observed values are also dropped, since they carry no correlational signal. The algorithm is given in [[Appendix-Methods#G Densification algorithm|Appendix G]]. Note also that we select a still relatively low target density at 10%, so that we can include as much different benchmarks as possible.
+- **C (column-primary)**: repeatedly drop the least-observed benchmark, then any model left empty. Retains famous benchmarks with wide model coverage.
+- **R (row-primary)**: repeatedly drop the least-observed model, then any benchmark left empty. Retains a broad benchmark set, including obscure ones, over a small set of heavily-evaluated models. This densifier leads to having more observations than variables. 
+- **S (symmetric)**: drop whichever marginal has the lowest fill-rate, privileging neither axis.
+
+After peeling, models and benchmarks that has less than 3 observed scores are dropped. Columns with zero variance among observed values are also dropped, since they carry no correlational signal. The algorithm is given in [[Appendix-Methods#G Densification algorithm|Appendix G]]. Note that we select a still relatively low target density at 10%, so that we can include as much different benchmarks as possible.
 
 **Table 2.** Aggregated model × benchmark matrices, text-only corpus. "Retained" is the fraction of observed cells surviving the densifier peel.
 
@@ -69,18 +76,30 @@ After peeling, a floor is enforced on both axes so that every retained model and
 | R         | `all_aggressive` | 97 × 310   |   11.7% |      78% |
 
 
-### Matrix completion
+### Matrix imputation
 
-As mentioned before, the densifier leaves only around 10% density for each dataset. This number is still far from being usable for any analysis. Moreover, the dataset exhibits a missing not at random (MNAR) pattern \citep{rubin1976}. Popular models are more likely to be benchmarked, and popular benchmarks are more likely to be administered. Our solution to this problem is to instead run multiple different imputations, comparing the performance of each, and aggregating the results. The core idea is, since the distribution of the missing data is impossible to recover, it is better to triangulate results from different densifiers and different imputers, each with their own biases and assumptions, and recover common patterns as the kernel of truth. There are 2 families of imputers we use: full dataset imputers, and correlation/reduced matrix imputers.
+<!-- Already stated in beginning of methodology -->
+<!-- The dataset exhibits a missing not at random (MNAR) pattern \citep{rubin1976}. Popular models are more likely to be benchmarked, and popular benchmarks are more likely to be administered. Since different densifiers and imputers has their own biases and assumptions, we run multiple different imputations, comparing the performance of each, and aggregating the results.  -->
+<!-- The core idea is, since the distribution of the missing data is impossible to recover, it is better to triangulate results from different densifiers and different imputers, each with their own biases and assumptions, and recover common patterns as the kernel of truth. -->
 
-%%TODO: shorten this section into a table%%
+<!--
 Full dataset imputers estimates the missing entries of the dataset directly: **SoftImpute** \citep{mazumder2010} (nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD; assumes a low-rank signal plus noise, and is our primary cell-level method); **k-NN** (each missing cell filled from the $k$ most similar models — an assumption-light baseline with no low-rank, linearity, or normality assumption); **missForest** \citep{stekhoven2012} (iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent).
 
 **Correlation-level recovery** exploits the fact that factor analysis needs a correlation matrix, not a data matrix. When observations are too sparse to complete cells reliably, the correlation structure may still be recoverable — a substantially weaker requirement. This family estimates the benchmark × benchmark correlation matrix directly and never claims to know individual cells: **OneSidedMC** \citep{cao2023} recovers the benchmark-space right singular vectors from pairwise products of co-observed scores, yielding an estimate $\hat{\Theta}$ of the benchmark covariance; **SoftImpute-corr**, **OptSpace** \citep{keshavan2010}, and **USVT** \citep{chatterjee2015} apply matrix-completion estimators to the *observed pairwise correlation matrix*, whose missing entries are exactly the benchmark pairs that were never co-observed; and two structured completions target positive-definiteness directly — a **maximum-determinant** SDP completion, which maximises $\log\det\Sigma$ subject to $\Sigma \succeq 0$ and to each observed correlation lying within a per-pair Fisher-*z* confidence band scaled to that pair's co-observation count, and a **Gaussian graphical model** MLE completion over the observed-pair graph.
+-->
+
+We further densify the data using 2 families of imputers: 
+
+- **Full dataset imputers**: estimates the missing entries of the dataset directly. Includes SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}.
+- **Correlation-level recovery**: instead exploits the fact that factor analysis needs a correlation matrix, not a data matrix. The benchmark × benchmark correlation structure is a substantially weaker requirement, and so this family estimates that correlation matrix directly. Includes OneSidedMC \citep{cao2023}, SoftImpute-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}, maximum-determinant SDP completion, and Gaussian graphical model completion
+
+Method-level descriptions and implementation detail for all of the above are given in [[Appendix-Methods#H Completion methods|Appendix H]].
 
 
 ### Evaluating the completion
-Given the challenging nature of our dataset's missingness pattern, we need a way to measure the quality of our data imputation. As such, at each stage of the imputation, we masked ~20% of the observed cells as an evaluation set. This mask is column-stratified, such that each benchmark is masked at least once, leaving at least two training observations in every column. Without this column stratification, our evaluation score is inflated by the fact that high-observation benchmarks (which are the least difficult to impute) are sampled more often than low-observation ones. Columns are standardised using training-cell moments only.
+At each stage of the imputation, we masked ~20% of the observed cells as an evaluation set. To prevent high-observation benchmarks from inflating the score, we use a column-stratified mask, such that each benchmark is masked at least once and leaving at least two training observations in every column. Columns are standardised using training-cell moments only.
+
+<!-- Without this column stratification, our evaluation score is inflated by the fact that high-observation benchmarks (which are the least difficult to impute) are sampled more often than low-observation ones. -->
 
 Held-out cells are scored in standard-deviation units against a baseline that predicts each column's training mean:
 
@@ -92,6 +111,7 @@ This metric is used for hyperparameter selection within each method (rank, $k$, 
 
 ## Factor analysis
 
+<!-- Is this paragraph needed? -->
 We dedicate this section to be a little longer, as we use methodologies that are standard in psychometric research, but critically lacking in LLM intelligence research \citep{ilicagignac2024,burnell2023,ye2025}. There are 3 issues common in LLM intelligence research: 1. The use of principal components analysis (PCA) over exploratory factor analysis (EFA), 2. Not rotating factor solutions, 3. Not using bifactor transformation and reporting $\omega$ coefficients.
 
 First, the use of EFA over PCA is informed by the causal effect of the latent variables over the benchmark scores. As described in the introduction, an abstract, "raw" intelligence is assumed, by existing literature, to precedes performance in domain-specific skills \citep{schneider2018}, correlations between benchmarks are directly and causally influenced by variance of the lower-dimensional latent variables. Crucially, direct eigendecomposition does not try to exclude or partition any variance, so principal components captures both systematic and error/random variance. The same is not true for EFA's multi-step algorithm. Psychometricians would call this this distinction between PCA and EFA to be formative vs. causal \citep{vandermaas2014}.
