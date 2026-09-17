@@ -50,3 +50,4 @@ We present the result of the imputations
 | C_all_standard   | softimpute_corr | 0.8126 | 0.317 | rank=5 (swept 1..7)                |
 
 
+![[Pasted image 20260917212152.png|UMAP plot of aggregated raw dataset factor loadings. Content-similar benchmarks does not consistently cluster together.]]

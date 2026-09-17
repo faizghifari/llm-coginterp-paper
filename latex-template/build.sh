@@ -47,7 +47,7 @@ STRIPPED="$(mktemp --suffix=.md)"
 trap 'rm -f "$STRIPPED"' EXIT
 
 python3 - "$SRC" "$STRIPPED" "$REPO_ROOT" <<'PY'
-import re, sys, os
+import re, sys, os, shutil
 src, dst, repo_root = sys.argv[1], sys.argv[2], sys.argv[3]
 
 # Obsidian embed: a line containing only "![[target]]" (optionally "#heading"
@@ -57,13 +57,17 @@ EMBED_RE = re.compile(r'^!\[\[([^\]\n]+?)\]\][ \t]*$', re.MULTILINE)
 
 def resolve(target, base_dir):
     target = target.split('#', 1)[0].split('|', 1)[0].strip()
-    cands = [target] if target.endswith(".md") else [target + ".md"]
+    # Non-markdown embeds (images) are referenced with their exact filename;
+    # everything else is a note, so the .md extension is implicit.
+    cands = [target] if os.path.splitext(target)[1] else [target + ".md"]
     for cand in cands:
         for base in (base_dir, repo_root):
             p = os.path.normpath(os.path.join(base, cand))
             if os.path.isfile(p):
                 return p
     return None
+
+out_dir = os.path.dirname(os.path.abspath(dst))
 
 def expand(path, visited):
     path = os.path.normpath(path)
@@ -78,6 +82,18 @@ def expand(path, visited):
         if resolved is None:
             sys.stderr.write(f"warning: could not resolve embed ![[{target}]] referenced from {path}\n")
             return m.group(0)
+        if not resolved.endswith(".md"):
+            # Images (etc.) are not inlined -- they're copied next to the
+            # output .tex (and into latex-template/, which is what Overleaf
+            # syncs) so the bare filename pandoc emits is resolvable by
+            # pdflatex at compile time.
+            name = os.path.basename(resolved)
+            for dest_dir in dict.fromkeys([os.path.join(repo_root, "latex-template"), out_dir]):
+                shutil.copy2(resolved, os.path.join(dest_dir, name))
+            # Preserve any "|caption" part of the embed so pandoc turns it
+            # into the figure caption instead of using the filename.
+            caption = target.split("|", 1)[1].strip() if "|" in target else None
+            return f"![[{name}|{caption}]]" if caption else f"![[{name}]]"
         return expand(resolved, visited)
     return EMBED_RE.sub(repl, text)
 
