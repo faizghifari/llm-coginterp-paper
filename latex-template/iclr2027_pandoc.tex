@@ -57,6 +57,27 @@
 \newunicodechar{÷}{\ensuremath{\div}}
 \newunicodechar{…}{\ensuremath{\ldots}}
 
+% The appendix names benchmarks and code columns in \texttt{}, and the typewriter
+% font is never hyphenated, so an identifier like kaggle_andrewmingwang_scicode
+% is one unbreakable 33-character box that punches straight out of a narrow
+% table cell (90pt past the margin before this). Underscores are where these
+% names actually want to break, so allow a break after each one. The break is
+% optional, so a name that fits is still set on one line, and no hyphen is
+% inserted (which would misrepresent the identifier).
+\makeatletter
+\let\iclr@origunderscore\_
+\renewcommand{\_}{\iclr@origunderscore\allowbreak}
+\makeatother
+
+% Fenced code blocks in the appendix (shell transcripts, pattern vocabularies)
+% are set verbatim, and plain verbatim overruns the margin rather than wrapping
+% -- the longest reproduction command ran 118pt over. fancyvrb's Verbatim does
+% break, so alias the environment pandoc emits onto it. breakanywhere is needed
+% because these lines are paths and flags with no spaces to break at.
+\usepackage{fvextra}
+\fvset{breaklines=true,breakanywhere=true,breaksymbolleft={},breakindent=0pt}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{}
+
 \makeatletter
 \newsavebox\pandoc@box
 \newcommand*\pandocbounded[1]{% scales image to fit in text height/width
