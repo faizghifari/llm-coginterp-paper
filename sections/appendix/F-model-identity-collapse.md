@@ -2,7 +2,7 @@
 
 Both strategies operate on the source-specific `results.model_id` field ([[A-data-sources-and-extraction#A.3 Schema|Appendix A.3]]), after canonicalising each identifier's `model_family` and `model_size` metadata to the first non-null value observed for it. Multiple evaluations of the same (identifier, benchmark) are averaged before collapsing, and rows sharing a collapse key are averaged again per benchmark.
 
-## F.1 `all_standard` (variant-level) {-}
+## F.1 `standard` (variant-level) {-}
 
 Applied in order to each identifier:
 
@@ -16,7 +16,7 @@ Applied in order to each identifier:
 
 The common-size whitelist is guarded against version-number collisions: a bare `3` or `4` in a Claude or GPT identifier is a version, not a parameter count.
 
-## F.2 `all_aggressive` (family-level) {-}
+## F.2 `aggressive` (family-level) {-}
 
 Take the first alphabetic token of `model_family` if it is non-numeric; otherwise strip the organisation prefix, parentheses, and dates from the identifier and take its first alphabetic token. Everything else is discarded.
 

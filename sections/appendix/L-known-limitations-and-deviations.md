@@ -16,7 +16,7 @@ Implemented but excluded from all results ([[H-completion-methods#H.1 Cell-level
 
 ## L.3 Densifier floor constant. {-}
 
-The matrices analysed here were produced with `MIN_OBS = 2` ([[G-densification-algorithm#G Densification algorithm|Appendix G]]), which is what the shipped densified tables and their summary record. The constant currently in the repository source is 3. The difference is not cosmetic — recomputed on the pruned corpus, moving 2 → 3 costs about an eighth of the models on the column-primary peel (C/all_standard 786 → 689, C/all_aggressive 232 → 205) and trims the benchmark axis on the row-primary peel (R/all_standard 333 → 300 columns, R/all_aggressive 356 → 320), while leaving the symmetric peel untouched at 682 × 130 and 128 × 296. The value must be pinned and stated in the paper, and Table 3 regenerated to match whichever is chosen.
+The matrices analysed here were produced with `MIN_OBS = 2` ([[G-densification-algorithm#G Densification algorithm|Appendix G]]), which is what the shipped densified tables and their summary record. The constant currently in the repository source is 3. The difference is not cosmetic — recomputed on the pruned corpus, moving 2 → 3 costs about an eighth of the models on the column-primary peel (C/standard 786 → 689, C/aggressive 232 → 205) and trims the benchmark axis on the row-primary peel (R/standard 333 → 300 columns, R/aggressive 356 → 320), while leaving the symmetric peel untouched at 682 × 130 and 128 × 296. The value must be pinned and stated in the paper, and Table 3 regenerated to match whichever is chosen.
 
 ## L.3a Tables 2 and 3 are provisional. {-}
 

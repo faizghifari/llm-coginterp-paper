@@ -33,11 +33,11 @@ Surviving rows for the same (model, benchmark) pair are later averaged into a si
 
 To deduplicate rows with the same models under different conditions (e.g. reasoning effort), we average rows under two collapse strategies:
 
-<!-- - **`all_standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
-- **`all_aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row. -->
+<!-- - **`standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
+- **`aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row. -->
 
-- **`all_standard`**: variant-level. Keeps different version numbers and parameter count, while collapsing reasoning effort, knowledge cutoff, etc.
-- **`all_aggressive`**: family-level. Every model is collapsed to its base family token (Claude, Llama, etc.), so all sizes and generations of a family form one row.
+- **`standard`**: variant-level. Keeps different version numbers and parameter count, while collapsing reasoning effort, knowledge cutoff, etc.
+- **`aggressive`**: family-level. Every model is collapsed to its base family token (Claude, Llama, etc.), so all sizes and generations of a family form one row.
 
 The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed, while the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. The token-level rules are given in [[F-model-identity-collapse#F Model-identity collapse|Appendix F]].
 
@@ -61,14 +61,14 @@ After peeling, models and benchmarks that has less than 3 observed scores are dr
 
 | Densifier | Strategy         | Shape      | Density | Retained |
 | --------- | ---------------- | ---------- | ------: | -------: |
-| raw       | `all_standard`   | 1266 × 404 |    2.2% |          |
-| raw       | `all_aggressive` | 334 × 380  |    3.5% |          |
-| C         | `all_standard`   | 671 × 78   |   13.8% |      65% |
-| C         | `all_aggressive` | 201 × 102  |   13.6% |      63% |
-| S         | `all_standard`   | 669 × 124  |     10% |      75% |
-| S         | `all_aggressive` | 124 × 293  |     10% |      81% |
-| R         | `all_standard`   | 175 × 298  |   11.8% |      55% |
-| R         | `all_aggressive` | 97 × 310   |   11.7% |      78% |
+| raw       | `standard`   | 1266 × 404 |    2.2% |          |
+| raw       | `aggressive` | 334 × 380  |    3.5% |          |
+| C         | `standard`   | 671 × 78   |   13.8% |      65% |
+| C         | `aggressive` | 201 × 102  |   13.6% |      63% |
+| S         | `standard`   | 669 × 124  |     10% |      75% |
+| S         | `aggressive` | 124 × 293  |     10% |      81% |
+| R         | `standard`   | 175 × 298  |   11.8% |      55% |
+| R         | `aggressive` | 97 × 310   |   11.7% |      78% |
 
 We further densify the data using 2 families of imputers: 
 
