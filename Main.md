@@ -37,13 +37,16 @@ presented them as one figure. %%
 \appendix
 ```
 
-![[sections/appendix/data-sources-and-extraction]]
+![[sections/appendix/known-limitations-and-deviations]]
 
-![[sections/appendix/inclusion-and-exclusion-criteria]]
+![[sections/appendix/data-source-and-normalization]]
 
-![[sections/appendix/normalisation-rules]]
+<!-- Merged to data section -->
+<!-- ![[sections/appendix/inclusion-and-exclusion-criteria]] -->
+<!-- ![[sections/appendix/normalisation-rules]] -->
 
-![[sections/appendix/text-only-classifier]]
+<!-- Dont think this is needed -->
+<!-- ![[sections/appendix/text-only-classifier]] -->
 
 ![[sections/appendix/score-redundancy-pruning]]
 
@@ -58,5 +61,3 @@ presented them as one figure. %%
 ![[sections/appendix/factor-analysis-details]]
 
 ![[sections/appendix/software-environment-and-reproduction]]
-
-![[sections/appendix/known-limitations-and-deviations]]
