@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "sections/Results.md",
+                "file": "sections/Methodology.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Results"
+              "title": "Methodology"
             }
           },
           {
@@ -212,8 +212,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "5a10cf72a4585ae0",
+  "active": "d6a564de3ece0b5d",
   "lastOpenFiles": [
+    "References.md",
+    "sections/Methodology.md",
+    "sections/Results.md",
     "latex-template/Main.bbl",
     "latex-template/Main.blg",
     "latex-template/Main.bibtex.log",
@@ -229,7 +232,6 @@
     "sections/Introduction.md",
     "Untitled.base",
     "Methodology.md",
-    "sections/Results.md",
     "latex-template/Pasted image 20260918004415.png",
     "Pasted image 20260918004415.png",
     "latex-template/Main.pdf",
@@ -238,12 +240,10 @@
     "sections/Pasted image 20260917212106.png",
     "Pasted image 20260917212106.png",
     "conflict-files-obsidian-git.md",
-    "sections/Methodology.md",
     "Main.md",
     "tmp.md",
     "Draft.md",
     "Topics.md",
-    "References.md",
     "Appendix.md",
     "Image",
     "9. Kelak ke Mana Nyawa Berlari.md",

@@ -86,60 +86,60 @@
       "sizeInBytes": 7321,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 2.08,
-        "wordCount": 624,
-        "characterCount": 7455,
-        "nonWhitespaceCharacterCount": 4575
+        "pageCount": 2.01,
+        "wordCount": 603,
+        "characterCount": 7317,
+        "nonWhitespaceCharacterCount": 4455
       }
     },
     "sections/Methodology.md": {
       "isCountable": true,
       "targetNodeType": "file",
       "noteCount": 1,
-      "wordCount": 2626,
+      "wordCount": 2834,
       "wordCountTowardGoal": 0,
       "wordGoal": null,
-      "pageCount": 8.753333333333334,
-      "characterCount": 19528,
-      "nonWhitespaceCharacterCount": 16510,
-      "readingTimeInMinutes": 9.909433962264151,
+      "pageCount": 9.446666666666667,
+      "characterCount": 21212,
+      "nonWhitespaceCharacterCount": 17975,
+      "readingTimeInMinutes": 10.69433962264151,
       "linkCount": 9,
       "embedCount": 0,
       "aliases": null,
-      "createdDate": 1789653831182,
-      "modifiedDate": 1789653831182,
-      "sizeInBytes": 19553,
+      "createdDate": 1789691124630,
+      "modifiedDate": 1789698909014,
+      "sizeInBytes": 21240,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 8.753333333333334,
-        "wordCount": 2626,
-        "characterCount": 19528,
-        "nonWhitespaceCharacterCount": 16510
+        "pageCount": 8.76,
+        "wordCount": 2628,
+        "characterCount": 19536,
+        "nonWhitespaceCharacterCount": 16517
       }
     },
     "sections/Introduction.md": {
       "isCountable": true,
       "targetNodeType": "file",
       "noteCount": 1,
-      "wordCount": 461,
+      "wordCount": 678,
       "wordCountTowardGoal": 0,
       "wordGoal": null,
-      "pageCount": 1.5366666666666666,
-      "characterCount": 3289,
-      "nonWhitespaceCharacterCount": 2824,
-      "readingTimeInMinutes": 1.739622641509434,
+      "pageCount": 2.26,
+      "characterCount": 4820,
+      "nonWhitespaceCharacterCount": 4127,
+      "readingTimeInMinutes": 2.5584905660377357,
       "linkCount": 0,
       "embedCount": 0,
       "aliases": null,
-      "createdDate": 1789633805050,
-      "modifiedDate": 1789633805050,
-      "sizeInBytes": 3289,
+      "createdDate": 1789691124630,
+      "modifiedDate": 1789691124630,
+      "sizeInBytes": 4820,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 1.5366666666666666,
-        "wordCount": 461,
-        "characterCount": 3289,
-        "nonWhitespaceCharacterCount": 2824
+        "pageCount": 2.26,
+        "wordCount": 678,
+        "characterCount": 4820,
+        "nonWhitespaceCharacterCount": 4127
       }
     },
     "sections/Discussion.md": {
@@ -171,25 +171,25 @@
       "isCountable": true,
       "targetNodeType": "file",
       "noteCount": 1,
-      "wordCount": 2035,
+      "wordCount": 3201,
       "wordCountTowardGoal": 0,
       "wordGoal": null,
-      "pageCount": 6.783333333333333,
-      "characterCount": 14185,
-      "nonWhitespaceCharacterCount": 12115,
-      "readingTimeInMinutes": 7.679245283018868,
+      "pageCount": 10.67,
+      "characterCount": 22582,
+      "nonWhitespaceCharacterCount": 19292,
+      "readingTimeInMinutes": 12.079245283018867,
       "linkCount": 0,
       "embedCount": 0,
       "aliases": null,
-      "createdDate": 1789609450775,
-      "modifiedDate": 1789642500565,
-      "sizeInBytes": 14187,
+      "createdDate": 1789691124630,
+      "modifiedDate": 1789691124630,
+      "sizeInBytes": 22584,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 6.783333333333333,
-        "wordCount": 2035,
-        "characterCount": 14185,
-        "nonWhitespaceCharacterCount": 12115
+        "pageCount": 10.67,
+        "wordCount": 3201,
+        "characterCount": 22582,
+        "nonWhitespaceCharacterCount": 19292
       }
     },
     "latex-template/natbib.sty": {
@@ -317,6 +317,31 @@
         "nonWhitespaceCharacterCount": 0
       }
     },
+    "latex-template/iclr2027_conference.bib": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789609450775,
+      "modifiedDate": 1789698871244,
+      "sizeInBytes": 13393,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
     "latex-template/fancyhdr.sty": {
       "isCountable": false,
       "targetNodeType": "file",
@@ -342,7 +367,7 @@
         "nonWhitespaceCharacterCount": 0
       }
     },
-    "latex-template/iclr2027_conference.bib": {
+    "latex-template/Pasted image 20260918013843.png": {
       "isCountable": false,
       "targetNodeType": "file",
       "noteCount": 0,
@@ -356,9 +381,9 @@
       "linkCount": 0,
       "embedCount": 0,
       "aliases": [],
-      "createdDate": 1789609450775,
-      "modifiedDate": 1789609450775,
-      "sizeInBytes": 13085,
+      "createdDate": 1789670543186,
+      "modifiedDate": 1789670323552,
+      "sizeInBytes": 150707,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -384,6 +409,31 @@
       "createdDate": 1789655398975,
       "modifiedDate": 1789666827486,
       "sizeInBytes": 7877,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
+    "latex-template/Pasted image 20260918012219.png": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789669465979,
+      "modifiedDate": 1789669339553,
+      "sizeInBytes": 57293,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -456,9 +506,9 @@
       "linkCount": 0,
       "embedCount": 0,
       "aliases": [],
-      "createdDate": 1789655398992,
-      "modifiedDate": 1789667864763,
-      "sizeInBytes": 45920,
+      "createdDate": 1789691179756,
+      "modifiedDate": 1789691179769,
+      "sizeInBytes": 38632,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -482,8 +532,33 @@
       "embedCount": 0,
       "aliases": [],
       "createdDate": 1789656772961,
-      "modifiedDate": 1789667866409,
-      "sizeInBytes": 346055,
+      "modifiedDate": 1789691182359,
+      "sizeInBytes": 345251,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
+    "Untitled.base": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789667880249,
+      "modifiedDate": 1789667883598,
+      "sizeInBytes": 39,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -542,6 +617,56 @@
         "nonWhitespaceCharacterCount": 8775
       }
     },
+    "Pasted image 20260918013843.png": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789670323551,
+      "modifiedDate": 1789670323552,
+      "sizeInBytes": 150707,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
+    "Pasted image 20260918012219.png": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789669339553,
+      "modifiedDate": 1789669339553,
+      "sizeInBytes": 57293,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
     "Pasted image 20260918004415.png": {
       "isCountable": false,
       "targetNodeType": "file",
@@ -565,6 +690,35 @@
         "wordCount": 0,
         "characterCount": 0,
         "nonWhitespaceCharacterCount": 0
+      }
+    },
+    "Main.md": {
+      "isCountable": true,
+      "targetNodeType": "file",
+      "noteCount": 1,
+      "wordCount": 143,
+      "wordCountTowardGoal": 0,
+      "wordGoal": null,
+      "pageCount": 0.4766666666666667,
+      "characterCount": 1086,
+      "nonWhitespaceCharacterCount": 922,
+      "readingTimeInMinutes": 0.539622641509434,
+      "linkCount": 0,
+      "embedCount": 5,
+      "aliases": null,
+      "createdDate": 1789633805049,
+      "modifiedDate": 1789633805049,
+      "sizeInBytes": 2651,
+      "sessionStart": {
+        "noteCount": 1,
+        "pageCount": 0.4766666666666667,
+        "wordCount": 143,
+        "characterCount": 1086,
+        "nonWhitespaceCharacterCount": 922
+      },
+      "frontmatter": {
+        "title": "The dimensionality of machine intelligence is only partially interpretable",
+        "abstract": "A common assumption in language model development is that cognitive abilities are organized around a general, domain-free intelligence factor, much like fluid intelligence in humans. This assumption is rarely tested directly, and prior attempts have done so only at a much smaller scale. We take a multi-order latent variable approach to intelligence in language models, similar to how psychometricians formulate psychological traits. Performance in every specific problem set is influenced by a domain-specific and a domain-agnostic latent factor. Using factor analysis as a dimension-reduction technique, we analyse 13,251 published evaluation scores covering 1,618 language models across 456 different text-only benchmarks. Due to the super-sparse nature of the dataset, we triangulate our analysis across different data densifiers and imputation methods. A robust pattern across different modes of bias is that 1. factor patterns are only partially interpretable and often incoherent, 2. no silver-bullet \"general intelligence\" factor exists. Our findings goes against current endeavors of defining, identifying, and targeting general intelligence in language model development. It is not possible to develop a generally-intelligent language model by targeting single conceptual ability: general intelligence is only achievable by training on the first-order intelligence domains, but these are often partially idiosyncratic and not identifiable in practice."
       }
     },
     "Pasted image 20260917212152.png": {
@@ -615,35 +769,6 @@
         "wordCount": 4921,
         "characterCount": 35165,
         "nonWhitespaceCharacterCount": 29643
-      }
-    },
-    "Main.md": {
-      "isCountable": true,
-      "targetNodeType": "file",
-      "noteCount": 1,
-      "wordCount": 143,
-      "wordCountTowardGoal": 0,
-      "wordGoal": null,
-      "pageCount": 0.4766666666666667,
-      "characterCount": 1086,
-      "nonWhitespaceCharacterCount": 922,
-      "readingTimeInMinutes": 0.539622641509434,
-      "linkCount": 0,
-      "embedCount": 5,
-      "aliases": null,
-      "createdDate": 1789633805049,
-      "modifiedDate": 1789633805049,
-      "sizeInBytes": 2651,
-      "sessionStart": {
-        "noteCount": 1,
-        "pageCount": 0.4766666666666667,
-        "wordCount": 143,
-        "characterCount": 1086,
-        "nonWhitespaceCharacterCount": 922
-      },
-      "frontmatter": {
-        "title": "The dimensionality of machine intelligence is only partially interpretable",
-        "abstract": "A common assumption in language model development is that cognitive abilities are organized around a general, domain-free intelligence factor, much like fluid intelligence in humans. This assumption is rarely tested directly, and prior attempts have done so only at a much smaller scale. We take a multi-order latent variable approach to intelligence in language models, similar to how psychometricians formulate psychological traits. Performance in every specific problem set is influenced by a domain-specific and a domain-agnostic latent factor. Using factor analysis as a dimension-reduction technique, we analyse 13,251 published evaluation scores covering 1,618 language models across 456 different text-only benchmarks. Due to the super-sparse nature of the dataset, we triangulate our analysis across different data densifiers and imputation methods. A robust pattern across different modes of bias is that 1. factor patterns are only partially interpretable and often incoherent, 2. no silver-bullet \"general intelligence\" factor exists. Our findings goes against current endeavors of defining, identifying, and targeting general intelligence in language model development. It is not possible to develop a generally-intelligent language model by targeting single conceptual ability: general intelligence is only achievable by training on the first-order intelligence domains, but these are often partially idiosyncratic and not identifiable in practice."
       }
     },
     "Appendix.md": {
@@ -719,131 +844,6 @@
         "wordCount": 420,
         "characterCount": 3082,
         "nonWhitespaceCharacterCount": 2648
-      }
-    },
-    "Untitled.base": {
-      "isCountable": false,
-      "targetNodeType": "file",
-      "noteCount": 0,
-      "wordCount": 0,
-      "wordCountTowardGoal": 0,
-      "wordGoal": 0,
-      "pageCount": 0,
-      "characterCount": 0,
-      "nonWhitespaceCharacterCount": 0,
-      "readingTimeInMinutes": 0,
-      "linkCount": 0,
-      "embedCount": 0,
-      "aliases": [],
-      "createdDate": 1789667880249,
-      "modifiedDate": 1789667883598,
-      "sizeInBytes": 39,
-      "sessionStart": {
-        "noteCount": 0,
-        "pageCount": 0,
-        "wordCount": 0,
-        "characterCount": 0,
-        "nonWhitespaceCharacterCount": 0
-      }
-    },
-    "Pasted image 20260918012219.png": {
-      "isCountable": false,
-      "targetNodeType": "file",
-      "noteCount": 0,
-      "wordCount": 0,
-      "wordCountTowardGoal": 0,
-      "wordGoal": 0,
-      "pageCount": 0,
-      "characterCount": 0,
-      "nonWhitespaceCharacterCount": 0,
-      "readingTimeInMinutes": 0,
-      "linkCount": 0,
-      "embedCount": 0,
-      "aliases": [],
-      "createdDate": 1789669339553,
-      "modifiedDate": 1789669339553,
-      "sizeInBytes": 57293,
-      "sessionStart": {
-        "noteCount": 0,
-        "pageCount": 0,
-        "wordCount": 0,
-        "characterCount": 0,
-        "nonWhitespaceCharacterCount": 0
-      }
-    },
-    "latex-template/Pasted image 20260918012219.png": {
-      "isCountable": false,
-      "targetNodeType": "file",
-      "noteCount": 0,
-      "wordCount": 0,
-      "wordCountTowardGoal": 0,
-      "wordGoal": 0,
-      "pageCount": 0,
-      "characterCount": 0,
-      "nonWhitespaceCharacterCount": 0,
-      "readingTimeInMinutes": 0,
-      "linkCount": 0,
-      "embedCount": 0,
-      "aliases": [],
-      "createdDate": 1789669465979,
-      "modifiedDate": 1789669339553,
-      "sizeInBytes": 57293,
-      "sessionStart": {
-        "noteCount": 0,
-        "pageCount": 0,
-        "wordCount": 0,
-        "characterCount": 0,
-        "nonWhitespaceCharacterCount": 0
-      }
-    },
-    "Pasted image 20260918013843.png": {
-      "isCountable": false,
-      "targetNodeType": "file",
-      "noteCount": 0,
-      "wordCount": 0,
-      "wordCountTowardGoal": 0,
-      "wordGoal": 0,
-      "pageCount": 0,
-      "characterCount": 0,
-      "nonWhitespaceCharacterCount": 0,
-      "readingTimeInMinutes": 0,
-      "linkCount": 0,
-      "embedCount": 0,
-      "aliases": [],
-      "createdDate": 1789670323551,
-      "modifiedDate": 1789670323552,
-      "sizeInBytes": 150707,
-      "sessionStart": {
-        "noteCount": 0,
-        "pageCount": 0,
-        "wordCount": 0,
-        "characterCount": 0,
-        "nonWhitespaceCharacterCount": 0
-      }
-    },
-    "latex-template/Pasted image 20260918013843.png": {
-      "isCountable": false,
-      "targetNodeType": "file",
-      "noteCount": 0,
-      "wordCount": 0,
-      "wordCountTowardGoal": 0,
-      "wordGoal": 0,
-      "pageCount": 0,
-      "characterCount": 0,
-      "nonWhitespaceCharacterCount": 0,
-      "readingTimeInMinutes": 0,
-      "linkCount": 0,
-      "embedCount": 0,
-      "aliases": [],
-      "createdDate": 1789670543186,
-      "modifiedDate": 1789670323552,
-      "sizeInBytes": 150707,
-      "sessionStart": {
-        "noteCount": 0,
-        "pageCount": 0,
-        "wordCount": 0,
-        "characterCount": 0,
-        "nonWhitespaceCharacterCount": 0
       }
     }
   }
