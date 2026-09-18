@@ -6,7 +6,7 @@ In this study we investigate the low-dimensional structure of model benchmark sc
 
 **Scope.** The scope of this study is limited to the evaluation of generative language models on a set of text-only benchmarks. We define generative language models as those that accept arbitrary prompts and produce text completions. Encoder-only classifiers, narrow task-specific systems (dedicated MT/ASR/TTS models), and undocumented community uploads are excluded. Benchmarks are included if they have at least one in-scope result row. For each row, we follow the schema from EveryEvalEver \citep{everyevalever2026} to unify the evaluation results. The schema includes fields for model, benchmark, metric, score, and other metadata such as inference setup, metric interpretation, evaluation date, and source. Full inclusion and exclusion criteria are given in `\hyperref[inclusion-and-exclusion-criteria]{Appendix~\ref*{inclusion-and-exclusion-criteria}}`{=latex}.
 
-**Sources.** We collect the benchmark data from four types of source, in descending order of volume: (i) large curated evaluation suites, (ii) aggregated leaderboards, (iii) benchmark-specific leaderboards, and (iv) papers. Specifically, these sources can be broken down into source families such as Stanford HELM \citep{helm2023}, HuggingFace Open LLM Leaderboard (v1 and v2) \citep{openllmleaderboard2024}, Papers With Code, Kaggle AI Benchmarks, Chatbot Arena / LMArena \citep{chatbotarena2024}, llm-stats.com, Artificial Analysis, Vellum, and LiveBench, together with benchmark-specific leaderboards and primary papers reporting original evaluations. Table 1 gives the composition of the text-only corpus by source family. `\hyperref[data-sources-and-extraction]{Appendix~\ref*{data-sources-and-extraction}}`{=latex} lists every named source and the extraction route used for each.
+**Sources.** We collect the benchmark data from four types of source, in descending order of volume: (i) large curated evaluation suites, (ii) aggregated leaderboards, (iii) benchmark-specific leaderboards, and (iv) papers. Specifically, these sources can be broken down into source families such as Stanford HELM \citep{helm2023}, HuggingFace Open LLM Leaderboard (v1 and v2) \citep{openllmleaderboard2024}, Papers With Code, Kaggle AI Benchmarks, Chatbot Arena / LMArena \citep{chatbotarena2024}, llm-stats.com, Artificial Analysis, Vellum, and LiveBench, together with benchmark-specific leaderboards and primary papers reporting original evaluations. Table 1 gives the composition of the text-only corpus by source family. `\hyperref[data-source-and-normalization]{Appendix~\ref*{data-source-and-normalization}}`{=latex} lists every named source and the extraction route used for each.
 
 **Table 1.** Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). More detailed breakdown is given in `\hyperref[tab:a1]{Table A1}`{=latex}.
 
@@ -20,10 +20,68 @@ In this study we investigate the low-dimensional structure of model benchmark sc
 | Primary papers | 587 | 95 |
 
 
-**Protocol.** Given the large number of fields from the EveryEvalEver schema, we follows a strict source-verification protocol. For every row, each field is populated only if the verified source explicitly documented it. In exception, there are some fields that can be inferred from the source and record itself using some deductive rules with small risk of error (full deductive rules are enumerated in `\hyperref[data-sources-and-extraction]{Appendix~\ref*{data-sources-and-extraction}}`{=latex}). In particular, we put some focus on obtaining the release date field for both models and benchmarks, since we do some analysis on the temporal evolution of model intelligence. We only accept a release date if it is explicitly documented in the source, with principle that a dating source is trustworthy only when the model's identity is *given* or can be safely inferred. The release date info coverage is 2,007/2,014 models (99.7 %) and 623/624 benchmarks (99.8 %). However, since the quality of the model and benchmark release dates are different (97.3% vs 73.4% at month precision), we focus on temporal analysis on the model axis and treat the benchmark axis as provisional (see `\hyperref[benchmark-dates-are-much-weaker-than-model-dates.]{Appendix~\ref*{benchmark-dates-are-much-weaker-than-model-dates.}}`{=latex}).
+**Protocol.** Given the large number of fields from the EveryEvalEver schema, we follow a strict source-verification protocol, means each field is populated only if the verified source explicitly documented it. In exception, some fields can be inferred from the record itself using deductive rules with small risk of error (see `\hyperref[deductive-fills]{Appendix~\ref*{deductive-fills}}`{=latex}). In particular, we put some focus on obtaining the release date field for both models and benchmarks, and only accept a release date if it is explicitly documented in the source (`\hyperref[release-date-provenance]{Appendix~\ref*{release-date-provenance}}`{=latex}). 
+<!-- The release date info coverage is 99.7 % of models and 99.8 % of benchmarks.  -->
+<!-- However, since the quality of the model and benchmark release dates are different (97.3% vs 73.4% at month precision), we treat the benchmark axis as provisional (see `\hyperref[benchmark-dates-are-much-weaker-than-model-dates.]{Appendix~\ref*{benchmark-dates-are-much-weaker-than-model-dates.}}`{=latex}).  -->
+We also handle redundancy at two levels. Duplicate rows for one (model, benchmark) pair are collapsed by source-trust tier and recency (`\hyperref[duplicate-detection-and-integrity-checks]{Appendix~\ref*{duplicate-detection-and-integrity-checks}}`{=latex}), and near-perfectly correlated benchmark identifiers (version, dialect, or language splits of one benchmark) are collapsed to one representative, which removes 47 identifiers and 2,216 rows (`\hyperref[score-redundancy-pruning]{Appendix~\ref*{score-redundancy-pruning}}`{=latex}). A separate, earlier pass removes benchmarks that are literal-translation duplicates at the corpus level, keeping multilingual benchmarks whose per-language content is independently sourced (`\hyperref[benchmark-translation-duplicates]{Appendix~\ref*{benchmark-translation-duplicates}}`{=latex}).
 
-**Redundancy.** We handle redundancy at two levels. At the row level, we deduplicate rows given a (model, benchmark) pair with the same evaluation setup by collapsing them to one row and resolve them by source-trust tier and recency (`\hyperref[duplicate-detection-and-integrity-checks]{Appendix~\ref*{duplicate-detection-and-integrity-checks}}`{=latex}).
-Surviving rows for the same (model, benchmark) pair are later averaged into a single score (see Aggregation below). At the benchmark level, some benchmark identifiers measure the same thing under different attributes such as version, dialect, difficulty, num sample, or language splits of a translated benchmark. For each suspected case we compute the pairwise Pearson correlation between its columns over the models evaluated on both, and collapse the family to one representative only when correlations are near-perfect across a non-trivial shared model set. This removes 47 benchmark identifiers and 2,216 rows across seven families (`\hyperref[score-redundancy-pruning]{Appendix~\ref*{score-redundancy-pruning}}`{=latex}). A separate, earlier pass removes literal-translation duplicates at the corpus level, keeping multilingual benchmarks whose per-language content is independently sourced. After both passes, the text-only corpus stands at 456 benchmarks, 1,618 models, and 13,251 result rows.
+<!-- The two sentences above replace a standalone **Redundancy.** paragraph that
+ran to 169 words. Everything cut is already written up in the appendix: the
+row-level pass in the Duplicate detection section, the correlation audit and its
+per-family table in Score-redundancy pruning, and the translation pass in
+Benchmark translation duplicates. The superseded paragraph read:
+
+**Redundancy.** We handle redundancy at two levels. At the row level, we
+deduplicate rows given a (model, benchmark) pair with the same evaluation setup
+by collapsing them to one row and resolve them by source-trust tier and recency
+(Appendix duplicate-detection-and-integrity-checks). Surviving rows for the same
+(model, benchmark) pair are later averaged into a single score (see Aggregation
+below). At the benchmark level, some benchmark identifiers measure the same thing
+under different attributes such as version, dialect, difficulty, num sample, or
+language splits of a translated benchmark. For each suspected case we compute the
+pairwise Pearson correlation between its columns over the models evaluated on
+both, and collapse the family to one representative only when correlations are
+near-perfect across a non-trivial shared model set. This removes 47 benchmark
+identifiers and 2,216 rows across seven families (Appendix
+score-redundancy-pruning). A separate, earlier pass removes literal-translation
+duplicates at the corpus level, keeping multilingual benchmarks whose
+per-language content is independently sourced. After both passes, the text-only
+corpus stands at 456 benchmarks, 1,618 models, and 13,251 result rows.
+
+The final sentence was dropped rather than shortened because the Table 1 caption
+and the section opener already give 456 / 1,618 / 13,251. The averaging sentence
+moved into Aggregation below, where the step actually happens.
+
+Protocol was then cut from 230 words to 120. The superseded opening read:
+
+**Protocol.** Given the large number of fields from the EveryEvalEver schema, we
+follows a strict source-verification protocol. For every row, each field is
+populated only if the verified source explicitly documented it. In exception,
+there are some fields that can be inferred from the source and record itself
+using some deductive rules with small risk of error (full deductive rules are
+enumerated in Appendix deductive-fills). In particular, we put some focus on
+obtaining the release date field for both models and benchmarks, since we do some
+analysis on the temporal evolution of model intelligence. We only accept a
+release date if it is explicitly documented in the source, with principle that a
+dating source is trustworthy only when the model's identity is *given* or can be
+safely inferred. The release date info coverage is 2,007/2,014 models (99.7 %)
+and 623/624 benchmarks (99.8 %). However, since the quality of the model and
+benchmark release dates are different (97.3% vs 73.4% at month precision), we
+focus on temporal analysis on the model axis and treat the benchmark axis as
+provisional (see Appendix benchmark-dates-are-much-weaker-than-model-dates).
+
+What was cut, all of it by deletion within the existing sentences rather than by
+rewriting them. (i) "since we do some analysis on the temporal evolution of model
+intelligence" and "we focus on temporal analysis on the model axis". The paper
+contains no temporal analysis, Results has only Point summaries and Benchmark
+clusters, and Appendix L.12 states that no stage of the pipeline reads
+release_date. Restore both clauses if a temporal section is written. (ii) "with
+principle that a dating source is trustworthy only when the model's identity is
+given or can be safely inferred", which the Release-date provenance appendix
+covers in full. (iii) The raw dating counts 2,007/2,014 and 623/624, leaving the
+percentages that were already beside them. (iv) "from the source and", "some" and
+"there are some fields that", as filler. -->
+
 
 ## Data Processing
 
@@ -31,7 +89,7 @@ Surviving rows for the same (model, benchmark) pair are later averaged into a si
 
 <!-- The collected datasets contain same models evaluated under different conditions, e.g., chain-of-thought vs. no chain-of-thought. Since including the same models would lead to a violation of independence of distribution, multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Model identity is then resolved at two choices of granularities: -->
 
-To deduplicate rows with the same models under different conditions (e.g. reasoning effort), we average rows under two collapse strategies:
+Rows surviving duplicate removal for the same (model, benchmark) pair are averaged into a single score. To further deduplicate rows with the same models under different conditions (e.g. reasoning effort), we average rows under two collapse strategies:
 
 <!-- - **`standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
 - **`aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row. -->
