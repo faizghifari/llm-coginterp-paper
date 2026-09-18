@@ -23,6 +23,24 @@ By URL host, the text-only corpus resolves to: `crfm.stanford.edu` (HELM), `hugg
 
 Table 1 in the main text reports each tier/family's row and benchmark counts, read off the recorded `source_organization` field. That field was blank or literally `Unknown` on 295 rows (2.2 %), spread across nearly every family rather than forming a family of its own; each was reattributed by source name and URL host instead of left uncategorised — GitHub-hosted benchmark READMEs (`raw.githubusercontent.com`, `vmlu.ai`, `swebench.com`, and similar) to Tier 3, and arXiv, ACL Anthology, OpenReview, ACM Digital Library and journal hosts to Tier 4. This moved 157 rows into Tier 4 and 120 into Tier 3, and gave Vellum and Artificial Analysis 12 and 6 rows respectively that had been recorded under their correct source name but not their organisation. Tier 3 in Table 1 ("Other named leaderboards") spans 30-odd single-benchmark leaderboards, e.g. BigCodeBench, CRUXEval, SWE-bench, BFCL/Gorilla, VMLU, SEA-LION, PubMedQA and AlpacaEval; Tier 4 ("Primary papers") spans arXiv preprints, ACL Anthology, OpenReview, ACM Digital Library, and journals such as *Nature* and *Frontiers*.
 
+Table 1 collapses the five smallest source families into a single "Other online leaderboards" row. **Table A1** gives the uncollapsed breakdown behind that row.
+
+`\label{tab:a1}`{=latex}**Table A1.** Composition of the text-only corpus by source family, uncollapsed (13,251 result rows over 456 benchmarks and 1,618 models).
+
+| Source family | Result rows | Distinct benchmarks |
+|---|---:|---:|
+| Stanford HELM | 4,942 | 138 |
+| HF Open LLM Leaderboard | 4,529 | 12 |
+| Papers With Code | 1,378 | 151 |
+| Kaggle AI Benchmarks | 844 | 26 |
+| Primary papers | 587 | 95 |
+| Other named leaderboards | 420 | 45 |
+| Chatbot Arena / LMArena | 202 | 1 |
+| llm-stats.com | 121 | 11 |
+| Vellum | 96 | 7 |
+| Artificial Analysis | 77 | 2 |
+| LiveBench | 55 | 1 |
+
 ## A.2 Extraction routes {-}
 
 - **Papers With Code.** The public API is defunct (the domain redirects to HuggingFace). Evaluation tables are instead read from the daily-published parquet dataset `pwc-archive/evaluation-tables` (4 shards). Each parquet row is one *task* with nested datasets, each carrying its own leaderboard; extraction flattens task → dataset → leaderboard row into result rows, generating benchmark identifiers under a `pwc_` namespace and applying the scope filter ([[B-inclusion-and-exclusion-criteria#B.2 Benchmarks|Appendix B.2]]) to exclude non-LLM tasks.

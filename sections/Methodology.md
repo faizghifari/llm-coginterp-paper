@@ -8,21 +8,16 @@ In this study we investigate the low-dimensional structure of model benchmark sc
 
 **Sources.** We collect the benchmark data from four types of source, in descending order of volume: (i) large curated evaluation suites, (ii) aggregated leaderboards, (iii) benchmark-specific leaderboards, and (iv) papers. Specifically, these sources can be broken down into source families such as Stanford HELM \citep{helm2023}, HuggingFace Open LLM Leaderboard (v1 and v2) \citep{openllmleaderboard2024}, Papers With Code, Kaggle AI Benchmarks, Chatbot Arena / LMArena \citep{chatbotarena2024}, llm-stats.com, Artificial Analysis, Vellum, and LiveBench, together with benchmark-specific leaderboards and primary papers reporting original evaluations. Table 1 gives the composition of the text-only corpus by source family. [[A-data-sources-and-extraction#A Data sources and extraction|Appendix A]] lists every named source and the extraction route used for each.
 
-**Table 1.** Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models).
+**Table 1.** Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). More detailed breakdown is given in `\hyperref[tab:a1]{Table A1}`{=latex}.
 
 | Source family | Result rows | Distinct benchmarks |
 |---|---:|---:|
 | Stanford HELM | 4,942 | 138 |
 | HF Open LLM Leaderboard | 4,529 | 12 |
 | Papers With Code | 1,378 | 151 |
+| Other online leaderboards | 971 | 67 |
 | Kaggle AI Benchmarks | 844 | 26 |
 | Primary papers | 587 | 95 |
-| Other named leaderboards | 420 | 45 |
-| Chatbot Arena / LMArena | 202 | 1 |
-| llm-stats.com | 121 | 11 |
-| Vellum | 96 | 7 |
-| Artificial Analysis | 77 | 2 |
-| LiveBench | 55 | 1 |
 
 
 **Protocol.** Given the large number of fields from the EveryEvalEver schema, we follows a strict source-verification protocol. For every row, each field is populated only if the verified source explicitly documented it. In exception, there are some fields that can be inferred from the source and record itself using some deductive rules with small risk of error (full deductive rules are enumerated in [[A-data-sources-and-extraction#A Data sources and extraction|Appendix A]]). In particular, we put some focus on obtaining the release date field for both models and benchmarks, since we do some analysis on the temporal evolution of model intelligence. We only accept a release date if it is explicitly documented in the source, with principle that a dating source is trustworthy only when the model's identity is *given* or can be safely inferred. The release date info coverage is 2,007/2,014 models (99.7 %) and 623/624 benchmarks (99.8 %). However, since the quality of the model and benchmark release dates are different (97.3% vs 73.4% at month precision), we focus on temporal analysis on the model axis and treat the benchmark axis as provisional (see [[L-known-limitations-and-deviations#L Known limitations and deviations|Appendix L.8]]).
