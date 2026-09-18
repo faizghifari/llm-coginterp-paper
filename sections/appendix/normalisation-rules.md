@@ -68,14 +68,8 @@ the support. -->
 
 For the same reason we do not pin `accuracy` globally. The coverage rule already selects it where it genuinely dominates (`mmlu`, `truthfulqa`, `hellaswag`, `pubmedqa`) and selects `em` on the other twelve; forcing `accuracy` everywhere would cost 449 further model-cells (`openbookqa` 120 → 22, `legalbench` 90 → 5, `imdb` 67 → 6, `medqa` 99 → 42) and would systematically evict the most methodologically controlled source in the corpus. `accuracy` is the more conventional name; here it is not a quality signal.
 
-## Defects below the metric name
-
-Two problems survive metric selection because they are not distinguishable by metric name at all.
-
-**Source-level scale conflict (`gpqa`).** One metric name, two incompatible conventions, told apart only by source: 447 of 454 rows are Open LLM Leaderboard v2 **normalised** accuracy — the random-chance baseline mapped to zero, negatives clamped there — spanning 0.00–24.94 with median 4.36, while the other 7 are raw accuracy from papers and llm-stats spanning 39.0–94.1. The ranges do not overlap. We keep the 447 and drop the 7. The reasoning is that correlations are invariant under a linear rescaling of an entire column, so a normalised column is fully usable provided every row shares the convention; back-transforming instead ($\text{raw} = 0.75\,\text{norm} + 25$) would assume the leaderboard's formula and would still not undo the clamp, for the sake of 7 models out of 454. The documented caveat is that 56 of the 447 (13 %) sit exactly at 0.00, tied at the clamp, so the column under-discriminates among weak models.
-
-The same detector — benchmarks whose sources have strictly non-overlapping score ranges — flags three others (`wildbench`, `sea_exam`, `multipl_e`), all on small $n$. We do not act on those: a gap alone is not evidence of a scale conflict, because frontier-model trackers such as llm-stats legitimately show higher ranges than broad leaderboards by evaluating better models. `gpqa` is the only case with a known mechanism.
-
-**Structurally defective column (`elephant`).** Its `metric_name` field holds model *configurations* (`DPO-All-Llama-8B`, `iti-llama-70b`, `perspective-gpt-4o`), not metrics, so selecting a canonical metric keeps one arbitrary configuration, which measures nothing. The benchmark is removed from the derived copy (9 models) and recorded for re-extraction.
-
-Two further columns that appear in earlier drafts as defects — `vectara`, whose two metrics are complements differing by +86.5 across 7 shared models, and `pwc_lambada`, which mixed accuracy with perplexity — are **resolved by the metric filter itself** and need no special handling.
+<!-- The section "Defects below the metric name" that used to sit here has
+moved to sections/appendix/data-source-and-normalization.md, which is the file
+Main.md actually embeds. It is cross-referenced from the Known limitations
+appendix, so it had to live somewhere that reaches the PDF. Edit it there, not
+here. -->

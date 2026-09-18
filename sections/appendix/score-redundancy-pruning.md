@@ -1,6 +1,6 @@
 # Score-redundancy pruning
 
-Applied to the text-only copy only, after `\hyperref[text-only-classifier]{Appendix~\ref*{text-only-classifier}}`{=latex}. Each family was audited by computing the full pairwise Pearson correlation among its columns over the models evaluated on both columns; the removal decision was taken per family, on the evidence, and the resulting cascades were verified to orphan no models.
+Applied to the text-only copy only, after the scope filter of `\hyperref[benchmarks]{Appendix~\ref*{benchmarks}}`{=latex}. Each family was audited by computing the full pairwise Pearson correlation among its columns over the models evaluated on both columns; the removal decision was taken per family, on the evidence, and the resulting cascades were verified to orphan no models.
 
 | Family | Correlation evidence | Decision | Rows removed |
 |----------------|--------------|------------|--------|
@@ -13,4 +13,4 @@ Applied to the text-only copy only, after `\hyperref[text-only-classifier]{Appen
 | Stanford HELM ThaiExam sub-splits | Two clusters, not uniform redundancy: {ONET, IC, A-Level} at $r = 0.92$–$0.95$; {TGAT, TPAT1} correlate weakly with that cluster ($r = 0.70$–$0.88$). The TGAT/A-Level gap was verified as systematic, not noise (several multilingual models score 35–45 points higher on TGAT) | Drop ONET and IC; **keep** A-Level as the knowledge-cluster representative and keep TGAT and TPAT1, which carry distinct variance | 84 |
 | | | **Total** | **2,216** |
 
-Two of the eight audited families were thus deliberately left partially or fully intact, which is the point of auditing by correlation rather than by name. This pass leaves 456 benchmarks; the canonical-metric filter (`\hyperref[canonical-metric-selection]{Appendix~\ref*{canonical-metric-selection}}`{=latex}), the source-scale fix and the single-row anomaly removal (`\hyperref[known-limitations-and-deviations]{Appendix~\ref*{known-limitations-and-deviations}}`{=latex}) then drop a further 1,463 result rows, for a final corpus of **456 benchmarks, 1,618 models, 13,251 result rows**.
+Two of the seven audited families were thus deliberately left partially or fully intact, which is the point of auditing by correlation rather than by name. This pass leaves 456 benchmarks; the canonical-metric filter (`\hyperref[canonical-metric-selection]{Appendix~\ref*{canonical-metric-selection}}`{=latex}), the source-scale fix and the single-row anomaly removal (`\hyperref[known-limitations-and-deviations]{Appendix~\ref*{known-limitations-and-deviations}}`{=latex}) then drop a further 1,463 result rows, for a final corpus of **456 benchmarks, 1,618 models, 13,251 result rows**.

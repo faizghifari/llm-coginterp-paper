@@ -1,6 +1,6 @@
 # Model-identity collapse
 
-Both strategies operate on the source-specific `results.model_id` field (`\hyperref[schema]{Appendix~\ref*{schema}}`{=latex}), after canonicalising each identifier's `model_family` and `model_size` metadata to the first non-null value observed for it. Multiple evaluations of the same (identifier, benchmark) are averaged before collapsing, and rows sharing a collapse key are averaged again per benchmark.
+Both strategies operate on the source-specific `results.model_id` field, which carries each model identifier exactly as its source spelled it, after canonicalising each identifier's `model_family` and `model_size` metadata to the first non-null value observed for it. Multiple evaluations of the same (identifier, benchmark) are averaged before collapsing, and rows sharing a collapse key are averaged again per benchmark.
 
 ## `standard` (variant-level)
 
