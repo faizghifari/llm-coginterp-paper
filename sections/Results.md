@@ -1,39 +1,9 @@
 # Results
+
 %%
-
-pindah ke appendix?
-## Dataset characteristics
-
-Table 3 below shows the 
-
-**Table 3**. Benchmark statistics with respect of their computable pairwise Pearson correlation. A pairwise correlation is computable when n >= 4. Compt. = computable benchmarks, Corrs = correlations.
-
-| Dataset            |   N | N Compt. | Mean Corrs. | Max Corrs. | Min Avg. N | Mean Avg. N | Max Avg. N |
-| ------------------ | --: | -------: | ----------: | ---------: | ---------: | ----------: | ---------: |
-| raw_all_standard   | 404 |      312 |        61.6 |        229 |        0.0 |         7.6 |       39.4 |
-| raw_all_aggressive | 380 |      301 |       106.6 |        254 |        0.0 |         4.6 |       10.9 |
-| C_all_standard     |  78 |       78 |        47.2 |         77 |        5.8 |        28.6 |       54.9 |
-| C_all_aggressive   | 102 |      102 |        78.5 |        101 |        4.4 |         9.6 |       18.1 |
-| R_all_standard     | 298 |      270 |        81.4 |        228 |        0.0 |         8.8 |       30.5 |
-| R_all_aggressive   | 310 |      283 |       130.2 |        254 |        0.0 |         5.3 |        9.9 |
-| S_all_standard     | 124 |      124 |        67.7 |        118 |        5.7 |        20.2 |       47.1 |
-| S_all_aggressive   | 293 |      292 |       138.1 |        254 |        0.0 |         5.8 |       10.0 |
-
-
-**Table 4.** Per-benchmark pairs statistics: Shared n and |r| of computable correlations. Compt. = computable pairs.
-
-| Dataset            |     N | N Compt. | % Compt. | Mean N/pair | Max N/pair | Mean \|r\| | SD \|r\| |
-| ------------------ | ----: | -------: | -------: | ----------: | ---------: | ---------: | -------: |
-| raw_all_standard   | 81406 |    12442 |     15.3 |        11.3 |        332 |      0.505 |    0.287 |
-| raw_all_aggressive | 72010 |    20261 |     28.1 |         6.2 |        105 |      0.466 |    0.281 |
-| C_all_standard     |  3003 |     1840 |     61.3 |        30.2 |        332 |      0.539 |    0.271 |
-| C_all_aggressive   |  5151 |     4006 |     77.8 |         9.9 |        105 |      0.432 |    0.264 |
-| R_all_standard     | 44253 |    12134 |     27.4 |        10.3 |        109 |      0.503 |    0.287 |
-| R_all_aggressive   | 47895 |    20188 |     42.2 |         6.1 |         64 |      0.466 |    0.281 |
-| S_all_standard     |  7626 |     4198 |     55.0 |        20.0 |        332 |      0.485 |    0.273 |
-| S_all_aggressive   | 42778 |    20230 |     47.3 |         6.1 |         70 |      0.466 |    0.281 |
+PINDAH KE APPENDIX!
 %%
-## Imputation quality
+%%## Imputation quality
 
 We present the evaluation and parameters of the missing data imputations in table 3 below. Of the many imputation algorithms we applied, only 3 of them yielded an acceptable R² value. Excluding the PSD-smoothed correlation matrix imputation, there are 9 usable datasets for the factor analyses.
 
@@ -50,13 +20,16 @@ We present the evaluation and parameters of the missing data imputations in tabl
 | C_all_aggressive | softimpute      | 0.6739 | 0.337 | rank=5 (swept 1..10)               |
 | C_all_standard   | onesidedmc      | 0.8213 | 0.333 | r=2 (swept 1..10)                  |
 | C_all_standard   | softimpute_corr | 0.8126 | 0.317 | rank=5 (swept 1..7)                |
+%%
 ## Point summaries
 
-Table 4 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. Two things are worth noting here. First, while $\omega_h$ has a wide range, by our estimates' maximum, **a universally causal $G$ factor accounts, at the most, 74% of variance in model performance**.
+Table 3 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. Two things are worth noting here. First, while $\omega_h$ has a wide range, by our estimates' maximum, **a universally causal $G$ factor accounts, at the most, 74.7% of variance in model performance**.
 
-**Table 4**. Point summaries of factor analyses results. k = number of factors extracted. Var% = percentage of variance explained, $k$ = number of factors extracted, $\phi$ = average inter-factor correlation.  
+Still, something to note is that the range of $\omega_h$ spans quite widely. The best-performing imputer, softimpute on S_all_standard, yielded a solution with a modestly effective $G$ factor that accounts for just 25.7% of the variance.
 
-| Dataset            | Imputer         | $k$ | Var%   | $\omega_h$ | $\phi_{\text{avg}}$ | $R²$  |
+**Table 3**. Point summaries of factor analyses results. k = number of factors extracted. Var% = percentage of variance explained, $k$ = number of factors extracted, $\phi$ = average inter-factor correlation.  
+
+| Dataset            | Imputer         | $k$ | Var%   | $\omega_h$ | $\phi_{\text{avg}}$ | $R^2$ |
 | ------------------ | --------------- | --- | ------ | ---------- | ------------------- | ----- |
 | C_all_standard     | mean            | 20  | 85.6%  | 0.747      | 0.090               |       |
 | raw_all_standard   | mean            | 20  | 46.0%  | 0.701      | 0.071               |       |
@@ -84,7 +57,9 @@ Table 4 below shows the point summaries of the factor analyses. The most importa
 | S_all_standard     | missforest      | 4   | 90.0%  | 0.032      | 0.054               | 0.471 |
 | S_all_standard     | onesidedmc      | 2   | 100.0% | 0.006      | 0.015               | 0.340 |
 ## Benchmark clusters
-Figure 1 below shows a UMAP plot of benchmarks using composite distances aggregated from factor loadings. 
+Figure 1 below shows a UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter. Something striking from this visual is how benchmarks with common subject only occasionally cluster together. Across the entire figure, the spaces occupied by each flagged subject matter spans across the entire plot. It is also telling that even commonly-targeted benchmarks like `arc` and `gpqa_diamond` fail are located quite far from each other, and a coding benchmark like `swe_bench` is closer to some mathematics benchmarks like `math500` and `aime25` than it is to `FlashInfer-Bench`. In other words, **capability in one task does not always generalize well to another task of the same subject**.
 
-![[Pasted image 20260918013843.png]]
+A degree of generality exists, of course. The bottom figure, using composite distance of the S dataset, shows a clustering of several coding and math benchmarks, but other abstract reasoning benchmarks like `gsm8k` `and` arc are placed at the bottom of the continent. Note however that most clusters resemble the top, raw dataset with greatly-spaced out subjects compared to the S datasets. A semantically coherent generalization is probable but quite far from a guarantee.
+
+![[aggregate.png|UMAP plot of benchmarks' composite distance. Top: raw dataset, bottom: S dataset. Both are composited across all aggregations and valid imputers. Not visible/covered: aime25 under math500 in the bottom figure.]]
 

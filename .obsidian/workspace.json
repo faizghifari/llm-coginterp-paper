@@ -4,31 +4,33 @@
     "type": "split",
     "children": [
       {
-        "id": "894cec47509284e6",
+        "id": "c36a6cf7de77c836",
         "type": "tabs",
         "children": [
           {
-            "id": "d6a564de3ece0b5d",
+            "id": "2d998b0b278d1645",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "sections/Methodology.md",
+                "file": "sections/Results.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Methodology"
+              "title": "Results"
             }
           },
           {
-            "id": "be2ace44c13c8ebd",
+            "id": "ec6e9c7e6449fe82",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
+              "type": "image",
+              "state": {
+                "file": "aggregate.png"
+              },
+              "icon": "lucide-image",
+              "title": "aggregate"
             }
           }
         ]
@@ -212,7 +214,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "d6a564de3ece0b5d",
+  "active": "2d998b0b278d1645",
   "lastOpenFiles": [
     "latex-template/Main.bbl",
     "latex-template/Main.blg",
@@ -221,30 +223,33 @@
     "latex-template/Main.aux",
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
+    "aggregate.png",
     "sections/Results.md",
+    "latex-template/aggregate.png",
+    "Pasted image 20260918130531.png",
     "sections/Methodology.md",
+    "sections/Background.md",
+    "Main.md",
+    "sections/Introduction.md",
+    "sections/Discussion.md",
+    "sections/appendix/A-data-sources-and-extraction.md",
+    "Appendix-Methods.md",
+    "Appendix.md",
     "References.md",
     "latex-template/Pasted image 20260918013843.png",
     "Pasted image 20260918013843.png",
     "latex-template/Pasted image 20260918012219.png",
     "Pasted image 20260918012219.png",
-    "sections/Background.md",
-    "sections/Introduction.md",
     "Untitled.base",
     "Methodology.md",
     "latex-template/Pasted image 20260918004415.png",
     "Pasted image 20260918004415.png",
     "latex-template/Main.pdf",
     "latex-template/Pasted image 20260917212152.png",
-    "Pasted image 20260917212152.png",
-    "sections/Pasted image 20260917212106.png",
-    "Pasted image 20260917212106.png",
     "conflict-files-obsidian-git.md",
-    "Main.md",
     "tmp.md",
     "Draft.md",
     "Topics.md",
-    "Appendix.md",
     "Image",
     "9. Kelak ke Mana Nyawa Berlari.md",
     "4. Ketahanan Mencintai.md",
@@ -255,9 +260,6 @@
     "10. Bekas Berkencana.md",
     "12. Kasmaran Kali Terakhir.md",
     "about.me.md",
-    "5. Wanita Meninggal.md",
-    "2. Tamasyanya Ini.md",
-    "3. Sekeriuhan.md",
-    "1. Kita telah dalam Tautan.md"
+    "5. Wanita Meninggal.md"
   ]
 }
