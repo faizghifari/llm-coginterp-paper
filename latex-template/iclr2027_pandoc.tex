@@ -51,6 +51,11 @@
 \newunicodechar{≪}{\ensuremath{\ll}}
 \newunicodechar{→}{\ensuremath{\rightarrow}}
 \newunicodechar{←}{\ensuremath{\leftarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{≈}{\ensuremath{\approx}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{÷}{\ensuremath{\div}}
+\newunicodechar{…}{\ensuremath{\ldots}}
 
 \makeatletter
 \newsavebox\pandoc@box
@@ -167,9 +172,8 @@ $endfor$
 
 $body$
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\bibliography{iclr2027_conference}
-\bibliographystyle{iclr2027_conference}
+% \bibliography and \appendix are emitted from the markdown body itself (as a
+% raw-LaTeX block between Discussion and the appendix sections in Main.md), so
+% that the reference list is typeset before the appendix rather than after it.
 
 \end{document}

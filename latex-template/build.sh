@@ -108,8 +108,13 @@ PY
 # Tables wider than pandoc's --columns would get fixed p{...} column widths
 # derived from the separator-row dash counts (padded with dead space); a large
 # value keeps them as plain l-columns that size to their actual cell contents.
-pandoc -f markdown+wikilinks_title_after_pipe \
+# --no-highlight: fenced code blocks (used in the appendix) would otherwise
+# get wrapped in pandoc's syntax-highlighting Shaded/Highlighting environment,
+# which this template doesn't define -- plain verbatim typesetting is fine
+# for the non-code snippets these blocks actually hold.
+pandoc -f markdown+wikilinks_title_after_pipe+raw_attribute \
   --columns=200 \
+  --syntax-highlighting=none \
   --resource-path="$REPO_ROOT" \
   --resource-path="$REPO_ROOT/latex-template" \
   --lua-filter="$LUA_DIR/pdf.lua" \
