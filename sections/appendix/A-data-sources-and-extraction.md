@@ -50,7 +50,7 @@ Everything else — inference stack for open models, decoding parameters for ben
 `release_date` is recorded as year-month, and `release_date_source` records the evidence class it came from. The tiers are ordered, and the ordering is the point: a filter on this column is the only way to use the field responsibly.
 
 | tier | evidence | models | benchmarks |
-|---|---|---:|---:|
+|-----------|------------------------|------|---------|
 | `arxiv_id` | an arXiv identifier already in the record; `YYMM.NNNNN` decodes to the month exactly | 0 | 1 |
 | `hf_createdat` | `createdAt` of a HuggingFace repository whose name *is* the model | 921 | 0 |
 | `verified_arxiv` | the model's own paper, confirmed by reading its title | 39 | 2 |

@@ -3,7 +3,7 @@
 Applied to the text-only copy only, after [[D-text-only-classifier#D Text-only classifier|Appendix D]]. Each family was audited by computing the full pairwise Pearson correlation among its columns over the models evaluated on both columns; the removal decision was taken per family, on the evidence, and the resulting cascades were verified to orphan no models.
 
 | Family | Correlation evidence | Decision | Rows removed |
-|---|---|---|---:|
+|----------------|--------------|------------|--------|
 | LiveCodeBench release windows v1–v6 (Kaggle) | mean pairwise $r = 0.995$, worst pair $0.987$, over 45 shared models | Keep the aggregate, drop 6 per-version identifiers | 270 |
 | TwitterAAE dialect splits (`_aa`, `_white`) | $r = 0.993$–$0.999$ with each other and the parent, over 32 shared models | Keep the parent, drop both dialect splits | 64 |
 | GPQA variants (few/zero-shot × diamond/main, Kaggle) | mean $r = 0.944$, worst pair $0.915$, over 46–47 shared models; better-populated canonical `gpqa` and `gpqa_diamond` already present | Drop all 4 Kaggle variants | 185 |

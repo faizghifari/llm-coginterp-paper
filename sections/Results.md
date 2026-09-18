@@ -30,7 +30,7 @@ Still, something to note is that the range of $\omega_h$ spans quite widely. The
 **Table 3**. Point summaries of factor analyses results. k = number of factors extracted. Var% = percentage of variance explained, $k$ = number of factors extracted, $\phi$ = average inter-factor correlation.  
 
 | Dataset            | Imputer         | $k$ | Var%   | $\omega_h$ | $\phi_{\text{avg}}$ | $R^2$ |
-| ------------------ | --------------- | --- | ------ | ---------- | ------------------- | ----- |
+| ------------------ | --------------- | --- | -------- | ---------- | ---------------- | ------ |
 | C_all_standard     | mean            | 20  | 85.6%  | 0.747      | 0.090               |       |
 | raw_all_standard   | mean            | 20  | 46.0%  | 0.701      | 0.071               |       |
 | C_all_standard     | missforest      | 4   | 88.4%  | 0.695      | 0.398               | 0.399 |

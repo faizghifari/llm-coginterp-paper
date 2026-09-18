@@ -44,7 +44,7 @@ Shared machinery for SoftImpute-corr, OptSpace, USVT, CVXR, and GGM:
 Estimators:
 
 | Estimator | Description | Implementation | Configuration |
-|---|---|---|---|
+|-------|--------------|-------------------|----------|
 | SoftImpute-corr \citep{mazumder2010} | Applies SoftImpute's low-rank completion to the observed pairwise correlation matrix rather than the data matrix, whose missing entries are exactly the benchmark pairs never co-observed. | `softImpute` | sweeps rank 1…10 with the same nested $\lambda$ grid as [[#H.1 Cell-level methods]] |
 | OptSpace \citep{keshavan2010} | Manifold-optimisation low-rank completion of the correlation matrix, with automatic rank estimation. | `filling::fill.OptSpace` | automatic rank estimation, `niter = 50`, `tol = 1e-6`; no sweep |
 | USVT \citep{chatterjee2015} | Universal singular value thresholding: completes the correlation matrix by hard-thresholding its singular values. | `filling::fill.USVT` | fixed singular-value threshold $\eta = 0.01$; no sweep |
