@@ -1,6 +1,12 @@
 # Background and Related Work
 
-## Psychometric Background
+## The Psychometric Paradigm
+
+A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2004}, a distinction now also drawn explicitly in the design of LLM benchmarks \citep{federiakin2025}. Individuals differ in some latent factor, hence individuals differ in some observable outcomes. If there are no causal latent factors, then the covariance among observed behaviors would have no source at all, which made little sense.
+
+Personality and intelligence research are prime examples. \citet{allport1936} extracted all or most of the words from the English dictionary that can describe someone's personality, and had a large sample self-report how well each word describes themselves, effectively measuring as much of "the universe of all possible personalities" as possible \citep{john1988}. \citet{spearman1904} did much the same for intelligence, collecting the scores of students across school subjects and finding that their variance overwhelmingly load to a single wide-breadth latent variable called the $G$ factor \citep{jensen2002}, which remains generally accepted \citep{johnson2004,johnson2008}. Both follow the same paradigm. Exhaustively measure observable behaviors, subject them to dimensional-reduction techniques, and draw theories from the resulting latent factor. Subsequent research decomposes the hierarchy further, into facets for personality \citep{lee2018,deyoung2007} and into specific cognitive abilities for intelligence \citep{schneider2018}.
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT, kept for reference ----------
 
 A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2004}, a distinction now also drawn explicitly in the design of LLM benchmarks \citep{federiakin2025}. This assumption applies to all sorts of measurements, from arbitrary attitudinal surveys to psychological primitives like personality and intelligence.
 
@@ -12,7 +18,20 @@ Personality and intelligence research are prime examples of the psychometric par
 
 It must be stressed, however, that the theories in question largely depend on a causal interpretation. Succinctly, \citet{borsboom2004} spoke against a purely operational psychometric paradigm. Individuals differ in some latent factor; hence, individuals differ in some observable outcomes. If there is no causal latent factors, then observable behavior would have emerged *ex nihilo*, which made little sense. Everything has a cause, including human behavior.
 
-## Causality in Machine Intelligence
+---------- END ORIGINAL ---------- -->
+
+
+## Causal Assumptions in Machine Intelligence
+
+Various LLM benchmarks are known to be intercorrelated, though the origin of this covariance is rarely stated explicitly. We argue that benchmark correlations are causally originated from latent variables, and add that existing paradigms of machine intelligence are implicitly causal. The precedence assumed of a content-free intelligence \citep{chollet2019} already implies such a relation, but model development makes it concrete. In aiming to achieve "general intelligence", developers tend to train in a *targeted* manner. Reasoning-oriented post-training, for instance, is motivated by the expectation that improvements on "pure" logical tasks will transfer to tool-calling, long-horizon agentic tasks, and coding \citep{deepseekai2025}. Such an expectation is coherent only if the targeted ability stands in a causal relation to the rest, which we state as follows.
+
+**Definition 1**: Let $G \in \mathbb{R}$ be a scalar, and let $T$ be the set of performance scores for all possible tasks,
+$$T = \{\, t_i \mid i \in \mathcal{I} \,\}, \qquad G \longrightarrow T \;\;\text{but}\;\; T \not\longrightarrow G,$$
+i.e., changes in $G$ lead to changes in $T$, but not the other way around.
+
+Nevertheless, a causal view is only one way to understand the origins of a covariance matrix. The formative paradigm, usually associated with PCA, makes no claim about the nature of the resultant components \citep{vandermaas2014}. Even so, generalizability would be impossible without a common factor to begin with, since two tasks sharing a dominant factor decompose into a similar lower-level representation \citep{caruana1997,menghi2025} that the network must discern. The mutualist paradigm \citep{borsboom2013}, which describes indicators as nodes in a graph of mutual causality, fits even worse. We cannot say that coding improves reasoning improves coding, as static network weights afford no temporal precedence nor any mechanism for online cyclical learning.
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT, kept for reference ----------
 
 Whether or not intelligence theories are causal concerns, as \citet{borsboom2004} described for psychometrics, the need to explain the origins of indicator covariance. It is evident that various LLM benchmarks are intercorrelated. Where does this correlation originate?  We argue that benchmark correlations are causally originated from latent variables, and add that existing paradigms of machine intelligence are implicitly causal.
 
@@ -28,9 +47,26 @@ Nevertheless, a causal view is only one way to understand the origins of a covar
 
 Under the formative model, generalizability would be impossible if there is no common factor to begin with. In the most abstract sense, two tasks sharing a common dominant factor means that the tasks are decomposable into a similar lower-level representation \citep{caruana1997,menghi2025}. The ability of the network to discern similar features is hence the latent variable that causally affects performance on the tasks.
 
-On the other hand the mutualist model does not make much sense regarding correlations of different abilities. A successful application of the mutualist view is in recent theories on psychological disorders \citep{borsboom2013}. In this view, symptoms of psychological disorders have a cyclical mutual causality, e.g., rumination leads to loneliness leads to rumination, and so on. In practical terms these are modeled using a graph of partial correlations between variables, i.e. network analysis \citep{borsboom2013}. It does not make much sense to say that, for example, coding improves reasoning improves coding. There are no temporal precedence within a static neural network weights or a plausible mechanism for online cyclical learning. 
+On the other hand the mutualist model does not make much sense regarding correlations of different abilities. A successful application of the mutualist view is in recent theories on psychological disorders \citep{borsboom2013}. In this view, symptoms of psychological disorders have a cyclical mutual causality, e.g., rumination leads to loneliness leads to rumination, and so on. In practical terms these are modeled using a graph of partial correlations between variables, i.e. network analysis \citep{borsboom2013}. It does not make much sense to say that, for example, coding improves reasoning improves coding. There are no temporal precedence within a static neural network weights or a plausible mechanism for online cyclical learning.
 
-## Theoretical Rationale
+---------- END ORIGINAL ---------- -->
+
+
+## Interpreting Factor Structure
+
+Understanding the patterns of benchmark correlation is theoretically relevant to cognitive science, though this relevance does not regard any one specific factor loading pattern. Under a small number of benchmarks the discovered patterns depend on which benchmarks were sampled \citep{major2011}, and under a large number the missingness pattern becomes too large to trust any single solution. 
+The correct approach is therefore to examine recurring and large-scale patterns.
+<!-- since it is almost never productive to interpret what each individual factors denote from a 5, 7, or 20 factor solution.  -->
+One such pattern is the explanatory power[^1] of a general intelligence factor. When a general factor dominates the explained variance of an EFA result, variance in an LLM's capability is dominantly caused by a latent $G$, supporting the idea that a flexible, "raw" intelligence is a substantial component of performance and that targeting it is a fruitful research program. A weak $G$ factor instead means that LLM abilities are strongly specific, so improvements require brute-force training in as much task diversity as possible, with no silver-bullet construct that parsimoniously describes "general intelligence".
+
+[^1]: We use the phrase "explanatory power" over "existence", as $G$ is a construct of the factor model we fit.
+
+The second reason is that factor analysis is a bottom-up, theoriless approach. Authors tend to impose theories of human intelligence on artificial neural networks, as we know of no better model of intelligence than our own. However, it is problematic because these networks present an entirely different form of cognitive process than that of biological minds. Human intelligence research itself begins with factor analysis \citep{spearman1904} and continues to apply bottom-up dimension reduction even though its theories are well-established for decades.
+Therefore, we do not assume any general factor to be comprehensible, and so we do not discriminate between benchmarks and try to sample as much of the set of all possible tasks. We argue that it is a reasonable position to expect that LLMs work in ways entirely unintuitive to the human mind, and having no priors whatsoever is the correct way to start our inquiry.
+
+<!-- Following suit means we do not assume any general factor to be comprehensible, and so we do not discriminate between benchmarks, sampling ARC-AGI \citep{chollet2025} and GPQA alongside fluency in a low-resource language or operating a fictional company. -->
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT, kept for reference ----------
 
 Understanding the patterns of benchmark correlation (which is what factor analysis do) is theoretically relevant to cognitive science. First off, this relevance does not regard any one specific factor loading pattern. Under a small number of benchmarks (which is true to prior works), the discovered patterns are dependent on the specifically sampled benchmarks, i.e. not generalizable or exhaustive \citep{major2011}. Under a large number of benchmarks (which is true to this paper), the missingness pattern becomes too large and unreliable to trust and interpret any single solution. Thus, the correct approach to interpret this kind of data is by examining recurring and large-scale patterns. It is almost never productive to interpret what each individual factors denote from a 5, 7, or 20 factor solution, nor are those solutions trustworthy to be consistent.
 
@@ -42,10 +78,21 @@ The second reason is that factor analysis is a bottom-up, theoriless approach. A
 
 One crucial consequence in taking this theoriless approach is that we do not assume that any general factor is comprehensible. For one, a latent $G$ factor that substantially causes variation of benchmark scores can be entirely arbitrary and idiosyncratic. We do not assume, except in counterfactual terms, that a benchmark like ARC-AGI \citep{chollet2025} or GPQA is more representative of a global latent factor of intelligence than something like fluency in a low-resource language or operating a fictional company. Relatedly, even human intelligence research have found innocuous correlations between the $G$ factor and trivial cognitive observations \citep{kranzler1989}. Consequently, we do not discriminate in which benchmarks matter and which doesn't. Our aim is to sample as much of the set of all possible tasks, which in practical terms include very popular and very obscure benchmarks. While this may appear extreme, we argue that it is a reasonable position to expect that LLMs work in ways entirely unintuitive to the human mind, and having no priors whatsoever is the correct way to start our inquiry.
 
+---------- END ORIGINAL ---------- -->
+
+
 ## Related Work
+
+Prior work applying factor analysis to benchmark scores is smaller in scale, and mostly confirmatory. \citet{ilicagignac2024} applied confirmatory factor analysis to hundreds of models and found that their performance fits a human-informed causal structure, which repeats the mistake of fitting an existing theory instead of understanding model intelligence from the bottom-up. A large proportion of their benchmarks are also variants of MMLU \citep{hendrycks2021}, posing the risk of common-method bias polluting the model fit. \citet{federiakin2025} likewise fits a single-factor CFA to the HuggingFace Open LLM Leaderboard, and imposing that structure by construction forecloses the question of whether the data actually supports one, which only EFA can answer.
+
+\citet{krakauer2026} instead applies PCA and finds a first principal component declining from 90% of variance to 64% by 2024, interpreted as a "rotation" in the $G$ factor as models outsource reasoning to external tools. PCA, as we discuss in the Methodology, does not partition out systematic from error variance and so cannot be trusted to isolate a genuine $G$ factor from noise. Only two studies run EFA. \citet{burnell2023} found three major factors, but did not do higher-order factor analysis on the resulting loadings, so cannot say to what extent those factors are influenced by a presumable g-factor. \citet{haznitrama2026} report a unified general factor before showing that a neuropsychologically-grounded battery reveals cognitive gaps that it otherwise masks. Narrower still is \citet{holm2024}, where a single factor explains 95% of variance across just 8 scenarios in one language. \citet{kearns2026} adds that latent factor models fit to LLM benchmark scores can conflate the extracted capability factor with model scale unless scaling relationships are explicitly modeled.
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT, kept for reference ----------
 
 Prior work has tried applying factor analysis to benchmark scores, but always at a much smaller scale. \citet{ilicagignac2024} applied factor analysis to hundreds of models and found that the models' performance fits a human-informed causal structure. However, their use of confirmatory factor analysis repeats the mistake of fitting a human-informed theory rather than understanding model intelligence from the bottom-up. Also, a large proportion of their benchmarks are simply variants of the popular MMLU benchmark \citep{hendrycks2021}, posing the risk of common-method bias polluting the model fit. \citet{burnell2023} applied EFA to model benchmark scores and found that LLM abilities are hierarchically structured under three major factors. However, they did not do higher-order factor analysis, where EFA is run on the resulting factor loadings, so cannot say to what extent latent factors are influenced by a presumable g-factor.
 
 Three more recent studies extend this line of work at similarly small scale. \citet{krakauer2026} applies PCA to 39 models and 14 benchmarks spanning 2019-2025 and finds a strong positive manifold, with a first principal component explaining as much as 90% of variance early on but declining to 64% by 2024 — interpreted as a "rotation" in the $G$ factor as models increasingly outsource reasoning to external tools. Similar to \citet{ilicagignac2024}, this work relies on PCA rather than EFA, which, as we discuss in the Methodology, does not partition out systematic from error variance and so cannot be trusted to isolate a genuine $G$ factor from noise. \citet{haznitrama2026} run factor analysis across 156 models and 10 benchmarks and likewise report a unified general factor, before showing that a neuropsychologically-grounded benchmark battery reveals cognitive gaps that this general factor otherwise masks. \citet{federiakin2025} fits a single-factor confirmatory factor analysis (CFA) to the HuggingFace Open LLM Leaderboard to re-rank models by a psychometrically-derived score. However, similar to \citet{ilicagignac2024}, imposing a single-factor structure by construction forecloses the question of whether the data actually supports one, which only EFA can answer.
 
 A common weakness of all five papers, though, is the relatively few number of benchmarks or variables derived thereof: \citet{ilicagignac2024} fit a model with 20 variables, \citet{burnell2023} uses 23, \citet{krakauer2026} only 14, and \citet{haznitrama2026} only 10. \citet{federiakin2025} is narrower still, fitting to the handful of aggregate tasks on a single leaderboard. Most of these benchmarks measure "smartness" for a lack of better term, like mathematics, academic knowledge, and common-sense reasoning (an even more extreme case is \citep{holm2024}, where a single factor explains 95% of variance across just 8 scenarios in one language). A related methodological concern, raised by \citet{kearns2026}, is that latent factor models fit to LLM benchmark scores can conflate the extracted capability factor with model scale unless scaling relationships are explicitly modeled.
+
+---------- END ORIGINAL ---------- -->
