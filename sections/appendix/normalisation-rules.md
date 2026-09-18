@@ -1,12 +1,12 @@
-# C Normalisation rules {-}
+# Normalisation rules
 
-## C.1 Scores {-}
+## Scores
 
 Scores are normalised to a 0–100 scale: a raw value in $[0,1]$ is multiplied by 100; a value above 1 is kept as-is; results are capped at 100 to absorb floating-point noise. Exempt metrics, kept on their native scale, are perplexity, bits-per-byte, BLEURT, BERTScore, Elo, and count-type metrics ("# eval").
 
-Metric direction is **recorded, not applied**: lower-is-better metrics (WER, perplexity) are stored with `metric_lower_is_better = True` and normalised identically. See [[L-known-limitations-and-deviations#L Known limitations and deviations|Appendix L]] for the consequence this has for the covariance analysis.
+Metric direction is **recorded, not applied**: lower-is-better metrics (WER, perplexity) are stored with `metric_lower_is_better = True` and normalised identically. See `\hyperref[known-limitations-and-deviations]{Appendix~\ref*{known-limitations-and-deviations}}`{=latex} for the consequence this has for the covariance analysis.
 
-## C.2 Model identity {-}
+## Model identity
 
 - **Organisation prefixes stripped** (`meta-llama/Llama-3-8B` → `Llama-3-8B`); the one pre-existing collision this would have created was resolved by hand before stripping.
 - **Reasoning and effort tags merged** into the base name (`claude-3-7-sonnet-thinking`, `o3 high`), with the affected result rows marked `reasoning_enabled = True`.
@@ -15,7 +15,7 @@ Metric direction is **recorded, not applied**: lower-is-better metrics (WER, per
 - **Status markers stripped** at extraction (skull, warning, dagger, star, cross, check, and circled-digit pictographs used by some sources to annotate rows).
 - **No blanket case normalisation.** The corpus uses mixed Title-Case (`GPT-4`, `Claude 3 Opus`); a wholesale relabel would rewrite hundreds of already-correct rows for no integrity gain. Only genuine same-model-two-spellings pairs are renamed, discovered by a fuzzy-match report over result rows whose `model_name` has no matching `model_id`.
 
-## C.3 Benchmark identity and translation duplicates {-}
+## Benchmark identity and translation duplicates
 
 Benchmark identifiers are lowercase and serve as the primary key; identifier collisions across sources are resolved by adding result rows to the existing benchmark rather than creating a second benchmark row.
 
@@ -29,15 +29,15 @@ A later pass resolved the cases the first had left open. `humaneval_xl` was **re
 
 `mgsm` and `belebele` were **kept**, and the reason is worth stating because it looks like an inconsistency. Both are cross-language *aggregates*, and neither duplicates any column we hold: `mgsm` shares **zero** models with `gsm8k`, and `belebele` has no in-corpus original at all (its 122 languages are internally parallel, but there is no English Belebele here for it to duplicate). A redundancy claim is a claim that two columns track each other; columns that never co-occur cannot track each other. Both also measure multilingual transfer alongside the underlying skill, which the monolingual originals do not. This matches the treatment of `multiloko`, whose paper-sourced across-language aggregate was likewise kept while its per-language splits were dropped. Excluding cross-language aggregates would be a defensible alternative, but it is a single policy choice covering `mgsm`, `belebele` and `multiloko` together — not a per-benchmark judgement.
 
-## C.4 Duplicate detection and integrity checks {-}
+## Duplicate detection and integrity checks
 
-The duplicate identity key is the tuple (model, benchmark, metric, setup, source, model identifier, language). Duplicates are reported in two classes: **pure redundancy** (identical score reported twice) and **conflicts** (different scores under one identity). Conflicts are resolved by source-trust tier ([[A-data-sources-and-extraction#A.1 Source inventory|Appendix A.1]]) and recency, and the report is always reviewed before any automated resolution runs.
+The duplicate identity key is the tuple (model, benchmark, metric, setup, source, model identifier, language). Duplicates are reported in two classes: **pure redundancy** (identical score reported twice) and **conflicts** (different scores under one identity). Conflicts are resolved by source-trust tier (`\hyperref[source-inventory]{Appendix~\ref*{source-inventory}}`{=latex}) and recency, and the report is always reviewed before any automated resolution runs.
 
-The integrity pass asserts: zero foreign-key violations in both directions; zero models with no result rows; zero benchmarks with no result rows; and flags benchmarks with fewer than five rows for manual review. It is run after every write, including after each of the pruning passes in [[E-score-redundancy-pruning#E Score-redundancy pruning|Appendix E]].
+The integrity pass asserts: zero foreign-key violations in both directions; zero models with no result rows; zero benchmarks with no result rows; and flags benchmarks with fewer than five rows for manual review. It is run after every write, including after each of the pruning passes in `\hyperref[score-redundancy-pruning]{Appendix~\ref*{score-redundancy-pruning}}`{=latex}.
 
 Link validity was checked by a multi-threaded URL sweep across both metadata tables, ignoring anti-bot 403s, repairing moved repositories, and filling 53 previously-blank benchmark source links.
 
-## C.5 Canonical metric selection {-}
+## Canonical metric selection
 
 Applied to the derived copy after the benchmark removals, so coverage is counted over the surviving population. Selection proceeds in four steps, first match wins:
 
@@ -68,7 +68,7 @@ the support. -->
 
 For the same reason we do not pin `accuracy` globally. The coverage rule already selects it where it genuinely dominates (`mmlu`, `truthfulqa`, `hellaswag`, `pubmedqa`) and selects `em` on the other twelve; forcing `accuracy` everywhere would cost 449 further model-cells (`openbookqa` 120 → 22, `legalbench` 90 → 5, `imdb` 67 → 6, `medqa` 99 → 42) and would systematically evict the most methodologically controlled source in the corpus. `accuracy` is the more conventional name; here it is not a quality signal.
 
-## C.6 Defects below the metric name {-}
+## Defects below the metric name
 
 Two problems survive metric selection because they are not distinguishable by metric name at all.
 

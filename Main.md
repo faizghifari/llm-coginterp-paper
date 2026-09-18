@@ -37,26 +37,26 @@ presented them as one figure. %%
 \appendix
 ```
 
-![[sections/appendix/A-data-sources-and-extraction]]
+![[sections/appendix/data-sources-and-extraction]]
 
-![[sections/appendix/B-inclusion-and-exclusion-criteria]]
+![[sections/appendix/inclusion-and-exclusion-criteria]]
 
-![[sections/appendix/C-normalisation-rules]]
+![[sections/appendix/normalisation-rules]]
 
-![[sections/appendix/D-text-only-classifier]]
+![[sections/appendix/text-only-classifier]]
 
-![[sections/appendix/E-score-redundancy-pruning]]
+![[sections/appendix/score-redundancy-pruning]]
 
-![[sections/appendix/F-model-identity-collapse]]
+![[sections/appendix/model-identity-collapse]]
 
-![[sections/appendix/G-densification-algorithm]]
+![[sections/appendix/densification-algorithm]]
 
-![[sections/appendix/H-completion-methods]]
+![[sections/appendix/completion-methods]]
 
-![[sections/appendix/I-held-out-metric]]
+![[sections/appendix/held-out-metric]]
 
-![[sections/appendix/J-factor-analysis-details]]
+![[sections/appendix/factor-analysis-details]]
 
-![[sections/appendix/K-software-environment-and-reproduction]]
+![[sections/appendix/software-environment-and-reproduction]]
 
-![[sections/appendix/L-known-limitations-and-deviations]]
+![[sections/appendix/known-limitations-and-deviations]]

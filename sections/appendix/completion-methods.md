@@ -1,8 +1,8 @@
-# H Completion methods {-}
+# Completion methods
 
 All R-side methods share one contract — sparse matrix in; completed matrix, swept-parameter grid, held-out RMSE and $R^2$ per parameter value, and a `complete_at(param)` closure out — and none of them factor. This is what allows the factoring stage to be literally identical across methods.
 
-## H.1 Cell-level methods {-}
+## Cell-level methods
 
 | Method | Description | Package | Swept parameter | Grid |
 |---|---|---|---|---|
@@ -17,7 +17,7 @@ MICE requires two departures from its defaults on this matrix, which is wide and
 
 **Deferred.** `iterativepca` (`missMDA` regularised EM-PCA) is implemented but not validated: its built-in dimensionality cross-validation is prohibitively slow at this matrix size and its sensitivity path was never migrated to the shared held-out metric. It is excluded from all reported results.
 
-## H.2 OneSidedMC {-}
+## OneSidedMC
 
 Implemented in Julia \citep{cao2023}. The premise is that when observations are too sparse to complete cells, the **right singular vectors** — the benchmark-space factors — may still be recoverable. The estimator forms $\hat{\Theta} = \frac{1}{m}X^\top X$ from pairwise products of co-observed standardised scores and fits $\hat{\Theta} = \hat V \hat V^\top$.
 
@@ -28,9 +28,9 @@ Adaptations required for this data:
 - **Cell-level metric.** Its native error is defined on pairwise products, which is not comparable to the other methods, so each held-out cell is additionally predicted from the recovered covariance by the conditional-Gaussian (best linear) predictor $\hat z_j = V_j^\top V_S^{+} z_S$, solved in the $r$-dimensional factor space rather than by inverting the rank-deficient $|S| \times |S|$ covariance block, which is numerically unstable on richly-observed rows. The native pairwise metric is retained as a disabled branch.
 - **Leakage control.** The holdout split is taken *before* column moments are computed, so standardisation is fit on training cells only. Column-stratified holdout matches the R implementation, with the additional row constraint that a cell is held out only if its row retains at least 2 training cells — the predictor needs them to condition on.
 
-The output handed to factoring is a synthesised surrogate ([[#H.3 Correlation-matrix completion and surrogate synthesis]]), not an imputation of the real cells.
+The output handed to factoring is a synthesised surrogate ([[#Correlation-matrix completion and surrogate synthesis]]), not an imputation of the real cells.
 
-## H.3 Correlation-matrix completion and surrogate synthesis {-}
+## Correlation-matrix completion and surrogate synthesis
 
 Shared machinery for SoftImpute-corr, OptSpace, USVT, CVXR, and GGM:
 
@@ -38,14 +38,14 @@ Shared machinery for SoftImpute-corr, OptSpace, USVT, CVXR, and GGM:
 2. Compute the observed pairwise-complete correlation matrix. Entries for pairs never co-observed are `NA`; these are exactly the completion target. No minimum co-observation threshold is applied here, because the floor is already enforced upstream by the densifier and the degenerate-column guard.
 3. Complete the correlation matrix with the method's estimator.
 4. Symmetrise, then project to the nearest valid correlation matrix (`nearPD` \citep{higham2002} with unit diagonal and a final eigenvalue projection), guaranteeing positive definiteness rather than near-definiteness — so every principal submatrix $R_{SS}$ is invertible.
-5. Predict each held-out cell from the row's surviving observed cells by the conditional-Gaussian predictor $\hat z_j = R_{jS} R_{SS}^{-1} z_S$ (an empty conditioning set degenerates to the z-mean, 0), and score with the shared metric ([[I-held-out-metric#I Held-out metric|Appendix I]]).
+5. Predict each held-out cell from the row's surviving observed cells by the conditional-Gaussian predictor $\hat z_j = R_{jS} R_{SS}^{-1} z_S$ (an empty conditioning set degenerates to the z-mean, 0), and score with the shared metric (`\hyperref[held-out-metric]{Appendix~\ref*{held-out-metric}}`{=latex}).
 6. Refit on the **full** correlation matrix and synthesise an $n \times p$ surrogate $X = ZW^\top$ with $Z \sim N(0, I_p)$ and $W = Q\Lambda^{1/2}$ from the eigendecomposition, then un-standardise to the original column scale by the observed-cell moments — so $\operatorname{cov}(X) = R$ by construction.
 
 Estimators:
 
 | Estimator | Description | Implementation | Configuration |
 |-------|--------------|-------------------|----------|
-| SoftImpute-corr \citep{mazumder2010} | Applies SoftImpute's low-rank completion to the observed pairwise correlation matrix rather than the data matrix, whose missing entries are exactly the benchmark pairs never co-observed. | `softImpute` | sweeps rank 1…10 with the same nested $\lambda$ grid as [[#H.1 Cell-level methods]] |
+| SoftImpute-corr \citep{mazumder2010} | Applies SoftImpute's low-rank completion to the observed pairwise correlation matrix rather than the data matrix, whose missing entries are exactly the benchmark pairs never co-observed. | `softImpute` | sweeps rank 1…10 with the same nested $\lambda$ grid as [[#Cell-level methods]] |
 | OptSpace \citep{keshavan2010} | Manifold-optimisation low-rank completion of the correlation matrix, with automatic rank estimation. | `filling::fill.OptSpace` | automatic rank estimation, `niter = 50`, `tol = 1e-6`; no sweep |
 | USVT \citep{chatterjee2015} | Universal singular value thresholding: completes the correlation matrix by hard-thresholding its singular values. | `filling::fill.USVT` | fixed singular-value threshold $\eta = 0.01$; no sweep |
 | CVXR (maximum-determinant SDP) | Structured completion targeting positive-definiteness directly: maximises $\log\det\Sigma$ subject to $\Sigma \succeq 0$ and each observed correlation lying within a per-pair Fisher-*z* confidence band scaled to that pair's co-observation count. | `CVXR` + SCS | maximise $\log\det\Sigma$ s.t. $\Sigma \succeq 0$, diagonal matched exactly, each observed off-diagonal constrained to $\tanh(z_{ij} \pm c\,/\sqrt{n_{ij}-3})$ with $c = 2$; no sweep |
@@ -55,9 +55,9 @@ Only SoftImpute-corr sweeps a hyperparameter; the other four take a single fixed
 
 The per-pair confidence band in CVXR exists because a single flat tolerance cannot serve both a correlation estimated from $n = 10$ and one from $n = 200$; the band widens automatically as $n_{ij}$ falls. Solver infeasibility is a genuine finding — the observed pairwise correlations are not jointly PSD-consistent even at their sampling uncertainty — not a bug; the remedy is a wider band, not a fallback. GGM has no fallback either: if `fitConGraph` fails to converge, the method fails.
 
-Note that neither estimator applies a minimum co-observation threshold: every pair with a computable correlation enters as a constraint, including pairs resting on very few shared models. For CVXR this is partly self-correcting through the $n$-scaled band; for GGM it makes the conditional-independence graph denser than a trust-filtered version would be. See [[L-known-limitations-and-deviations#L Known limitations and deviations|Appendix L]].
+Note that neither estimator applies a minimum co-observation threshold: every pair with a computable correlation enters as a constraint, including pairs resting on very few shared models. For CVXR this is partly self-correcting through the $n$-scaled band; for GGM it makes the conditional-independence graph denser than a trust-filtered version would be. See `\hyperref[known-limitations-and-deviations]{Appendix~\ref*{known-limitations-and-deviations}}`{=latex}.
 
-## H.4 No-imputation (raw) variants {-}
+## No-imputation (raw) variants
 
 Applied to the undensified matrix, factoring a pairwise-complete correlation matrix with two treatments of the undefined entries:
 

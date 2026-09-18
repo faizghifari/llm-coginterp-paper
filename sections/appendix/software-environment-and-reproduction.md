@@ -1,4 +1,4 @@
-# K Software environment and reproduction {-}
+# Software environment and reproduction
 
 **Languages and dependency management.** Python (managed by `uv`; `pyproject.toml` + `uv.lock`, Python 3.14) for corpus construction, densification, and analysis scripts; R (managed by `renv`; `renv.lock`) for imputation and factor analysis; Julia (project-scoped `Project.toml` / `Manifest.toml`) for OneSidedMC.
 

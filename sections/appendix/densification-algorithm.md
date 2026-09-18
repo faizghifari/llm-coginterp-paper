@@ -1,4 +1,4 @@
-# G Densification algorithm {-}
+# Densification algorithm
 
 Target density $\tau = 0.10$. Let $\mathbf{M}$ be the boolean observation mask.
 
@@ -12,4 +12,4 @@ Target density $\tau = 0.10$. Let $\mathbf{M}$ be the boolean observation mask.
 
 **Degenerate-column guard.** Finally drop any column with fewer than 2 observed values or zero variance among its observed values, matching exactly what the downstream estimators would drop at runtime. This parity is deliberate: it keeps the reported matrix shape equal to the shape actually factored.
 
-The tables analysed in this paper were generated with `MIN_OBS = 2`, verified against the shipped matrices — the minimum per-axis observation count is 2 on the R-densified matrices, whose peel is the binding one. See [[L-known-limitations-and-deviations#L Known limitations and deviations|Appendix L]] regarding the current value of that constant in the analysis repository.
+The tables analysed in this paper were generated with `MIN_OBS = 2`, verified against the shipped matrices — the minimum per-axis observation count is 2 on the R-densified matrices, whose peel is the binding one. See `\hyperref[known-limitations-and-deviations]{Appendix~\ref*{known-limitations-and-deviations}}`{=latex} regarding the current value of that constant in the analysis repository.
