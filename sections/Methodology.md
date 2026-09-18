@@ -75,52 +75,27 @@ After peeling, models and benchmarks that has less than 3 observed scores are dr
 | R         | `all_standard`   | 175 × 298  |   11.8% |      55% |
 | R         | `all_aggressive` | 97 × 310   |   11.7% |      78% |
 
-
-### Matrix imputation
-
-<!-- Already stated in beginning of methodology -->
-<!-- The dataset exhibits a missing not at random (MNAR) pattern \citep{rubin1976}. Popular models are more likely to be benchmarked, and popular benchmarks are more likely to be administered. Since different densifiers and imputers has their own biases and assumptions, we run multiple different imputations, comparing the performance of each, and aggregating the results.  -->
-<!-- The core idea is, since the distribution of the missing data is impossible to recover, it is better to triangulate results from different densifiers and different imputers, each with their own biases and assumptions, and recover common patterns as the kernel of truth. -->
-
-<!--
-Full dataset imputers estimates the missing entries of the dataset directly: **SoftImpute** \citep{mazumder2010} (nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD; assumes a low-rank signal plus noise, and is our primary cell-level method); **k-NN** (each missing cell filled from the $k$ most similar models — an assumption-light baseline with no low-rank, linearity, or normality assumption); **missForest** \citep{stekhoven2012} (iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent).
-
-**Correlation-level recovery** exploits the fact that factor analysis needs a correlation matrix, not a data matrix. When observations are too sparse to complete cells reliably, the correlation structure may still be recoverable — a substantially weaker requirement. This family estimates the benchmark × benchmark correlation matrix directly and never claims to know individual cells: **OneSidedMC** \citep{cao2023} recovers the benchmark-space right singular vectors from pairwise products of co-observed scores, yielding an estimate $\hat{\Theta}$ of the benchmark covariance; **SoftImpute-corr**, **OptSpace** \citep{keshavan2010}, and **USVT** \citep{chatterjee2015} apply matrix-completion estimators to the *observed pairwise correlation matrix*, whose missing entries are exactly the benchmark pairs that were never co-observed; and two structured completions target positive-definiteness directly — a **maximum-determinant** SDP completion, which maximises $\log\det\Sigma$ subject to $\Sigma \succeq 0$ and to each observed correlation lying within a per-pair Fisher-*z* confidence band scaled to that pair's co-observation count, and a **Gaussian graphical model** MLE completion over the observed-pair graph.
--->
-
 We further densify the data using 2 families of imputers: 
 
 - **Full dataset imputers**: estimates the missing entries of the dataset directly. Includes SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}.
-- **Correlation-level recovery**: instead exploits the fact that factor analysis needs a correlation matrix, not a data matrix. The benchmark × benchmark correlation structure is a substantially weaker requirement, and so this family estimates that correlation matrix directly. Includes OneSidedMC \citep{cao2023}, SoftImpute-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}, maximum-determinant SDP completion, and Gaussian graphical model completion
+- **Correlation-level recovery**: instead exploits the fact that factor analysis needs a correlation matrix, not a data matrix. The benchmark × benchmark correlation structure is a substantially weaker requirement, and so this family estimates that correlation matrix directly. Includes OneSidedMC \citep{cao2023}-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}, maximum-determinant SDP completion, and Gaussian graphical model completion. We also reused the softimpute algorithm as a correlation matrix imputer.
+- **PSD smoothing**: a variant of the correlation-level recovery is by filling the missing entries with a scalar, then applying a PSD smoothing for the resulting matrix. The `zeros` method fill the missing entries with 0, while the `mean` uses the mean observed Pearson r.
 
 Method-level descriptions and implementation detail for all of the above are given in [[Appendix-Methods#H Completion methods|Appendix H]].
 
 
-### Evaluating the completion
-At each stage of the imputation, we masked ~20% of the observed cells as an evaluation set. To prevent high-observation benchmarks from inflating the score, we use a column-stratified mask, such that each benchmark is masked at least once and leaving at least two training observations in every column. Columns are standardised using training-cell moments only.
-
-<!-- Without this column stratification, our evaluation score is inflated by the fact that high-observation benchmarks (which are the least difficult to impute) are sampled more often than low-observation ones. -->
+### Evaluating the imputations
+At each stage of the imputation, we masked ~20% of the observed cells as an evaluation set. To prevent high-observation benchmarks from inflating the score, we use a column-stratified mask, such that each benchmark is masked at least once and leaving at least two training observations in every column. Without column stratification, our evaluation score is inflated by the fact that high-observation benchmarks (which are the least difficult to impute) are sampled more often than low-observation ones. Columns are standardised using training-cell moments only.
 
 Held-out cells are scored in standard-deviation units against a baseline that predicts each column's training mean:
 
 $$\text{RMSE} = \sqrt{\overline{(\hat z - z)^2}}, \qquad R^2 = 1 - \frac{\text{MSE}}{\text{MSE}_{\text{baseline}}}$$
 
-Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it is difficult to interpret $\text{RMSE}$s at face value as to how well the imputer performs. As such, we use the $\text{R}^2$ as a relative measure to compare how well the imputer predicts held-out values compared to the the expected value of the training cells. Intuitively, by the $\text{MSE}$ division, the $\text{R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}^2$ are also averages of column-wise $\text{MSE}$s.
-
-This metric is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out $\text{R}^2$ falls below 0.4 is not factored at all, as it indicates that data-fill is not trustworthy.
+Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it is difficult to interpret $\text{RMSE}$s at face value as to how well the imputer performs. As such, we use the ${R}^2$ as a relative measure to compare how well the imputer predicts held-out values compared to the the expected value of the training cells. Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out ${R}^2$ falls below 0.3 is not factored at all, as it indicates that data-fill is not trustworthy.
 
 ## Factor analysis
 
-<!-- Is this paragraph needed? -->
-We dedicate this section to be a little%% longer, as we use methodologies that are standard in psychometric research, but critically lacking in LLM intelligence research \citep{ilicagignac2024,burnell2023,ye2025}. There are 3 issues common in LLM intelligence research: 1. The use of principal components analysis (PCA) over exploratory factor analysis (EFA), 2. Not rotating factor solutions, 3. Not using bifactor transformation and reporting $\omega$ coefficients.
-
-First, the use of EFA over PCA is informed by the causal effect of the latent variables over the benchmark scores. As described in the introduction, an abstract, "raw" intelligence is assumed, by existing literature, to precedes performance in domain-specific skills \citep{schneider2018}, correlations between benchmarks are directly and causally influenced by variance of the lower-dimensional latent variables. Crucially, direct eigendecomposition does not try to exclude or partition any variance, so principal components captures both systematic and error/random variance. The same is not true for EFA's multi-step algorithm. Psychometricians would call this this distinction between PCA and EFA to be formative vs. causal \citep{vandermaas2014}.
-
-Another important step, also standard in psychometrics but rarely done in ML, is the rotation of the resulting loading matrix. The matrix results of PCA and EFA are rotation-invariant, which tends to group all variances in the first latent factor. However, this means that the result of factor analysis tends to be difficult to interpret. Factor rotation means to find an alternative solution that rearranges loadings to be more cleanly partitioned (a "simple structure"; \citealp{gorsuch1983} could not confirm "Gorsuch, 2004" -- swap for \citealp{gorsuch2015} (Routledge "Classic Edition" reprint) if that's the intended source ) between all of the extracted factors. Factor rotation can be thought of as improving the "cluster" of the variables to group closer to their cluster centroid. Another advantage of factor rotation is that it allows the loadings vectors to be positively correlated, while bare eigendecomposition yields orthogonal factors.%%
-
 To perform our dimension reduction, we use exploratory factor analysis (EFA) with the minimum residual estimator and the oblique promax rotation[^2]. Importantly, particularly with respect to the inquiries about a $G$ factor, is the use of Schmid-Leiman \citep{schmidleiman1957} bifactor transformation. In essence, this technique ran factor analysis hierarchically, yielding one additional factor that influences the rest of the extracted factor. This technique is quite well-used in psychometric research explicitly about a $G$ factor of intelligence \citep{johnson2004,johnson2008}. The hierarchical step makes it a more principled choice over interpreting the highest-eigenvalue solution (e..g, \citep{krakauer, 2006}) as the $G$ factor.
-
-[^2]:As eigenvector matrices are rotation-invariant, it is typical in psychometrics to run factor rotation algorithms to get an interpretable "simple structure". Oblique families of rotations, in addition, allow eigenvectors to correlate with each other, while default eigendecomposition yields orthogonal solutions.
 
 An important statistic from the bifactor EFA is the $\omega_h$ coefficient. There are many statistics labelled $\omega$ commonly used to quantify the reliability of psychometric measures, but in our present purpose, we use $\omega_h$ to quantify the variance explained by the $G$ factor. 
 
@@ -128,11 +103,12 @@ Let $T$ be a matrix of test scores that can be decomposed into independent addit
 $$\sigma_X^2 = \sigma^2_{\mathrm{Gen}} + \sigma^2_{\mathrm{Spe}} + \sigma^2_{E}$$
 $\omega_h$ is the estimand
 $$\omega_h = \frac{\sigma^2_{\mathrm{Gen}}}{\sigma_X^2}$$
-i.e., the proportion of observed-score variance attributable to the general factor \citep{cho2025}. In matrix form, for a bifactor loading matrix $\Lambda$ whose first column contains the general-factor loadings $\lambda$ and whose remaining columns contain group-factor loadings, with diagonal error-variance matrix $\Theta^2$:
+i.e., the proportion of observed-score variance attributable to the general factor. In matrix form, for a bifactor loading matrix $\Lambda$ whose first column contains the general-factor loadings $\lambda$ and whose remaining columns contain group-factor loadings, with diagonal error-variance matrix $\Theta^2$:
 $$\omega_h = \frac{\mathbf{1}'\lambda\lambda'\mathbf{1}}{\mathbf{1}'(\Lambda\Lambda' + \Theta^2)\mathbf{1}}$$
-where $\mathbf{1}$ is a vector of ones (Cho, 2022).
+where $\mathbf{1}$ is a vector of ones \citep{cho2025}.
 
-[^3]:This is more standardly called "group factors", but we use the term "specific factor" to avoid possible confusion with observation grouping
+[^2]: As eigenvector matrices are rotation-invariant, it is typical in psychometrics to run factor rotation algorithms to get an interpretable "simple structure". Oblique families of rotations, in addition, allow eigenvectors to correlate with each other, while default eigendecomposition yields orthogonal solutions.
+[^3]: This is more standardly called "group factors", but we use the term "specific factor" to avoid possible confusion with observation grouping
 
 
 One additional step we do is parallel analysis \citep{horn1965} to select the number of factor analysis dimensions. It uses simulated random values to determine eigenvalue cutoffs to discard low-variance factors. To keep wall-clock time tractable we cap the number of factors extracted to 20. 
