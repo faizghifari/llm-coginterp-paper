@@ -20,7 +20,7 @@ The matrices analysed here were produced with `MIN_OBS = 2` ([[G-densification-a
 
 ## L.3a Tables 2 and 3 are provisional. {-}
 
-Both were read off matrices generated before the score-redundancy pruning and still contain all 47 pruned columns. Recomputed values are recorded in a comment beside Table 2 in [[Methodology]]. They must be replaced together with the Results tables, not before, or the paper becomes internally inconsistent.
+Both were read off matrices generated before the score-redundancy pruning and still contain all 47 pruned columns. Recomputed values are recorded in a comment beside Table 2 in [[Methodology|the Methodology]]. They must be replaced together with the Results tables, not before, or the paper becomes internally inconsistent.
 
 ## L.4 Coverage of the newest completion methods. {-}
 

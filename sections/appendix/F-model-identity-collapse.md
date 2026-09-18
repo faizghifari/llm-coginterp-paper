@@ -22,4 +22,4 @@ Take the first alphabetic token of `model_family` if it is non-numeric; otherwis
 
 ## F.3 Post-collapse filtering {-}
 
-Benchmarks observed for only one collapse key are dropped, then collapse keys with no remaining benchmarks are dropped. This yields Table 2 of [[Methodology]] (1,310 × 455 at 2.33 %; 350 × 431 at 3.55 % — provisional, from matrices predating the score-redundancy pruning; recomputed on the current corpus these are 1,269 × 405 at 2.16 % and 337 × 381 at 3.49 %) from 2,297 distinct source-level model identifiers.
+Benchmarks observed for only one collapse key are dropped, then collapse keys with no remaining benchmarks are dropped. This yields Table 2 of [[Methodology|the Methodology]] (1,310 × 455 at 2.33 %; 350 × 431 at 3.55 % — provisional, from matrices predating the score-redundancy pruning; recomputed on the current corpus these are 1,269 × 405 at 2.16 % and 337 × 381 at 3.49 %) from 2,297 distinct source-level model identifiers.

@@ -54,7 +54,17 @@ Net effect: 92 contested benchmarks, 1,420 rows dropped and 706 model-cells lost
 
 First, the names are effectively **source labels rather than measurement labels**: `em` is Stanford HELM's metric name — HELM is the top `em` source on 13 of the 16 — while `accuracy` comes from the Open LLM Leaderboard, Papers With Code and primary papers. Merging them would not merge two metrics; it would merge two evaluation regimes.
 
-Second, those regimes score **near-disjoint model populations** (see the co-observation table in [[Methodology#Sources partition the matrix]]). A merged column would therefore be bimodal by source, with an offset that cannot be estimated: no model in the corpus is scored both ways on any of the sixteen, so there is no overlap to calibrate against, and the sparse overlap that exists elsewhere is inconsistent (`boolq` +18.4 across 2 models, `openbookqa` +6.2 across 1). Because HELM owns 138 columns, the same bias would recur corpus-wide as a source factor — and it would present as an *improvement*, since the matrix would appear better connected while the new bridges rested on an unverifiable assumption.
+Second, those regimes score **near-disjoint model populations**. A merged column would therefore be bimodal by source, with an offset that cannot be estimated: no model in the corpus is scored both ways on any of the sixteen, so there is no overlap to calibrate against, and the sparse overlap that exists elsewhere is inconsistent (`boolq` +18.4 across 2 models, `openbookqa` +6.2 across 1). Because HELM owns 138 columns, the same bias would recur corpus-wide as a source factor — and it would present as an *improvement*, since the matrix would appear better connected while the new bridges rested on an unverifiable assumption.
+
+<!-- The parenthetical here used to read "(see the co-observation table in
+[[Methodology#Sources partition the matrix]])". That pointer went to the old
+root-level Methodology.md, which is not embedded in Main.md, so it rendered in
+the PDF as a raw URL to a section the paper does not contain. The table it
+referred to (HELM x HELM median 4 shared models, OLL x OLL 160, HELM x OLL 0
+with 87% of pairs not estimable) is still in Methodology.md under "Sources
+partition the matrix", but was condensed out of sections/Methodology.md. Move it
+into sections/Methodology.md and restore the cross-reference if the claim needs
+the support. -->
 
 For the same reason we do not pin `accuracy` globally. The coverage rule already selects it where it genuinely dominates (`mmlu`, `truthfulqa`, `hellaswag`, `pubmedqa`) and selects `em` on the other twelve; forcing `accuracy` everywhere would cost 449 further model-cells (`openbookqa` 120 → 22, `legalbench` 90 → 5, `imdb` 67 → 6, `medqa` 99 → 42) and would systematically evict the most methodologically controlled source in the corpus. `accuracy` is the more conventional name; here it is not a quality signal.
 
