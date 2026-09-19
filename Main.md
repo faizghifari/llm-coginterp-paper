@@ -41,6 +41,8 @@ Appendix-Methods.md. %%
 
 ![[sections/Discussion]]
 
+![[sections/Conclusion]]
+
 ```{=latex}
 \bibliography{iclr2027_conference}
 \bibliographystyle{iclr2027_conference}
@@ -72,6 +74,8 @@ Appendix-Methods.md. %%
 ![[sections/appendix/factor-analysis-details]]
 
 ![[sections/appendix/benchmark-embedding]]
+
+![[sections/appendix/llm-usage]]
 
 <!-- Software environment and reproduction was deleted in pass 5. It was a
 repository README (shell commands, output paths, SQLite table names, package
