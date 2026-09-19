@@ -22,5 +22,5 @@ Two properties are deliberate. The column-balanced RMSE is an **average of per-c
 
 - Standardise columns, never rows.
 - The baseline sees only training cells.
-- The reported score must come from a fit that never saw the held-out cells; a full-data refit at the selected hyperparameter is used only to produce the matrix handed downstream.
-- Methods whose native error is not cell-level must still derive a cell-level score (`\hyperref[onesidedmc]{Appendix~\ref*{onesidedmc}}`{=latex}, `\hyperref[correlation-matrix-completion-and-surrogate-synthesis]{Appendix~\ref*{correlation-matrix-completion-and-surrogate-synthesis}}`{=latex}); the native metric may be retained but is never the headline.
+- The reported score must come from a fit that never saw the held-out cells. A full-data refit at the selected hyperparameter is used only to produce the matrix handed downstream.
+- Methods whose native error is not cell-level must still derive a cell-level score (`\hyperref[onesidedmc]{Appendix~\ref*{onesidedmc}}`{=latex}, `\hyperref[correlation-matrix-completion-and-surrogate-synthesis]{Appendix~\ref*{correlation-matrix-completion-and-surrogate-synthesis}}`{=latex}). The native metric may be retained, but it is never the headline.

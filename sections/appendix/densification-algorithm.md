@@ -6,7 +6,7 @@ Target density $\tau = 0.10$. Let $\mathbf{M}$ be the boolean observation mask.
 
 **R (row-primary peel).** While density $< \tau$: drop the model with the fewest observations among currently-kept columns, then drop any benchmark left with zero observations.
 
-**S (symmetric peel).** While density $< \tau$: compute each kept column's and each kept row's *fill rate* (observations ÷ current opposite-axis size) and drop whichever single marginal has the lowest rate; then clear emptied rows and columns on both axes.
+**S (symmetric peel).** While density $< \tau$: compute each kept column's and each kept row's *fill rate* (observations ÷ current opposite-axis size) and drop whichever single marginal has the lowest rate, then clear emptied rows and columns on both axes.
 
 **Minimum-observation floor.** After peeling, iterate to a fixed point, dropping any kept row or column with fewer observations than the floor *within the currently kept submatrix*. The loop is required because dropping a sparse row can starve a column and vice versa.
 

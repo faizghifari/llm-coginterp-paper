@@ -30,4 +30,4 @@ For each benchmark $i$: delete row and column $i$ from the correlation matrix, r
 
 ## Cross-method congruence
 
-Pairwise factor congruence \citep{lorenzoseva2006} between solutions is the absolute cosine similarity between loading vectors, computed after sorting factors by sum of squared loadings and taken sign-invariantly. Solutions are compared only within the same dataset, the same solution type, and the same shape — and therefore only when two methods happen to agree on the factor count, which on this data is rare enough to be a reportable limitation in itself.
+Pairwise factor congruence \citep{lorenzoseva2006} between solutions is the absolute cosine similarity between loading vectors, computed after sorting factors by sum of squared loadings and taken sign-invariantly. We compare solutions only within the same dataset, the same solution type, and the same shape, and therefore only when two methods happen to agree on the factor count. On this data that agreement is rare enough to be a reportable limitation in itself.
