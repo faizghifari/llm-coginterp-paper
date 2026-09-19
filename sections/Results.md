@@ -65,6 +65,10 @@ A degree of generality exists, of course. The bottom figure, using composite dis
 
 ## $G$-loaded benchmarks
 
+Table 4 below shows a selection of factor analysis results and the top 10 benchmarks with the highest loading on the $G$ factor. For the datasets imputed with softimpute and mean correlations, a striking finding is that typical "smartness" benchmarks, like MMLU Pro and the ARC Challenge, dominate the top with the highest factor loadings.  At a glance, this may indicate that commonly-targeted benchmarks is a good approximation of a general intelligence factor, and provide evidence that a narrow training regime can generalize to a great diversity of task.
+
+The results, however, must be taken with a caveat. First, the C densifier works by peeling low-observation columns, resulting in the remaining columns to have 
+
 What we find is that benchmarks with a high loading on the $G$ factor does not tend to be the popular, "smartness" measurements involving abstract reasoning or mathematics. Instead, a typical $G$ factor is dominated by miscellaneous tasks with no resemblance of any common theme.
 
 **Table 4**. Top 10 benchmarks loading on the $G$ factor. C dataset, all standard variant.
@@ -84,6 +88,22 @@ What we find is that benchmarks with a high loading on the $G$ factor does not t
 
 **Table 5**. Top 10 benchmarks loading on the $G$ factor. S dataset, all standard variant.
 
+| Mean                               |       | Zeros                          |       |
+| ---------------------------------- | ----- | ------------------------------ | ----- |
+| eqbench                            | 0.508 | ewok_spatial_relations         | 0.459 |
+| pwc_turbulence                     | 0.506 | tablebench_numerical_reasoning | 0.456 |
+| tablebench_fact_checking           | 0.474 | ewok_social_interactions       | 0.456 |
+| tablebench_data_analysis           | 0.468 | openbookqa                     | 0.453 |
+| pwc_big_bench_sports_understanding | 0.466 | thaiexam                       | 0.452 |
+| ewok_social_interactions           | 0.459 | tablebench_fact_checking       | 0.452 |
+| tablebench_numerical_reasoning     | 0.456 | tablebench_data_analysis       | 0.451 |
+| openbookqa                         | 0.451 | thai_exam_tgat                 | 0.450 |
+| winogrande                         | 0.443 | ewok_material_properties       | 0.445 |
+| ewok_spatial_relations             | 0.442 | ewok                           | 0.441 |
+
+
+**Table 6**. Top 10 benchmarks loading on the $G$ factor. R dataset, all standard variant.
+
 | Softimpute                            |       | Mean      |       | Missforest            |       |
 | ------------------------------------- | ----- | --------- | ----- | --------------------- | ----- |
 | gsm8k                                 | 0.530 | mmlu_pro  | 0.620 | facts_search          | 0.967 |
@@ -96,3 +116,19 @@ What we find is that benchmarks with a high loading on the $G$ factor does not t
 | financial_scenarios                   | 0.471 | eclektic  | 0.532 | mmlu_lite_english     | 0.908 |
 | pwc_piqa                              | 0.458 | medqa     | 0.530 | multiloko             | 0.908 |
 | wmt_14                                | 0.457 | musr      | 0.527 | aime25                | 0.905 |
+
+
+**Table 7**. Top 10 benchmarks loading on the $G$ factor. Raw dataset, all standard variant.
+
+| Mean                   |       | Zeros                          |       |
+| ---------------------- | ----- | ------------------------------ | ----- |
+| hagendorff_biases_2023 | 0.557 | ewok_spatial_relations         | 0.464 |
+| parsiNLU               | 0.557 | ewok_social_interactions       | 0.448 |
+| ttcw                   | 0.557 | ewok_material_properties       | 0.443 |
+| dialogbench            | 0.534 | ewok                           | 0.443 |
+| pwc_turbulence         | 0.527 | tablebench_numerical_reasoning | 0.436 |
+| pwc_asqp               | 0.489 | tablebench_data_analysis       | 0.435 |
+| pwc_conala             | 0.489 | ewok_physical_interactions     | 0.433 |
+| pwc_django             | 0.489 | openbookqa                     | 0.433 |
+| pwc_tasd               | 0.489 | ewok_material_dynamics         | 0.431 |
+| pwc_timequestions      | 0.489 | ewok_agent_properties          | 0.427 |
