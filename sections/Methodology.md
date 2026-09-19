@@ -8,7 +8,7 @@ In this study we investigate the low-dimensional structure of model benchmark sc
 
 **Sources.** We collect the benchmark data from four types of source, in descending order of volume: (i) large curated evaluation suites, (ii) aggregated leaderboards, (iii) benchmark-specific leaderboards, and (iv) papers. Specifically, these sources can be broken down into source families such as Stanford HELM \citep{helm2023}, HuggingFace Open LLM Leaderboard (v1 and v2) \citep{openllmleaderboard2024}, Papers With Code, Kaggle AI Benchmarks, Chatbot Arena / LMArena \citep{chatbotarena2024}, llm-stats.com, Artificial Analysis, Vellum, and LiveBench, together with benchmark-specific leaderboards and primary papers reporting original evaluations. Table 1 gives the composition of the text-only corpus by source family. `\hyperref[data-source-and-normalization]{Appendix~\ref*{data-source-and-normalization}}`{=latex} lists every named source and the extraction route used for each.
 
-**Table 1.** Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). More detailed breakdown is given in `\hyperref[tab:a1]{Table A1}`{=latex}.
+`\label{tab:sources}`{=latex}**Table 1.** Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). More detailed breakdown is given in `\hyperref[tab:a1]{Table A1}`{=latex}.
 
 | Source family | Result rows | Distinct benchmarks |
 |---|---:|---:|
@@ -115,7 +115,7 @@ We further improve the data density by greedily peeling the matrix towards a com
 
 After peeling, models and benchmarks that has less than 3 observed scores are dropped. Columns with zero variance among observed values are also dropped, since they carry no correlational signal. The algorithm is given in `\hyperref[densification-algorithm]{Appendix~\ref*{densification-algorithm}}`{=latex}. Note that we select a still relatively low target density at 10%, so that we can include as much different benchmarks as possible.
 
-**Table 2.** Aggregated model × benchmark matrices, text-only corpus. "Retained" is the fraction of observed cells surviving the densifier peel.
+`\label{tab:matrices}`{=latex}**Table 2.** Aggregated model × benchmark matrices, text-only corpus. "Retained" is the fraction of observed cells surviving the densifier peel.
 
 | Densifier | Strategy         | Shape      | Density | Retained |
 | --------- | ---------------- | ---------- | ------: | -------: |
@@ -144,7 +144,7 @@ Held-out cells are scored in standard-deviation units against a baseline that pr
 
 $$\text{RMSE} = \sqrt{\overline{(\hat z - z)^2}}, \qquad R^2 = 1 - \frac{\text{MSE}}{\text{MSE}_{\text{baseline}}}$$
 
-Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it is difficult to interpret $\text{RMSE}$s at face value as to how well the imputer performs. As such, we use the ${R}^2$ as a relative measure to compare how well the imputer predicts held-out values compared to the the expected value of the training cells. Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out ${R}^2$ falls below 0.3 is not factored at all, as it indicates that data-fill is not trustworthy.
+Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it is difficult to interpret $\text{RMSE}$s at face value as to how well the imputer performs. As such, we use the ${R}^2$ as a relative measure to compare how well the imputer predicts held-out values compared to the the expected value of the training cells. Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out ${R}^2$ falls below 0.3 is not factored at all, as it indicates that data-fill is not trustworthy. The split rule and the exact aggregation used for both measures are given in `\hyperref[held-out-metric]{Appendix~\ref*{held-out-metric}}`{=latex}.
 
 ## Factor analysis
 
@@ -164,7 +164,7 @@ where $\mathbf{1}$ is a vector of ones \citep{cho2025}.
 [^3]: This is more standardly called "group factors", but we use the term "specific factor" to avoid possible confusion with observation grouping
 
 
-One additional step we do is parallel analysis \citep{horn1965} to select the number of factor analysis dimensions. It uses simulated random values to determine eigenvalue cutoffs to discard low-variance factors. To keep wall-clock time tractable we cap the number of factors extracted to 20.
+One additional step we do is parallel analysis \citep{horn1965} to select the number of factor analysis dimensions. It uses simulated random values to determine eigenvalue cutoffs to discard low-variance factors. To keep wall-clock time tractable we cap the number of factors extracted to 20. Estimator settings, the factor-count rule and its caps, and the leave-one-covariate-out procedure are given in `\hyperref[factor-analysis-details]{Appendix~\ref*{factor-analysis-details}}`{=latex}.
 
 **Implementation.** We implement the corpus construction, densification, and plotting in Python, the imputations and factor analyses in R, and the OneSidedMC estimator in Julia, with environments pinned per language. Every numeric result is written to a single relational store keyed by dataset, method, and run, so the full design is queryable rather than reconstructed after the fact. <!-- TODO: add the code and data availability sentence here, with the anonymised repository URL, before submission. ICLR expects a reproducibility statement and the appendix that used to carry one has been removed. -->
 

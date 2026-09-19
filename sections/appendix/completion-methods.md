@@ -28,7 +28,7 @@ Adaptations required for this data:
 - **Cell-level metric.** Its native error is defined on pairwise products, which is not comparable to the other methods, so each held-out cell is additionally predicted from the recovered covariance by the conditional-Gaussian (best linear) predictor $\hat z_j = V_j^\top V_S^{+} z_S$, solved in the $r$-dimensional factor space rather than by inverting the rank-deficient $|S| \times |S|$ covariance block, which is numerically unstable on richly-observed rows. The native pairwise metric is retained as a disabled branch.
 - **Leakage control.** The holdout split is taken *before* column moments are computed, so standardisation is fit on training cells only. Column-stratified holdout matches the R implementation, with the additional row constraint that a cell is held out only if its row retains at least 2 training cells, which the predictor needs in order to condition on.
 
-The output handed to factoring is a synthesised surrogate ([[#Correlation-matrix completion and surrogate synthesis]]), not an imputation of the real cells.
+The output handed to factoring is a synthesised surrogate (`\hyperref[correlation-matrix-completion-and-surrogate-synthesis]{Appendix~\ref*{correlation-matrix-completion-and-surrogate-synthesis}}`{=latex}) rather than an imputation of the real cells.
 
 ## Correlation-matrix completion and surrogate synthesis
 
@@ -45,7 +45,7 @@ Estimators:
 
 | Estimator | Description | Implementation | Configuration |
 |-------|--------------|-------------------|----------|
-| SoftImpute-corr \citep{mazumder2010} | Applies SoftImpute's low-rank completion to the observed pairwise correlation matrix rather than the data matrix, whose missing entries are exactly the benchmark pairs never co-observed. | softImpute | sweeps rank 1…10 with the same nested $\lambda$ grid as [[#Cell-level methods]] |
+| SoftImpute-corr \citep{mazumder2010} | Applies SoftImpute's low-rank completion to the observed pairwise correlation matrix rather than the data matrix, whose missing entries are exactly the benchmark pairs never co-observed. | softImpute | sweeps rank 1…10 with the same nested $\lambda$ grid as the cell-level methods above |
 | OptSpace \citep{keshavan2010} | Manifold-optimisation low-rank completion of the correlation matrix, with automatic rank estimation. | filling | automatic rank estimation, at most 50 iterations to a tolerance of $10^{-6}$, no sweep |
 | USVT \citep{chatterjee2015} | Universal singular value thresholding: completes the correlation matrix by hard-thresholding its singular values. | filling | fixed singular-value threshold $\eta = 0.01$, no sweep |
 | CVXR (maximum-determinant SDP) | Structured completion targeting positive-definiteness directly: maximises $\log\det\Sigma$ subject to $\Sigma \succeq 0$ and each observed correlation lying within a per-pair Fisher-*z* confidence band scaled to that pair's co-observation count. | CVXR with the SCS solver | maximise $\log\det\Sigma$ s.t. $\Sigma \succeq 0$, diagonal matched exactly, each observed off-diagonal constrained to $\tanh(z_{ij} \pm c\,/\sqrt{n_{ij}-3})$ with $c = 2$, no sweep |
