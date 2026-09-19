@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "sections/Results.md",
+                "file": "sections/Methodology.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Results"
+              "title": "Methodology"
             }
           },
           {
@@ -92,8 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 325.5,
-    "collapsed": true
+    "width": 325.5
   },
   "right": {
     "id": "d8979859c2db4958",
@@ -224,15 +223,16 @@
     "latex-template/Main.aux",
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
-    "aggregate.png",
-    "sections/Results.md",
-    "latex-template/aggregate.png",
-    "Pasted image 20260918130531.png",
+    "sections/Discussion.md",
+    "sections/Introduction.md",
     "sections/Methodology.md",
     "sections/Background.md",
+    "Methodology.md",
+    "sections/Results.md",
+    "aggregate.png",
+    "latex-template/aggregate.png",
+    "Pasted image 20260918130531.png",
     "Main.md",
-    "sections/Introduction.md",
-    "sections/Discussion.md",
     "sections/appendix/A-data-sources-and-extraction.md",
     "Appendix-Methods.md",
     "Appendix.md",
@@ -242,7 +242,6 @@
     "latex-template/Pasted image 20260918012219.png",
     "Pasted image 20260918012219.png",
     "Untitled.base",
-    "Methodology.md",
     "latex-template/Pasted image 20260918004415.png",
     "Pasted image 20260918004415.png",
     "latex-template/Main.pdf",

@@ -85,19 +85,19 @@ percentages that were already beside them. (iv) "from the source and", "some" an
 
 ## Data Processing
 
-### Aggregation
+### Deduplication
 
 <!-- The collected datasets contain same models evaluated under different conditions, e.g., chain-of-thought vs. no chain-of-thought. Since including the same models would lead to a violation of independence of distribution, multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Model identity is then resolved at two choices of granularities: -->
 
-Rows surviving duplicate removal for the same (model, benchmark) pair are averaged into a single score. To further deduplicate rows with the same models under different conditions (e.g. reasoning effort), we average rows under two collapse strategies:
+Rows surviving duplicate removal for the same (model, benchmark) pair are averaged into a single score. To further deduplicate rows with the same models under different conditions (e.g. reasoning effort), we average rows under two collapse strategies: The **standard** strategy is variant-level. It keeps different version numbers and parameter count, while collapsing reasoning effort, knowledge cutoff, etc. The **aggressive** strategy is family-level. Every model is collapsed to its base family token (Claude, Llama, etc.), so all sizes and generations of a family form one row.
 
 <!-- - **`standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
 - **`aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row. -->
-
+%%
 - **Standard**: variant-level. Keeps different version numbers and parameter count, while collapsing reasoning effort, knowledge cutoff, etc.
 - **Aggressive**: family-level. Every model is collapsed to its base family token (Claude, Llama, etc.), so all sizes and generations of a family form one row.
 
-The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed, while the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. The token-level rules are given in `\hyperref[model-identity-collapse]{Appendix~\ref*{model-identity-collapse}}`{=latex}.
+The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed, while the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. The token-level rules are given in `\hyperref[model-identity-collapse]{Appendix~\ref*{model-identity-collapse}}`{=latex}.%%
 
 ### Metric selection
 
@@ -128,13 +128,15 @@ After peeling, models and benchmarks that has less than 3 observed scores are dr
 | R         | Standard     | 175 × 298  |   11.8% |      55% |
 | R         | Aggressive   | 97 × 310   |   11.7% |      78% |
 
-We further densify the data using 2 families of imputers: 
+%%We further densify the data using 2 families of imputers: 
 
 - **Full dataset imputers**: estimates the missing entries of the dataset directly. Includes SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}.
 - **Correlation-level recovery**: instead exploits the fact that factor analysis needs a correlation matrix, not a data matrix. The benchmark × benchmark correlation structure is a substantially weaker requirement, and so this family estimates that correlation matrix directly. Includes OneSidedMC \citep{cao2023}-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}, maximum-determinant SDP completion, and Gaussian graphical model completion. We also reused the softimpute algorithm as a correlation matrix imputer.
-- **PSD smoothing**: a variant of the correlation-level recovery is by filling the missing entries with a scalar, then applying a PSD smoothing for the resulting matrix. The zeros method fill the missing entries with 0, while the mean uses the mean observed Pearson r.
+- **PSD smoothing**: a variant of the correlation-level recovery is by filling the missing entries with a scalar, then applying a PSD smoothing for the resulting matrix. The zeros method fill the missing entries with 0, while the mean uses the mean observed Pearson r.%%
 
-Method-level descriptions and implementation detail for all of the above are given in `\hyperref[completion-methods]{Appendix~\ref*{completion-methods}}`{=latex}.
+### Imputation
+
+We applied 3 families of missing data imputes: **full-dataset** algorithms (SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}), reduced matrix, **correlation recovery** (OneSidedMC \citep{cao2023}-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}), and **directly fill and apply PSD smoothing** (filling with either r = 0 or using the mean observed correlations). Method-level descriptions and implementation detail for all of the above are given in `\hyperref[completion-methods]{Appendix~\ref*{completion-methods}}`{=latex}.
 
 
 ### Evaluating the imputations
@@ -144,7 +146,9 @@ Held-out cells are scored in standard-deviation units against a baseline that pr
 
 $$\text{RMSE} = \sqrt{\overline{(\hat z - z)^2}}, \qquad R^2 = 1 - \frac{\text{MSE}}{\text{MSE}_{\text{baseline}}}$$
 
-Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it is difficult to interpret $\text{RMSE}$s at face value as to how well the imputer performs. As such, we use the ${R}^2$ as a relative measure to compare how well the imputer predicts held-out values compared to the the expected value of the training cells. Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out ${R}^2$ falls below 0.3 is not factored at all, as it indicates that data-fill is not trustworthy. The split rule and the exact aggregation used for both measures are given in `\hyperref[held-out-metric]{Appendix~\ref*{held-out-metric}}`{=latex}.
+Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. 
+
+%%Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it is difficult to interpret $\text{RMSE}$s at face value as to how well the imputer performs. As such, we use the ${R}^2$ as a relative measure to compare how well the imputer predicts held-out values compared to the the expected value of the training cells. Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out ${R}^2$ falls below 0.3 is not factored at all, as it indicates that data-fill is not trustworthy. The split rule and the exact aggregation used for both measures are given in `\hyperref[held-out-metric]{Appendix~\ref*{held-out-metric}}`{=latex}.%%
 
 ## Factor analysis
 
@@ -156,17 +160,22 @@ Let $T$ be a matrix of test scores that can be decomposed into independent addit
 $$\sigma_X^2 = \sigma^2_{\mathrm{Gen}} + \sigma^2_{\mathrm{Spe}} + \sigma^2_{E}$$
 $\omega_h$ is the estimand
 $$\omega_h = \frac{\sigma^2_{\mathrm{Gen}}}{\sigma_X^2}$$
-i.e., the proportion of observed-score variance attributable to the general factor. In matrix form, for a bifactor loading matrix $\Lambda$ whose first column contains the general-factor loadings $\lambda$ and whose remaining columns contain group-factor loadings, with diagonal error-variance matrix $\Theta^2$:
+%%i.e., the proportion of observed-score variance attributable to the general factor. In matrix form, for a bifactor loading matrix $\Lambda$ whose first column contains the general-factor loadings $\lambda$ and whose remaining columns contain group-factor loadings, with diagonal error-variance matrix $\Theta^2$:
 $$\omega_h = \frac{\mathbf{1}'\lambda\lambda'\mathbf{1}}{\mathbf{1}'(\Lambda\Lambda' + \Theta^2)\mathbf{1}}$$
-where $\mathbf{1}$ is a vector of ones \citep{cho2025}.
+where $\mathbf{1}$ is a vector of ones \citep{cho2025}.%%
 
 [^2]: As eigenvector matrices are rotation-invariant, it is typical in psychometrics to run factor rotation algorithms to get an interpretable "simple structure". Oblique families of rotations, in addition, allow eigenvectors to correlate with each other, while default eigendecomposition yields orthogonal solutions.
 [^3]: This is more standardly called "group factors", but we use the term "specific factor" to avoid possible confusion with observation grouping
 
 
-One additional step we do is parallel analysis \citep{horn1965} to select the number of factor analysis dimensions. It uses simulated random values to determine eigenvalue cutoffs to discard low-variance factors. To keep wall-clock time tractable we cap the number of factors extracted to 20. Estimator settings, the factor-count rule and its caps, and the leave-one-covariate-out procedure are given in `\hyperref[factor-analysis-details]{Appendix~\ref*{factor-analysis-details}}`{=latex}.
+One additional step we do is parallel analysis \citep{horn1965} to select the number of factor analysis dimensions. It uses simulated random values to determine eigenvalue cutoffs to discard low-variance factors. To keep wall-clock time tractable we cap the number of factors extracted to 20. 
 
-**Implementation.** We implement the corpus construction, densification, and plotting in Python, the imputations and factor analyses in R, and the OneSidedMC estimator in Julia, with environments pinned per language. Every numeric result is written to a single relational store keyed by dataset, method, and run, so the full design is queryable rather than reconstructed after the fact. <!-- TODO: add the code and data availability sentence here, with the anonymised repository URL, before submission. ICLR expects a reproducibility statement and the appendix that used to carry one has been removed. -->
+%%Estimator settings, the factor-count rule and its caps, and the leave-one-covariate-out procedure are given in `\hyperref[factor-analysis-details]{Appendix~\ref*{factor-analysis-details}}`{=latex}.
+%%
+
+%%**Implementation.** We implement the corpus construction, densification, and plotting in Python, the imputations and factor analyses in R, and the OneSidedMC estimator in Julia, with environments pinned per language. Every numeric result is written to a single relational store keyed by dataset, method, and run, so the full design is queryable rather than reconstructed after the fact.%%
+
+<!-- TODO: add the code and data availability sentence here, with the anonymised repository URL, before submission. ICLR expects a reproducibility statement and the appendix that used to carry one has been removed. -->
 
 <!-- This paragraph replaces the whole of the former Appendix I, "Software
 environment and reproduction", which was deleted in pass 5. That appendix was a

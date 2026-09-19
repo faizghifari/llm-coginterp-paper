@@ -69,12 +69,14 @@ Every edit to the corpus is followed by an automated integrity pass: referential
 
 ##### Modality scope
 
-All analyses in this paper are performed on a **text-only** subset. The motivation is construct validity: a vision- or audio-conditioned benchmark scores a model's perceptual front-end at least as much as its language ability, so including such benchmarks mixes two different latent spaces into one covariance matrix. A pilot comparison additionally showed that removing them changes held-out predictive accuracy and factor counts materially, i.e. the distinction is not cosmetic.
+All analyses in this paper are performed on a subset involving only the text modality, as multi-modal tasks are not coherently defined for many models which are text-only. Each non-text benchmark is dropped together with all of its result rows, and any model left with zero remaining results is dropped in turn; the integrity checks are re-run on the result. This step removes 121 of 624 benchmarks (2,100 result rows) and, by cascade, 345 models, leaving 503 benchmarks and 1,669 models.
 
+%%. The motivation is construct validity: a vision- or audio-conditioned benchmark scores a model's perceptual front-end at least as much as its language ability, so including such benchmarks mixes two different latent spaces into one covariance matrix. A pilot comparison additionally showed that removing them changes held-out predictive accuracy and factor counts materially, i.e. the distinction is not cosmetic.%%
+%%
 The restriction is applied by an auditable classifier rather than by hand. Each benchmark's identifier and free-text metadata (category, subcategory, task type, domain, name, description) are pooled and matched against a fixed vocabulary of non-text modality terms under **whole-word** matching, which avoids the substring false positives (e.g. *vision* inside *revisionism*) that a naive contains-check produces. Because leaderboard metadata is itself unreliable, the classifier is bracketed by two manually curated, mutually disjoint override sets consulted before the pattern match: an **allow-list** of benchmarks whose metadata suggests a non-text modality but which are text-only on inspection (e.g. a music benchmark in ABC notation, a clinical-note task whose "spoken dialogue" is supplied as a transcript), and a **deny-list** of benchmarks confirmed non-text despite absent or mislabelled metadata (e.g. an entry named "Chinese Multilingual MMLU" whose rows in fact cite CMMMU, a multimodal benchmark, and were scored on vision-language models). Every override carries a written justification and the evidence used ([[Appendix-Methods#D Text-only classifier|Appendix D]]).
 
 Classification is followed by a **cascade removal**: each non-text benchmark is dropped together with all of its result rows, and any model left with zero remaining results is dropped in turn; the integrity checks are re-run on the result. The derived copy is regenerated from the canonical tables by script and is never hand-edited, so re-running it after any corpus change or any revision to the pattern and override sets is a single deterministic operation. This step removes 121 of 624 benchmarks (2,100 result rows) and, by cascade, 345 models, leaving 503 benchmarks and 1,669 models.
-
+%%
 ##### Score-redundant benchmark splits
 
 Public leaderboards frequently publish one benchmark as several near-identical columns — version-dated re-releases, difficulty or subset variants, per-language splits of a translated test set, or the same benchmark re-imported from a second source. Each such column enters the matrix as a nominally distinct benchmark, and a factor analysis will duly recover a "factor" that is nothing more than one benchmark's identity replicated $k$ times. Because our factor-count and general-factor estimates are exactly the quantities such duplication inflates — and because this is one of the criticisms we level at prior work — we prune these before analysis.
@@ -89,7 +91,7 @@ After both passes, and after the canonical-metric filter and scale fix described
 
 Factor analysis requires one score per model–benchmark cell, so the multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Averaging is deliberately placed here, after all identity cleanup, so that it never masks a duplicate that should have been removed.
 
-Model identity is then resolved at **two granularities**, run as parallel conditions throughout the rest of the pipeline:
+Model identity is then resolved at two granularities, run as parallel conditions throughout the rest of the pipeline:
 
 - **`all_standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
 - **`all_aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row.
@@ -148,7 +150,7 @@ inconsistent. Swap all of them together once the pipeline re-runs. %%
 
 #### Sparsity Handling
 
-At 2–4 % observed, neither matrix admits a classical factor analysis: the correlation matrix cannot be estimated by listwise deletion, since there are no complete cases, and pairwise-complete estimation leaves many benchmark pairs with zero or near-zero co-observation. The missingness is moreover **not at random** — a benchmark is missing for a model precisely because that model was not considered interesting enough to evaluate on it, which is itself a function of the latent ability we are trying to measure.
+At 2–4 % observed, neither matrix admits a classical factor analysis: the correlation matrix cannot be estimated by listwise deletion, since there are no complete cases, and pairwise-complete estimation leaves many benchmark pairs with zero or near-zero co-observation. The missingness is moreover not at random (MNAR). A benchmark is missing for a model precisely because that model was not considered interesting enough to evaluate on it, which is itself a function of the latent ability we are trying to measure.
 
 ##### Densification
 
