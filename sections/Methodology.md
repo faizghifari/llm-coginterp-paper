@@ -94,8 +94,8 @@ Rows surviving duplicate removal for the same (model, benchmark) pair are averag
 <!-- - **`standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
 - **`aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row. -->
 
-- **`standard`**: variant-level. Keeps different version numbers and parameter count, while collapsing reasoning effort, knowledge cutoff, etc.
-- **`aggressive`**: family-level. Every model is collapsed to its base family token (Claude, Llama, etc.), so all sizes and generations of a family form one row.
+- **Standard**: variant-level. Keeps different version numbers and parameter count, while collapsing reasoning effort, knowledge cutoff, etc.
+- **Aggressive**: family-level. Every model is collapsed to its base family token (Claude, Llama, etc.), so all sizes and generations of a family form one row.
 
 The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed, while the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. The token-level rules are given in `\hyperref[model-identity-collapse]{Appendix~\ref*{model-identity-collapse}}`{=latex}.
 
@@ -119,20 +119,20 @@ After peeling, models and benchmarks that has less than 3 observed scores are dr
 
 | Densifier | Strategy         | Shape      | Density | Retained |
 | --------- | ---------------- | ---------- | ------: | -------: |
-| raw       | `standard`   | 1266 × 404 |    2.2% |          |
-| raw       | `aggressive` | 334 × 380  |    3.5% |          |
-| C         | `standard`   | 671 × 78   |   13.8% |      65% |
-| C         | `aggressive` | 201 × 102  |   13.6% |      63% |
-| S         | `standard`   | 669 × 124  |     10% |      75% |
-| S         | `aggressive` | 124 × 293  |     10% |      81% |
-| R         | `standard`   | 175 × 298  |   11.8% |      55% |
-| R         | `aggressive` | 97 × 310   |   11.7% |      78% |
+| raw       | Standard     | 1266 × 404 |    2.2% |          |
+| raw       | Aggressive   | 334 × 380  |    3.5% |          |
+| C         | Standard     | 671 × 78   |   13.8% |      65% |
+| C         | Aggressive   | 201 × 102  |   13.6% |      63% |
+| S         | Standard     | 669 × 124  |     10% |      75% |
+| S         | Aggressive   | 124 × 293  |     10% |      81% |
+| R         | Standard     | 175 × 298  |   11.8% |      55% |
+| R         | Aggressive   | 97 × 310   |   11.7% |      78% |
 
 We further densify the data using 2 families of imputers: 
 
 - **Full dataset imputers**: estimates the missing entries of the dataset directly. Includes SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}.
 - **Correlation-level recovery**: instead exploits the fact that factor analysis needs a correlation matrix, not a data matrix. The benchmark × benchmark correlation structure is a substantially weaker requirement, and so this family estimates that correlation matrix directly. Includes OneSidedMC \citep{cao2023}-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}, maximum-determinant SDP completion, and Gaussian graphical model completion. We also reused the softimpute algorithm as a correlation matrix imputer.
-- **PSD smoothing**: a variant of the correlation-level recovery is by filling the missing entries with a scalar, then applying a PSD smoothing for the resulting matrix. The `zeros` method fill the missing entries with 0, while the `mean` uses the mean observed Pearson r.
+- **PSD smoothing**: a variant of the correlation-level recovery is by filling the missing entries with a scalar, then applying a PSD smoothing for the resulting matrix. The zeros method fill the missing entries with 0, while the mean uses the mean observed Pearson r.
 
 Method-level descriptions and implementation detail for all of the above are given in `\hyperref[completion-methods]{Appendix~\ref*{completion-methods}}`{=latex}.
 
@@ -164,4 +164,18 @@ where $\mathbf{1}$ is a vector of ones \citep{cho2025}.
 [^3]: This is more standardly called "group factors", but we use the term "specific factor" to avoid possible confusion with observation grouping
 
 
-One additional step we do is parallel analysis \citep{horn1965} to select the number of factor analysis dimensions. It uses simulated random values to determine eigenvalue cutoffs to discard low-variance factors. To keep wall-clock time tractable we cap the number of factors extracted to 20. 
+One additional step we do is parallel analysis \citep{horn1965} to select the number of factor analysis dimensions. It uses simulated random values to determine eigenvalue cutoffs to discard low-variance factors. To keep wall-clock time tractable we cap the number of factors extracted to 20.
+
+**Implementation.** We implement the corpus construction, densification, and plotting in Python, the imputations and factor analyses in R, and the OneSidedMC estimator in Julia, with environments pinned per language. Every numeric result is written to a single relational store keyed by dataset, method, and run, so the full design is queryable rather than reconstructed after the fact. <!-- TODO: add the code and data availability sentence here, with the anonymised repository URL, before submission. ICLR expects a reproducibility statement and the appendix that used to carry one has been removed. -->
+
+<!-- This paragraph replaces the whole of the former Appendix I, "Software
+environment and reproduction", which was deleted in pass 5. That appendix was a
+README: an eleven-line shell block (make deps, python3 scripts/verify_data.py,
+Rscript src/run/impute.R --method <m> --data-root ... and so on), the output
+directory layout, the flat output filename pattern, the three SQLite table names,
+a list of twenty-odd package names, and two diagnostic script names. None of it
+is method, and none of it is reproducible from the paper anyway, since it only
+makes sense next to the repository. The two facts worth keeping are above.
+
+Its shell comments also cited "Appendix D/F/G/J.5/J.6", which indexed the old
+root-level Appendix-Methods.md lettering and pointed at nothing in this paper. -->

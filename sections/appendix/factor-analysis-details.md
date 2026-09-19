@@ -2,7 +2,7 @@
 
 ## Estimator
 
-`psych::fa` \citep{revelle2024} with `fm = "minres"` (minimum residual) and `rotate = "promax"` when $nf > 1$, else no rotation. Where the default (SMC communality start) errors on a singular correlation matrix, the fit is retried with `SMC = FALSE` (unity diagonal); only hard errors trigger the fallback — `psych`'s benign warnings still return a usable fit.
+We fit the exploratory factor analysis with the minimum-residual estimator \citep{revelle2024}, applying a promax rotation whenever more than one factor is extracted and no rotation otherwise. Where the default squared-multiple-correlation start for the communalities errors on a singular correlation matrix, we retry the fit from a unity diagonal. Only hard errors trigger that fallback, since benign warnings still return a usable fit.
 
 ## Factor count
 
@@ -10,19 +10,19 @@ Horn's \citep{horn1965} parallel analysis in its PC flavour: the observed eigenv
 
 $$nf = \#\{i : \lambda_i^{\text{obs}} > \lambda_i^{\text{cut}}\},\quad nf \geq 2.$$
 
-Because the random baseline depends only on $(n, p, \text{iterations}, \text{quantile})$, it is computed once per shape and cached as JSON keyed by that tuple. The cache is **shape-keyed and never global**: two datasets share cutoffs only if their shapes are identical.
+Because the random baseline depends only on the matrix shape, the iteration count and the quantile, we compute it once per shape and cache it. The cache is **shape-keyed and never global**, so two datasets share cutoffs only when their shapes are identical.
 
-The count is then capped: at 20 (tractability — beyond that the bifactor fits become prohibitively slow), and at $\min(p-1,\, n-1,\, \operatorname{rank}(R) - 1)$, since the completed and surrogate matrices are frequently rank-deficient or have $p \gg n$ and `fa` would otherwise error. If the fit still fails, the count is decremented until it succeeds; the count actually used is what is recorded.
+The count is then capped at 20, beyond which the bifactor fits become prohibitively slow, and at $\min(p-1,\, n-1,\, \operatorname{rank}(R) - 1)$, since the completed and surrogate matrices are frequently rank-deficient or have $p \gg n$ and the estimator would otherwise error. If the fit still fails, we decrement the count until it succeeds, and record the count actually used.
 
 ## Bifactor decomposition
 
-`psych::omega` \citep{revelle2009} with `fm = "minres"`, `flip = FALSE`, Schmid–Leiman \citep{schmidleiman1957} transformation. Recorded per cell: the full SL loading matrix (general factor plus domain factors, per benchmark), $\omega_h$, its asymptotic variant, $\omega_{total}$, and the per-group $\omega_{hs}$ vector. Also recorded from the first-order solution: cumulative variance explained, per-factor proportions, and the inter-factor correlation matrix $\Phi$ with its mean off-diagonal.
+The bifactor step also uses the minimum-residual estimator \citep{revelle2009}, with the Schmid-Leiman \citep{schmidleiman1957} transformation and without sign flipping. We record per cell the full Schmid-Leiman loading matrix (the general factor plus the domain factors, per benchmark), $\omega_h$ and its asymptotic variant, $\omega_{total}$, and the per-group $\omega_{hs}$ vector. From the first-order solution we also record cumulative variance explained, per-factor proportions, and the inter-factor correlation matrix $\Phi$ with its mean off-diagonal.
 
-Two runs per cell: `pa` (at the parallel-analysis count) and `forced2f` (at exactly 2 factors). This is an exploratory Schmid–Leiman solution — cross-loadings are not constrained to zero — and is not equivalent to a confirmatory bifactor CFA.
+We run each cell twice, once at the parallel-analysis count and once at exactly 2 factors. This is an exploratory Schmid-Leiman solution, in which cross-loadings are not constrained to zero, and it is not equivalent to a confirmatory bifactor CFA.
 
 ## Gating
 
-For imputed matrices, factoring proceeds only if the imputation's held-out $R^2 \geq 0.4$, read from the results store. The raw (no-imputation) variants are exempt, since they have no imputation step to gate on.
+For imputed matrices, factoring proceeds only if the imputation's held-out $R^2 \geq 0.3$.<!-- Was 0.4, which contradicted the Methodology. The gate is 0.3 (src/run/factor.R), which is also what the Methodology and the accepted-imputations table in Results state. "read from the results store" dropped in pass 5. --> The raw (no-imputation) variants are exempt, since they have no imputation step to gate on.
 
 ## Leave-one-covariate-out
 

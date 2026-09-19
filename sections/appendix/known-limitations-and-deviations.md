@@ -1,55 +1,63 @@
-# Known limitations and deviations
+# Limitations
 
-## Metric heterogeneity — resolved for metric choice, open for direction and scale.
+All scores in the corpus are as published, and we evaluate no model ourselves. This means we do not control the evaluation conditions behind any score, and we make no attempt to correct for differences in undocumented evaluation setup between sources. Where two sources disagree about the same evaluation, we resolve by trust tier and recency rather than by re-evaluation. Release dates are recorded as corpus metadata rather than as an analysis input, and no result reported here depends on them.
 
-The corpus spans 238 distinct metric names. Averaging them within a (model, benchmark) pair is now prevented by the canonical-metric filter (`\hyperref[canonical-metric-selection]{Appendix~\ref*{canonical-metric-selection}}`{=latex}), which was not a tidying exercise: 92 benchmarks were affected, and because metric assignment tracks the evaluating leaderboard, the mixed columns carried source-determined variance that a factor analysis would have reported as capability structure.
+Metric direction is recorded but not applied, so a lower-is-better benchmark contributes a sign-flipped column. In a correlation-based analysis this shows up as a negative loading rather than as a bias, though orienting every column before analysis would be cleaner.
 
-Three residues remain. (i) **Direction** is recorded but not applied, so a lower-is-better benchmark contributes a sign-flipped column; in a correlation-based analysis that shows up as a negative loading rather than a bias, but orienting all columns before analysis would be cleaner. Three benchmarks (`xstest`, `DarkBench`, `SpiralBench`) previously mixed both directions within a single column; the metric filter resolves these incidentally, by keeping only one metric. (ii) **Scale**: one row remains negative, `pwc_lidirus` at MCC −0.013, because MCC is natively −1…1 and sits in a 0–100 column — legitimate at source, wrong for this column. (iii) **Twelve columns sit on a 0–1 scale** rather than the documented 0–100 (`cogbench`, `creativityprism`, `engibench`, `litbench`, `rpgbench`, `workplacehumor`, `ProphetArena`, `StrongREJECT`, `FlashInfer-Bench`, `MoralMachine`, and two others). Each is internally consistent, so column standardisation absorbs it and no correlation is affected — a schema violation rather than an analysis defect, but worth normalising for tidiness. Scale contamination that standardisation could *not* absorb, because it varies within a column, is handled separately in `\hyperref[defects-below-the-metric-name]{Appendix~\ref*{defects-below-the-metric-name}}`{=latex}.
+Not every completion method we implement is carried through the full design. The results reported here cover SoftImpute, k-NN, missForest and OneSidedMC. The correlation-level estimators added most recently have not been run across every densifier and collapse strategy, and regularised EM-PCA is excluded entirely because its built-in cross-validation is intractable at this matrix size.
 
-## Single-row anomaly, removed.
+<!-- Pass 4, second cut, 2026-09-19. Twelve worklog subsections became seven
+paragraphs, and seven paragraphs are now three. Title shortened to "Limitations",
+which changes the pandoc label from known-limitations-and-deviations to
+limitations; the two incoming cross-references were removed rather than
+repointed, for the reasons below.
 
-`kaggle_jonlipovetz_game_arena` recorded DeepSeek V3.2 at 3114.0 while every other model on that benchmark falls between 2.97 and 363.72 — 8.5× the next-highest value, almost certainly a unit error at source. It is not repairable: the Kaggle benchmark page serves no leaderboard data without authentication, and 3114 is equally consistent with a mis-scaled 311.4 or 31.14, so the intended value cannot be recovered from the column either. The row is dropped from the derived copy and retained in the canonical tables, which archive what sources published.
+Only four facts survive, each checked against the rest of the paper first and
+each unstated anywhere else:
 
-## `iterativepca` deferred.
+1. Scores are transcribed, not re-run, and undocumented setup differences go
+   uncorrected. The data appendix says the corpus is "assembled from published
+   evaluation records", which implies the transcription but never states the
+   consequence. This is the strongest limitation the paper has and it had been
+   sitting tenth out of twelve.
+2. Metric direction is recorded but not applied. Stated nowhere embedded. The
+   only other copy is in normalisation-rules.md, which Main.md does not embed.
+3. Which completion methods the reported results actually cover. The Methodology
+   introduces nine or so, Results shows a subset, and nothing reconciled the two.
+4. Release dates are metadata. Methodology spends a sentence on collecting them
+   and the data appendix spends a section on their provenance, so a reader is
+   owed one line saying no result depends on them.
 
-Implemented but excluded from all results (`\hyperref[cell-level-methods]{Appendix~\ref*{cell-level-methods}}`{=latex}); its cross-validation is intractable at this size and its sensitivity path was never migrated to the shared metric.
+CUT, each already stated or implied elsewhere:
 
-## Densifier floor constant.
+- Scale residues (one negative Matthews row, twelve columns on a 0-to-1 scale).
+  Both are absorbed by column standardisation and neither affects a correlation,
+  so they are schema trivia rather than limitations.
+- The single-row anomaly. The Score-redundancy pruning appendix already states
+  that a single-row anomaly removal contributes to the 1,463 dropped rows, which
+  is as much as a reader needs.
+- The missing co-observation threshold on the two correlation-level estimators.
+  The Completion methods appendix states it in full at the end of its
+  correlation-completion section.
+- Band widths computed on full-data co-observation counts. A caveat on a method
+  that paragraph 3 says is not in the reported results.
+- Surrogate matrices are not data. The Completion methods appendix already says
+  the surrogate is "not an imputation of the real cells".
+- The sensitivity sweep measuring split variance only. The sweep itself is not
+  reported anywhere in the paper, so a caveat on it has nothing to attach to.
+- The benchmark-versus-model date quality gap (78 %, 79 %, three in ten, 1.9 %).
+  Relevant only to a temporal analysis, which this paper does not contain. The
+  numbers are still in the Release-date provenance section of the data appendix.
 
-The matrices analysed here were produced with `MIN_OBS = 2` (`\hyperref[densification-algorithm]{Appendix~\ref*{densification-algorithm}}`{=latex}), which is what the shipped densified tables and their summary record. The constant currently in the repository source is 3. The difference is not cosmetic — recomputed on the pruned corpus, moving 2 → 3 costs about an eighth of the models on the column-primary peel (C/standard 786 → 689, C/aggressive 232 → 205) and trims the benchmark axis on the row-primary peel (R/standard 333 → 300 columns, R/aggressive 356 → 320), while leaving the symmetric peel untouched at 682 × 130 and 128 × 296. The value must be pinned and stated in the paper, and Table 3 regenerated to match whichever is chosen.
+TWO CROSS-REFERENCES REMOVED, both of which pointed here for content now cut:
+completion-methods.md pointed here after stating the co-observation threshold
+issue itself, and score-redundancy-pruning.md pointed here for the single-row
+anomaly. Both sentences read correctly without the pointer.
 
-## Tables 2 and 3 are provisional.
+STILL TRUE AND NO LONGER ANYWHERE IN THE PDF: Results Table 3 and Tables 4 to 7
+come from factor analyses run 2026-09-10 against matrices densified 2026-07-20,
+predating the 2026-09-16 corpus update. Recorded in the NOTE ON NUMBERS block at
+the top of Main.md. Re-running them is the only thing between this draft and an
+unflagged internal inconsistency.
 
-Both were read off matrices generated before the score-redundancy pruning and still contain all 47 pruned columns. Recomputed values are recorded in a comment beside Table 2 in [[Methodology|the Methodology]]. They must be replaced together with the Results tables, not before, or the paper becomes internally inconsistent.
-
-## Coverage of the newest completion methods.
-
-SoftImpute-corr, OptSpace, USVT, CVXR, and GGM were added most recently and have not yet been run across the full design; the reported results cover SoftImpute, k-NN, missForest, and OneSidedMC. The paper should state explicitly which methods each reported table covers.
-
-## Trust threshold dropped from CVXR and GGM.
-
-These two began as no-imputation variants that constrained only pairs with at least 10 co-observations, leaving thinner pairs for the completion to determine. When they were reclassified as correlation-level imputers, that filter was not carried over: every computable pairwise correlation now enters as a constraint. A `min_n` argument survives on both functions but is unused by CVXR and, for GGM, is recorded as the reported hyperparameter without being applied. Either restore the threshold or drop the vestigial argument and state plainly that no threshold is used — the current state records a parameter that does nothing.
-
-## Band widths use full-data co-observation counts.
-
-CVXR derives its per-pair Fisher-*z* band from co-observation counts computed on the complete matrix, including cells that are held out for scoring. The effect is small — it changes constraint widths, not correlation values — but it means the held-out score is very slightly optimistic, and it should be computed on the training split for strictness.
-
-## Seed sweep measures split variance only.
-
-The sensitivity sweep varies the holdout split under a fixed missingness pattern. It is not a test of MNAR robustness; the cross-densifier comparison is the closest available proxy, and even that varies the *induced* pattern rather than the underlying selection mechanism.
-
-## Surrogate matrices are not data.
-
-For OneSidedMC and the correlation-level methods, what reaches the factoring stage is a covariance-matched synthetic matrix (`\hyperref[correlation-matrix-completion-and-surrogate-synthesis]{Appendix~\ref*{correlation-matrix-completion-and-surrogate-synthesis}}`{=latex}). Any per-model statistic computed from those matrices is meaningless; only benchmark-space (loading) quantities are interpretable.
-
-## Score provenance is transcribed, not re-run.
-
-All scores are as published. Where two sources disagree about the same evaluation, we resolve by trust tier and recency rather than by re-evaluation, and we do not attempt to correct for differences in undocumented evaluation setup between sources.
-
-## Benchmark dates are much weaker than model dates.
-
-Coverage on the two axes is almost identical (99.7 % of models, 99.8 % of benchmarks) and the similarity is misleading. The model axis was repaired to the point where 78 % of rows rest on an exact identifier, a repository timestamp, or a verified announcement; the benchmark axis has had no equivalent pass, and 85 % of its rows remain on `existing` (302) or `corroborated_year` (162). A quarter of benchmark dates are year-only, against 2.3 % of model dates. Any temporal analysis should therefore run on the model axis; benchmark dates are usable for coarse ordering at best. The repair should be cheaper on this axis than it was on the other, because nearly every benchmark has a paper and an arXiv identifier decodes to an exact month with no fetching at all — the `arxiv_id` tier currently contains a single row.
-
-## Release date is metadata, not an analysis input.
-
-No stage of the pipeline reads `release_date`: densification, completion and factoring operate on the score matrix alone. The field exists for cohort and temporal analyses and for the corpus's value as a standalone artefact, and none of the results reported here depend on it. This also means the dating work described in `\hyperref[release-date-provenance]{Appendix~\ref*{release-date-provenance}}`{=latex} cannot have influenced any reported factor structure.
+Full superseded text of every cut section is in git at c05e4d5. -->
