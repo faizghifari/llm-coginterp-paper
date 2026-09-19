@@ -57,6 +57,7 @@ Still, something to note is that the range of $\omega_h$ spans quite widely. The
 | S_standard     | missforest      | 4   | 90.0%  | 0.032      | 0.054               | 0.471 |
 | S_standard     | onesidedmc      | 2   | 100.0% | 0.006      | 0.015               | 0.340 |
 ## Benchmark clusters
+
 Figure 1 below shows a UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter. Something striking from this visual is how benchmarks with common subject only occasionally cluster together. Across the entire figure, the spaces occupied by each flagged subject matter spans across the entire plot. It is also telling that even commonly-targeted benchmarks like `arc` and `gpqa_diamond` fail are located quite far from each other, and a coding benchmark like `swe_bench` is closer to some mathematics benchmarks like `math500` and `aime25` than it is to `FlashInfer-Bench`. In other words, **capability in one task does not always generalize well to another task of the same subject**.
 
 A degree of generality exists, of course. The bottom figure, using composite distance of the S dataset, shows a clustering of several coding and math benchmarks, but other abstract reasoning benchmarks like `gsm8k` `and` arc are placed at the bottom of the continent. Note however that most clusters resemble the top, raw dataset with greatly-spaced out subjects compared to the S datasets. A semantically coherent generalization is probable but quite far from a guarantee.
@@ -65,70 +66,34 @@ A degree of generality exists, of course. The bottom figure, using composite dis
 
 ## $G$-loaded benchmarks
 
-Table 4 below shows a selection of factor analysis results and the top 10 benchmarks with the highest loading on the $G$ factor. For the datasets imputed with softimpute and mean correlations, a striking finding is that typical "smartness" benchmarks, like MMLU Pro and the ARC Challenge, dominate the top with the highest factor loadings.  At a glance, this may indicate that commonly-targeted benchmarks is a good approximation of a general intelligence factor, and provide evidence that a narrow training regime can generalize to a great diversity of task.
+Another point of interest for the research qustion is what benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. Table 4 answers this question by showing the top 20 benchmarks, averaged by the normalized average rank-order[^4] based on their loadings on the $G$ factor.
 
-The results, however, must be taken with a caveat. First, the C densifier works by peeling low-observation columns, resulting in the remaining columns to have 
+[^4]: We use rank-order as factor loadings vary in range, and they are normalized as different datasets have different number of benchmarks.
 
-What we find is that benchmarks with a high loading on the $G$ factor does not tend to be the popular, "smartness" measurements involving abstract reasoning or mathematics. Instead, a typical $G$ factor is dominated by miscellaneous tasks with no resemblance of any common theme.
+Surprisingly, the top benchmarks are not dominated by common standard benchmarks. Rather, there is no coherent common top 20 benchmarks. The top proxies include measures of traditional NLP tasks, legal use case, sports-related knowledge, and even emotional intelligence. There is no evidence that a $G$ factor is abstract reasoning. Rather, it tends to be more a "dump" of diverse semantically unrelated and miscellaneous tasks. **In other words, the $G$**
+**factor of LLMs are arbitrary, incoherent, and uninterpretable**.
 
-**Table 4**. Top 10 benchmarks loading on the $G$ factor. C dataset, all standard variant.
+**Table 4**. Top 20 benchmarks, sorted by the normalized rank-order of their $G$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last.
 
-| Softimpute            |       | Mean              |       | Missforest      |       |
-| --------------------- | ----- | ----------------- | ----- | --------------- | ----- |
-| pwc_arc_challenge     | 0.702 | mmlu_pro          | 0.700 | bbq             | 0.898 |
-| bbh                   | 0.697 | bbh               | 0.688 | thai_exam_tpat1 | 0.894 |
-| mmlu_pro              | 0.687 | quac              | 0.653 | madinah_qa      | 0.889 |
-| pwc_piqa              | 0.664 | math              | 0.650 | alghafa         | 0.886 |
-| mmlu                  | 0.639 | raft              | 0.643 | aratrust        | 0.882 |
-| openbookqa            | 0.630 | gpqa              | 0.635 | arabic_exams    | 0.877 |
-| math_chain_of_thought | 0.622 | medqa             | 0.616 | arena_hard_auto | 0.877 |
-| gsm                   | 0.620 | arc               | 0.616 | arabicmmlu      | 0.876 |
-| gsm8k                 | 0.613 | winogrande        | 0.594 | legalbench      | 0.876 |
-| gpqa                  | 0.602 | pwc_arc_challenge | 0.589 | medqa           | 0.873 |
-
-**Table 5**. Top 10 benchmarks loading on the $G$ factor. S dataset, all standard variant.
-
-| Mean                               |       | Zeros                          |       |
-| ---------------------------------- | ----- | ------------------------------ | ----- |
-| eqbench                            | 0.508 | ewok_spatial_relations         | 0.459 |
-| pwc_turbulence                     | 0.506 | tablebench_numerical_reasoning | 0.456 |
-| tablebench_fact_checking           | 0.474 | ewok_social_interactions       | 0.456 |
-| tablebench_data_analysis           | 0.468 | openbookqa                     | 0.453 |
-| pwc_big_bench_sports_understanding | 0.466 | thaiexam                       | 0.452 |
-| ewok_social_interactions           | 0.459 | tablebench_fact_checking       | 0.452 |
-| tablebench_numerical_reasoning     | 0.456 | tablebench_data_analysis       | 0.451 |
-| openbookqa                         | 0.451 | thai_exam_tgat                 | 0.450 |
-| winogrande                         | 0.443 | ewok_material_properties       | 0.445 |
-| ewok_spatial_relations             | 0.442 | ewok                           | 0.441 |
-
-
-**Table 6**. Top 10 benchmarks loading on the $G$ factor. R dataset, all standard variant.
-
-| Softimpute                            |       | Mean      |       | Missforest            |       |
-| ------------------------------------- | ----- | --------- | ----- | --------------------- | ----- |
-| gsm8k                                 | 0.530 | mmlu_pro  | 0.620 | facts_search          | 0.967 |
-| thai_exam_a_level                     | 0.503 | quac      | 0.571 | scicode_main_standard | 0.943 |
-| thaiexam                              | 0.502 | bbh       | 0.569 | browsecomp            | 0.941 |
-| pwc_arc_challenge                     | 0.495 | raft      | 0.568 | facts_parametric      | 0.935 |
-| thai_exam_tpat1                       | 0.494 | arc       | 0.553 | asset_ops_bench       | 0.931 |
-| gpqa                                  | 0.488 | gpqa      | 0.535 | alrage                | 0.921 |
-| lindsea_pragmatics_presuppositions_id | 0.484 | multiloko | 0.534 | eclektic              | 0.918 |
-| financial_scenarios                   | 0.471 | eclektic  | 0.532 | mmlu_lite_english     | 0.908 |
-| pwc_piqa                              | 0.458 | medqa     | 0.530 | multiloko             | 0.908 |
-| wmt_14                                | 0.457 | musr      | 0.527 | aime25                | 0.905 |
-
-
-**Table 7**. Top 10 benchmarks loading on the $G$ factor. Raw dataset, all standard variant.
-
-| Mean                   |       | Zeros                          |       |
-| ---------------------- | ----- | ------------------------------ | ----- |
-| hagendorff_biases_2023 | 0.557 | ewok_spatial_relations         | 0.464 |
-| parsiNLU               | 0.557 | ewok_social_interactions       | 0.448 |
-| ttcw                   | 0.557 | ewok_material_properties       | 0.443 |
-| dialogbench            | 0.534 | ewok                           | 0.443 |
-| pwc_turbulence         | 0.527 | tablebench_numerical_reasoning | 0.436 |
-| pwc_asqp               | 0.489 | tablebench_data_analysis       | 0.435 |
-| pwc_conala             | 0.489 | ewok_physical_interactions     | 0.433 |
-| pwc_django             | 0.489 | openbookqa                     | 0.433 |
-| pwc_tasd               | 0.489 | ewok_material_dynamics         | 0.431 |
-| pwc_timequestions      | 0.489 | ewok_agent_properties          | 0.427 |
+| No  | Benchmark                      | Avg.  | SD    | 95% CI          | N   | Best  | Worst |
+| --- | ------------------------------ | ----- | ----- | --------------- | --- | ----- | ----- |
+| 1   | hagendorff_biases_2023         | 0.027 | 0.039 | [-0.320, 0.374] | 2   | 0.000 | 0.055 |
+| 2   | parsiNLU                       | 0.030 | 0.039 | [-0.317, 0.377] | 2   | 0.002 | 0.057 |
+| 3   | eqbench                        | 0.038 | 0.048 | [0.003, 0.072]  | 10  | 0.000 | 0.134 |
+| 4   | ewok_spatial_relations         | 0.040 | 0.071 | [-0.011, 0.091] | 10  | 0.000 | 0.236 |
+| 5   | ewok_physical_interactions     | 0.053 | 0.089 | [-0.011, 0.117] | 10  | 0.000 | 0.293 |
+| 6   | tablebench_fact_checking       | 0.062 | 0.048 | [0.027, 0.097]  | 10  | 0.007 | 0.174 |
+| 7   | ewok                           | 0.062 | 0.075 | [0.008, 0.115]  | 10  | 0.007 | 0.268 |
+| 8   | ewok_social_interactions       | 0.067 | 0.063 | [0.022, 0.112]  | 10  | 0.002 | 0.221 |
+| 9   | tablebench_data_analysis       | 0.086 | 0.055 | [0.047, 0.125]  | 10  | 0.010 | 0.176 |
+| 10  | ewok_physical_relations        | 0.088 | 0.114 | [0.007, 0.170]  | 10  | 0.014 | 0.380 |
+| 11  | ewok_agent_properties          | 0.095 | 0.079 | [0.039, 0.151]  | 10  | 0.022 | 0.298 |
+| 12  | lawbench                       | 0.096 | 0.094 | [-0.003, 0.194] | 6   | 0.008 | 0.242 |
+| 13  | tombench                       | 0.113 | 0.076 | [0.058, 0.167]  | 10  | 0.034 | 0.266 |
+| 14  | cmmlu                          | 0.113 | 0.107 | [0.001, 0.226]  | 6   | 0.011 | 0.256 |
+| 15  | sportqa                        | 0.115 | 0.083 | [0.046, 0.185]  | 8   | 0.029 | 0.253 |
+| 16  | ewok_social_properties         | 0.119 | 0.144 | [0.016, 0.221]  | 10  | 0.017 | 0.469 |
+| 17  | tablebench_numerical_reasoning | 0.120 | 0.079 | [0.064, 0.176]  | 10  | 0.003 | 0.201 |
+| 18  | mceval                         | 0.123 | 0.036 | [0.097, 0.149]  | 10  | 0.044 | 0.184 |
+| 19  | ewok_material_properties       | 0.124 | 0.077 | [0.069, 0.179]  | 10  | 0.005 | 0.261 |
+| 20  | ewok_social_relations          | 0.126 | 0.076 | [0.072, 0.180]  | 10  | 0.040 | 0.313 |
