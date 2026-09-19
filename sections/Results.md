@@ -61,5 +61,4 @@ Figure 1 below shows a UMAP plot of benchmarks using composite distances aggrega
 
 A degree of generality exists, of course. The bottom figure, using composite distance of the S dataset, shows a clustering of several coding and math benchmarks, but other abstract reasoning benchmarks like `gsm8k` `and` arc are placed at the bottom of the continent. Note however that most clusters resemble the top, raw dataset with greatly-spaced out subjects compared to the S datasets. A semantically coherent generalization is probable but quite far from a guarantee.
 
-![[aggregate.png|UMAP plot of benchmarks' composite distance. Top: raw dataset, bottom: S dataset. Both are composited across all aggregations and valid imputers. Not visible/covered: aime25 under math500 in the bottom figure.]]
-
+![[aggregate3.png|UMAP plot of benchmarks' composite distance. Top left: raw dataset, aggregated. Top right: C dataset, softimpute. Bottom left: R, mean correlation. Bottom right: S, missforest.]]
