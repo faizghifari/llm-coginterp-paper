@@ -62,3 +62,37 @@ Figure 1 below shows a UMAP plot of benchmarks using composite distances aggrega
 A degree of generality exists, of course. The bottom figure, using composite distance of the S dataset, shows a clustering of several coding and math benchmarks, but other abstract reasoning benchmarks like `gsm8k` `and` arc are placed at the bottom of the continent. Note however that most clusters resemble the top, raw dataset with greatly-spaced out subjects compared to the S datasets. A semantically coherent generalization is probable but quite far from a guarantee.
 
 ![[aggregate3.png|UMAP plot of benchmarks' composite distance. Top left: raw dataset, aggregated. Top right: C dataset, softimpute. Bottom left: R, mean correlation. Bottom right: S, missforest.]]
+
+## $G$-loaded benchmarks
+
+What we find is that benchmarks with a high loading on the $G$ factor does not tend to be the popular, "smartness" measurements involving abstract reasoning or mathematics. Instead, a typical $G$ factor is dominated by miscellaneous tasks with no resemblance of any common theme.
+
+**Table 4**. Top 10 benchmarks loading on the $G$ factor. C dataset, all standard variant.
+
+| Softimpute            |       | Mean              |       | Missforest      |       |
+| --------------------- | ----- | ----------------- | ----- | --------------- | ----- |
+| pwc_arc_challenge     | 0.702 | mmlu_pro          | 0.700 | bbq             | 0.898 |
+| bbh                   | 0.697 | bbh               | 0.688 | thai_exam_tpat1 | 0.894 |
+| mmlu_pro              | 0.687 | quac              | 0.653 | madinah_qa      | 0.889 |
+| pwc_piqa              | 0.664 | math              | 0.650 | alghafa         | 0.886 |
+| mmlu                  | 0.639 | raft              | 0.643 | aratrust        | 0.882 |
+| openbookqa            | 0.630 | gpqa              | 0.635 | arabic_exams    | 0.877 |
+| math_chain_of_thought | 0.622 | medqa             | 0.616 | arena_hard_auto | 0.877 |
+| gsm                   | 0.620 | arc               | 0.616 | arabicmmlu      | 0.876 |
+| gsm8k                 | 0.613 | winogrande        | 0.594 | legalbench      | 0.876 |
+| gpqa                  | 0.602 | pwc_arc_challenge | 0.589 | medqa           | 0.873 |
+
+**Table 5**. Top 10 benchmarks loading on the $G$ factor. S dataset, all standard variant.
+
+| Softimpute                            |       | Mean      |       | Missforest            |       |
+| ------------------------------------- | ----- | --------- | ----- | --------------------- | ----- |
+| gsm8k                                 | 0.530 | mmlu_pro  | 0.620 | facts_search          | 0.967 |
+| thai_exam_a_level                     | 0.503 | quac      | 0.571 | scicode_main_standard | 0.943 |
+| thaiexam                              | 0.502 | bbh       | 0.569 | browsecomp            | 0.941 |
+| pwc_arc_challenge                     | 0.495 | raft      | 0.568 | facts_parametric      | 0.935 |
+| thai_exam_tpat1                       | 0.494 | arc       | 0.553 | asset_ops_bench       | 0.931 |
+| gpqa                                  | 0.488 | gpqa      | 0.535 | alrage                | 0.921 |
+| lindsea_pragmatics_presuppositions_id | 0.484 | multiloko | 0.534 | eclektic              | 0.918 |
+| financial_scenarios                   | 0.471 | eclektic  | 0.532 | mmlu_lite_english     | 0.908 |
+| pwc_piqa                              | 0.458 | medqa     | 0.530 | multiloko             | 0.908 |
+| wmt_14                                | 0.457 | musr      | 0.527 | aime25                | 0.905 |
