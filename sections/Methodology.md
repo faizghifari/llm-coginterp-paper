@@ -1,6 +1,6 @@
 # Methodology
 
-In this study we investigate the low-dimensional structure of model benchmark scores, which comprise of distinct but correlated latent factors that each dominantly affects different clusters of benchmarks, and a $G$ factor that accounts for the variances of all benchmarks. To this end we collect a raw data matrix with size $1,618 \times 456$. One challenge in analyzing this dataset is that the raw matrix is supersparse (~1.8% density). Both benchmarks and models differ in popularity, so famous benchmarks and models have considerably higher observations. Moreover, The dataset exhibits a missing not at random (MNAR) pattern \citep{rubin1976}. Popular models are more likely to be benchmarked, and popular benchmarks are more likely to be administered. To handle this issue, we implement multiple peeling strategy to drop columns and/or rows to improve the matrix density, and applied several missing data imputation strategy. Given the dataset's difficult conditions we prefer a collection or aggregate of results from different densification and imputation methods (wherein each introduce their own biases and assumptions), with the goal to triangulate each of their results to find a common characteristic.
+In this study we investigate the low-dimensional structure of model benchmark scores, which is comprised of distinct but correlated latent factors that each dominantly affects different clusters of benchmarks, and a $G$ factor that accounts for the variances of all benchmarks. To this end we collect a raw data matrix with size $1,618 \times 456$. One challenge in analyzing this dataset is that the raw matrix is supersparse (~1.8% density). Both benchmarks and models differ in popularity, so famous benchmarks and models have considerably higher observations. Moreover, the dataset exhibits a missing not at random (MNAR) pattern \citep{rubin1976}. Popular models are more likely to be benchmarked, and popular benchmarks are more likely to be administered. To handle this issue, we implement multiple peeling strategies to drop columns and/or rows to improve the matrix density, and applied several missing data imputation strategies. Given the dataset's difficult conditions we prefer a collection or aggregate of results from different densification and imputation methods (wherein each introduce their own biases and assumptions), with the goal to triangulate each of their results to find a common characteristic.
 
 ## Data Collection
 
@@ -113,7 +113,7 @@ We further improve the data density by greedily peeling the matrix towards a com
 - **R (row-primary)**: repeatedly drop the least-observed model, then any benchmark left empty. Retains a broad benchmark set, including obscure ones, over a small set of heavily-evaluated models. This densifier leads to having more observations than variables. 
 - **S (symmetric)**: drop whichever marginal has the lowest fill-rate, privileging neither axis.
 
-After peeling, models and benchmarks that has less than 3 observed scores are dropped. Columns with zero variance among observed values are also dropped, since they carry no correlational signal. The algorithm is given in `\hyperref[densification-algorithm]{Appendix~\ref*{densification-algorithm}}`{=latex}. Note that we select a still relatively low target density at 10%, so that we can include as much different benchmarks as possible.
+After peeling, models and benchmarks that have less than 3 observed scores are dropped. Columns with zero variance among observed values are also dropped, since they carry no correlational signal. The algorithm is given in `\hyperref[densification-algorithm]{Appendix~\ref*{densification-algorithm}}`{=latex}. Note that we select a still relatively low target density at 10%, so that we can include as much different benchmarks as possible.
 
 `\label{tab:matrices}`{=latex}**Table 2.** Aggregated model × benchmark matrices, text-only corpus. "Retained" is the fraction of observed cells surviving the densifier peel.
 
@@ -136,7 +136,7 @@ After peeling, models and benchmarks that has less than 3 observed scores are dr
 
 ### Imputation
 
-We applied 3 families of missing data imputes: **full-dataset** algorithms (SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}), reduced matrix, **correlation recovery** (OneSidedMC \citep{cao2023}-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}), and **directly fill and apply PSD smoothing** (filling with either r = 0 or using the mean observed correlations). Method-level descriptions and implementation detail for all of the above are given in `\hyperref[completion-methods]{Appendix~\ref*{completion-methods}}`{=latex}.
+We applied 3 families of missing data imputers: **full-dataset** algorithms (SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}), reduced matrix, **correlation recovery** (OneSidedMC \citep{cao2023}-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}), and **directly fill and apply PSD smoothing** (filling with either r = 0 or using the mean observed correlations). Method-level descriptions and implementation detail for all of the above are given in `\hyperref[completion-methods]{Appendix~\ref*{completion-methods}}`{=latex}.
 
 
 ### Evaluating the imputations
@@ -144,7 +144,7 @@ At each stage of the imputation, we masked ~20% of the observed cells as an eval
 
 Held-out cells are scored in standard-deviation units against a baseline that predicts each column's training mean:
 
-$$\text{RMSE} = \sqrt{\overline{(\hat z - z)^2}}, \qquad R^2 = 1 - \frac{\text{MSE}}{\text{MSE}_{\text{baseline}}}$$
+$$\text{RMSE} = \sqrt{\frac{1}{n}\sum{(\hat z_i - z_i)^2}}, \qquad R^2 = 1 - \frac{\text{MSE}}{\text{MSE}_{\text{baseline}}}$$
 
 Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. 
 
@@ -152,7 +152,7 @@ Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion o
 
 ## Factor analysis
 
-To perform our dimension reduction, we use exploratory factor analysis (EFA) with the minimum residual estimator and the oblique promax rotation[^2]. Importantly, particularly with respect to the inquiries about a $G$ factor, is the use of Schmid-Leiman \citep{schmidleiman1957} bifactor transformation. In essence, this technique ran factor analysis hierarchically, yielding one additional factor that influences the rest of the extracted factor. This technique is quite well-used in psychometric research explicitly about a $G$ factor of intelligence \citep{johnson2004,johnson2008}. The hierarchical step makes it a more principled choice over interpreting the highest-eigenvalue solution (e.g., \citealp{krakauer2026}) as the $G$ factor.
+To perform our dimension reduction, we use exploratory factor analysis (EFA) with the minimum residual estimator and the oblique promax rotation[^2]. Importantly, particularly with respect to the inquiries about a $G$ factor, is the use of Schmid-Leiman \citep{schmidleiman1957} bifactor transformation. In essence, this technique runs factor analysis hierarchically, yielding one additional factor that influences the rest of the extracted factor. This technique is quite well-used in psychometric research explicitly about a $G$ factor of intelligence \citep{johnson2004,johnson2008}. The hierarchical step makes it a more principled choice over interpreting the highest-eigenvalue solution (e.g., \citealp{krakauer2026}) as the $G$ factor.
 
 An important statistic from the bifactor EFA is the $\omega_h$ coefficient. There are many statistics labelled $\omega$ commonly used to quantify the reliability of psychometric measures, but in our present purpose, we use $\omega_h$ to quantify the variance explained by the $G$ factor. 
 
