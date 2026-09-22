@@ -187,7 +187,7 @@ Link validity was checked by a multi-threaded URL sweep across both metadata tab
 
 ## Score Normalization
 
-Scores are normalised to a 0 to 100 scale. A raw value in $[0,1]$ is multiplied by 100, a value above 1 is kept as it is, and results are capped at 100 to absorb floating-point noise. Exempt metrics, kept on their native scale, are perplexity, bits-per-byte, BLEURT, BERTScore, Elo, and count-type metrics ("# eval").
+Scores are normalised to a 0 to 100 scale. Papers With Code and Kaggle report scores in mixed formats. For these two sources, a raw value in $[0,1]$ is multiplied by 100 and a value above 1 is kept as it is. The other sources report on one scale per leaderboard and are converted as a whole. A few columns remain on a 0 to 1 scale, which column standardisation absorbs. Results are capped at 100 to absorb floating-point noise. Exempt metrics, kept on their native scale, are perplexity, bits-per-byte, BLEURT, BERTScore, Elo, and count-type metrics ("# eval").
 
 ## Canonical metric selection
 
