@@ -29,6 +29,45 @@ Various LLM benchmarks are known to be intercorrelated, though the origin of thi
 $$T = \{\, t_i \mid i \in \mathcal{I} \,\}, \qquad G \longrightarrow T \;\;\text{but}\;\; T \not\longrightarrow G,$$
 i.e., changes in $G$ lead to changes in $T$, but not the other way around.
 
+Definition 1 only describes how scores are produced and interpreted, not how the model is trained. There is also a growing assumption in the community that a subset of $T$, mostly assumed to be reasoning, mathematics, and coding, measures $G$ better than the rest.
+
+<!-- ADDED in response to the Google PAT review, point 2 and weakness 6. The
+review reads Definition 1 as contradicting the transfer story that motivates it:
+if T does not cause G, then training on reasoning tasks cannot raise G, so it
+cannot transfer to coding.
+
+The inference fails because it treats "training on task A" as intervening on the
+score t_A. Training intervenes on the model. Whether that change lands on G, on a
+group factor, or on t_A alone is an empirical question, and Definition 1 governs
+none of it, since it describes the data generating process for observed scores.
+Transfer is consistent with three structures (the intervention reached G, the
+intervention reached a group factor A and B share, or the score on A causes the
+score on B) and only the third violates Definition 1. That third one is the
+mutualist picture, which the next paragraph already handles.
+
+The second sentence names an assumption the paper had left implicit until now.
+Targeted training needs both (a) that a G exists with G -> T, which Definition 1
+states, and (b) that a chosen subset of T measures it best. Our results attack
+them separately: the variance estimates go at (a), and Results 4.3 (the
+top-loading benchmarks are not the standard reasoning ones) goes at (b). Without
+(b) stated here, 4.3 lands a point the Background never set up.
+
+(b) is deliberately stated as a measurement claim and nothing more. An earlier
+draft read "measures G closely enough that improving those benchmarks counts as
+improving G", which smuggles a claim about training into the sentence directly
+after we say Definition 1 makes no claim about training. We never study training,
+and the same review warns elsewhere against drawing causal training conclusions
+from cross-sectional data, so the operative half was cut. Whether developers are
+right to train on this subset does not arise here. Whether the subset measures G
+best is a question about loadings, which Table 4 answers.
+
+The concrete list (reasoning, mathematics, coding) is deliberate. It gives 4.3 a
+named target and connects the definition to benchmaxxing. Cut it and "a subset of
+T" is abstract enough that 4.3 no longer reads as the test of anything stated.
+
+Layer two of this argument, that task training largely fails to raise g in humans,
+belongs in Discussion 5.1 where Afrizal cites simons2016, so it is not made here. -->
+
 Nevertheless, a causal view is only one way to understand the origins of a covariance matrix. The formative paradigm, usually associated with PCA, makes no claim about the nature of the resultant components \citep{vandermaas2014}. Even so, generalizability would be impossible without a common factor to begin with, since two tasks sharing a dominant factor decompose into a similar lower-level representation \citep{caruana1997,menghi2025} that the network must discern. The mutualist paradigm \citep{borsboom2013}, which describes indicators as nodes in a graph of mutual causality, is harder to rule out, since a mutualist process reproduces a positive manifold without any common cause \citep{vandermaas2014}. However, since we observe scores only after training, our data cannot separate it from the causal view.
 
 <!-- REVISED in response to the Google PAT review, point 3. The superseded text read:
@@ -104,7 +143,7 @@ One crucial consequence in taking this theoriless approach is that we do not ass
 
 ## Related Work
 
-Prior work applying factor analysis to benchmark scores is smaller in scale, and mostly confirmatory. \citet{ilicagignac2024} applied confirmatory factor analysis to hundreds of models and found that their performance fits a human-informed causal structure, which repeats the mistake of fitting an existing theory instead of understanding model intelligence from the bottom-up. A large proportion of their benchmarks are also variants of MMLU \citep{hendrycks2021}, posing the risk of common-method bias polluting the model fit. \citet{federiakin2025} likewise fits a single-factor CFA to the HuggingFace Open LLM Leaderboard. A confirmatory fit tests the one structure its authors specify in advance, and says nothing about the structures they did not fit.
+Prior work applying factor analysis to benchmark scores is smaller in scale, and mostly confirmatory. \citet{ilicagignac2024} applied confirmatory factor analysis to hundreds of models and found that their performance fits a human-informed causal structure, which repeats the mistake of fitting an existing theory instead of understanding model intelligence from the bottom-up. A large proportion of their benchmarks are also variants of MMLU \citep{hendrycks2021}, posing the risk of common-method bias polluting the model fit. \citet{federiakin2025} likewise fits a single-factor CFA to the HuggingFace Open LLM Leaderboard. A confirmatory fit tests the one structure its authors specify in advance, and says nothing about the structures they did not fit. \citet{hardy2026} fits CFA and generalizability theory to over 4,000 models on the same leaderboard, and finds local dependence among its items, which is the common-method bias we raise above.
 
 <!-- REVISED in response to the Google PAT review, point 1. The superseded clause read:
 
