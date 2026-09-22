@@ -2,9 +2,9 @@
 
 ## The Psychometric Paradigm
 
-A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2004}, a distinction now also drawn explicitly in the design of LLM benchmarks \citep{federiakin2025}. Individuals differ in some latent factor, hence individuals differ in some observable outcomes. If there are no causal latent factors, then the covariance among observed behaviors would have no source at all, which made little sense.
+A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2004}, a distinction now also drawn explicitly in the design of LLM benchmarks \citep{federiakin2025}. Individuals differ in some latent factor, hence individuals differ in some observable outcomes. If there are no causal latent factors, then the covariance among observed behaviors would have no source at all, which makes little sense.
 
-Personality and intelligence research are prime examples. \citet{allport1936} extracted all or most of the words from the English dictionary that can describe someone's personality, and had a large sample self-report how well each word describes themselves, effectively measuring as much of "the universe of all possible personalities" as possible \citep{john1988}. \citet{spearman1904} did much the same for intelligence, collecting the scores of students across school subjects and finding that their variance overwhelmingly load to a single wide-breadth latent variable called the $G$ factor \citep{jensen2002}, which remains generally accepted \citep{johnson2004,johnson2008}. Both follow the same paradigm. Exhaustively measure observable behaviors, subject them to dimensional-reduction techniques, and draw theories from the resulting latent factor. Subsequent research decomposes the hierarchy further, into facets for personality \citep{lee2018,deyoung2007} and into specific cognitive abilities for intelligence \citep{schneider2018}.
+Personality and intelligence research are prime examples. \citet{allport1936} extracted all or most of the words from the English dictionary that can describe someone's personality, and had a large sample self-report how well each word describes themselves, effectively measuring as much of "the universe of all possible personalities" as possible \citep{john1988}. \citet{spearman1904} did much the same for intelligence, collecting the scores of students across school subjects and finding that their variance overwhelmingly loads to a single wide-breadth latent variable called the $G$ factor \citep{jensen2002}, which remains generally accepted \citep{johnson2004,johnson2008}. Both follow the same paradigm. Exhaustively measure observable behaviors, subject them to dimensional-reduction techniques, and draw theories from the resulting latent factor. Subsequent research decomposes the hierarchy further, into facets for personality \citep{lee2018,deyoung2007} and into specific cognitive abilities for intelligence \citep{schneider2018}.
 
 <!-- ---------- ORIGINAL (pre-revision) TEXT, kept for reference ----------
 
@@ -29,7 +29,28 @@ Various LLM benchmarks are known to be intercorrelated, though the origin of thi
 $$T = \{\, t_i \mid i \in \mathcal{I} \,\}, \qquad G \longrightarrow T \;\;\text{but}\;\; T \not\longrightarrow G,$$
 i.e., changes in $G$ lead to changes in $T$, but not the other way around.
 
-Nevertheless, a causal view is only one way to understand the origins of a covariance matrix. The formative paradigm, usually associated with PCA, makes no claim about the nature of the resultant components \citep{vandermaas2014}. Even so, generalizability would be impossible without a common factor to begin with, since two tasks sharing a dominant factor decompose into a similar lower-level representation \citep{caruana1997,menghi2025} that the network must discern. The mutualist paradigm \citep{borsboom2013}, which describes indicators as nodes in a graph of mutual causality, fits even worse. We cannot say that coding improves reasoning improves coding, as static network weights afford no temporal precedence nor any mechanism for online cyclical learning.
+Nevertheless, a causal view is only one way to understand the origins of a covariance matrix. The formative paradigm, usually associated with PCA, makes no claim about the nature of the resultant components \citep{vandermaas2014}. Even so, generalizability would be impossible without a common factor to begin with, since two tasks sharing a dominant factor decompose into a similar lower-level representation \citep{caruana1997,menghi2025} that the network must discern. The mutualist paradigm \citep{borsboom2013}, which describes indicators as nodes in a graph of mutual causality, is harder to rule out, since a mutualist process reproduces a positive manifold without any common cause \citep{vandermaas2014}. However, since we observe scores only after training, our data cannot separate it from the causal view.
+
+<!-- REVISED in response to the Google PAT review, point 3. The superseded text read:
+
+The mutualist paradigm \citep{borsboom2013}, which describes indicators as nodes
+in a graph of mutual causality, fits even worse. We cannot say that coding
+improves reasoning improves coding, as static network weights afford no temporal
+precedence nor any mechanism for online cyclical learning.
+
+The reviewer was right and this is worth conceding rather than defending. The
+rejection conflated inference (weights static) with training (weights not
+static), and mutualism in humans is a developmental theory, so pre-training and
+post-training are its analogue, not inference. Rejecting it on static weights
+overlooks the phase where the abilities actually form.
+
+Conceding costs nothing. Mutualist processes generate a positive manifold and a
+g-like factor from reciprocal causation with no common cause, so the two accounts
+are underdetermined by cross-sectional data of the kind we have. Our finding, a
+weak and incoherent factor structure, is a problem for the mutualist account as
+much as for the reflective one. So the concession removes an attack surface
+without weakening any claim we make later. -->
+
 
 <!-- ---------- ORIGINAL (pre-revision) TEXT, kept for reference ----------
 
@@ -61,7 +82,7 @@ One such pattern is the explanatory power[^1] of a general intelligence factor. 
 
 [^1]: We use the phrase "explanatory power" over "existence", as $G$ is a construct of the factor model we fit.
 
-The second reason is that factor analysis is a bottom-up, theoriless approach. Authors tend to impose theories of human intelligence on artificial neural networks, as we know of no better model of intelligence than our own. However, it is problematic because these networks present an entirely different form of cognitive process than that of biological minds. Human intelligence research itself begins with factor analysis \citep{spearman1904} and continues to apply bottom-up dimension reduction even though its theories are well-established for decades.
+Factor analysis is also a bottom-up, theoriless approach. Authors tend to impose theories of human intelligence on artificial neural networks, as we know of no better model of intelligence than our own. However, it is problematic because these networks present an entirely different form of cognitive process than that of biological minds. Human intelligence research itself begins with factor analysis \citep{spearman1904} and continues to apply bottom-up dimension reduction even though its theories are well-established for decades.
 Therefore, we do not assume any general factor to be comprehensible, and so we do not discriminate between benchmarks and try to sample as much of the set of all possible tasks. We argue that it is a reasonable position to expect that LLMs work in ways entirely unintuitive to the human mind, and having no priors whatsoever is the correct way to start our inquiry.
 
 <!-- Following suit means we do not assume any general factor to be comprehensible, and so we do not discriminate between benchmarks, sampling ARC-AGI \citep{chollet2025} and GPQA alongside fluency in a low-resource language or operating a fictional company. -->
@@ -83,7 +104,27 @@ One crucial consequence in taking this theoriless approach is that we do not ass
 
 ## Related Work
 
-Prior work applying factor analysis to benchmark scores is smaller in scale, and mostly confirmatory. \citet{ilicagignac2024} applied confirmatory factor analysis to hundreds of models and found that their performance fits a human-informed causal structure, which repeats the mistake of fitting an existing theory instead of understanding model intelligence from the bottom-up. A large proportion of their benchmarks are also variants of MMLU \citep{hendrycks2021}, posing the risk of common-method bias polluting the model fit. \citet{federiakin2025} likewise fits a single-factor CFA to the HuggingFace Open LLM Leaderboard, and imposing that structure by construction forecloses the question of whether the data actually supports one, which only EFA can answer.
+Prior work applying factor analysis to benchmark scores is smaller in scale, and mostly confirmatory. \citet{ilicagignac2024} applied confirmatory factor analysis to hundreds of models and found that their performance fits a human-informed causal structure, which repeats the mistake of fitting an existing theory instead of understanding model intelligence from the bottom-up. A large proportion of their benchmarks are also variants of MMLU \citep{hendrycks2021}, posing the risk of common-method bias polluting the model fit. \citet{federiakin2025} likewise fits a single-factor CFA to the HuggingFace Open LLM Leaderboard. A confirmatory fit tests the one structure its authors specify in advance, and says nothing about the structures they did not fit.
+
+<!-- REVISED in response to the Google PAT review, point 1. The superseded clause read:
+
+... and imposing that structure by construction forecloses the question of whether
+the data actually supports one, which only EFA can answer.
+
+"Forecloses" was indefensible. Fit indices are exactly a test of whether the data
+support the hypothesised structure, and a poor fit rejects it. The reviewer's own
+suggested citation (Hardy et al. 2026, ICML) makes the point by example: CFA on
+the Open LLM Leaderboard rejects the assumed structure and finds local dependence
+among items. Leaving the sentence as it was would have read as not knowing what
+CFA does.
+
+The real objection survives and is now stated properly. CFA tests one structure
+against alternatives that were never written down, so it can reject but cannot
+discover. That is a claim about the hypothesis space, not about testability.
+
+The \citet{ilicagignac2024} sentence above is left alone. Its critique is
+theory-importing, not testability, and that one is correct as written. -->
+
 
 \citet{krakauer2026} instead applies PCA and finds a first principal component declining from 90% of variance to 64% by 2024, interpreted as a "rotation" in the $G$ factor as models outsource reasoning to external tools. PCA, as we discuss in the Methodology, does not partition out systematic from error variance and so cannot be trusted to isolate a genuine $G$ factor from noise. Only two studies run EFA. \citet{burnell2023} found three major factors, but did not do higher-order factor analysis on the resulting loadings, so cannot say to what extent those factors are influenced by a presumable g-factor. \citet{haznitrama2026} report a unified general factor before showing that a neuropsychologically-grounded battery reveals cognitive gaps that it otherwise masks. Narrower still is \citet{holm2024}, where a single factor explains 95% of variance across just 8 scenarios in one language. \citet{kearns2026} adds that latent factor models fit to LLM benchmark scores can conflate the extracted capability factor with model scale unless scaling relationships are explicitly modeled.
 
