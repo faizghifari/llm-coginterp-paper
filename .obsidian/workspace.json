@@ -217,13 +217,8 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ec6e9c7e6449fe82",
+  "active": "5a10cf72a4585ae0",
   "lastOpenFiles": [
-    "sections/Discussion.md",
-    "sections/Conclusion.md",
-    "sections/Background.md",
-    "sections/Methodology.md",
-    "sections/Results.md",
     "latex-template/Main.bbl",
     "latex-template/Main.blg",
     "latex-template/Main.bibtex.log",
@@ -231,6 +226,11 @@
     "latex-template/Main.aux",
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
+    "sections/Discussion.md",
+    "sections/Conclusion.md",
+    "sections/Background.md",
+    "sections/Methodology.md",
+    "sections/Results.md",
     "sections/Introduction.md",
     "sections/appendix/held-out-metric.md",
     "sections/appendix/densification-algorithm.md",
