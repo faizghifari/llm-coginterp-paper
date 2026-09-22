@@ -112,7 +112,7 @@ of about 19 pipeline configurations and CIs spanning negative values on a stated
 [0, 1] scale, which the same review raises separately. -->
 
 
-**Table 4**. Top 20 benchmarks, sorted by the normalized rank-order of their $g$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last.
+**Table 4**. Top 20 benchmarks, sorted by the normalized rank-order of their $g$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last. N is the number of solutions containing the benchmark, and the 95% CI is a t-interval over those N, so it is not bounded to [0, 1].
 
 | No  | Benchmark                      | Avg.  | SD    | 95% CI          | N   | Best  | Worst |
 | --- | ------------------------------ | ----- | ----- | --------------- | --- | ----- | ----- |
