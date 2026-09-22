@@ -26,7 +26,7 @@ It must be stressed, however, that the theories in question largely depend on a 
 Various LLM benchmarks are known to be intercorrelated, though the origin of this covariance is rarely stated explicitly. We argue that benchmark correlations are causally originated from latent variables, and add that existing paradigms of machine intelligence are implicitly causal. The precedence assumed of a content-free intelligence \citep{chollet2019} already implies such a relation, but model development makes it concrete. In aiming to achieve "general intelligence", developers tend to train in a *targeted* manner. Reasoning-oriented post-training, for instance, is motivated by the expectation that improvements on "pure" logical tasks will transfer to tool-calling, long-horizon agentic tasks, and coding \citep{deepseekai2025}. Such an expectation is coherent only if the targeted ability stands in a causal relation to the rest, which we state as follows.
 
 **Definition 1**: Let $g \in \mathbb{R}$ be a scalar, and let $T$ be the set of performance scores for all possible tasks,
-$$T = \{\, t_i \mid i \in \mathcal{I} \,\}, \qquad g \longrightarrow T \;\;\text{but}\;\; T \not\longrightarrow G,$$
+$$T = \{\, t_i \mid i \in \mathcal{I} \,\}, \qquad g \longrightarrow T \;\;\text{but}\;\; T \not\longrightarrow g,$$
 i.e., changes in $g$ lead to changes in $T$, but not the other way around.
 
 Definition 1 only describes how scores are produced and interpreted, not how the model is trained. There is also a growing assumption in the community that a subset of $T$, mostly assumed to be reasoning, mathematics, and coding, measures $g$ better than the rest.
