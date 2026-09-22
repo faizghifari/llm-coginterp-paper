@@ -219,6 +219,8 @@
   },
   "active": "ec6e9c7e6449fe82",
   "lastOpenFiles": [
+    "sections/Conclusion.md",
+    "sections/Discussion.md",
     "latex-template/Main.bbl",
     "latex-template/Main.blg",
     "latex-template/Main.bibtex.log",
@@ -227,8 +229,6 @@
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
     "sections/Results.md",
-    "sections/Discussion.md",
-    "sections/Conclusion.md",
     "sections/Background.md",
     "sections/Introduction.md",
     "sections/Methodology.md",

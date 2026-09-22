@@ -23,9 +23,9 @@ We present the evaluation and parameters of the missing data imputations in tabl
 %%
 ## Point summaries
 
-Table 3 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. Two things are worth noting here. First, while $\omega_h$ has a wide range, by our estimates' maximum, **a universally causal $G$ factor accounts, at the most, 74.7% of variance in model performance**.
+Table 3 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. Two things are worth noting here. First, while $\omega_h$ has a wide range, by our estimates' maximum, **a universally causal $g$ factor accounts, at the most, 74.7% of variance in model performance**.
 
-Still, something to note is that the range of $\omega_h$ spans quite widely. The best-performing imputer, softimpute on S_standard, yielded a solution with a modestly effective $G$ factor that accounts for just 25.7% of the variance.
+Still, something to note is that the range of $\omega_h$ spans quite widely. The best-performing imputer, softimpute on S_standard, yielded a solution with a modestly effective $g$ factor that accounts for just 25.7% of the variance.
 
 **Table 3**. Point summaries of factor analyses results. k = number of factors extracted. Var% = percentage of variance explained, $k$ = number of factors extracted, $\phi$ = average inter-factor correlation.  
 
@@ -64,13 +64,13 @@ A degree of generality exists, of course. The bottom figure, using composite dis
 
 ![[aggregate3.png|UMAP plot of benchmarks' composite distance. Top left: raw dataset, aggregated. Top right: C dataset, softimpute. Bottom left: R, mean correlation. Bottom right: S, missforest.]]
 
-## $G$-loaded benchmarks
+## $g$-loaded benchmarks
 
-Another point of interest for the research qustion is what benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. Table 4 answers this question by showing the top 20 benchmarks, averaged by the normalized average rank-order[^4] based on their loadings on the $G$ factor.
+Another point of interest for the research qustion is what benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. Table 4 answers this question by showing the top 20 benchmarks, averaged by the normalized average rank-order[^4] based on their loadings on the $g$ factor.
 
 [^4]: We use rank-order as factor loadings vary in range, and they are normalized as different datasets have different number of benchmarks.
 
-Surprisingly, the top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of traditional NLP tasks, legal use case, sports-related knowledge, and even emotional intelligence. There is no evidence that a $G$ factor is abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. **The assumption that reasoning, mathematics, and coding benchmarks measure $G$ best does not hold**.
+Surprisingly, the top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of traditional NLP tasks, legal use case, sports-related knowledge, and even emotional intelligence. There is no evidence that a $g$ factor is abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. **The assumption that reasoning, mathematics, and coding benchmarks measure $g$ best does not hold**.
 
 <!-- REVISED in response to the Google PAT review, weakness 4 and Results point 3.
 The superseded text read:
@@ -78,9 +78,9 @@ The superseded text read:
 Surprisingly, the top benchmarks are not dominated by common standard benchmarks.
 Rather, there is no coherent common top 20 benchmarks. The top proxies include
 measures of traditional NLP tasks, legal use case, sports-related knowledge, and
-even emotional intelligence. There is no evidence that a $G$ factor is abstract
+even emotional intelligence. There is no evidence that a $g$ factor is abstract
 reasoning. Rather, it tends to be more a "dump" of diverse semantically unrelated
-and miscellaneous tasks. **In other words, the $G$ factor of LLMs are arbitrary,
+and miscellaneous tasks. **In other words, the $g$ factor of LLMs are arbitrary,
 incoherent, and uninterpretable**.
 
 Two sentences were cut and one replaced, all of them the ones resting on semantic
@@ -112,7 +112,7 @@ of about 19 pipeline configurations and CIs spanning negative values on a stated
 [0, 1] scale, which the same review raises separately. -->
 
 
-**Table 4**. Top 20 benchmarks, sorted by the normalized rank-order of their $G$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last.
+**Table 4**. Top 20 benchmarks, sorted by the normalized rank-order of their $g$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last.
 
 | No  | Benchmark                      | Avg.  | SD    | 95% CI          | N   | Best  | Worst |
 | --- | ------------------------------ | ----- | ----- | --------------- | --- | ----- | ----- |
