@@ -2,7 +2,7 @@
 
 Target density $\tau = 0.10$. Let $\mathbf{M}$ be the boolean observation mask.
 
-**C (column-primary peel).** While density $< \tau$: drop the benchmark with the fewest observations among currently-kept rows, then drop any model left with zero observations.
+**C (column-primary peel).** While density $< \tau$: drop the benchmark (column) with the fewest observations across currently-kept rows, then drop any model left with zero observations.
 
 **R (row-primary peel).** While density $< \tau$: drop the model with the fewest observations among currently-kept columns, then drop any benchmark left with zero observations.
 

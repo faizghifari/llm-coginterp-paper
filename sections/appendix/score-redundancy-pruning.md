@@ -2,6 +2,8 @@
 
 Applied to the text-only copy only, after the scope filter of `\hyperref[benchmarks]{Appendix~\ref*{benchmarks}}`{=latex}. Each family was audited by computing the full pairwise Pearson correlation among its columns over the models evaluated on both columns. The removal decision was taken per family, on the evidence, and we verified that the resulting cascades orphan no models.
 
+`\label{tab:a3}`{=latex}**Table A3.** Benchmark families audited for score redundancy, with the correlation evidence and decision for each.
+
 | Family | Correlation evidence | Decision | Rows removed |
 |----------------|--------------|------------|--------|
 | LiveCodeBench release windows v1–v6 (Kaggle) | mean pairwise $r = 0.995$, worst pair $0.987$, over 45 shared models | Keep the aggregate, drop 6 per-version identifiers | 270 |

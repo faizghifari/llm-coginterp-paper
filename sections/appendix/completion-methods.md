@@ -39,7 +39,7 @@ Shared machinery for SoftImpute-corr, OptSpace, USVT, CVXR, and GGM:
 3. Complete the correlation matrix with the method's estimator.
 4. Symmetrise, then project to the nearest valid correlation matrix (the nearest positive-definite projection of \citet{higham2002}, with unit diagonal and a final eigenvalue projection), guaranteeing positive definiteness rather than near-definiteness, so that every principal submatrix $R_{SS}$ is invertible.
 5. Predict each held-out cell from the row's surviving observed cells by the conditional-Gaussian predictor $\hat z_j = R_{jS} R_{SS}^{-1} z_S$ (an empty conditioning set degenerates to the z-mean, 0), and score with the shared metric (`\hyperref[held-out-metric]{Appendix~\ref*{held-out-metric}}`{=latex}).
-6. Refit on the **full** correlation matrix and synthesise an $n \times p$ surrogate $X = ZW^\top$ with $Z \sim N(0, I_p)$ and $W = Q\Lambda^{1/2}$ from the eigendecomposition, then un-standardise to the original column scale by the observed-cell moments, so that $\operatorname{cov}(X) = R$ by construction.
+6. Refit on the **full** correlation matrix and synthesise an $n \times p$ surrogate $X = ZW^\top$ with $Z \in \mathbb{R}^{n \times p}$ with i.i.d. $N(0,1)$ entries and $W = Q\Lambda^{1/2}$ from the eigendecomposition, then un-standardise to the original column scale by the observed-cell moments, so that $\operatorname{cov}(X) = R$ by construction.
 
 Estimators:
 

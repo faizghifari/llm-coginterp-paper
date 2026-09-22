@@ -4,7 +4,7 @@
 
 The corpus is assembled from published evaluation records. Sources fall into four tiers, used along with recency to resolve duplicate scores from different sources.
 
-**Tier 1, curated evaluation suites** (standardised harness, documented setup, one evaluator across many models):
+**Tier 1, curated evaluation suites** (standardised harness, documented setup, one evaluator across many models).
 
 | Suite | Sub-leaderboards used |
 |---|---|
@@ -66,6 +66,8 @@ Everything else is left blank, including the inference stack for open models, th
 
 Release dates are recorded to year and month, alongside the class of evidence each came from. The tiers are ordered, and the ordering is the point: a filter on this column is the only way to use the field responsibly.
 
+`\label{tab:a2}`{=latex}**Table A2.** Release-date evidence tiers, with the number of models and benchmarks dated by each.
+
 | Tier | Evidence | Models | Benchmarks |
 |-----------|------------------------|------|---------|
 | arXiv identifier in the record | the identifier decodes to the month exactly | 0 | 1 |
@@ -82,7 +84,7 @@ Release dates are recorded to year and month, alongside the class of evidence ea
 | Pre-existing, origin unrecorded | a date already present before this pass | 24 | 223 |
 | (blank) | undated | 5 | 1 |
 
-Grouping the first five as *strong*: **1,261 of 1,618 model rows (78 %)** against **1 of 456 benchmark rows (0.2 %)**.
+Grouping the first five tiers as *strong* covers **1,261 of 1,618 model rows (78 %)** but only **1 of 456 benchmark rows (0.2 %)**.
 
 <!-- Every count in this table was recomputed from data/text_only/models.csv and
 benchmarks.csv on 2026-09-19. The previous version was tallied over 2,014 model
@@ -118,9 +120,9 @@ Dates produced by asking a language model run systematically early for models re
 
 ### Models
 
-**Included.** General-purpose generative LLMs. Domain- or task-adapted models (code, medical, legal) that still accept arbitrary prompts. Multimodal models built by adding an encoder to an LLM backbone, provided the backbone still handles arbitrary text prompts.
+**Included.** We include general-purpose generative LLMs, domain- or task-adapted models (code, medical, legal) that still accept arbitrary prompts, and multimodal models built by adding an encoder to an LLM backbone, provided the backbone still handles arbitrary text prompts.
 
-**Excluded.** Encoder-only or classification-only architectures (BERT, RoBERTa, BigBird). Narrow single-purpose systems that cannot be prompted generally, such as dedicated translation systems like NLLB and speech systems like SeamlessM4T. Bare embedding or vision encoders (CLIP variants, ST5, monoT5). Non-deployable research systems. Evaluation *metrics* misfiled as models, such as YiSi-1. Undocumented community uploads without reliable provenance.
+**Excluded.** We exclude encoder-only or classification-only architectures (BERT, RoBERTa, BigBird), narrow single-purpose systems that cannot be prompted generally (such as dedicated translation systems like NLLB and speech systems like SeamlessM4T), bare embedding or vision encoders (CLIP variants, ST5, monoT5), non-deployable research systems, evaluation *metrics* misfiled as models (such as YiSi-1), and undocumented community uploads without reliable provenance.
 
 **Not a separate model:** a different *setup* of the same model, such as a context-length variant, a reasoning or thinking mode, an effort level, or a prompting scheme. These are recorded on the result row instead.
 
@@ -140,7 +142,7 @@ the code-stripping pass would have done that anyway. -->
 
 ### Benchmarks
 
-We remove benchmarks that has zero results after filtering models. Removing out-of-scope models cascades here, since benchmarks whose entire evaluated population was out of scope (pure NER and machine-translation leaderboards from Papers With Code, a vision-only task whose sole model was an image encoder) are left with no rows at all. We further select for benchmarks that do not require multimodal capabilities such as image, audio, video, or speech understanding. No relevance or "is this really intelligence" filter is applied to benchmark content.
+We remove benchmarks that have zero results after filtering models. Removing out-of-scope models cascades here, since benchmarks whose entire evaluated population was out of scope (pure NER and machine-translation leaderboards from Papers With Code, a vision-only task whose sole model was an image encoder) are left with no rows at all. We further select for benchmarks that do not require multimodal capabilities such as image, audio, video, or speech understanding. No relevance or "is this really intelligence" filter is applied to benchmark content.
 
 <!-- The second sentence was a literal placeholder, "benchmarks that do not
 require multimodal capabilities such as XXX", and it reached the built PDF. The
@@ -231,6 +233,6 @@ Two problems survive metric selection because they are not distinguishable by me
 
 The same detector, which looks for benchmarks whose sources have strictly non-overlapping score ranges, flags three others (WildBench, SEA-Exam and MultiPL-E), all on small $n$. We do not act on those, since a gap alone is not evidence of a scale conflict, because frontier-model trackers such as llm-stats legitimately show higher ranges than broad leaderboards by evaluating better models. GPQA is the only case with a known mechanism.
 
-**Structurally defective column on ELEPHANT.** Its metric field holds model *configurations* rather than metrics, so selecting a canonical metric keeps one arbitrary configuration, which measures nothing. The benchmark is removed from the derived copy (9 models) and recorded for re-extraction.
+**Structurally defective column on ELEPHANT.** On this social-sycophancy benchmark the metric field holds model *configurations* rather than metrics, so selecting a canonical metric keeps one arbitrary configuration, which measures nothing. The benchmark is removed from the derived copy (9 models) and recorded for re-extraction.
 
 Two further columns that appear in earlier drafts as defects are **resolved by the metric filter itself** and need no special handling. Those are Vectara, whose two metrics are complements differing by +86.5 across 7 shared models, and LAMBADA, which mixed accuracy with perplexity.
