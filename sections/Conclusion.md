@@ -1,11 +1,14 @@
 # Conclusion
 
-We asked whether the cognitive abilities of language models are organized around a general factor. Our answer comes from factor analysis of 13,251 published evaluation scores covering 1,618 models and 456 benchmarks, triangulated so that no single treatment of the missing data carries the finding.
+We asked whether the cognitive abilities of language models are organized around a general factor. Our answer comes from factor analyses of 13,251 published evaluation scores covering 1,618 models and 456 benchmarks, triangulated so that no single treatment of the missing data carries the finding.
 
-A general factor is recoverable, but it is weak and it is not interpretable. At our most generous estimate it accounts for 74.7% of the variance in model performance, and most of our solutions put it well below that. Benchmarks that share a subject matter only occasionally sit close to each other in the loading space. The benchmarks loading highest on the general factor are also not the ones the field currently treats as measures of intelligence, and they carry no theme we are able to name.
+At best, a general latent factor accounts for 74.7% of variance in model performance, but most of our solutions put it well below that. Domain-similar benchmarks are only occasionally located close together in vector space, and benchmarks with high $g$-loading do not share a common theme, and far different from benchmarks the field treated as standard measures of intelligence.
 
+We conclude that a hierarchical causal order of machine intelligence, as commonly but only implicitly assumed in the field, are untenable in practice given the uninterpretable factor structure. Correlations arise from unintuitive and unpredictable common features, and a non-hierarchical networks of abilities are possibly better models for machine intelligence. 
+
+%%
 We therefore find no support for the assumption that a single content-free capability underlies performance across tasks in language models. Succinctly, a theory of machine intelligence has to be built from the bottom up, out of the abilities models actually have, rather than borrowed from the structure human intelligence happens to take.
-
+%%
 <!-- Trimmed 2026-09-19 from 300 to 175 words. Four things came out, each because
 it is already made elsewhere and a conclusion should not re-argue:
 

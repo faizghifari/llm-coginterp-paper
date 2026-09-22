@@ -6,7 +6,7 @@ Classically, cognitive sciences have approached intelligence from a verbal conce
 
 Unlike theories of human psychology \citep{schneider2018} where intelligence is explicitly assumed to possess higher-order structure, with fluid intelligence as one higher-order factor that have theoretical causal effects \citep{vandermaas2014} to the performance of other cognitive abilities, abilities in LLMs like abstract reasoning, domain memorization, and agentic tool use, are more likely to be horizontal with respect to each other with no clear higher-order structure.
 
-As factor analysis assumes a reflective data generating process, one might wonder whether such causality cna be observed and exploited in practice. One such way is to follow similar line of work in psychological science: training participants in certain cognitive tasks leads to observable improvements in a different task (hence, generalization) \citep{simons2016}. It is easy to imagine implementing this for an LLM: measure a model's performance in coding, fine-tune it to be better at mathematics, and then measure it's coding performance again. If there is an improvement between pre and post-training performance, a causal mechanism can be empirically verified. More generally, fine-tune models to be better at benchmarks which are (assumed to be) proxies of general intelligence, then compare the pre and post training performance in a wide array of tasks.
+As factor analysis assumes a reflective data generating process, one might wonder whether such causality can be observed and exploited in practice. One such way is to follow similar line of work in psychological science: training participants in certain cognitive tasks leads to observable improvements in a different task (hence, generalization) \citep{simons2016}. It is easy to imagine implementing this for an LLM: measure a model's performance in coding, fine-tune it to be better at mathematics, and then measure it's coding performance again. If there is an improvement between pre and post-training performance, a causal mechanism can be empirically verified. More generally, fine-tune models to be better at benchmarks which are (assumed to be) proxies of general intelligence, then compare the pre and post training performance in a wide array of tasks.
 
 Establishing such causal mechanisms would be practically important. If there were no causal generalization, then no blanket improvement of abilities can be gained by improving one family of tasks. A generally-intelligent model can only be trained by including all relevant tasks in the training corpus, and there is no silver-bullet construct or ability that can be efficiently targeted in training that will causally improve aptitude in specific tasks. Such a model would require a brute-force, increasingly expansive training dataset until it covers the universe of all possible tasks.
 
@@ -18,25 +18,8 @@ Explanations of multi-task learning suggests that cross-domain transfer occurs f
 
 But there is yet a disappointing, but plausible alternative answer: the $g$ factor, or even all the latent factors, are merely quantifiers of investment effort. Models that perform well in MMLU tend to perform well in the ARC Challenge because investment in both of those tasks are correlated. The same can be true for correlation between agentic tool use and agentic coding (in this sense, there would be no common "agentic ability" factor). A $g$ factor that improves all abilities would then just be a correlate of the size of the training corpus, where a larger corpus includes a more diverse set of tasks.
 
-## Alternative 
+## Alternative to a latent factor view
 
-%%## Alternative, nonlinear $g$ factor
+Through this paper we have shown that the implicitly causal model of intelligence yields an incoherent structure. However, factor analysis by itself is an analysis of correlations, and is merely compatible with a causal model. In recent years, an alternative model of mental abilities, the mutualist paradigm \citep{van2017} have gained traction in psychometrics. Rather than expecting a higher-order, few-dimension causal factors, mutualism models specific abilities as having mutual causal facilitation.  Agentic ability improves tool use, tool use improves coding, etc.  Concretely the output of this analysis is a graph of partial correlations between abilities (e.g., network analysis \citep{borsboom2013})
 
-In EFA, latent variables are modeled as linear regression predictors of the indicators. Let $x_i$ be an indicator, $\xi_1, ... \xi_k$ be latent variables, $\lambda_{1i}, ... \lambda_{ki}$  the loadings of $x_i$ for the respective factors, and $\epsilon$ a random noise. The indicator $x_i$ is predicted by the latent variables in a simple multiple linear regression:
-
-$$x_i = \lambda_{1i}\xi_{1} + ... + \lambda_{ki}\xi_{k} + \epsilon$$
-The factor loadings $\lambda$ are standardized regression coefficients from the factor $\xi$ to the indicator. 
-
-%%
-
-%% 
-Note: many items have .99 loadings to the g-factor, mostly low-observations data.
-If this is not
-%%
-
-%%## Bottom-up theories of LLM intelligence
-
-Importantly what we find is that, unlike theories of human psychology \citep{schneider2018} where intelligence are explicitly assumed to possess higher-order structure, with fluid intelligence as a higher-order factor that have theoretical causal effects \citep{vandermaas2014} to the performance of other cognitive abilities, fluid intelligence, wikipedia memorization, agentic tool use, are more likely to be horizontal with respect to each other with no clear higher-order structure. 
-
-
-This is also not to say that LLMs are not intelligent (in our private view, they very clearly are). But it is important to realize that just as humans and ants are differentially but equally "cognitive", LLMs are intelligent in a considerably different way to humans. This means that a theory of intelligence requires a blank-slate, bottom-up empirical approach without overfitting theories of human intelligence into systems that possess significant architectural and functional divergence from humans.%%
+This view is attractive, as it does not require a supposedly parsimonious \citep{van2016} single latent variable to explain the origins of correlations (which, per our findings, are more like than not to be unintelligible). The caveat, if this mechanism is correct, is that $g$-oriented the research program is untenable, as $g$ is merely a summary scalar and not a real, targetable ability. Furthermore, it does not change the fact that inter-task correlations are unintuitive and not bound by domain similarity. In short, while it may be a more informative model, it is limited that does not really explain the uninterpretability of correlation strcuture.
