@@ -117,7 +117,48 @@ On the other hand the mutualist model does not make much sense regarding correla
 Understanding the patterns of benchmark correlation is theoretically relevant to cognitive science, though this relevance does not regard any one specific factor loading pattern. Under a small number of benchmarks the discovered patterns depend on which benchmarks were sampled \citep{major2011}, and under a large number the missingness pattern becomes too large to trust any single solution. 
 The correct approach is therefore to examine recurring and large-scale patterns.
 <!-- since it is almost never productive to interpret what each individual factors denote from a 5, 7, or 20 factor solution.  -->
-One such pattern is the explanatory power[^1] of a general intelligence factor. When a general factor dominates the explained variance of an EFA result, variance in an LLM's capability is dominantly caused by a latent $G$, supporting the idea that a flexible, "raw" intelligence is a substantial component of performance and that targeting it is a fruitful research program. A weak $G$ factor instead means that LLM abilities are strongly specific, so improvements require brute-force training in as much task diversity as possible, with no silver-bullet construct that parsimoniously describes "general intelligence".
+One such pattern is the explanatory power[^1] of a general intelligence factor. When a general factor dominates the explained variance of an EFA result, variance in an LLM's capability is dominantly caused by a latent $G$, supporting the idea that a flexible, "raw" intelligence is a substantial component of performance and that targeting it is a fruitful research program. A weak $G$ factor instead means that LLM abilities are strongly specific, so improvements require brute-force training in as much task diversity as possible, with no silver-bullet construct that parsimoniously describes "general intelligence". A second pattern is which benchmarks load highest. Under the indifference of the indicator \citep{spearman1904}, content does not determine loading, so the test is whether a factor recovered from a small battery survives a wider one.
+
+<!-- ADDED in response to the Google PAT review, weakness 4 and Results point 3,
+which object that a semantically diverse set of high-loading benchmarks is what
+classical theory predicts (Spearman's indifference of the indicator) and so is
+not evidence against a general factor.
+
+The objection is correct and is conceded here rather than fought. It reaches
+exactly one inference in Results 4.3, the step from "the top 20 are semantically
+diverse" to "the G factor is arbitrary, incoherent, and uninterpretable". It does
+not reach 4.1 (variance share) or 4.2 (content-similar benchmarks not
+clustering), since indifference concerns g-loadings and 4.2 is about group
+factors, which should be content-organised.
+
+An earlier draft answered it with Jensen's complexity ordering: g-loadings are
+indifferent to content but still track task complexity, so reasoning and
+mathematics should top the ranking and do not. That argument was dropped. Our
+loading ranking is not stable enough to carry it. The same review notes that
+Table 4's top two rows have N = 2 of about 19 pipeline configurations and that
+the CIs span negative values, so the ranking cannot establish that a prediction
+fails.
+
+What replaces it is survival under breadth, which rests on major2011 (cited four
+lines above, hence not repeated here): small single-factor models do not
+adequately represent g, so the strong general factor that prior work recovers
+from 6 to 23 benchmarks is the expected behaviour of a narrow battery. Both
+regimes have a dependability problem. A small dense battery is dependable in
+estimation and undependable in construct coverage, and our corpus is the reverse.
+Ours is addressable by triangulating across densifiers and imputers. Theirs is
+not addressable at all, since the variance is not in the data.
+
+IMPORTANT: this sentence only works if Results 4.3 changes to match. As written,
+4.3 still infers incoherence from diversity, which is the inference conceded
+here. Leaving 4.3 alone means the Background states the reviewer's objection and
+the Results contradict it four pages later, which is worse than not adding this.
+
+The sentence is deliberately neutral between the two routes discussed: arguing
+survival-under-breadth from the existing results, or demonstrating it with a new
+prior-work regime condition (peel to about 25 benchmarks at high density, show a
+strong reasoning-flavoured G there, then show it dissolving as breadth
+increases). It sets up either. -->
+
 
 [^1]: We use the phrase "explanatory power" over "existence", as $G$ is a construct of the factor model we fit.
 
@@ -165,7 +206,32 @@ The \citet{ilicagignac2024} sentence above is left alone. Its critique is
 theory-importing, not testability, and that one is correct as written. -->
 
 
-\citet{krakauer2026} instead applies PCA and finds a first principal component declining from 90% of variance to 64% by 2024, interpreted as a "rotation" in the $G$ factor as models outsource reasoning to external tools. PCA, as we discuss in the Methodology, does not partition out systematic from error variance and so cannot be trusted to isolate a genuine $G$ factor from noise. Only two studies run EFA. \citet{burnell2023} found three major factors, but did not do higher-order factor analysis on the resulting loadings, so cannot say to what extent those factors are influenced by a presumable g-factor. \citet{haznitrama2026} report a unified general factor before showing that a neuropsychologically-grounded battery reveals cognitive gaps that it otherwise masks. Narrower still is \citet{holm2024}, where a single factor explains 95% of variance across just 8 scenarios in one language. \citet{kearns2026} adds that latent factor models fit to LLM benchmark scores can conflate the extracted capability factor with model scale unless scaling relationships are explicitly modeled.
+\citet{krakauer2026} instead applies PCA and finds a first principal component declining from 90% of variance to 64% by 2024, interpreted as a "rotation" in the $G$ factor as models outsource reasoning to external tools. PCA, as we discuss in the Methodology, does not partition out systematic from error variance and so cannot be trusted to isolate a genuine $G$ factor from noise. Only two studies run EFA. \citet{burnell2023} found three major factors, but did not do higher-order factor analysis on the resulting loadings, so cannot say to what extent those factors are influenced by a presumable g-factor. \citet{haznitrama2026} report a unified general factor before showing that a neuropsychologically-grounded battery reveals cognitive gaps that it otherwise masks. Narrower still is \citet{holm2024}, where a single factor explains 95% of variance across just 8 scenarios in one language. \citet{kearns2026} adds that latent factor models fit to LLM benchmark scores can conflate the extracted capability factor with model scale unless scaling relationships are explicitly modeled. Item response theory, recently applied to LLM benchmarks \citep{polo2024,zhou2025}, and full-information maximum likelihood both handle incomplete data natively. IRT requires per-item responses, which published scores do not report, and FIML requires every benchmark pair to share observed models, which many pairs at our sparsity do not.
+
+<!-- ADDED in response to the Google PAT review, point 4 and weakness 1, which
+ask why the paper never mentions IRT or FIML.
+
+Kept to two sentences at the user's direction. The fuller argument, if a rebuttal
+needs it:
+
+IRT models P(correct | model ability, item difficulty) over individual test
+questions. Our unit of observation is a published aggregate score. Obtaining
+item-level responses for 1,618 models x 456 benchmarks means re-running every
+evaluation ourselves, which is the one thing this study's design exists to avoid.
+Note the scale inversion in the cited work: Zhou et al. get item-level fidelity
+across 12 models and 11 benchmarks. We trade that fidelity for three orders of
+magnitude more models and two more benchmarks.
+
+FIML is the stronger objection of the two, since it works on continuous aggregate
+data. It fails on identification instead. At 1.8 % density a large share of
+benchmark pairs have zero co-observed models, so those covariance elements are
+not identified by the observed-data likelihood at all. Densification is what buys
+identification, and FIML would not.
+
+Placed at the end of Related Work because that is where the review looked for it
+("the absence of IRT in the related work"), and because it keeps 2.3 untouched
+ahead of the indifference-of-the-indicator pass. -->
+
 
 <!-- ---------- ORIGINAL (pre-revision) TEXT, kept for reference ----------
 
