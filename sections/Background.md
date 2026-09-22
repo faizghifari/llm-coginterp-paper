@@ -163,7 +163,30 @@ increases). It sets up either. -->
 [^1]: We use the phrase "explanatory power" over "existence", as $G$ is a construct of the factor model we fit.
 
 We read these patterns without assuming what a general factor should look like, since factor analysis is a bottom-up, theoriless approach. Authors tend to impose theories of human intelligence on artificial neural networks, as we know of no better model of intelligence than our own. However, it is problematic because these networks present an entirely different form of cognitive process than that of biological minds. Human intelligence research itself began with factor analysis \citep{spearman1904} and continues to apply bottom-up dimension reduction even though its theories have been well established for decades.
-Therefore, we do not assume any general factor to be comprehensible, and so we do not discriminate between benchmarks and try to sample as much of the set of all possible tasks as we can. We argue that it is a reasonable position to expect that LLMs work in ways entirely unintuitive to the human mind, and having no priors whatsoever is the correct way to start our inquiry.
+Therefore, we do not assume any general factor to be comprehensible, and so we do not discriminate between benchmarks and try to sample as much of the set of all possible tasks as we can. We argue that it is a reasonable position to expect that LLMs work in ways entirely unintuitive to the human mind, and having no priors whatsoever is the correct way to start our inquiry. Purpose-built diversity suites such as BIG-bench \citep{srivastava2022} are denser but sample one team's construction of task diversity, where our interest is in the benchmarks the field actually uses.
+
+<!-- ADDED in response to the Google PAT review, weakness 2, which asks why the
+paper does not validate against dense or diversity-designed suites.
+
+BIG-bench is the obvious challenge to the sampling claim two sentences above,
+since it is 204 tasks built expressly for task diversity and it is dense, so it
+needs no imputation at all. The answer is that its diversity is authored rather
+than revealed, and thin on models. Our question is whether general intelligence
+as the field actually measures it has structure, which a purpose-built suite
+cannot answer whatever its coverage.
+
+The review names OpenCompass alongside BIG-bench, and it is deliberately not
+cited here. OpenCompass is an evaluation platform that runs 100+ existing
+datasets, not a benchmark suite, so it belongs in the same class as HELM, the
+Open LLM Leaderboard, and Papers With Code, which is to say it is a source we did
+not collect from rather than a method we declined to use. Citing the two together
+as diversity suites would repeat the category error the review itself made.
+
+If OpenCompass is added later, the honest placement is Appendix A as a source
+family not covered. Note that it was not possible to verify whether CompassRank
+publishes per-model by per-benchmark scores in an ingestible form (the homepage
+is JS-rendered and search did not surface the score tables), so any limitation
+written about it must not assert that the data was available to us. -->
 
 <!-- Following suit means we do not assume any general factor to be comprehensible, and so we do not discriminate between benchmarks, sampling ARC-AGI \citep{chollet2025} and GPQA alongside fluency in a low-resource language or operating a fictional company. -->
 
