@@ -70,8 +70,47 @@ Another point of interest for the research qustion is what benchmarks act as a g
 
 [^4]: We use rank-order as factor loadings vary in range, and they are normalized as different datasets have different number of benchmarks.
 
-Surprisingly, the top benchmarks are not dominated by common standard benchmarks. Rather, there is no coherent common top 20 benchmarks. The top proxies include measures of traditional NLP tasks, legal use case, sports-related knowledge, and even emotional intelligence. There is no evidence that a $G$ factor is abstract reasoning. Rather, it tends to be more a "dump" of diverse semantically unrelated and miscellaneous tasks. **In other words, the $G$**
-**factor of LLMs are arbitrary, incoherent, and uninterpretable**.
+Surprisingly, the top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of traditional NLP tasks, legal use case, sports-related knowledge, and even emotional intelligence. There is no evidence that a $G$ factor is abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. **The assumption that reasoning, mathematics, and coding benchmarks measure $G$ best does not hold**.
+
+<!-- REVISED in response to the Google PAT review, weakness 4 and Results point 3.
+The superseded text read:
+
+Surprisingly, the top benchmarks are not dominated by common standard benchmarks.
+Rather, there is no coherent common top 20 benchmarks. The top proxies include
+measures of traditional NLP tasks, legal use case, sports-related knowledge, and
+even emotional intelligence. There is no evidence that a $G$ factor is abstract
+reasoning. Rather, it tends to be more a "dump" of diverse semantically unrelated
+and miscellaneous tasks. **In other words, the $G$ factor of LLMs are arbitrary,
+incoherent, and uninterpretable**.
+
+Two sentences were cut and one replaced, all of them the ones resting on semantic
+diversity. Under Spearman's indifference of the indicator a general factor is
+expected to be indifferent to the content of its indicators, so a diverse top 20
+is what classical theory predicts and cannot be evidence against a general
+factor. Background 2.3 now concedes this explicitly, so leaving the inference
+here would have put the Background and the Results in contradiction.
+
+What survives is the attack on the proxy assumption: the top benchmarks are not
+the standard ones, and there is no evidence G is abstract reasoning. Indifference
+of the indicator has no bearing on either. The new bolded sentence is worded to
+echo Background 2.2 ("a subset of T, mostly assumed to be reasoning, mathematics,
+and coding, measures G better than the rest") so that the Background states the
+assumption and this section refutes it.
+
+Also fixes the subject-verb error in the old bolded sentence ("the G factor of
+LLMs are").
+
+Note on the title: "uninterpretable" was load-bearing for "Machine Intelligence is
+Idiosyncratic and Uninterpretably Structured". Its support now comes from 4.2
+(content-similar benchmarks not clustering, so the group factors do not map onto
+content domains, which indifference of the indicator does not defend since group
+factors are exactly what should be content-organised) and from the variance
+instability in 4.1. The authors plan to change the title in any case.
+
+Still open here and not addressed by this edit: Table 4's top two rows have N = 2
+of about 19 pipeline configurations and CIs spanning negative values on a stated
+[0, 1] scale, which the same review raises separately. -->
+
 
 **Table 4**. Top 20 benchmarks, sorted by the normalized rank-order of their $G$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last.
 
