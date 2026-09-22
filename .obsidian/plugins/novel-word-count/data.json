@@ -67,29 +67,29 @@
     "debugMode": false
   },
   "cachedCounts": {
-    "sections/Results.md": {
+    "Methodology.md": {
       "isCountable": true,
       "targetNodeType": "file",
       "noteCount": 1,
-      "wordCount": 1013,
+      "wordCount": 4992,
       "wordCountTowardGoal": 0,
       "wordGoal": null,
-      "pageCount": 3.3766666666666665,
-      "characterCount": 9755,
-      "nonWhitespaceCharacterCount": 6712,
-      "readingTimeInMinutes": 3.822641509433962,
-      "linkCount": 0,
-      "embedCount": 1,
+      "pageCount": 16.64,
+      "characterCount": 35595,
+      "nonWhitespaceCharacterCount": 30001,
+      "readingTimeInMinutes": 18.837735849056603,
+      "linkCount": 31,
+      "embedCount": 0,
       "aliases": null,
-      "createdDate": 1789806781519,
-      "modifiedDate": 1789806781519,
-      "sizeInBytes": 9758,
+      "createdDate": 1789444939057,
+      "modifiedDate": 1789811587995,
+      "sizeInBytes": 35721,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 3.3766666666666665,
-        "wordCount": 1013,
-        "characterCount": 9755,
-        "nonWhitespaceCharacterCount": 6712
+        "pageCount": 16.64,
+        "wordCount": 4992,
+        "characterCount": 35595,
+        "nonWhitespaceCharacterCount": 30001
       }
     },
     "sections/appendix/unused/text-only-classifier.md": {
@@ -240,6 +240,31 @@
         "wordCount": 725,
         "characterCount": 4844,
         "nonWhitespaceCharacterCount": 4085
+      }
+    },
+    "sections/appendix/llm-usage.md": {
+      "isCountable": true,
+      "targetNodeType": "file",
+      "noteCount": 1,
+      "wordCount": 365,
+      "wordCountTowardGoal": 0,
+      "wordGoal": null,
+      "pageCount": 1.2166666666666666,
+      "characterCount": 2381,
+      "nonWhitespaceCharacterCount": 2006,
+      "readingTimeInMinutes": 1.3773584905660377,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": null,
+      "createdDate": 1789831641915,
+      "modifiedDate": 1789831641915,
+      "sizeInBytes": 2381,
+      "sessionStart": {
+        "noteCount": 1,
+        "pageCount": 1.2166666666666666,
+        "wordCount": 365,
+        "characterCount": 2381,
+        "nonWhitespaceCharacterCount": 2006
       }
     },
     "sections/appendix/known-limitations-and-deviations.md": {
@@ -417,6 +442,31 @@
         "nonWhitespaceCharacterCount": 3826
       }
     },
+    "sections/Results.md": {
+      "isCountable": true,
+      "targetNodeType": "file",
+      "noteCount": 1,
+      "wordCount": 1013,
+      "wordCountTowardGoal": 0,
+      "wordGoal": null,
+      "pageCount": 3.3766666666666665,
+      "characterCount": 9755,
+      "nonWhitespaceCharacterCount": 6712,
+      "readingTimeInMinutes": 3.822641509433962,
+      "linkCount": 0,
+      "embedCount": 1,
+      "aliases": null,
+      "createdDate": 1789806781519,
+      "modifiedDate": 1789806781519,
+      "sizeInBytes": 9758,
+      "sessionStart": {
+        "noteCount": 1,
+        "pageCount": 3.3766666666666665,
+        "wordCount": 1013,
+        "characterCount": 9755,
+        "nonWhitespaceCharacterCount": 6712
+      }
+    },
     "sections/Methodology.md": {
       "isCountable": true,
       "targetNodeType": "file",
@@ -436,10 +486,10 @@
       "sizeInBytes": 22687,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 9.366666666666667,
-        "wordCount": 2810,
-        "characterCount": 21406,
-        "nonWhitespaceCharacterCount": 18206
+        "pageCount": 9.91,
+        "wordCount": 2973,
+        "characterCount": 22671,
+        "nonWhitespaceCharacterCount": 19299
       }
     },
     "sections/Introduction.md": {
@@ -471,25 +521,50 @@
       "isCountable": true,
       "targetNodeType": "file",
       "noteCount": 1,
-      "wordCount": 549,
+      "wordCount": 767,
       "wordCountTowardGoal": 0,
       "wordGoal": null,
-      "pageCount": 1.83,
-      "characterCount": 3906,
-      "nonWhitespaceCharacterCount": 3319,
-      "readingTimeInMinutes": 2.0716981132075474,
+      "pageCount": 2.5566666666666666,
+      "characterCount": 5310,
+      "nonWhitespaceCharacterCount": 4501,
+      "readingTimeInMinutes": 2.8943396226415095,
       "linkCount": 0,
       "embedCount": 0,
       "aliases": null,
-      "createdDate": 1789609450775,
-      "modifiedDate": 1789811317994,
-      "sizeInBytes": 3906,
+      "createdDate": 1789831641915,
+      "modifiedDate": 1790042890373,
+      "sizeInBytes": 5310,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 0.6033333333333334,
-        "wordCount": 181,
-        "characterCount": 1301,
-        "nonWhitespaceCharacterCount": 1108
+        "pageCount": 2.0933333333333333,
+        "wordCount": 628,
+        "characterCount": 4378,
+        "nonWhitespaceCharacterCount": 3708
+      }
+    },
+    "sections/Conclusion.md": {
+      "isCountable": true,
+      "targetNodeType": "file",
+      "noteCount": 1,
+      "wordCount": 461,
+      "wordCountTowardGoal": 0,
+      "wordGoal": null,
+      "pageCount": 1.5366666666666666,
+      "characterCount": 2984,
+      "nonWhitespaceCharacterCount": 2474,
+      "readingTimeInMinutes": 1.739622641509434,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": null,
+      "createdDate": 1789831641914,
+      "modifiedDate": 1789831641915,
+      "sizeInBytes": 2984,
+      "sessionStart": {
+        "noteCount": 1,
+        "pageCount": 1.5366666666666666,
+        "wordCount": 461,
+        "characterCount": 2984,
+        "nonWhitespaceCharacterCount": 2474
       }
     },
     "sections/Background.md": {
@@ -657,8 +732,8 @@
       "embedCount": 0,
       "aliases": [],
       "createdDate": 1789806781518,
-      "modifiedDate": 1789806781518,
-      "sizeInBytes": 14577,
+      "modifiedDate": 1790042488325,
+      "sizeInBytes": 15001,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -692,31 +767,6 @@
         "nonWhitespaceCharacterCount": 0
       }
     },
-    "latex-template/build.sh": {
-      "isCountable": false,
-      "targetNodeType": "file",
-      "noteCount": 0,
-      "wordCount": 0,
-      "wordCountTowardGoal": 0,
-      "wordGoal": 0,
-      "pageCount": 0,
-      "characterCount": 0,
-      "nonWhitespaceCharacterCount": 0,
-      "readingTimeInMinutes": 0,
-      "linkCount": 0,
-      "embedCount": 0,
-      "aliases": [],
-      "createdDate": 1789785709081,
-      "modifiedDate": 1789785709082,
-      "sizeInBytes": 10258,
-      "sessionStart": {
-        "noteCount": 0,
-        "pageCount": 0,
-        "wordCount": 0,
-        "characterCount": 0,
-        "nonWhitespaceCharacterCount": 0
-      }
-    },
     "latex-template/aggregate3.png": {
       "isCountable": false,
       "targetNodeType": "file",
@@ -734,6 +784,31 @@
       "createdDate": 1789786684385,
       "modifiedDate": 1789786699156,
       "sizeInBytes": 393437,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
+      }
+    },
+    "latex-template/build.sh": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1789785709081,
+      "modifiedDate": 1789785709082,
+      "sizeInBytes": 10258,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -882,8 +957,8 @@
       "embedCount": 0,
       "aliases": [],
       "createdDate": 1789691179756,
-      "modifiedDate": 1789812304152,
-      "sizeInBytes": 100626,
+      "modifiedDate": 1789812969560,
+      "sizeInBytes": 101671,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -907,8 +982,8 @@
       "embedCount": 0,
       "aliases": [],
       "createdDate": 1789656772961,
-      "modifiedDate": 1789812310399,
-      "sizeInBytes": 134351,
+      "modifiedDate": 1790042857148,
+      "sizeInBytes": 576253,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -1192,54 +1267,29 @@
         "nonWhitespaceCharacterCount": 0
       }
     },
-    "Methodology.md": {
-      "isCountable": true,
-      "targetNodeType": "file",
-      "noteCount": 1,
-      "wordCount": 4992,
-      "wordCountTowardGoal": 0,
-      "wordGoal": null,
-      "pageCount": 16.64,
-      "characterCount": 35595,
-      "nonWhitespaceCharacterCount": 30001,
-      "readingTimeInMinutes": 18.837735849056603,
-      "linkCount": 31,
-      "embedCount": 0,
-      "aliases": null,
-      "createdDate": 1789444939057,
-      "modifiedDate": 1789811587995,
-      "sizeInBytes": 35721,
-      "sessionStart": {
-        "noteCount": 1,
-        "pageCount": 16.403333333333332,
-        "wordCount": 4921,
-        "characterCount": 35165,
-        "nonWhitespaceCharacterCount": 29643
-      }
-    },
     "Main.md": {
       "isCountable": true,
       "targetNodeType": "file",
       "noteCount": 1,
-      "wordCount": 299,
+      "wordCount": 301,
       "wordCountTowardGoal": 0,
       "wordGoal": null,
-      "pageCount": 0.9966666666666667,
-      "characterCount": 2741,
-      "nonWhitespaceCharacterCount": 2389,
-      "readingTimeInMinutes": 1.1283018867924528,
+      "pageCount": 1.0033333333333334,
+      "characterCount": 2801,
+      "nonWhitespaceCharacterCount": 2445,
+      "readingTimeInMinutes": 1.1358490566037736,
       "linkCount": 0,
-      "embedCount": 14,
+      "embedCount": 16,
       "aliases": null,
-      "createdDate": 1789806781518,
-      "modifiedDate": 1789806781518,
-      "sizeInBytes": 4598,
+      "createdDate": 1789831641914,
+      "modifiedDate": 1789831641914,
+      "sizeInBytes": 4658,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 0.9966666666666667,
-        "wordCount": 299,
-        "characterCount": 2741,
-        "nonWhitespaceCharacterCount": 2389
+        "pageCount": 1.0033333333333334,
+        "wordCount": 301,
+        "characterCount": 2801,
+        "nonWhitespaceCharacterCount": 2445
       },
       "frontmatter": {
         "title": "Machine Intelligence is Idiosyncratic and Uninterpretably Structured",
@@ -1294,31 +1344,6 @@
         "wordCount": 420,
         "characterCount": 3082,
         "nonWhitespaceCharacterCount": 2648
-      }
-    },
-    "latex-template/Main.pdflatex.log": {
-      "isCountable": false,
-      "targetNodeType": "file",
-      "noteCount": 0,
-      "wordCount": 0,
-      "wordCountTowardGoal": 0,
-      "wordGoal": 0,
-      "pageCount": 0,
-      "characterCount": 0,
-      "nonWhitespaceCharacterCount": 0,
-      "readingTimeInMinutes": 0,
-      "linkCount": 0,
-      "embedCount": 0,
-      "aliases": [],
-      "createdDate": 1789812304604,
-      "modifiedDate": 1789812311108,
-      "sizeInBytes": 6576,
-      "sessionStart": {
-        "noteCount": 0,
-        "pageCount": 0,
-        "wordCount": 0,
-        "characterCount": 0,
-        "nonWhitespaceCharacterCount": 0
       }
     }
   }

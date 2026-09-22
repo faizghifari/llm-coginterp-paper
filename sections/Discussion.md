@@ -1,27 +1,30 @@
 # Discussion
 
-<!-- ## There is no $G$-efficient training -->
+## Uninterpretable hierarchical structure
 
 Classically, cognitive sciences have approached intelligence from a verbal conceptual beginnings \citep{}. Intelligence is given a definition, then systems are developed to according to the specs provided by the definition. This is not true in psychometric paradigms, which starts by analyzing the covariance of performance measurements. Thus, adopting the psychometric approach for LLM benchmarks, our study have found that any substantially effective $G$ factor cannot be coherently approximated. Adding to this, tasks with similar contents, like mathematics and coding, does not necessarily cluster together. Machine intelligence does not follow any coherent structure or definition. 
 
 Unlike theories of human psychology \citep{schneider2018} where intelligence is explicitly assumed to possess higher-order structure, with fluid intelligence as one higher-order factor that have theoretical causal effects \citep{vandermaas2014} to the performance of other cognitive abilities, abilities in LLMs like abstract reasoning, domain memorization, and agentic tool use, are more likely to be horizontal with respect to each other with no clear higher-order structure.
 
-The practical consequence of this finding is that no blanket improvement of abilities can be gained by improving one family of tasks. A generally-intelligent model can only be trained by including all relevant tasks in the training corpus, and there is no silver-bullet construct or ability that can be efficiently targeted in training that will causally improve aptitude in specific tasks. Such a model requires a brute-force, increasingly expansive training dataset until it covers the universe of all possible tasks.
+As factor analysis assumes a reflective data generating process, one might wonder whether such causality cna be observed and exploited in practice. One such way is to follow similar line of work in psychological science: training participants in certain cognitive tasks leads to observable improvements in a different task (hence, generalization) \citep{simons2016}. It is easy to imagine implementing this for an LLM: measure a model's performance in coding, fine-tune it to be better at mathematics, and then measure it's coding performance again. If there is an improvement between pre and post-training performance, a causal mechanism can be empirically verified. More generally, fine-tune models to be better at benchmarks which are (assumed to be) proxies of general intelligence, then compare the pre and post training performance in a wide array of tasks.
 
-<!-- ## Why do abilities correlate?
+Establishing such causal mechanisms would be practically important. If there were no causal generalization, then no blanket improvement of abilities can be gained by improving one family of tasks. A generally-intelligent model can only be trained by including all relevant tasks in the training corpus, and there is no silver-bullet construct or ability that can be efficiently targeted in training that will causally improve aptitude in specific tasks. Such a model would require a brute-force, increasingly expansive training dataset until it covers the universe of all possible tasks.
+
+## Why do abilities correlate?
 
 One question that arise, if we accept the $G$ factor simply as a mish-mash of correlations, why do these correlations appear in the first place?
 
 A principled answer here is the same reason why any neural network can generalize out-of-sample. 
 
-But there is yet a less appealing, but plausible answer: the $G$ factor, or even all the latent factors, are merely quantifiers of investment effort.
+But there is yet a disappointing, but plausible alternative answer: the $G$ factor, or even all the latent factors, are merely quantifiers of investment effort. Models that perform well in MMLU tend to perform well in the ARC Challenge because investment in both of those tasks are correlated. The same can be true for correlation between agentic tool use and agentic coding (in this sense, there would be no common "agentic ability" factor). A $G$ factor that improves all abilities would then just be a correlate of the size of the training corpus, where a larger corpus includes a more diverse set of tasks.
+
 
 ## Alternative, nonlinear $G$ factor
 
 In EFA, latent variables are modeled as linear regression predictors of the indicators. Let $x_i$ be an indicator, $\xi_1, ... \xi_k$ be latent variables, $\lambda_{1i}, ... \lambda_{ki}$  the loadings of $x_i$ for the respective factors, and $\epsilon$ a random noise. The indicator $x_i$ is predicted by the latent variables in a simple multiple linear regression:
 
 $$x_i = \lambda_{1i}\xi_{1} + ... + \lambda_{ki}\xi_{k} + \epsilon$$
-The factor loadings $\lambda$ are standardized regression coefficients from the factor $\xi$ to the indicator. -->
+The factor loadings $\lambda$ are standardized regression coefficients from the factor $\xi$ to the indicator. 
 
 
 
@@ -36,4 +39,3 @@ Importantly what we find is that, unlike theories of human psychology \citep{sch
 
 
 This is also not to say that LLMs are not intelligent (in our private view, they very clearly are). But it is important to realize that just as humans and ants are differentially but equally "cognitive", LLMs are intelligent in a considerably different way to humans. This means that a theory of intelligence requires a blank-slate, bottom-up empirical approach without overfitting theories of human intelligence into systems that possess significant architectural and functional divergence from humans.%%
-
