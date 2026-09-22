@@ -1,6 +1,6 @@
 # Limitations
 
-All scores in the corpus are as published, and we evaluate no model ourselves. This means we do not control the evaluation conditions behind any score, and we make no attempt to correct for differences in undocumented evaluation setup between sources. Where two sources disagree about the same evaluation, we resolve by trust tier and recency rather than by re-evaluation. Release dates are recorded as corpus metadata rather than as an analysis input, and no result reported here depends on them.
+All scores in the corpus are as published, and we evaluate no model ourselves. This means we do not control the evaluation conditions behind any score, and we make no attempt to correct for differences in undocumented evaluation setup between sources. Where two sources disagree about the same evaluation, we average the two scores. Release dates are recorded as corpus metadata rather than as an analysis input, and no result reported here depends on them.
 
 Metric direction is recorded but not applied, so a lower-is-better benchmark contributes a sign-flipped column. In a correlation-based analysis this shows up as a negative loading rather than as a bias, though orienting every column before analysis would be cleaner. Two downstream consequences follow. The cosine distance behind Figure 1 places a sign-flipped benchmark far from a same-direction benchmark measuring the same thing, and the mean fill assigns a positive correlation to pairs that should be negative.
 

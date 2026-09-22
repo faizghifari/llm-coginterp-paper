@@ -2,7 +2,7 @@
 
 ## Source inventory
 
-The corpus is assembled from published evaluation records. Sources fall into four tiers, used along with recency to resolve duplicate scores from different sources.
+The corpus is assembled from published evaluation records. Sources fall into four tiers, which we record as the provenance of each score.
 
 **Tier 1, curated evaluation suites** (standardised harness, documented setup, one evaluator across many models).
 
@@ -179,7 +179,7 @@ identifiers serving as the primary key was left out as repository detail. -->
 
 ## Duplicate detection and integrity checks
 
-The duplicate identity key is the tuple (model, benchmark, metric, setup, source, model identifier, language). Duplicates are reported in two classes: **pure redundancy** (identical score reported twice) and **conflicts** (different scores under one identity). Conflicts are resolved by source-trust tier (`\hyperref[source-inventory]{Appendix~\ref*{source-inventory}}`{=latex}) and recency, and the report is always reviewed before any automated resolution runs.
+The duplicate identity key is the tuple (model, benchmark, metric, setup, source, model identifier, language). The duplicate report flags rows that share this identity, and redundant copies are removed after review. All remaining rows for one (model, benchmark) pair, including those from different sources, are averaged at aggregation. In the analysed corpus 87 (model, benchmark, metric) triples carry scores from more than one source.
 
 The integrity pass asserts zero foreign-key violations in both directions, zero models with no result rows, and zero benchmarks with no result rows. It also flags benchmarks with fewer than five rows for manual review. It is run after every write, including after each of the pruning passes in `\hyperref[score-redundancy-pruning]{Appendix~\ref*{score-redundancy-pruning}}`{=latex}.
 
