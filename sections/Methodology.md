@@ -9,6 +9,51 @@ In this study we investigate the low-dimensional structure of model benchmark sc
 **Sources.** We collect the benchmark data from four types of source, in descending order of volume: (i) large curated evaluation suites, (ii) aggregated leaderboards, (iii) benchmark-specific leaderboards, and (iv) papers. Table 1 gives the composition of the text-only corpus by source family. `\hyperref[data-source-and-normalization]{Appendix~\ref*{data-source-and-normalization}}`{=latex} lists every named source and the extraction route used for each.
 <!-- Specifically, these sources can be broken down into source families such as Stanford HELM \citep{helm2023}, HuggingFace Open LLM Leaderboard (v1 and v2) \citep{openllmleaderboard2024}, Papers With Code, Kaggle AI Benchmarks, Chatbot Arena / LMArena \citep{chatbotarena2024}, llm-stats.com, Artificial Analysis, Vellum, and LiveBench, together with benchmark-specific leaderboards and primary papers reporting original evaluations.  -->
 
+<!-- Tables 1 and 2 are typeset side by side in the raw LaTeX block below to save
+space (2026-09-23). Their markdown versions are kept in comments, Table 1 here and
+Table 2 at the end of Densification. Keep the numbers in both places in step. -->
+
+```{=latex}
+\begin{center}\small\setlength{\tabcolsep}{4pt}
+\begin{minipage}[t]{0.47\textwidth}
+\label{tab:sources}\textbf{Table 1.} Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). More detailed breakdown is given in \hyperref[tab:a1]{Table A1}.\par\vspace{4pt}
+\centering
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Source family & Rows & Benchmarks \\
+\midrule
+Stanford HELM & 4,942 & 138 \\
+HF Open LLM Leaderboard & 4,529 & 12 \\
+Papers With Code & 1,378 & 151 \\
+Other online leaderboards & 971 & 67 \\
+Kaggle AI Benchmarks & 844 & 26 \\
+Primary papers & 587 & 95 \\
+\bottomrule
+\end{tabular}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.49\textwidth}
+\label{tab:matrices}\textbf{Table 2.} Aggregated model $\times$ benchmark matrices, text-only corpus. ``Retained'' is the fraction of observed cells surviving the densifier peel.\par\vspace{4pt}
+\centering
+\begin{tabular}{@{}llrrr@{}}
+\toprule
+Densifier & Strategy & Shape & Density & Retained \\
+\midrule
+raw & Standard & 1266 $\times$ 404 & 2.2\% & \\
+raw & Aggressive & 334 $\times$ 380 & 3.5\% & \\
+C & Standard & 671 $\times$ 78 & 13.8\% & 65\% \\
+C & Aggressive & 201 $\times$ 102 & 13.6\% & 63\% \\
+S & Standard & 669 $\times$ 124 & 10\% & 75\% \\
+S & Aggressive & 124 $\times$ 293 & 10\% & 81\% \\
+R & Standard & 175 $\times$ 298 & 11.8\% & 55\% \\
+R & Aggressive & 97 $\times$ 310 & 11.7\% & 78\% \\
+\bottomrule
+\end{tabular}
+\end{minipage}
+\end{center}
+```
+
+<!-- Table 1 as markdown, before the side-by-side layout:
+
 `\label{tab:sources}`{=latex}**Table 1.** Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). More detailed breakdown is given in `\hyperref[tab:a1]{Table A1}`{=latex}.
 
 | Source family | Result rows | Distinct benchmarks |
@@ -19,7 +64,7 @@ In this study we investigate the low-dimensional structure of model benchmark sc
 | Other online leaderboards | 971 | 67 |
 | Kaggle AI Benchmarks | 844 | 26 |
 | Primary papers | 587 | 95 |
-
+-->
 
 **Protocol.** Given the large number of fields from the EveryEvalEver schema, we follow a strict source-verification protocol, meaning each field is populated only if the verified source explicitly documented it. In exception, some fields can be inferred from the record itself using deductive rules with small risk of error (see `\hyperref[deductive-fills]{Appendix~\ref*{deductive-fills}}`{=latex}). In particular, we put some focus on obtaining the release date field for both models and benchmarks, and only accept a release date if it is explicitly documented in the source (`\hyperref[release-date-provenance]{Appendix~\ref*{release-date-provenance}}`{=latex}). 
 <!-- The release date info coverage is 99.7 % of models and 99.8 % of benchmarks.  -->
@@ -86,11 +131,11 @@ percentages that were already beside them. (iv) "from the source and", "some" an
 
 ## Data Processing
 
-### Deduplication
+<!-- The Data Processing subsections were turned into run-in bold paragraph labels (2026-09-23), as in Data Collection, to save the space each numbered heading took. They were ### Deduplication, ### Metric selection, ### Densification, ### Imputation and ### Evaluating the imputations. -->
 
 <!-- The collected datasets contain same models evaluated under different conditions, e.g., chain-of-thought vs. no chain-of-thought. Since including the same models would lead to a violation of independence of distribution, multiple evaluation rows retained at collection time are averaged within each (model, benchmark) pair. Model identity is then resolved at two choices of granularities: -->
 
-Rows surviving duplicate removal for the same (model, benchmark) pair are averaged into a single score. To keep near-duplicate results from the same models under different conditions (e.g. reasoning effort) from breaking the IID assumption, and to further densify the data, we average rows under two collapse strategies: The **standard** strategy is variant-level. It keeps different version numbers and parameter count, while collapsing reasoning effort, knowledge cutoff, etc. The **aggressive** strategy is family-level. Every model is collapsed to its base family token (Claude, Llama, etc.), so all sizes and generations of a family form one row.
+**Deduplication.** Rows surviving duplicate removal for the same (model, benchmark) pair are averaged into a single score. To keep near-duplicate results from the same models under different conditions (e.g. reasoning effort) from breaking the IID assumption, and to further densify the data, we average rows under two collapse strategies: The **standard** strategy is variant-level. It keeps different version numbers and parameter count, while collapsing reasoning effort, knowledge cutoff, etc. The **aggressive** strategy is family-level. Every model is collapsed to its base family token (Claude, Llama, etc.), so all sizes and generations of a family form one row.
 
 <!-- - **`standard`** — variant-level. Source-specific model identifiers are normalised (organisation prefixes stripped, release dates and checkpoint stamps removed, context-length and reasoning-effort tags dropped, parameter counts canonicalised) so that different spellings of the same released variant collapse together, while genuinely different variants (sizes, generations, named tiers) stay distinct.
 - **`aggressive`** — family-level. Every model is collapsed to its base family token, so all sizes and generations of a family form one row. -->
@@ -100,17 +145,16 @@ Rows surviving duplicate removal for the same (model, benchmark) pair are averag
 
 The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed, while the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. The token-level rules are given in `\hyperref[model-identity-collapse]{Appendix~\ref*{model-identity-collapse}}`{=latex}.%%
 
-### Metric selection
-
-About 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we keep one metric covering the most distinct models, so the widest comparable population survives. A per-benchmark override list handles cases where coverage alone chooses badly. This drops 1,420 result rows and 706 model-cells. Finally, benchmarks observed for only one model are dropped.
-
-### Densification
+**Metric selection.** About 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we keep one metric covering the most distinct models, so the widest comparable population survives. A per-benchmark override list handles cases where coverage alone chooses badly. This drops 1,420 result rows and 706 model-cells. Finally, benchmarks observed for only one model are dropped.
 
 <!-- At 2–4 % observed, the raw data is ineligible for virtually any data analysis. We therefore improve the dataset density by applying several additional steps that discard missing data, described below. All three densifiers greedily peel the matrix toward a common target density, differing only in which axis they sacrifice: -->
 
-We further improve the data density by greedily peeling the matrix towards a common target density. We feature three densifiers, differing by the axis they sacrifice: **C (column-primary)** drops the least-observed benchmarks, then any model left empty, retaining famous benchmarks with wide model coverage. **R (row-primary)** drops the least-observed models, then any benchmark left empty, retaining a broad benchmark set over a small set of heavily-evaluated models, and leads to having more observations than variables. **S (symmetric)** drops whichever marginal has the lowest fill-rate, privileging neither axis.
+**Densification.** We further improve the data density by greedily peeling the matrix towards a common target density. We feature three densifiers, differing by the axis they sacrifice: **C (column-primary)** drops the least-observed benchmarks, then any model left empty, retaining famous benchmarks with wide model coverage. **R (row-primary)** drops the least-observed models, then any benchmark left empty, retaining a broad benchmark set over a small set of heavily-evaluated models, and leads to having more observations than variables. **S (symmetric)** drops whichever marginal has the lowest fill-rate, privileging neither axis.
 
 After peeling, models and benchmarks that have fewer than 3 observed scores are dropped. Columns with zero variance among observed values are also dropped, since they carry no correlational signal. The algorithm is given in `\hyperref[densification-algorithm]{Appendix~\ref*{densification-algorithm}}`{=latex}. Note that we select a still relatively low target density at 10%, so that we can include as many different benchmarks as possible.
+
+<!-- Table 2 as markdown, before the side-by-side layout (now typeset next to
+Table 1 in Data Collection):
 
 `\label{tab:matrices}`{=latex}**Table 2.** Aggregated model × benchmark matrices, text-only corpus. "Retained" is the fraction of observed cells surviving the densifier peel.
 
@@ -124,6 +168,7 @@ After peeling, models and benchmarks that have fewer than 3 observed scores are 
 | S         | Aggressive   | 124 × 293  |     10% |      81% |
 | R         | Standard     | 175 × 298  |   11.8% |      55% |
 | R         | Aggressive   | 97 × 310   |   11.7% |      78% |
+-->
 
 %%We further densify the data using 2 families of imputers: 
 
@@ -131,13 +176,10 @@ After peeling, models and benchmarks that have fewer than 3 observed scores are 
 - **Correlation-level recovery**: instead exploits the fact that factor analysis needs a correlation matrix, not a data matrix. The benchmark × benchmark correlation structure is a substantially weaker requirement, and so this family estimates that correlation matrix directly. Includes OneSidedMC \citep{cao2023}-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}, maximum-determinant SDP completion, and Gaussian graphical model completion. We also reused the softimpute algorithm as a correlation matrix imputer.
 - **PSD smoothing**: a variant of the correlation-level recovery is by filling the missing entries with a scalar, then applying a PSD smoothing for the resulting matrix. The zeros method fill the missing entries with 0, while the mean uses the mean observed Pearson r.%%
 
-### Imputation
-
-We applied 2 families of missing data imputers: **full-dataset** algorithms (SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}) and **correlation recovery** (OneSidedMC \citep{cao2023}-corr, USVT \citep{chatterjee2015}, and SoftImpute on the correlation matrix). Method-level descriptions and implementation detail for all of the above are given in `\hyperref[completion-methods]{Appendix~\ref*{completion-methods}}`{=latex}.
+**Imputation.** We applied 2 families of missing data imputers: **full-dataset** algorithms (SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}) and **correlation recovery** (OneSidedMC \citep{cao2023}-corr, USVT \citep{chatterjee2015}, and SoftImpute on the correlation matrix). Method-level descriptions and implementation detail for all of the above are given in `\hyperref[completion-methods]{Appendix~\ref*{completion-methods}}`{=latex}.
 
 
-### Evaluating the imputations
-At each stage of the imputation, we masked ~20% of the observed cells as an evaluation set. To prevent high-observation benchmarks from inflating the score, we use a column-stratified mask, such that each benchmark is masked at least once and leaving at least two training observations in every column. Without column stratification, our evaluation score is inflated by the fact that high-observation benchmarks (which are the least difficult to impute) are sampled more often than low-observation ones. Columns are standardised using training-cell moments only.
+**Evaluating the imputations.** At each stage of the imputation, we masked ~20% of the observed cells as an evaluation set. To prevent high-observation benchmarks from inflating the score, we use a column-stratified mask, such that each benchmark is masked at least once and leaving at least two training observations in every column. Without column stratification, our evaluation score is inflated by the fact that high-observation benchmarks (which are the least difficult to impute) are sampled more often than low-observation ones. Columns are standardised using training-cell moments only.
 
 Held-out cells are scored in standard-deviation units against a baseline that predicts each column's training mean:
 
