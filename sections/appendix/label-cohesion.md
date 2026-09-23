@@ -97,5 +97,3 @@ Label & Median A & Significant & Median n \\
 \texttt{fiction} & -0.225 & 0/6 & 4 \\
 \end{longtable}
 ```
-
-Cohesion of each subject label. A is the chance-corrected within-group agreement 1 - within/null_mean against a coverage-matched permutation null: 0 is chance, 1 is identical members, negative is over-dispersed. Cells are densifier x imputer re-analyses of one dataset, so the count is consistency across analysis choices, not independent replication.
