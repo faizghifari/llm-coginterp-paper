@@ -4,39 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "c36a6cf7de77c836",
+        "id": "554023c624d33d7c",
         "type": "tabs",
         "children": [
           {
-            "id": "2d998b0b278d1645",
+            "id": "dfd90142b56f64a7",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "References.md",
+                "file": "sections/appendix/data-source-and-normalization.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "References"
-            }
-          },
-          {
-            "id": "ec6e9c7e6449fe82",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "sections/appendix/held-out-metric.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "held-out-metric"
+              "title": "data-source-and-normalization"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -203,7 +188,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 284.453125
+    "width": 200,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -217,25 +203,8 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ec6e9c7e6449fe82",
+  "active": "dfd90142b56f64a7",
   "lastOpenFiles": [
-    "sections/appendix/factor-analysis-details.md",
-    "sections/appendix/known-limitations-and-deviations.md",
-    "sections/appendix/completion-methods.md",
-    "sections/appendix/completion-evaluation.md",
-    "sections/appendix/benchmark-embedding.md",
-    "sections/appendix/normalisation-rules.md",
-    "sections/appendix/llm-usage.md",
-    "sections/appendix/held-out-metric.md",
-    "sections/appendix/data-source-and-normalization.md",
-    "sections/appendix/densification-algorithm.md",
-    "Appendix.md",
-    "sections/Results.md",
-    "sections/Background.md",
-    "sections/Methodology.md",
-    "sections/Discussion.md",
-    "sections/Conclusion.md",
-    "Main.md",
     "latex-template/Main.bbl",
     "latex-template/Main.blg",
     "latex-template/Main.bibtex.log",
@@ -243,9 +212,32 @@
     "latex-template/Main.aux",
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
+    "sections/appendix/imputation-diagnostics.md",
+    "sections/appendix/common-subject-distances.md",
+    "sections/Results.md",
+    "Untitled 2.base",
+    "References.md",
+    "Untitled 1.base",
+    "latex-template/S_softimpute.png",
+    "sections/appendix/held-out-metric.md",
+    "S_softimpute.png",
+    "sections/appendix/factor-analysis-details.md",
+    "sections/appendix/known-limitations-and-deviations.md",
+    "sections/appendix/completion-methods.md",
+    "sections/appendix/completion-evaluation.md",
+    "sections/appendix/benchmark-embedding.md",
+    "sections/appendix/normalisation-rules.md",
+    "sections/appendix/llm-usage.md",
+    "sections/appendix/data-source-and-normalization.md",
+    "sections/appendix/densification-algorithm.md",
+    "Appendix.md",
+    "sections/Background.md",
+    "sections/Methodology.md",
+    "sections/Discussion.md",
+    "sections/Conclusion.md",
+    "Main.md",
     "sections/Introduction.md",
     "aggregate.png",
-    "References.md",
     "Methodology.md",
     "latex-template/aggregate.png",
     "Pasted image 20260918130531.png",
@@ -257,13 +249,6 @@
     "Pasted image 20260918012219.png",
     "Untitled.base",
     "latex-template/Pasted image 20260918004415.png",
-    "Pasted image 20260918004415.png",
-    "latex-template/Main.pdf",
-    "latex-template/Pasted image 20260917212152.png",
-    "conflict-files-obsidian-git.md",
-    "tmp.md",
-    "Draft.md",
-    "Topics.md",
-    "Image"
+    "conflict-files-obsidian-git.md"
   ]
 }

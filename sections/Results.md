@@ -23,48 +23,50 @@ We present the evaluation and parameters of the missing data imputations in tabl
 %%
 ## Point summaries
 
-Table 3 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. Two things are worth noting here. First, while $\omega_h$ has a wide range, by our estimates' maximum, **a universally causal $g$ factor accounts, at the most, 74.7% of variance in model performance**.
+From our imputation, only 20 dataset-imputer combination yields an $R^2$ satisfying the threshold. Additional diagnostics and trustworthiness analyses are provided in (`\hyperref[imputation-diagnostics]{Appendix~\ref*{imputation-diagnostics}}`{=latex}).
+
+Table 3 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. Two things are worth noting here. First, while $\omega_h$ has a wide range, by our estimates' maximum, **a universally causal $g$ factor accounts, at the most, 70.8% of variance in model performance**.
 
 Still, something to note is that the range of $\omega_h$ spans quite widely. The best-performing imputer, softimpute on S_standard, yielded a solution with a modestly effective $g$ factor that accounts for just 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend across release cohorts (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}).
 
-**Table 3**. Point summaries of factor analyses results. Var% = percentage of variance explained, $k$ = number of factors extracted, $\phi$ = average inter-factor correlation.  
+**Table 3**. Point summaries of factor analyses results. AVE = average variance explained per factor, $k$ = number of factors extracted, $\phi$ = average inter-factor correlation.
 
-| Dataset            | Imputer         | $k$ | Var%   | $\omega_h$ | $\phi_{\text{avg}}$ | $R^2$ |
-| ------------------ | --------------- | --- | -------- | ---------- | ---------------- | ------ |
-| C_standard     | mean            | 20  | 85.6%  | 0.747      | 0.090               |       |
-| raw_standard   | mean            | 20  | 46.0%  | 0.701      | 0.071               |       |
-| C_standard     | missforest      | 4   | 88.4%  | 0.695      | 0.398               | 0.399 |
-| S_standard     | softimpute_corr | 5   | 46.6%  | 0.676      | 0.306               | 0.378 |
-| S_standard     | mean            | 20  | 73.2%  | 0.675      | 0.066               |       |
-| C_standard     | zeros           | 20  | 84.9%  | 0.661      | 0.080               |       |
-| R_standard     | mean            | 20  | 51.4%  | 0.649      | 0.094               |       |
-| S_standard     | zeros           | 20  | 72.5%  | 0.562      | 0.033               |       |
-| C_standard     | softimpute_corr | 4   | 58.6%  | 0.514      | 0.247               | 0.317 |
-| R_standard     | zeros           | 20  | 49.9%  | 0.484      | 0.033               |       |
-| raw_standard   | zeros           | 20  | 38.3%  | 0.459      | 0.024               |       |
-| R_aggressive   | zeros           | 20  | 66.4%  | 0.457      | -0.003              |       |
-| S_aggressive   | zeros           | 20  | 67.4%  | 0.454      | 0.004               |       |
-| raw_aggressive | zeros           | 20  | 57.1%  | 0.445      | 0.012               |       |
-| R_aggressive   | mean            | 20  | 66.4%  | 0.431      | -0.002              |       |
-| S_aggressive   | mean            | 20  | 67.4%  | 0.410      | -0.008              |       |
-| raw_aggressive | mean            | 20  | 58.4%  | 0.332      | 0.023               |       |
-| S_standard     | softimpute      | 5   | 91.3%  | 0.257      | 0.094               | 0.504 |
-| C_standard     | softimpute      | 9   | 94.3%  | 0.242      | 0.038               | 0.493 |
-| C_aggressive   | softimpute      | 5   | 89.0%  | 0.183      | -0.001              | 0.337 |
-| C_aggressive   | mean            | 20  | 83.6%  | 0.072      | 0.025               |       |
-| C_aggressive   | zeros           | 20  | 83.6%  | 0.072      | 0.044               |       |
-| C_standard     | onesidedmc      | 2   | 100.0% | 0.036      | 0.054               | 0.333 |
-| S_standard     | missforest      | 4   | 90.0%  | 0.032      | 0.054               | 0.471 |
-| S_standard     | onesidedmc      | 2   | 100.0% | 0.006      | 0.015               | 0.340 |
+| Dataset            | Imputer         | $k$ | $\text{AVE}$ | $\omega_h$ | $\phi_\text{avg}$ | $R^2$ |
+| ------------------ | --------------- | --- | ------------ | ---------- | ----------------- | ----- |
+| C_all_standard     | mean            | 14  | 5.5%         | 0.708      | 0.142             | 0.224 |
+| C_all_standard     | missforest      | 4   | 22.1%        | 0.695      | 0.398             | 0.399 |
+| S_all_standard     | softimpute_corr | 5   | 9.3%         | 0.676      | 0.306             | 0.378 |
+| C_all_standard     | zeros           | 14  | 5.4%         | 0.621      | 0.093             | 0.286 |
+| C_all_aggressive   | missforest      | 4   | 19.3%        | 0.521      | 0.112             | 0.241 |
+| C_all_standard     | knn             | 7   | 10.8%        | 0.516      | 0.209             | 0.288 |
+| C_all_standard     | softimpute_corr | 4   | 14.6%        | 0.514      | 0.247             | 0.317 |
+| R_all_standard     | softimpute      | 20  | 4.6%         | 0.367      | 0.012             | 0.290 |
+| S_all_standard     | softimpute      | 5   | 18.3%        | 0.257      | 0.094             | 0.504 |
+| C_all_standard     | softimpute      | 9   | 10.5%        | 0.242      | 0.038             | 0.493 |
+| S_all_aggressive   | softimpute      | 20  | 4.7%         | 0.225      | 0.031             | 0.282 |
+| S_all_standard     | knn             | 11  | 6.9%         | 0.204      | 0.048             | 0.296 |
+| R_all_aggressive   | softimpute      | 20  | 4.7%         | 0.187      | 0.008             | 0.209 |
+| C_all_aggressive   | softimpute      | 5   | 17.8%        | 0.183      | -0.001            | 0.337 |
+| raw_all_aggressive | softimpute      | 10  | 8.9%         | 0.132      | 0.013             | 0.228 |
+| C_all_standard     | onesidedmc      | 2   | 50.0%        | 0.102      | 0.125             | 0.321 |
+| raw_all_standard   | softimpute      | 10  | 9.0%         | 0.071      | -0.010            | 0.249 |
+| C_all_aggressive   | onesidedmc      | 2   | 50.0%        | 0.065      | 0.097             | 0.278 |
+| S_all_standard     | missforest      | 4   | 22.5%        | 0.032      | 0.054             | 0.471 |
+| S_all_standard     | onesidedmc      | 2   | 50.0%        | 0.014      | -0.040            | 0.365 |
+
 ## Benchmark clusters
 
-Figure 1 below shows a UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). Something striking from this visual is how benchmarks with common subject only occasionally cluster together. Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. It is also telling that even commonly-targeted benchmarks like `arc` and `gpqa_diamond` are located quite far from each other, and a coding benchmark like `swe_bench` is closer to some mathematics benchmarks like `math500` and `aime25` than it is to `FlashInfer-Bench`. In other words, **capability in one task does not always generalize well to another task of the same subject**.
+Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). Something striking from this visual is how benchmarks with common subject only occasionally cluster together. Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. A telling example is how, for coding, `livecodebench`, `swe_bench`, and `humaneval` stands very far apart from each other, and the same is true for math with the benchmarks `gsm8k`, `math`, and `aime25`. In other words, **capability in one task does not always generalize well to another task of the same subject**. A degree of generality exists, of course, evident by `bigcodebench` stands relatively close to `humaneval` A semantically coherent generalization is probable but not guaranteed, which can make isolating domain abilities difficult to do from a purely semantic and intuitive standpoint. This phenomena, where same-domain benchmarks lacks a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further at (`\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}).
+
+![[S_softimpute.png]]
+
+%%Figure 1 below shows a UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). Something striking from this visual is how benchmarks with common subject only occasionally cluster together. Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. It is also telling that even commonly-targeted benchmarks like `arc` and `gpqa_diamond` are located quite far from each other, and a coding benchmark like `swe_bench` is closer to some mathematics benchmarks like `math500` and `aime25` than it is to `FlashInfer-Bench`. In other words, **capability in one task does not always generalize well to another task of the same subject**.
 
 A degree of generality exists, of course. The bottom figure, using composite distance of the S dataset, shows a clustering of several coding and math benchmarks, but other abstract reasoning benchmarks like `gsm8k` `and` arc are placed at the bottom of the continent. Note however that most clusters resemble the top, raw dataset with greatly-spaced out subjects compared to the S datasets. A semantically coherent generalization is probable but quite far from a guarantee.
 
 ![[aggregate3.png|UMAP plot of benchmarks' composite distance. Top left: raw dataset, aggregated. Top right: C dataset, softimpute. Bottom left: R, mean correlation. Bottom right: S, missforest.]]
 
-
+%%
 
 ## $g$-loaded benchmarks
 
@@ -72,7 +74,7 @@ Another point of interest for the research question is what benchmarks act as a 
 
 [^4]: We use rank-order as factor loadings vary in range, and they are normalized as different datasets have different number of benchmarks.
 
-Surprisingly, the top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of traditional NLP tasks, legal use case, sports-related knowledge, and even emotional intelligence. There is no evidence that a $g$ factor is abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. **The assumption that reasoning, mathematics, and coding benchmarks measure $g$ best does not hold**.
+Surprisingly, the top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of traditional NLP tasks, legal use case, sports-related knowledge, and even emotional intelligence. There is no evidence that a $g$ factor is abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. **The assumption that reasoning, mathematics, and coding benchmarks are best proxies of the latent factor $g$ best does not hold**.
 
 <!-- REVISED in response to the Google PAT review, weakness 4 and Results point 3.
 The superseded text read:
@@ -116,25 +118,25 @@ of about 19 pipeline configurations and CIs spanning negative values on a stated
 
 **Table 4**. Top 20 benchmarks, sorted by the normalized rank-order of their $g$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last. N is the number of solutions containing the benchmark, and the 95% CI is a t-interval over those N, so it is not bounded to [0, 1].
 
-| No  | Benchmark                      | Avg.  | SD    | 95% CI          | N   | Best  | Worst |
-| --- | ------------------------------ | ----- | ----- | --------------- | --- | ----- | ----- |
-| 1   | hagendorff_biases_2023         | 0.027 | 0.039 | [-0.320, 0.374] | 2   | 0.000 | 0.055 |
-| 2   | parsiNLU                       | 0.030 | 0.039 | [-0.317, 0.377] | 2   | 0.002 | 0.057 |
-| 3   | eqbench                        | 0.038 | 0.048 | [0.003, 0.072]  | 10  | 0.000 | 0.134 |
-| 4   | ewok_spatial_relations         | 0.040 | 0.071 | [-0.011, 0.091] | 10  | 0.000 | 0.236 |
-| 5   | ewok_physical_interactions     | 0.053 | 0.089 | [-0.011, 0.117] | 10  | 0.000 | 0.293 |
-| 6   | tablebench_fact_checking       | 0.062 | 0.048 | [0.027, 0.097]  | 10  | 0.007 | 0.174 |
-| 7   | ewok                           | 0.062 | 0.075 | [0.008, 0.115]  | 10  | 0.007 | 0.268 |
-| 8   | ewok_social_interactions       | 0.067 | 0.063 | [0.022, 0.112]  | 10  | 0.002 | 0.221 |
-| 9   | tablebench_data_analysis       | 0.086 | 0.055 | [0.047, 0.125]  | 10  | 0.010 | 0.176 |
-| 10  | ewok_physical_relations        | 0.088 | 0.114 | [0.007, 0.170]  | 10  | 0.014 | 0.380 |
-| 11  | ewok_agent_properties          | 0.095 | 0.079 | [0.039, 0.151]  | 10  | 0.022 | 0.298 |
-| 12  | lawbench                       | 0.096 | 0.094 | [-0.003, 0.194] | 6   | 0.008 | 0.242 |
-| 13  | tombench                       | 0.113 | 0.076 | [0.058, 0.167]  | 10  | 0.034 | 0.266 |
-| 14  | cmmlu                          | 0.113 | 0.107 | [0.001, 0.226]  | 6   | 0.011 | 0.256 |
-| 15  | sportqa                        | 0.115 | 0.083 | [0.046, 0.185]  | 8   | 0.029 | 0.253 |
-| 16  | ewok_social_properties         | 0.119 | 0.144 | [0.016, 0.221]  | 10  | 0.017 | 0.469 |
-| 17  | tablebench_numerical_reasoning | 0.120 | 0.079 | [0.064, 0.176]  | 10  | 0.003 | 0.201 |
-| 18  | mceval                         | 0.123 | 0.036 | [0.097, 0.149]  | 10  | 0.044 | 0.184 |
-| 19  | ewok_material_properties       | 0.124 | 0.077 | [0.069, 0.179]  | 10  | 0.005 | 0.261 |
-| 20  | ewok_social_relations          | 0.126 | 0.076 | [0.072, 0.180]  | 10  | 0.040 | 0.313 |
+| no  | benchmark                | avg norm rank | sd    | 95% ci          | n cells | best  | worst |
+| --- | ------------------------ | ------------- | ----- | --------------- | ------- | ----- | ----- |
+| 1   | bhasa                    | 0.141         | 0.118 | [-0.005, 0.287] | 5       | 0.024 | 0.318 |
+| 2   | mtrag                    | 0.147         | 0.160 | [-0.051, 0.346] | 5       | 0.021 | 0.394 |
+| 3   | eqbench                  | 0.156         | 0.174 | [-0.060, 0.372] | 5       | 0.017 | 0.451 |
+| 4   | mceval                   | 0.156         | 0.106 | [0.024, 0.288]  | 5       | 0.051 | 0.333 |
+| 5   | creativityprism          | 0.156         | 0.141 | [-0.019, 0.332] | 5       | 0.026 | 0.367 |
+| 6   | pwc_drop_test            | 0.162         | 0.189 | [-0.139, 0.462] | 4       | 0.008 | 0.431 |
+| 7   | pwc_svamp                | 0.169         | 0.127 | [-0.033, 0.371] | 4       | 0.058 | 0.298 |
+| 8   | ProphetArena             | 0.183         | 0.137 | [-0.036, 0.401] | 4       | 0.092 | 0.385 |
+| 9   | dialogbench              | 0.210         | 0.174 | [-1.351, 1.770] | 2       | 0.087 | 0.332 |
+| 10  | lawbench                 | 0.222         | 0.205 | [-0.288, 0.731] | 3       | 0.057 | 0.452 |
+| 11  | tablebench_data_analysis | 0.223         | 0.328 | [-0.185, 0.631] | 5       | 0.000 | 0.787 |
+| 12  | pwc_timequestions        | 0.230         | 0.006 | [0.173, 0.288]  | 2       | 0.226 | 0.235 |
+| 13  | pwc_multinli             | 0.233         | 0.077 | [-0.459, 0.925] | 2       | 0.179 | 0.288 |
+| 14  | tombench                 | 0.234         | 0.144 | [0.056, 0.413]  | 5       | 0.062 | 0.446 |
+| 15  | sea_helm                 | 0.235         | 0.245 | [-0.069, 0.539] | 5       | 0.045 | 0.603 |
+| 16  | tablebench_fact_checking | 0.235         | 0.322 | [-0.165, 0.635] | 5       | 0.020 | 0.784 |
+| 17  | dischargeme              | 0.245         | 0.122 | [0.093, 0.396]  | 5       | 0.087 | 0.402 |
+| 18  | milu                     | 0.248         | 0.126 | [0.092, 0.404]  | 5       | 0.044 | 0.350 |
+| 19  | pinocchio                | 0.249         | 0.090 | [-0.564, 1.062] | 2       | 0.185 | 0.313 |
+| 20  | indicgenbench            | 0.253         | 0.067 | [-0.347, 0.853] | 2       | 0.206 | 0.300 |
