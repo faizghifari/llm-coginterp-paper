@@ -4,7 +4,7 @@
 
 A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2004}, a distinction now also drawn explicitly in the design of LLM benchmarks \citep{federiakin2025}. Individuals differ in some latent factor, hence individuals differ in some observable outcomes. If there are no causal latent factors, then the covariance among observed behaviors would have no source at all, which makes little sense.
 
-Personality and intelligence research are prime examples. \citet{allport1936} extracted all or most of the words from the English dictionary that can describe someone's personality, and had a large sample self-report how well each word describes themselves, effectively measuring as much of "the universe of all possible personalities" as possible \citep{john1988}. \citet{spearman1904} did much the same for intelligence, collecting the scores of students across school subjects and finding that their variance overwhelmingly loads to a single wide-breadth latent variable called the $g$ factor \citep{jensen2002}, which remains generally accepted \citep{johnson2004,johnson2008}. Both follow the same paradigm. Exhaustively measure observable behaviors, subject them to dimensional-reduction techniques, and draw theories from the resulting latent factor. Subsequent research decomposes the hierarchy further, into facets for personality \citep{lee2018,deyoung2007} and into specific cognitive abilities for intelligence \citep{schneider2018}.
+Personality and intelligence research are prime examples. \citet{allport1936} extracted all or most of the words from the English dictionary that can describe someone's personality, and had a large sample self-report how well each word describes themselves, hence measuring as much of as much of the set of all possible personalities \citep{john1988}. \citet{spearman1904} did much the same for intelligence, collecting the scores of students across school subjects and finding that their variance overwhelmingly loads to a single wide-breadth latent variable called the $g$ factor \citep{jensen2002}, which remains generally accepted \citep{johnson2004,johnson2008}. Both follow the same paradigm. Exhaustively measure observable behaviors, subject them to dimensional-reduction techniques, and draw theories from the resulting latent factor. Subsequent research decomposes the hierarchy further, into facets for personality \citep{lee2018,deyoung2007} and into specific cognitive abilities for intelligence \citep{schneider2018}.
 
 <!-- ---------- ORIGINAL (pre-revision) TEXT, kept for reference ----------
 
@@ -25,12 +25,18 @@ It must be stressed, however, that the theories in question largely depend on a 
 
 Various LLM benchmarks are known to be intercorrelated, though the origin of this covariance is rarely stated explicitly. We argue that benchmark correlations are causally originated from latent variables, and add that existing paradigms of machine intelligence are implicitly causal. The precedence assumed of a content-free intelligence \citep{chollet2019} already implies such a relation, but model development makes it concrete. In aiming to achieve "general intelligence", developers tend to train in a *targeted* manner. Reasoning-oriented post-training, for instance, is motivated by the expectation that improvements on "pure" logical tasks will transfer to tool-calling, long-horizon agentic tasks, and coding \citep{deepseekai2025}. Such an expectation is coherent only if the targeted ability stands in a causal relation to the rest, which we state as follows.
 
-**Definition 1**: Let $g \in \mathbb{R}$ be a scalar, and let $T$ be the set of performance scores for all possible tasks,
-$$T = \{\, t_i \mid i \in \mathcal{I} \,\}, \qquad g \longrightarrow T \;\;\text{but}\;\; T \not\longrightarrow g,$$
-i.e., changes in $g$ lead to changes in $T$, but not the other way around.
+**Definition 1.** Let $F$ be a set of latent factors and $T$ the set of performance scores over all possible tasks:
+$$F = \{\, f_i \mid i \in \mathcal{I} \,\}, \qquad g \longrightarrow F \longrightarrow T, \quad F \not\longrightarrow g.$$
+That is, $g$ is a first-order factor that causally affects the set of latent factors $F$, through which it in turn influences task performance. No causal path runs from $F$ back to $g$.
 
-Definition 1 only describes how scores are produced and interpreted, not how the model is trained. There is also a growing assumption in the community that a subset of $T$, mostly assumed to be reasoning, mathematics, and coding, measures $g$ better than the rest.
+There is a growing assumption in the field that a subset of $T$, mostly assumed to be reasoning, mathematics, and coding, measures $g$ better than the rest. When a model is fine-tuned to perform better on such tasks, the implicitly expected transfer happens because training improves $g$ and, through it, the factors $F$:
 
+**Definition 2.** Let $F$ be a set of latent factors and $T$ the set of performance scores over all possible tasks. Task performance $t_i$ is given by a linear predictor:
+$$t_i = \lambda_gg + \lambda_1 f_1 + \dots + \lambda_n f_n, \qquad i \in \mathcal{I},$$
+where the $\lambda_i$ are the task's factor loadings (standardized regression coefficients).
+
+%%Definition 1 only describes how scores are produced and interpreted, not how the model is trained. There is also a growing assumption in the community that a subset of $T$, mostly assumed to be reasoning, mathematics, and coding, measures $g$ better than the rest.
+%%
 <!-- ADDED in response to the Google PAT review, point 2 and weakness 6. The
 review reads Definition 1 as contradicting the transfer story that motivates it:
 if T does not cause G, then training on reasoning tasks cannot raise G, so it
@@ -67,9 +73,14 @@ T" is abstract enough that 4.3 no longer reads as the test of anything stated.
 
 Layer two of this argument, that task training largely fails to raise g in humans,
 belongs in Discussion 5.1 where Afrizal cites simons2016, so it is not made here. -->
+%%
+The causal view is also called the reflective paradigm in psychometrics \citep{borsboom2004} that asserts psychological traits are latent, but real, higher-order causal variable. This ontological position is methodologically significant, as this rules out the use of PCA over EFA (which can partition out error from systematic variance).
 
-Nevertheless, a causal view is only one way to understand the origins of a covariance matrix. The formative paradigm, usually associated with PCA, makes no claim about the nature of the resultant components \citep{vandermaas2014}. Even so, generalizability would be impossible without a common factor to begin with, since two tasks sharing a dominant factor decompose into a similar lower-level representation \citep{caruana1997,menghi2025} that the network must discern. The mutualist paradigm \citep{borsboom2013}, which describes indicators as nodes in a graph of mutual causality, is harder to rule out, since a mutualist process reproduces a positive manifold without any common cause \citep{vandermaas2014}. However, since we observe scores only after training, our data cannot separate it from the causal view.
-
+Nevertheless, a causal view is only one way to understand the origins of a covariance matrix. The formative paradigm, usually associated with PCA, makes no claim about the nature of the resultant components \citep{vandermaas2014}. Even so, generalizability would be impossible without a common factor to begin with, since two tasks sharing a dominant factor decompose into a similar lower-level representation \citep{caruana1997,menghi2025} that the network must discern. 
+%%
+%%
+The mutualist paradigm \citep{borsboom2013}, which describes indicators as nodes in a graph of mutual causality, is harder to rule out, since a mutualist process reproduces a positive manifold without any common cause \citep{vandermaas2014}. However, since we observe scores only after training, our data cannot separate it from the causal view.
+%%
 <!-- REVISED in response to the Google PAT review, point 3. The superseded text read:
 
 The mutualist paradigm \citep{borsboom2013}, which describes indicators as nodes
@@ -112,10 +123,9 @@ On the other hand the mutualist model does not make much sense regarding correla
 ---------- END ORIGINAL ---------- -->
 
 
-## Interpreting Factor Structure
+## Interpreting Structural Patterns
 
-Understanding the patterns of benchmark correlation is theoretically relevant to cognitive science, though this relevance does not concern any one specific factor loading pattern. Under a small number of benchmarks the discovered patterns depend on which benchmarks were sampled \citep{major2011}, and under a large number the missingness pattern becomes too large to trust any single solution. 
-The correct approach is therefore to examine recurring and large-scale patterns.
+Understanding the patterns of benchmark correlation is theoretically relevant to cognitive science, though this relevance does not concern any one specific factor loading pattern. Under a small number of benchmarks the discovered patterns depend on which benchmarks were sampled \citep{major2011}, and under a large number the missingness pattern becomes too large to trust any single solution.  The correct approach is therefore to examine recurring and large-scale patterns.
 <!-- since it is almost never productive to interpret what each individual factors denote from a 5, 7, or 20 factor solution.  -->
 One such pattern is the explanatory power[^1] of a general intelligence factor. When a general factor dominates the explained variance of an EFA result, variance in an LLM's capability is predominantly caused by a latent $g$, supporting the idea that a flexible, "raw" intelligence is a substantial component of performance and that targeting it is a fruitful research program. A weak $g$ factor instead means that LLM abilities are strongly specific, so improvements require brute-force training in as much task diversity as possible, with no silver-bullet construct that parsimoniously describes "general intelligence". A second pattern is which benchmarks load highest. Under the indifference of the indicator \citep{spearman1904}, content does not determine loading, so the test is whether a factor recovered from a small battery survives a wider one.
 
@@ -162,8 +172,7 @@ increases). It sets up either. -->
 
 [^1]: We use the phrase "explanatory power" over "existence", as $g$ is a construct of the factor model we fit.
 
-We read these patterns without assuming what a general factor should look like, since factor analysis is a bottom-up, theoriless approach. Authors tend to impose theories of human intelligence on artificial neural networks, as we know of no better model of intelligence than our own. However, it is problematic because these networks present an entirely different form of cognitive process than that of biological minds. Human intelligence research itself began with factor analysis \citep{spearman1904} and continues to apply bottom-up dimension reduction even though its theories have been well established for decades.
-Therefore, we do not assume any general factor to be comprehensible, and so we do not discriminate between benchmarks and try to sample as much of the set of all possible tasks as we can. We argue that it is a reasonable position to expect that LLMs work in ways entirely unintuitive to the human mind, and having no priors whatsoever is the correct way to start our inquiry. Purpose-built diversity suites such as BIG-bench \citep{srivastava2022} are denser but sample one team's construction of task diversity, where our interest is in the benchmarks the field actually uses.
+We read these patterns without assuming what a general factor should look like, since factor analysis is a bottom-up, theoriless approach. Authors tend to impose theories of human intelligence on artificial neural networks, as we know of no better model of intelligence than our own. However, it is problematic because these networks present an entirely different form of cognitive process than that of biological minds. Human intelligence research itself began with factor analysis \citep{spearman1904} and continues to apply bottom-up dimension reduction even though its theories have been well established for decades. Therefore, we do not assume any general factor to have a tidy definition, and so we do not discriminate between benchmarks and try to sample as much of the set of all possible tasks as we can. We argue that it is a reasonable position to expect that LLMs work in ways entirely unintuitive to the human mind, and having no priors whatsoever is the correct way to start our inquiry. Purpose-built diversity suites such as BIG-bench \citep{srivastava2022} are denser but sample one team's construction of task diversity, where our interest is in the benchmarks the field actually uses.
 
 <!-- ADDED in response to the Google PAT review, weakness 2, which asks why the
 paper does not validate against dense or diversity-designed suites.

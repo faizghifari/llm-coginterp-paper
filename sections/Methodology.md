@@ -156,10 +156,10 @@ To perform our dimension reduction, we use exploratory factor analysis (EFA) wit
 
 An important statistic from the bifactor EFA is the $\omega_h$ coefficient. There are many statistics labelled $\omega$ commonly used to quantify the reliability of psychometric measures, but in our present purpose, we use $\omega_h$ to quantify the variance explained by the $g$ factor. 
 
-Let $T$ be a matrix of test scores that can be decomposed into independent additive components due to a **general factor** (Gen), **specific factors** (Spe)[^3], and **error** (E), so that
-$$\sigma_X^2 = \sigma^2_{\mathrm{Gen}} + \sigma^2_{\mathrm{Spe}} + \sigma^2_{E}$$
+**Definition 3**. Let $T$ be a matrix of test scores that can be decomposed into independent additive components due to a **general factor** (g), **specific factors** (s)[^3], and **error** ($\epsilon$), so that
+$$\sigma_T^2 = \sigma^2_{\mathrm{g}} + \sigma^2_{\mathrm{s}} + \sigma^2_{\epsilon}$$
 $\omega_h$ is the estimand
-$$\omega_h = \frac{\sigma^2_{\mathrm{Gen}}}{\sigma_X^2}$$
+$$\omega_h = \frac{\sigma^2_{\mathrm{g}}}{\sigma_T^2}$$
 %%i.e., the proportion of observed-score variance attributable to the general factor. In matrix form, for a bifactor loading matrix $\Lambda$ whose first column contains the general-factor loadings $\lambda$ and whose remaining columns contain group-factor loadings, with diagonal error-variance matrix $\Theta^2$:
 $$\omega_h = \frac{\mathbf{1}'\lambda\lambda'\mathbf{1}}{\mathbf{1}'(\Lambda\Lambda' + \Theta^2)\mathbf{1}}$$
 where $\mathbf{1}$ is a vector of ones \citep{cho2025}.%%
