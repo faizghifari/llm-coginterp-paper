@@ -133,7 +133,7 @@ After peeling, models and benchmarks that have fewer than 3 observed scores are 
 
 ### Imputation
 
-We applied 3 families of missing data imputers: **full-dataset** algorithms (SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}), reduced matrix, **correlation recovery** (OneSidedMC \citep{cao2023}-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}), and **directly fill and apply PSD smoothing** (filling with either r = 0 or using the mean observed correlations). Method-level descriptions and implementation detail for all of the above are given in `\hyperref[completion-methods]{Appendix~\ref*{completion-methods}}`{=latex}.
+We applied 2 families of missing data imputers: **full-dataset** algorithms (SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}) and **correlation recovery** (OneSidedMC \citep{cao2023}-corr, USVT \citep{chatterjee2015}, and SoftImpute on the correlation matrix). Method-level descriptions and implementation detail for all of the above are given in `\hyperref[completion-methods]{Appendix~\ref*{completion-methods}}`{=latex}.
 
 
 ### Evaluating the imputations
@@ -143,9 +143,22 @@ Held-out cells are scored in standard-deviation units against a baseline that pr
 
 $$\text{RMSE} = \sqrt{\frac{1}{n}\sum{(\hat z_i - z_i)^2}}, \qquad R^2 = 1 - \frac{\text{MSE}}{\text{MSE}_{\text{baseline}}}$$
 
-Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. 
+Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputations whose held-out $R^2$ falls below 0.2 are not factored.
 
-%%Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it is difficult to interpret $\text{RMSE}$s at face value as to how well the imputer performs. As such, we use the ${R}^2$ as a relative measure to compare how well the imputer predicts held-out values compared to the the expected value of the training cells. Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out ${R}^2$ falls below 0.3 is not factored at all, as it indicates that data-fill is not trustworthy. The split rule and the exact aggregation used for both measures are given in `\hyperref[held-out-metric]{Appendix~\ref*{held-out-metric}}`{=latex}.%%
+%%Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it is difficult to interpret $\text{RMSE}$s at face value as to how well the imputer performs. As such, we use the ${R}^2$ as a relative measure to compare how well the imputer predicts held-out values compared to the the expected value of the training cells. Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out ${R}^2$ falls below 0.2 is not factored at all, as it indicates that data-fill is not trustworthy. The split rule and the exact aggregation used for both measures are given in `\hyperref[held-out-metric]{Appendix~\ref*{held-out-metric}}`{=latex}.%%
+
+<!-- Superseded imputation paragraph (before the switch to the canonical 10%
+run, 2026-09-23). The fill-and-smooth baselines are dropped because the canon run
+does not factor them, and OptSpace because the canon run has no 10% OptSpace
+imputation. SoftImpute on the correlation matrix (softimpute_corr) was already in
+the pipeline and is now named here. It read:
+
+We applied 3 families of missing data imputers: **full-dataset** algorithms
+(SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}),
+reduced matrix, **correlation recovery** (OneSidedMC \citep{cao2023}-corr,
+OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}), and **directly fill
+and apply PSD smoothing** (filling with either r = 0 or using the mean observed
+correlations). -->
 
 ## Factor analysis
 
