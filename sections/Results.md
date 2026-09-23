@@ -56,11 +56,41 @@ Still, something to note is that the range of $\omega_h$ spans quite widely. The
 
 ## Benchmark clusters
 
+<!-- Table 4 as markdown, before being made smaller and wrapped with body text via wraptable (2026-09-23):
+
+**Table 4**. Cohesion of subject labels. A is the
+
+| Label | Median A | Significant | Median n |
+|---|---|---|---|
+| `code` | +0.263 | 7/16 | 11 |
+| `logical_reasoning` | +0.090 | 1/16 | 6 |
+| `encyclopedic` | +0.076 | 1/16 | 23 |
+| `math` | +0.048 | 0/16 | 10 |
+-->
+
+```{=latex}
+\begin{wraptable}{r}{0.46\textwidth}
+\footnotesize\setlength{\tabcolsep}{3pt}
+\centering
+\textbf{Table 4.} Cohesion of subject labels. Full cohesion results for every label can be seen in Appendix XXX \par\vspace{4pt}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Label & Median A & Significant \\
+\midrule
+\texttt{code} & +0.263 & 7/16 \\
+\texttt{logical\_reasoning} & +0.090 & 1/16 \\
+\texttt{encyclopedic} & +0.076 & 1/16 \\
+\texttt{math} & +0.048 & 0/16 \\
+\bottomrule
+\end{tabular}
+\end{wraptable}
+```
+
 Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). Something striking from this visual is how benchmarks with common subject only occasionally cluster together. Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. A telling example is how, for coding, `livecodebench`, `swe_bench`, and `humaneval` stands very far apart from each other, and the same is true for math with the benchmarks `gsm8k`, `math`, and `aime25`. In other words, **capability in one task does not always generalize well to another task of the same subject**. A degree of generality exists, of course, evident by `bigcodebench` stands relatively close to `humaneval` A semantically coherent generalization is probable but not guaranteed, which can make isolating domain abilities difficult to do from a purely semantic and intuitive standpoint. This phenomena, where same-domain benchmarks lacks a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further at (`\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}).
 
 ![[S_softimpute.png]]
 
-%%Figure 1 below shows a UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). Something striking from this visual is how benchmarks with common subject only occasionally cluster together. Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. It is also telling that even commonly-targeted benchmarks like `arc` and `gpqa_diamond` are located quite far from each other, and a coding benchmark like `swe_bench` is closer to some mathematics benchmarks like `math500` and `aime25` than it is to `FlashInfer-Bench`. In other words, **capability in one task does not always generalize well to another task of the same subject**.
+%%Figure 1 below shows a UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). Something striking from this visual is how benchmarks with common subject only occasionally cluster together. This is supported by the low cohesion scores in Table 4. It is also telling that even commonly-targeted benchmarks like `arc` and `gpqa_diamond` are located quite far from each other, and a coding benchmark like `swe_bench` is closer to some mathematics benchmarks like `math500` and `aime25` than it is to `FlashInfer-Bench`. In other words, **capability in one task does not always generalize well to another task of the same subject**.
 
 A degree of generality exists, of course. The bottom figure, using composite distance of the S dataset, shows a clustering of several coding and math benchmarks, but other abstract reasoning benchmarks like `gsm8k` `and` arc are placed at the bottom of the continent. Note however that most clusters resemble the top, raw dataset with greatly-spaced out subjects compared to the S datasets. A semantically coherent generalization is probable but quite far from a guarantee.
 
@@ -116,7 +146,7 @@ of about 19 pipeline configurations and CIs spanning negative values on a stated
 [0, 1] scale, which the same review raises separately. -->
 
 
-**Table 4**. Top 20 benchmarks, sorted by the normalized rank-order of their $g$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last. N is the number of solutions containing the benchmark, and the 95% CI is a t-interval over those N, so it is not bounded to [0, 1].
+**Table 5**. Top 20 benchmarks, sorted by the normalized rank-order of their $g$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last. N is the number of solutions containing the benchmark, and the 95% CI is a t-interval over those N, so it is not bounded to [0, 1].
 
 | no  | benchmark                | avg norm rank | sd    | 95% ci          | n cells | best  | worst |
 | --- | ------------------------ | ------------- | ----- | --------------- | ------- | ----- | ----- |
