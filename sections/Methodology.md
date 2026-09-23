@@ -10,7 +10,9 @@ In this study we investigate the low-dimensional structure of model benchmark sc
 
 ## Data Collection
 
-**Scope.** We limit this study to the evaluation of generative language models on a set of text-only benchmarks. We define generative language models as those that accept arbitrary prompts and produce text completions. Encoder-only classifiers, narrow task-specific systems (dedicated MT/ASR/TTS models), and undocumented community uploads are excluded. Benchmarks are included if they have at least one in-scope result row. For each row, we follow the schema from EveryEvalEver \citep{everyevalever2026} to unify the evaluation results. The schema includes fields for model, benchmark, metric, score, and other metadata such as inference setup, metric interpretation, evaluation date, and source. Full inclusion and exclusion criteria are given in `\hyperref[inclusion-and-exclusion-criteria]{Appendix~\ref*{inclusion-and-exclusion-criteria}}`{=latex}.
+**Scope.** We limit this study to the evaluation of generative language models on a set of text-only benchmarks. We define generative language models as those that accept arbitrary prompts and produce text completions. Encoder-only classifiers, narrow task-specific systems (dedicated MT/ASR/TTS models), and undocumented community uploads are excluded. Benchmarks are included if they have at least one in-scope result row. For each row, we follow the schema from EveryEvalEver \citep{everyevalever2026} to unify the evaluation results. Full inclusion and exclusion criteria are given in `\hyperref[inclusion-and-exclusion-criteria]{Appendix~\ref*{inclusion-and-exclusion-criteria}}`{=latex}.
+
+<!-- Cut for space 2026-09-23 (the schema is described in the EveryEvalEver paper and Appendix B). The text read: The schema includes fields for model, benchmark, metric, score, and other metadata such as inference setup, metric interpretation, evaluation date, and source. -->
 
 **Sources.** Table 1 gives the composition of the text-only corpus by source family. `\hyperref[data-source-and-normalization]{Appendix~\ref*{data-source-and-normalization}}`{=latex} lists every named source and the extraction route used for each.
 <!-- Specifically, these sources can be broken down into source families such as Stanford HELM \citep{helm2023}, HuggingFace Open LLM Leaderboard (v1 and v2) \citep{openllmleaderboard2024}, Papers With Code, Kaggle AI Benchmarks, Chatbot Arena / LMArena \citep{chatbotarena2024}, llm-stats.com, Artificial Analysis, Vellum, and LiveBench, together with benchmark-specific leaderboards and primary papers reporting original evaluations.  -->
@@ -28,7 +30,7 @@ Table 2 at the end of Densification. Keep the numbers in both places in step. --
 ```{=latex}
 \begin{center}\small\setlength{\tabcolsep}{4pt}
 \begin{minipage}[t]{0.47\textwidth}
-\label{tab:sources}\textbf{Table 1.} Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). More detailed breakdown is given in \hyperref[tab:a1]{Table A1}.\par\vspace{4pt}
+\label{tab:sources}\textbf{Table 1.} Composition of the text-only corpus by source family. More detailed breakdown is given in \hyperref[tab:a1]{Table A1}.\par\vspace{4pt}
 \centering
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -64,6 +66,8 @@ R & Aggressive & 97 $\times$ 310 & 11.7\% & 78\% \\
 \end{center}
 ```
 
+<!-- Table 1 caption shortened for space, 2026-09-23, since the section opener and Table A1 give the totals. It read: Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). More detailed breakdown is given in Table A1. -->
+
 <!-- Table 1 as markdown, before the side-by-side layout:
 
 `\label{tab:sources}`{=latex}**Table 1.** Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). More detailed breakdown is given in `\hyperref[tab:a1]{Table A1}`{=latex}.
@@ -81,7 +85,9 @@ R & Aggressive & 97 $\times$ 310 & 11.7\% & 78\% \\
 **Protocol.** Given the large number of fields from the EveryEvalEver schema, we follow a strict source-verification protocol, meaning each field is populated only if the verified source explicitly documented it. In exception, some fields can be inferred from the record itself using deductive rules with small risk of error (see `\hyperref[deductive-fills]{Appendix~\ref*{deductive-fills}}`{=latex}). In particular, we put some focus on obtaining the release date field for both models and benchmarks, and only accept a release date if it is explicitly documented in the source (`\hyperref[release-date-provenance]{Appendix~\ref*{release-date-provenance}}`{=latex}). 
 <!-- The release date info coverage is 99.7 % of models and 99.8 % of benchmarks.  -->
 <!-- However, since the quality of the model and benchmark release dates are different (97.3% vs 73.4% at month precision), we treat the benchmark axis as provisional (see `\hyperref[benchmark-dates-are-much-weaker-than-model-dates.]{Appendix~\ref*{benchmark-dates-are-much-weaker-than-model-dates.}}`{=latex}).  -->
-We also handle redundancy at two levels. Redundant duplicate rows are removed (`\hyperref[duplicate-detection-and-integrity-checks]{Appendix~\ref*{duplicate-detection-and-integrity-checks}}`{=latex}), and near-perfectly correlated benchmark identifiers (version, dialect, or language splits of one benchmark) are collapsed to one representative, which removes 47 identifiers and 2,216 rows (`\hyperref[score-redundancy-pruning]{Appendix~\ref*{score-redundancy-pruning}}`{=latex}). A separate, earlier pass removes benchmarks that are literal-translation duplicates at the corpus level, keeping multilingual benchmarks whose per-language content is independently sourced (`\hyperref[benchmark-translation-duplicates]{Appendix~\ref*{benchmark-translation-duplicates}}`{=latex}).
+We also handle redundancy at two levels. Redundant duplicate rows are removed (`\hyperref[duplicate-detection-and-integrity-checks]{Appendix~\ref*{duplicate-detection-and-integrity-checks}}`{=latex}), and near-perfectly correlated benchmark identifiers (version, dialect, or language splits of one benchmark) are collapsed to one representative, which removes 47 identifiers and 2,216 rows (`\hyperref[score-redundancy-pruning]{Appendix~\ref*{score-redundancy-pruning}}`{=latex}).
+
+<!-- Cut for space 2026-09-23 (Appendix B.5.3 already covers the translation-duplicate pass in full). The text read: A separate, earlier pass removes benchmarks that are literal-translation duplicates at the corpus level, keeping multilingual benchmarks whose per-language content is independently sourced (`\hyperref[benchmark-translation-duplicates]{Appendix~\ref*{benchmark-translation-duplicates}}`{=latex}). -->
 
 <!-- The two sentences above replace a standalone **Redundancy.** paragraph that
 ran to 169 words. Everything cut is already written up in the appendix: the
@@ -157,15 +163,19 @@ percentages that were already beside them. (iv) "from the source and", "some" an
 
 The two strategies trade sample size against row homogeneity: the standard collapse preserves more rows but leaves each row thinly observed, while the aggressive collapse produces far fewer, much better-observed rows at the cost of treating a 7B and a 405B model of one family as one entity. The token-level rules are given in `\hyperref[model-identity-collapse]{Appendix~\ref*{model-identity-collapse}}`{=latex}.%%
 
-**Metric selection.** About 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we keep one metric covering the most distinct models, so the widest comparable population survives. A per-benchmark override list handles cases where coverage alone chooses badly. This drops 1,420 result rows and 706 model-cells. Finally, benchmarks observed for only one model are dropped.
+**Metric selection.** About 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we keep one metric covering the most distinct models, so the widest comparable population survives. A per-benchmark override list handles cases where coverage alone chooses badly. Finally, benchmarks observed for only one model are dropped.
+
+<!-- Cut for space 2026-09-23 (row counts, not needed in the main text). The text read: This drops 1,420 result rows and 706 model-cells. -->
 
 <!-- At 2–4 % observed, the raw data is ineligible for virtually any data analysis. We therefore improve the dataset density by applying several additional steps that discard missing data, described below. All three densifiers greedily peel the matrix toward a common target density, differing only in which axis they sacrifice: -->
 
-**Densification.** We further improve the data density by greedily peeling the matrix towards a common target density. We feature three densifiers, differing by the axis they sacrifice: **C (column-primary)** drops the least-observed benchmarks, then any model left empty, retaining famous benchmarks with wide model coverage. **R (row-primary)** drops the least-observed models, then any benchmark left empty, retaining a broad benchmark set over a small set of heavily-evaluated models, which leaves fewer models than benchmarks. **S (symmetric)** drops whichever marginal has the lowest fill-rate, privileging neither axis.
+**Densification.** We further improve the data density by greedily peeling the matrix towards a common target density. We feature three densifiers, differing by the axis they sacrifice: **C (column-primary)** drops the least-observed benchmarks, then any model left empty, retaining famous benchmarks with wide model coverage. **R (row-primary)** drops the least-observed models, then any benchmark left empty, retaining a broad benchmark set over a small set of heavily-evaluated models, which leaves fewer models than benchmarks. **S (symmetric)** drops whichever marginal has the lowest fill-rate, privileging neither axis. After peeling, models and benchmarks that have fewer than 3 observed scores are dropped. Columns with zero variance among observed values are also dropped, since they carry no correlational signal. The algorithm is given in `\hyperref[densification-algorithm]{Appendix~\ref*{densification-algorithm}}`{=latex}. We set the target density at 10%, which is low, so that we can include as many different benchmarks as possible.
 
 <!-- Style pass 2026-09-23 (factual fix, Table 2 has R at 175 x 298 and 97 x 310). The sentence read: retaining a broad benchmark set over a small set of heavily-evaluated models, and leads to having more observations than variables. -->
 
-After peeling, models and benchmarks that have fewer than 3 observed scores are dropped. Columns with zero variance among observed values are also dropped, since they carry no correlational signal. The algorithm is given in `\hyperref[densification-algorithm]{Appendix~\ref*{densification-algorithm}}`{=latex}. Note that we select a still relatively low target density at 10%, so that we can include as many different benchmarks as possible.
+<!-- The two Densification paragraphs (densifiers, then After peeling...) were merged into one for space, 2026-09-23. -->
+
+<!-- Style pass 2026-09-23 (hedging still relatively). The sentence read: Note that we select a still relatively low target density at 10%, so that we can include as many different benchmarks as possible. -->
 
 <!-- Table 2 as markdown, before the side-by-side layout (now typeset next to
 Table 1 in Data Collection):
@@ -197,11 +207,15 @@ Table 1 in Data Collection):
 
 <!-- Cut to save space (2026-09-23), since the sentence before it makes the same point: Without column stratification, our evaluation score is inflated by the fact that high-observation benchmarks (which are the least difficult to impute) are sampled more often than low-observation ones. -->
 
-Held-out cells are scored in standard-deviation units against a baseline that predicts each column's training mean:
+Held-out cells are scored in standard-deviation units against a baseline that predicts each column's training mean (`\hyperref[held-out-metric]{Appendix~\ref*{held-out-metric}}`{=latex}):
 
 $$\text{RMSE} = \sqrt{\frac{1}{n}\sum{(\hat z_i - z_i)^2}}, \qquad R^2 = 1 - \frac{\text{MSE}}{\text{MSE}_{\text{baseline}}}$$
 
-Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputations whose held-out $R^2$ falls below 0.2 are not factored.
+$R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputations whose held-out $R^2$ falls below 0.2 are not factored.
+
+<!-- Cut for space 2026-09-23 (the formula already defines R2, and Appendix G gives the column-balanced aggregation). The two sentences read: Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. -->
+
+<!-- Style pass 2026-09-23 (filler Notably). The sentence read: Notably, both measures are column-balanced, -->
 
 %%Here, $\text{RMSE}$ provides a single scalar for prediction error. However, it is difficult to interpret $\text{RMSE}$s at face value as to how well the imputer performs. As such, we use the ${R}^2$ as a relative measure to compare how well the imputer predicts held-out values compared to the the expected value of the training cells. Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Notably, both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. $R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputation results whose held-out ${R}^2$ falls below 0.2 is not factored at all, as it indicates that data-fill is not trustworthy. The split rule and the exact aggregation used for both measures are given in `\hyperref[held-out-metric]{Appendix~\ref*{held-out-metric}}`{=latex}.%%
 
@@ -220,23 +234,39 @@ correlations). -->
 
 ## Factor analysis
 
-To perform our dimension reduction, we use exploratory factor analysis (EFA) with the minimum residual estimator and the oblique promax rotation[^2]. Importantly, particularly with respect to the inquiries about a $g$ factor, is the use of Schmid-Leiman \citep{schmidleiman1957} bifactor transformation. In essence, this technique runs factor analysis hierarchically, yielding one additional factor that influences the rest of the extracted factor. This technique is quite well-used in psychometric research explicitly about a $g$ factor of intelligence \citep{johnson2004,johnson2008}. The hierarchical step makes it a more principled choice over interpreting the highest-eigenvalue solution (e.g., \citealp{krakauer2026}) as the $g$ factor.
+To perform our dimension reduction, we use exploratory factor analysis (EFA) with the minimum residual estimator and the oblique promax rotation[^2], followed by the Schmid-Leiman bifactor transformation \citep{schmidleiman1957}. This runs factor analysis hierarchically, yielding one additional factor that influences the rest of the extracted factors, and is well-used in psychometric research on the $g$ factor of intelligence \citep{johnson2004,johnson2008}. The hierarchical step makes it a more principled choice over interpreting the highest-eigenvalue solution (e.g., \citealp{krakauer2026}) as the $g$ factor.
 
-An important statistic from the bifactor EFA is the $\omega_h$ coefficient. There are many statistics labelled $\omega$ commonly used to quantify the reliability of psychometric measures, but in our present purpose, we use $\omega_h$ to quantify the variance explained by the $g$ factor. 
+<!-- Style pass 2026-09-23 (trimmed for space, filler Importantly, In essence, quite). The sentence read: To perform our dimension reduction, we use exploratory factor analysis (EFA) with the minimum residual estimator and the oblique promax rotation[^2]. Importantly, particularly with respect to the inquiries about a $g$ factor, is the use of Schmid-Leiman \citep{schmidleiman1957} bifactor transformation. In essence, this technique runs factor analysis hierarchically, yielding one additional factor that influences the rest of the extracted factor. This technique is quite well-used in psychometric research explicitly about a $g$ factor of intelligence \citep{johnson2004,johnson2008}. -->
 
-**Definition 3**. Let $T$ be a matrix of test scores that can be decomposed into independent additive components due to a **general factor** (g), **specific factors** (s)[^3], and **error** ($\epsilon$), so that
-$$\sigma_T^2 = \sigma^2_{\mathrm{g}} + \sigma^2_{\mathrm{s}} + \sigma^2_{\epsilon}$$
-$\omega_h$ is the estimand
-$$\omega_h = \frac{\sigma^2_{\mathrm{g}}}{\sigma_T^2}$$
+From the bifactor solution we use the $\omega_h$ coefficient to quantify the variance explained by the $g$ factor. 
+
+<!-- Style pass 2026-09-23 (trimmed for space). The sentence read: An important statistic from the bifactor EFA is the $\omega_h$ coefficient. There are many statistics labelled $\omega$ commonly used to quantify the reliability of psychometric measures, but in our present purpose, we use $\omega_h$ to quantify the variance explained by the $g$ factor. -->
+
+**Definition 3**. Let $T$ be a matrix of test scores that can be decomposed into independent additive components due to a **general factor** (g), **specific factors** (s)[^3], and **error** ($\epsilon$). Then $\omega_h$ is the estimand
+$$\omega_h = \frac{\sigma^2_{\mathrm{g}}}{\sigma_T^2}, \qquad \sigma_T^2 = \sigma^2_{\mathrm{g}} + \sigma^2_{\mathrm{s}} + \sigma^2_{\epsilon}.$$
 %%i.e., the proportion of observed-score variance attributable to the general factor. In matrix form, for a bifactor loading matrix $\Lambda$ whose first column contains the general-factor loadings $\lambda$ and whose remaining columns contain group-factor loadings, with diagonal error-variance matrix $\Theta^2$:
 $$\omega_h = \frac{\mathbf{1}'\lambda\lambda'\mathbf{1}}{\mathbf{1}'(\Lambda\Lambda' + \Theta^2)\mathbf{1}}$$
 where $\mathbf{1}$ is a vector of ones \citep{cho2025}.%%
 
-[^2]: As eigenvector matrices are rotation-invariant, it is typical in psychometrics to run factor rotation algorithms to get an interpretable "simple structure". Oblique families of rotations, in addition, allow eigenvectors to correlate with each other, while default eigendecomposition yields orthogonal solutions.
-[^3]: This is more standardly called "group factors", but we use the term "specific factor" to avoid possible confusion with observation grouping
+<!-- Definition 3 put on one display line for space, 2026-09-23. It read:
+
+so that
+$$\sigma_T^2 = \sigma^2_{\mathrm{g}} + \sigma^2_{\mathrm{s}} + \sigma^2_{\epsilon}$$
+$\omega_h$ is the estimand
+$$\omega_h = \frac{\sigma^2_{\mathrm{g}}}{\sigma_T^2}$$
+-->
+
+[^2]: Rotation gives an interpretable "simple structure". Oblique rotations allow the factors to correlate, while default eigendecomposition yields orthogonal solutions.
+[^3]: Usually called "group factors". We avoid the term to prevent confusion with observation grouping.
+
+<!-- Style pass 2026-09-23 (footnote shortened for space). The sentence read: [^3]: This is more standardly called "group factors", but we use the term "specific factor" to avoid possible confusion with observation grouping -->
+
+<!-- Style pass 2026-09-23 (footnote shortened for space). The sentence read: [^2]: As eigenvector matrices are rotation-invariant, it is typical in psychometrics to run factor rotation algorithms to get an interpretable "simple structure". Oblique families of rotations, in addition, allow eigenvectors to correlate with each other, while default eigendecomposition yields orthogonal solutions. -->
 
 
-One additional step we do is parallel analysis \citep{horn1965} to select the number of factor analysis dimensions. It uses simulated random values to determine eigenvalue cutoffs to discard low-variance factors. To keep wall-clock time tractable we cap the number of factors extracted to 20. 
+One additional step we do is parallel analysis \citep{horn1965} to select the number of factor analysis dimensions. To keep wall-clock time tractable we cap the number of factors extracted to 20. 
+
+<!-- Cut for space 2026-09-23 (parallel analysis is standard and Appendix H gives the details). The text read: It uses simulated random values to determine eigenvalue cutoffs to discard low-variance factors. -->
 
 %%Estimator settings, the factor-count rule and its caps, and the leave-one-covariate-out procedure are given in `\hyperref[factor-analysis-details]{Appendix~\ref*{factor-analysis-details}}`{=latex}.
 %%
