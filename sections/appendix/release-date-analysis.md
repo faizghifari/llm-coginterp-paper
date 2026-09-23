@@ -86,32 +86,37 @@ Taken together, most of the era effect comes from the missingness pattern. The s
 
 | Density | Densifier | Imputer | $\rho$ | Era $z$ | Year gap ($p$) | Co-obs. |
 | ------ | -------- | ------------------ | -----: | -----: | ------------ | ------------: |
-| 10% | C | SoftImpute | -0.16 | -6.2 | 0.07 (0.010) | 0.39 |
-| 10% | C | missForest | 0.21 | -4.3 | 0.10 (0.058) | 0.31 |
-| 10% | C | k-NN | -0.34 | -7.9 | 0.06 (0.100) | 0.43 |
-| 10% | C | OneSidedMC | 0.09 | -12.2 | 0.18 (0.000) | 0.49 |
-| 10% | C | SoftImpute (corr.) | -0.06 | -6.0 | 0.11 (0.026) | 0.25 |
-| 10% | S | SoftImpute | -0.03 | -7.0 | 0.09 (0.000) | 0.20 |
-| 10% | S | missForest | 0.22 | -14.4 | 0.20 (0.000) | 0.47 |
-| 10% | S | k-NN | 0.26 | -6.2 | 0.01 (0.296) | 0.24 |
-| 10% | S | OneSidedMC | -0.10 | -1.8 | 0.03 (0.152) | 0.20 |
-| 10% | S | SoftImpute (corr.) | -0.02 | -1.6 | 0.04 (0.174) | 0.20 |
-| 20% | C | SoftImpute | -0.49 | -2.5 | 0.11 (0.042) | 0.50 |
-| 20% | C | missForest | -0.40 | -7.0 | 0.31 (0.000) | 0.15 |
-| 20% | C | k-NN | -0.26 | -3.6 | 0.00 (0.454) | 0.37 |
-| 20% | C | OneSidedMC | -0.01 | -3.0 | 0.17 (0.002) | 0.43 |
-| 20% | C | SoftImpute (corr.) | -0.28 | -2.1 | 0.12 (0.082) | 0.35 |
-| 20% | S | SoftImpute | -0.18 | -4.5 | 0.05 (0.144) | 0.55 |
-| 20% | S | missForest | 0.28 | -6.0 | 0.19 (0.012) | 0.43 |
-| 20% | S | k-NN | -0.24 | -5.2 | 0.02 (0.342) | 0.49 |
-| 20% | S | OneSidedMC | -0.08 | -7.7 | 0.18 (0.000) | 0.63 |
-| 20% | S | SoftImpute (corr.) | 0.22 | -1.2 | 0.06 (0.236) | 0.14 |
+| 10% | C | SoftImpute | -0.16 | -6.1 | 0.07 (0.022) | 0.39 |
+| 10% | C | missForest | 0.21 | -4.2 | 0.10 (0.054) | 0.31 |
+| 10% | C | k-NN | -0.34 | -8.2 | 0.06 (0.082) | 0.43 |
+| 10% | C | OneSidedMC | 0.09 | -12.5 | 0.18 (0.000) | 0.49 |
+| 10% | C | SoftImpute (corr.) | -0.06 | -6.1 | 0.11 (0.018) | 0.25 |
+| 10% | S | SoftImpute | -0.03 | -6.9 | 0.09 (0.004) | 0.20 |
+| 10% | S | missForest | 0.22 | -14.2 | 0.20 (0.000) | 0.47 |
+| 10% | S | k-NN | 0.26 | -6.0 | 0.01 (0.314) | 0.24 |
+| 10% | S | OneSidedMC | -0.10 | -1.7 | 0.03 (0.154) | 0.20 |
+| 10% | S | SoftImpute (corr.) | -0.02 | -1.7 | 0.04 (0.158) | 0.20 |
+| 20% | C | SoftImpute | -0.49 | -2.5 | 0.11 (0.046) | 0.50 |
+| 20% | C | missForest | -0.40 | -6.9 | 0.31 (0.000) | 0.15 |
+| 20% | C | k-NN | -0.26 | -3.6 | 0.00 (0.424) | 0.37 |
+| 20% | C | OneSidedMC | -0.01 | -3.1 | 0.17 (0.002) | 0.43 |
+| 20% | C | SoftImpute (corr.) | -0.29 | -2.2 | 0.12 (0.096) | 0.35 |
+| 20% | S | SoftImpute | -0.18 | -4.6 | 0.05 (0.174) | 0.55 |
+| 20% | S | missForest | 0.28 | -6.0 | 0.19 (0.004) | 0.43 |
+| 20% | S | k-NN | -0.24 | -5.2 | 0.02 (0.388) | 0.49 |
+| 20% | S | OneSidedMC | -0.08 | -7.5 | 0.18 (0.000) | 0.63 |
+| 20% | S | SoftImpute (corr.) | 0.22 | -1.2 | 0.06 (0.214) | 0.14 |
 
-<!-- New appendix, written 2026-09-23. Every number is produced by scripts in
-~/llm-coginterp/results/text_only/cohort_analysis/ (paper_tables.py for Tables
-A4 to A6 and the figure, v2block.py for Table A7, bench_date.py and
-bench_date_confound.py for Table A8 and the benchmark paragraphs). README.md in
-that folder has the commands.
+<!-- New appendix, written 2026-09-23. Every table, every count quoted in the
+text and the figure are produced in ~/llm-coginterp by
+
+    make release-date DATA_ROOT=<d> RESULTS_ROOT=<r>          (once per density)
+    make release-date-report RUNS="10%=<r10>/release_date 20%=<r20>/release_date"
+
+which writes release_date_tables.md (Tables A4 to A8 plus a "Counts quoted in
+the text" list) and release-cohort-omega.png. Copy the figure into the vault
+root and the tables into this file after a rerun. See the README section
+"Release-date analysis" in that repo.
 
 Data: results/text_only/10perc (the matrices behind Table 3) and 20perc (same
 densifier at TARGET = 0.2). Release years come from the corrected join through
