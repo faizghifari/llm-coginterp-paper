@@ -12,18 +12,10 @@ Every method on the R side shares one interface. It takes the sparse matrix in, 
 
 
 %%SoftImpute selects $\lambda$ within a rank by cell-weighted held-out RMSE (an internal minimisation only) and *reports* the column-balanced score. The completed matrix returned is a refit on the full data at the selected $(\text{rank}, \lambda)$, while the reported score comes from the masked-train fit's predictions. The two must not be conflated, or the metric leaks.%%
-## OneSidedMC
-
-Implemented in Julia \citep{cao2023}. The premise is that when observations are too sparse to complete cells, the **right singular vectors** (the benchmark-space factors) may still be recoverable. The estimator targets $\Theta = \frac{1}{n}Z^\top Z$ over the $n$ models. Each product $z_{ij}z_{ij'}$ of two observed standardised scores in one row is an estimate of $\Theta_{jj'}$, and we fit $\hat\Theta = \hat V\hat V^\top$, with $\hat V \in \mathbb{R}^{p \times r}$, to all such products by squared loss using Adam. Off-diagonal and diagonal terms are each averaged over their total count across rows.
-
-Adaptations required for this data:
-
-- **Ragged observations.** Real rows have a variable number of observed benchmarks, so we store observations as a ragged list of column-and-value pairs per row rather than in the paper's fixed-$k$ rectangular layout. The estimator consumes observed cells only, and never a dense matrix plus a mask. Rows with more observations contribute more pairs, so heavily evaluated models carry more weight in $\hat\Theta$.
-- **Rank selection.** OSMC has no built-in rank selector, so we choose $r$ by a held-out sweep over $r = 1\ldots10$.
-- **Cell-level metric.** Its native error is defined on pairwise products, which is not comparable to the other methods, so each held-out cell is additionally predicted from the recovered covariance by the conditional-Gaussian (best linear) predictor $\hat z_j = V_j^\top V_S^{+} z_S$, solved in the $r$-dimensional factor space rather than by inverting the rank-deficient $|S| \times |S|$ covariance block, which is numerically unstable on richly-observed rows. The native pairwise metric is retained as a disabled branch.
-- **Leakage control.** The holdout split is taken *before* column moments are computed, so standardisation is fit on training cells only. Column-stratified holdout matches the R implementation, with the additional row constraint that a cell is held out only if its row retains at least 2 training cells, which the predictor needs in order to condition on.
-
-The output handed to factoring is a synthesised surrogate (`\hyperref[correlation-matrix-completion-and-surrogate-synthesis]{Appendix~\ref*{correlation-matrix-completion-and-surrogate-synthesis}}`{=latex}) rather than an imputation of the real cells.
+<!-- A standalone "## OneSidedMC" section stood here. It duplicated the
+OneSidedMC subsection under the correlation-level estimators below, word for
+word apart from the opening sentence ("Implemented in Julia \citep{cao2023}."),
+so it was removed on 2026-09-23. -->
 
 ## Correlation-matrix completion and surrogate synthesis
 
