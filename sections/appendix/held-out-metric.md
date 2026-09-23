@@ -24,3 +24,10 @@ Two properties are deliberate. The column-balanced RMSE is an **average of per-c
 - The baseline sees only training cells.
 - The reported score must come from a fit that never saw the held-out cells. A full-data refit at the selected hyperparameter is used only to produce the matrix handed downstream.
 - Methods whose native error is not cell-level must still derive a cell-level score (`\hyperref[onesidedmc]{Appendix~\ref*{onesidedmc}}`{=latex}, `\hyperref[correlation-matrix-completion-and-surrogate-synthesis]{Appendix~\ref*{correlation-matrix-completion-and-surrogate-synthesis}}`{=latex}). The native metric may be retained, but it is never the headline.
+
+
+# Gating
+
+Through thorough consideration we have decided that an imputation is considered untrustworthy only when $R^2 < 0.2$. While this may seem a quite low number, we believe this threshold is justifiable for several reasons.
+
+First, 

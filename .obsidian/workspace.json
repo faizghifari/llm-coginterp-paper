@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "sections/Background.md",
+                "file": "sections/appendix/held-out-metric.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Background"
+              "title": "held-out-metric"
             }
           }
         ],
@@ -219,8 +219,20 @@
   },
   "active": "ec6e9c7e6449fe82",
   "lastOpenFiles": [
-    "sections/Methodology.md",
+    "sections/appendix/factor-analysis-details.md",
+    "sections/appendix/known-limitations-and-deviations.md",
+    "sections/appendix/completion-methods.md",
+    "sections/appendix/completion-evaluation.md",
+    "sections/appendix/benchmark-embedding.md",
+    "sections/appendix/normalisation-rules.md",
+    "sections/appendix/llm-usage.md",
+    "sections/appendix/held-out-metric.md",
+    "sections/appendix/data-source-and-normalization.md",
+    "sections/appendix/densification-algorithm.md",
+    "Appendix.md",
+    "sections/Results.md",
     "sections/Background.md",
+    "sections/Methodology.md",
     "sections/Discussion.md",
     "sections/Conclusion.md",
     "Main.md",
@@ -232,10 +244,6 @@
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
     "sections/Introduction.md",
-    "sections/Results.md",
-    "sections/appendix/held-out-metric.md",
-    "sections/appendix/densification-algorithm.md",
-    "sections/appendix/normalisation-rules.md",
     "aggregate.png",
     "References.md",
     "Methodology.md",
@@ -243,7 +251,6 @@
     "Pasted image 20260918130531.png",
     "sections/appendix/A-data-sources-and-extraction.md",
     "Appendix-Methods.md",
-    "Appendix.md",
     "latex-template/Pasted image 20260918013843.png",
     "Pasted image 20260918013843.png",
     "latex-template/Pasted image 20260918012219.png",
@@ -257,12 +264,6 @@
     "tmp.md",
     "Draft.md",
     "Topics.md",
-    "Image",
-    "9. Kelak ke Mana Nyawa Berlari.md",
-    "4. Ketahanan Mencintai.md",
-    "7. Anak Bermain.md",
-    "8. Orang Ramah.md",
-    "6. Pekarangan Mengarat.md",
-    "11. Padahal Jamnya Jalan.md"
+    "Image"
   ]
 }
