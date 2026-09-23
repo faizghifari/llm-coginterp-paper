@@ -286,3 +286,20 @@ makes sense next to the repository. The two facts worth keeping are above.
 
 Its shell comments also cited "Appendix D/F/G/J.5/J.6", which indexed the old
 root-level Appendix-Methods.md lettering and pointed at nothing in this paper. -->
+
+## Label Cohesion Analysis
+
+We measure benchmark similarity as cosine distance between benchmarks' factor-analytic loading vectors: $d = clip(1 - cos \theta, \theta, 2)$. Given this benchmark–benchmark distance matrix, we ask whether each label's members sit closer together than chance.
+
+For a label, let **within** be their mean pairwise distance. We compare this to the **null_mean**: benchmarks are binned into quartiles of $log_{10}(\text{model coverage})$, and the null redraws, 2,000 times, a random same-size set matched to the label's members' coverage-quartile composition, recomputing the same mean-pairwise-distance statistic each draw. Coverage stratification matters because coverage is itself correlated with tightness in this factor space. Labels with fewer than four members, or comprising the entire benchmark set, are not scored. The reported effect size is:
+
+$$A = 1 − \frac{\text{within}}{\text{null\_mean}}$$
+
+0 means the label's members are no tighter than a random draw, 1 means effectively identical members, and negative values mean the members are more spread out than chance. 
+<!-- Because it is a ratio, A does not grow with corpus size, so labels with very different member counts remain comparable on this scale. This is a self-contained one-vs-rest test — each label is scored independently against its own resampled reference set, not jointly against a hard partition of all labels — because benchmarks carry multiple labels simultaneously (subject, task, and language axes are non-exclusive), so no single partition of the corpus exists for a joint test to run against. -->
+
+**Significance** the p-value is computed empirically from the same 2,000 permutation draws:
+
+$$p = (1 + \#\{\text{null draws at least as tight as observed}\}) / (1 + 2000)$$
+
+We control the false discovery rate across that family via Benjamini–Hochberg at q = 0.05. A label's reported significant count (e.g. "7/16") is the number of cells, out of the cells where it had enough members to be scored at all, in which it passed this FDR-corrected threshold.
