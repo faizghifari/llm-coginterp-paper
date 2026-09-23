@@ -54,7 +54,7 @@ The removed rows read:
 
 ### OneSidedMC
 
-We dedicate a subsection for OSMC \citep{cao2023}, as it we use a custom implementation in Julia. The premise is that when observations are too sparse to complete cells, the **right singular vectors** (the benchmark-space factors) may still be recoverable. The estimator targets $\Theta = \frac{1}{n}Z^\top Z$ over the $n$ models. Each product $z_{ij}z_{ij'}$ of two observed standardised scores in one row is an estimate of $\Theta_{jj'}$, and we fit $\hat\Theta = \hat V\hat V^\top$, with $\hat V \in \mathbb{R}^{p \times r}$, to all such products by squared loss using Adam. Off-diagonal and diagonal terms are each averaged over their total count across rows.
+We dedicate a subsection to OSMC \citep{cao2023}, since we use a custom implementation in Julia. The premise is that when observations are too sparse to complete cells, the **right singular vectors** (the benchmark-space factors) may still be recoverable. The estimator targets $\Theta = \frac{1}{n}Z^\top Z$ over the $n$ models. Each product $z_{ij}z_{ij'}$ of two observed standardised scores in one row is an estimate of $\Theta_{jj'}$, and we fit $\hat\Theta = \hat V\hat V^\top$, with $\hat V \in \mathbb{R}^{p \times r}$, to all such products by squared loss using Adam. Off-diagonal and diagonal terms are each averaged over their total count across rows.
 
 Adaptations required for this data:
 
