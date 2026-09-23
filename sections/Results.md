@@ -72,7 +72,7 @@ Still, something to note is that the range of $\omega_h$ spans quite widely. The
 \begin{wraptable}{r}{0.46\textwidth}
 \footnotesize\setlength{\tabcolsep}{3pt}
 \centering
-\textbf{Table 4.} Cohesion of subject labels. Full cohesion results for every label can be seen in Appendix XXX \par\vspace{4pt}
+\textbf{Table 4.} Cohesion of subject labels. Full cohesion results for every label can be seen in \hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}} \par\vspace{4pt}
 \begin{tabular}{@{}lrr@{}}
 \toprule
 Label & Median A & Significant \\
