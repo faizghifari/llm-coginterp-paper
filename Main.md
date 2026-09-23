@@ -75,6 +75,8 @@ Appendix-Methods.md. %%
 
 ![[sections/appendix/benchmark-embedding]]
 
+![[sections/appendix/release-date-analysis]]
+
 ![[sections/appendix/llm-usage]]
 
 <!-- Software environment and reproduction was deleted in pass 5. It was a
