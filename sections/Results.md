@@ -148,7 +148,7 @@ of about 19 pipeline configurations and CIs spanning negative values on a stated
 
 **Table 5**. Top 20 benchmarks, sorted by the normalized rank-order of their $g$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last. N is the number of solutions containing the benchmark, and the 95% CI is a t-interval over those N, so it is not bounded to [0, 1].
 
-| no  | benchmark                | avg norm rank | sd    | 95% ci          | n cells | best  | worst |
+| no  | Benchmark                | Average | SD    | 95% CI          | N | Best  | Worst |
 | --- | ------------------------ | ------------- | ----- | --------------- | ------- | ----- | ----- |
 | 1   | bhasa                    | 0.141         | 0.118 | [-0.005, 0.287] | 5       | 0.024 | 0.318 |
 | 2   | mtrag                    | 0.147         | 0.160 | [-0.051, 0.346] | 5       | 0.021 | 0.394 |

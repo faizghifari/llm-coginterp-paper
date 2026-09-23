@@ -76,13 +76,19 @@ Appendix-Methods.md. %%
 
 ![[sections/appendix/densification-algorithm]]
 
-![[sections/appendix/completion-methods]]
+![[sections/appendix/imputation-methods]]
 
-![[sections/appendix/held-out-metric]]
+![[sections/appendix/imputation-evaluation]]
+
+<!--![[sections/appendix/held-out-metric]]-->
 
 ![[sections/appendix/factor-analysis-details]]
 
 ![[sections/appendix/benchmark-embedding]]
+
+![[sections/appendix/common-subject-distances]]
+
+![[sections/appendix/imputation-diagnostics]]
 
 ![[sections/appendix/release-date-analysis]]
 
@@ -93,4 +99,3 @@ repository README (shell commands, output paths, SQLite table names, package
 lists). The two facts worth keeping moved into the Implementation paragraph at
 the end of sections/Methodology.md, which also carries a TODO for the code and
 data availability statement. -->
-

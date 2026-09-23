@@ -1,4 +1,4 @@
-# Completion methods
+# Imputation methods
 
 Every method on the R side shares one interface. It takes the sparse matrix in, and returns the completed matrix, the swept-parameter grid, and the held-out RMSE and $R^2$ at each parameter value. None of them factor. This is what allows the factoring stage to be identical across methods.
 
