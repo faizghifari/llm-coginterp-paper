@@ -56,7 +56,13 @@ Still, something to note is that the range of $\omega_h$ spans quite widely. The
 
 ## Benchmark clusters
 
-<!-- Table 4 as markdown, before being made smaller and wrapped with body text via wraptable (2026-09-23):
+<!-- Table 4 as markdown, before being made smaller and wrapped with body text via wraptable (2026-09-23).
+(2026-09-24: briefly suspected wrapfig of corrupting an unrelated appendix longtable's column widths
+and reverted to a non-wrapping minipage; that table's garbling turned out to be caused by
+disproportionate separator dashes in imputation-methods.md's own markdown tables, unrelated to
+wrapfig, so the wraptable was restored. See that file's git history if wrapfig is ever suspected again.)
+
+It read:
 
 **Table 4**. Cohesion of subject labels. A is the
 
