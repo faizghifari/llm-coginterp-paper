@@ -1,0 +1,24 @@
+### Per dataset/method pair: omega_h vs r2 (paired rows from factoring and imputation tables
+
+| Run | Dataset | Method | omega_h | r2 |
+|---|---|---|---:|---:|
+| pa | S_all_standard | softimpute | 0.257 | 0.504 |
+| pa | C_all_standard | softimpute | 0.242 | 0.493 |
+| pa | S_all_standard | missforest | 0.032 | 0.471 |
+| pa | C_all_standard | missforest | 0.695 | 0.399 |
+| pa | S_all_standard | softimpute_corr | 0.676 | 0.378 |
+| pa | S_all_standard | onesidedmc | 0.014 | 0.365 |
+| pa | C_all_aggressive | softimpute | 0.183 | 0.337 |
+| pa | C_all_standard | onesidedmc | 0.102 | 0.321 |
+| pa | C_all_standard | softimpute_corr | 0.514 | 0.317 |
+| pa | S_all_standard | knn | 0.204 | 0.296 |
+| pa | R_all_standard | softimpute | 0.367 | 0.290 |
+| pa | C_all_standard | knn | 0.516 | 0.288 |
+| pa | C_all_standard | zeros | 0.621 | 0.286 |
+| pa | S_all_aggressive | softimpute | 0.225 | 0.282 |
+| pa | C_all_aggressive | onesidedmc | 0.065 | 0.278 |
+| pa | raw_all_standard | softimpute | 0.071 | 0.249 |
+| pa | C_all_aggressive | missforest | 0.521 | 0.241 |
+| pa | raw_all_aggressive | softimpute | 0.132 | 0.228 |
+| pa | C_all_standard | default | 0.708 | 0.224 |
+| pa | R_all_aggressive | softimpute | 0.187 | 0.209 |
