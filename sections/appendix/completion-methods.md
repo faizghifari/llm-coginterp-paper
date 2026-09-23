@@ -27,7 +27,7 @@ The output handed to factoring is a synthesised surrogate (`\hyperref[correlatio
 
 ## Correlation-matrix completion and surrogate synthesis
 
-Shared machinery for SoftImpute-corr, OptSpace, USVT, CVXR, and GGM:
+Shared machinery for SoftImpute-corr, USVT, CVXR, and GGM:
 
 1. Split the holdout, then standardise columns by **training-cell** moments.
 2. Compute the observed pairwise-complete correlation matrix. Entries for pairs never co-observed are undefined, and these are exactly the completion target. No minimum co-observation threshold is applied here, because the floor is already enforced upstream by the densifier and the degenerate-column guard.
@@ -42,12 +42,23 @@ Estimators:
 | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | OneSidedMC \citep{cao2023}           | Formulized specifically to impute a large-scale super-sparse dataset requiring only 2 observations per row. Assumes the dataset's true correlation matrix is low-rank.                                                                                | Custom implementation in Julia | Sweeps  rank 1...10, selecting the rank with the best $R^2$.                                                                                                                                                                                             |
 | SoftImpute-corr \citep{mazumder2010} | Applies SoftImpute's low-rank completion to the observed pairwise correlation matrix rather than the data matrix, whose missing entries are exactly the benchmark pairs never co-observed.                                                            | softImpute                     | sweeps rank 1…10 with the same nested $\lambda$ grid as the cell-level methods above                                                                                                                                                                     |
-| OptSpace \citep{keshavan2010}        | Manifold-optimisation low-rank completion of the correlation matrix, with automatic rank estimation.                                                                                                                                                  | filling                        | automatic rank estimation, at most 50 iterations to a tolerance of $10^{-6}$, no sweep                                                                                                                                                                   |
 | USVT \citep{chatterjee2015}          | Universal singular value thresholding: completes the correlation matrix by hard-thresholding its singular values.                                                                                                                                     | filling                        | fixed singular-value threshold $\eta = 0.01$, no sweep                                                                                                                                                                                                   |
 | CVXR (maximum-determinant SDP)       | Structured completion targeting positive-definiteness directly: maximises $\log\det\Sigma$ subject to $\Sigma \succeq 0$ and each observed correlation lying within a per-pair Fisher-*z* confidence band scaled to that pair's co-observation count. | CVXR with the SCS solver       | maximise $\log\det\Sigma$ s.t. $\Sigma \succeq 0$, diagonal matched exactly, each observed off-diagonal constrained to $\tanh(z_{ij} \pm c\,/\sqrt{\max(n_{ij}-3,\,1)})$ with $c = 2$, pairs with no computable correlation left unconstrained, no sweep |
 | GGM (Gaussian graphical model)       | MLE completion over the observed-pair graph, treating it as the conditional-independence structure.                                                                                                                                                   | ggm                            | graphical-model MLE with the observed-pair graph as the conditional-independence structure, handling non-chordal patterns, no sweep                                                                                                                      |
+
+CVXR and GGM produced no usable completion on this data. The CVXR solver was infeasible on the C and S matrices and did not finish on R and the raw matrices, and the GGM fit failed on a singular system on every matrix. Neither enters the factoring.
+
+<!-- Rows removed on the switch to the canonical 10% run (2026-09-23). OptSpace
+has no imputation in that run, and the two fill-and-smooth baselines are not
+factored there, so the Methodology no longer lists them. The CVXR and GGM
+outcomes above are from the canon run's logs (results/text_only/logs/
+impute-cvxr.log, impute-raw-cvxr.log, impute-ggm.log, impute-raw-ggm.log).
+The removed rows read:
+
+| OptSpace \citep{keshavan2010}        | Manifold-optimisation low-rank completion of the correlation matrix, with automatic rank estimation.                                                                                                                                                  | filling                        | automatic rank estimation, at most 50 iterations to a tolerance of $10^{-6}$, no sweep                                                                                                                                                                   |
 | Fill with mean, then PSD smoothing   | Fill the missing entries of the  correlation matrix with the mean observed correlations, then apply PSD smoothing                                                                                                                                     | R standard library (smooth)    |                                                                                                                                                                                                                                                          |
 | Fill with 0, then PSD smoothing      | Fill the missing entries of the  correlation matrix with zeros, then apply PSD smoothing                                                                                                                                                              | R standard librar (smooth)     |                                                                                                                                                                                                                                                          |
+-->
 
 ### OneSidedMC
 
@@ -62,7 +73,7 @@ Adaptations required for this data:
 
 The output handed to factoring is a synthesised surrogate (`\hyperref[correlation-matrix-completion-and-surrogate-synthesis]{Appendix~\ref*{correlation-matrix-completion-and-surrogate-synthesis}}`{=latex}) rather than an imputation of the real cells.
 
-%%Only SoftImpute-corr sweeps a hyperparameter. The other four take a single fixed configuration, so their reported "sweep" is a single point.
+%%Only SoftImpute-corr sweeps a hyperparameter. The other three take a single fixed configuration, so their reported "sweep" is a single point.
 
 The per-pair confidence band in CVXR exists because a single flat tolerance cannot serve both a correlation estimated from $n = 10$ and one from $n = 200$, so the band widens automatically as $n_{ij}$ falls. Solver infeasibility is a genuine finding. It tells us the observed pairwise correlations are not jointly PSD-consistent even at their sampling uncertainty, and the remedy in that case is a wider band. The Gaussian graphical model has no fallback either, and if its fit fails to converge, the method fails.
 
