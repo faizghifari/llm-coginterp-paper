@@ -84,9 +84,9 @@ Appendix-Methods.md. %%
 
 ![[sections/appendix/factor-analysis-details]]
 
-![[sections/appendix/label-cohesion]]
-
 ![[sections/appendix/benchmark-embedding]]
+
+![[sections/appendix/label-cohesion]]
 
 ![[sections/appendix/common-subject-distances]]
 
