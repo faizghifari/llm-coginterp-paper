@@ -31,28 +31,28 @@ Still, something to note is that the range of $\omega_h$ spans quite widely. The
 
 **Table 3**. Point summaries of factor analyses results. AVE = average variance explained per factor, $k$ = number of factors extracted, $\phi$ = average inter-factor correlation.
 
-| Dataset            | Imputer         | $k$ | $\text{AVE}$ | $\omega_h$ | $\phi_\text{avg}$ | $R^2$ |
-| ------------------ | --------------- | --- | ------------ | ---------- | ----------------- | ----- |
-| C_all_standard     | mean            | 14  | 5.5%         | 0.708      | 0.142             | 0.224 |
-| C_all_standard     | missforest      | 4   | 22.1%        | 0.695      | 0.398             | 0.399 |
-| S_all_standard     | softimpute_corr | 5   | 9.3%         | 0.676      | 0.306             | 0.378 |
-| C_all_standard     | zeros           | 14  | 5.4%         | 0.621      | 0.093             | 0.286 |
-| C_all_aggressive   | missforest      | 4   | 19.3%        | 0.521      | 0.112             | 0.241 |
-| C_all_standard     | knn             | 7   | 10.8%        | 0.516      | 0.209             | 0.288 |
-| C_all_standard     | softimpute_corr | 4   | 14.6%        | 0.514      | 0.247             | 0.317 |
-| R_all_standard     | softimpute      | 20  | 4.6%         | 0.367      | 0.012             | 0.290 |
-| S_all_standard     | softimpute      | 5   | 18.3%        | 0.257      | 0.094             | 0.504 |
-| C_all_standard     | softimpute      | 9   | 10.5%        | 0.242      | 0.038             | 0.493 |
-| S_all_aggressive   | softimpute      | 20  | 4.7%         | 0.225      | 0.031             | 0.282 |
-| S_all_standard     | knn             | 11  | 6.9%         | 0.204      | 0.048             | 0.296 |
-| R_all_aggressive   | softimpute      | 20  | 4.7%         | 0.187      | 0.008             | 0.209 |
-| C_all_aggressive   | softimpute      | 5   | 17.8%        | 0.183      | -0.001            | 0.337 |
-| raw_all_aggressive | softimpute      | 10  | 8.9%         | 0.132      | 0.013             | 0.228 |
-| C_all_standard     | onesidedmc      | 2   | 50.0%        | 0.102      | 0.125             | 0.321 |
-| raw_all_standard   | softimpute      | 10  | 9.0%         | 0.071      | -0.010            | 0.249 |
-| C_all_aggressive   | onesidedmc      | 2   | 50.0%        | 0.065      | 0.097             | 0.278 |
-| S_all_standard     | missforest      | 4   | 22.5%        | 0.032      | 0.054             | 0.471 |
-| S_all_standard     | onesidedmc      | 2   | 50.0%        | 0.014      | -0.040            | 0.365 |
+| Dataset            | Imputer         | $k$ |   AVE | $\omega_h$ | $\phi_\text{avg}$ | $R^2$ |
+| ------------------ | --------------- | --: | ----: | ---------: | ----------------: | ----: |
+| C_all_standard     | fill-mean       |  14 |  5.5% |      0.708 |             0.142 | 0.224 |
+| C_all_standard     | missforest      |   4 | 22.1% |      0.695 |             0.398 | 0.399 |
+| S_all_standard     | softimpute_corr |   5 |  9.3% |      0.676 |             0.306 | 0.378 |
+| C_all_standard     | fill-zeros      |  14 |  5.4% |      0.621 |             0.093 | 0.286 |
+| C_all_aggressive   | missforest      |   4 | 19.3% |      0.521 |             0.112 | 0.241 |
+| C_all_standard     | knn             |   7 | 10.8% |      0.516 |             0.209 | 0.288 |
+| C_all_standard     | softimpute_corr |   4 | 14.6% |      0.514 |             0.247 | 0.317 |
+| R_all_standard     | softimpute      |  20 |  4.6% |      0.367 |             0.012 | 0.290 |
+| S_all_standard     | softimpute      |   5 | 18.3% |      0.257 |             0.094 | 0.504 |
+| C_all_standard     | softimpute      |   9 | 10.5% |      0.242 |             0.038 | 0.493 |
+| S_all_aggressive   | softimpute      |  20 |  4.7% |      0.225 |             0.031 | 0.282 |
+| S_all_standard     | knn             |  11 |  6.9% |      0.204 |             0.048 | 0.296 |
+| R_all_aggressive   | softimpute      |  20 |  4.7% |      0.187 |             0.008 | 0.209 |
+| C_all_aggressive   | softimpute      |   5 | 17.8% |      0.183 |            -0.001 | 0.337 |
+| raw_all_aggressive | softimpute      |  10 |  8.9% |      0.132 |             0.013 | 0.228 |
+| C_all_standard     | onesidedmc      |   2 | 50.0% |      0.102 |             0.125 | 0.321 |
+| raw_all_standard   | softimpute      |  10 |  9.0% |      0.071 |            -0.010 | 0.249 |
+| C_all_aggressive   | onesidedmc      |   2 | 50.0% |      0.065 |             0.097 | 0.278 |
+| S_all_standard     | missforest      |   4 | 22.5% |      0.032 |             0.054 | 0.471 |
+| S_all_standard     | onesidedmc      |   2 | 50.0% |      0.014 |            -0.040 | 0.365 |
 
 ## Benchmark clusters
 

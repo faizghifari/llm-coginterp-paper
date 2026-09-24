@@ -357,14 +357,14 @@
       "embedCount": 4,
       "aliases": null,
       "createdDate": 1790171971157,
-      "modifiedDate": 1790229351219,
+      "modifiedDate": 1790231218784,
       "sizeInBytes": 10059,
       "sessionStart": {
         "noteCount": 1,
         "pageCount": 2.5533333333333332,
         "wordCount": 766,
-        "characterCount": 10047,
-        "nonWhitespaceCharacterCount": 6231
+        "characterCount": 10059,
+        "nonWhitespaceCharacterCount": 6241
       }
     },
     "sections/appendix/imputation-methods.md": {
@@ -461,10 +461,10 @@
       "sizeInBytes": 3193,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 1.5866666666666667,
-        "wordCount": 476,
-        "characterCount": 3454,
-        "nonWhitespaceCharacterCount": 2947
+        "pageCount": 1.4433333333333334,
+        "wordCount": 433,
+        "characterCount": 3193,
+        "nonWhitespaceCharacterCount": 2732
       }
     },
     "sections/appendix/densification-algorithm.md": {
@@ -567,6 +567,31 @@
         "nonWhitespaceCharacterCount": 34
       }
     },
+    "sections/appendix/benchmark-g-rankings.md": {
+      "isCountable": true,
+      "targetNodeType": "file",
+      "noteCount": 1,
+      "wordCount": 4599,
+      "wordCountTowardGoal": 0,
+      "wordGoal": null,
+      "pageCount": 15.33,
+      "characterCount": 60533,
+      "nonWhitespaceCharacterCount": 30753,
+      "readingTimeInMinutes": 17.354716981132075,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": null,
+      "createdDate": 1790224842886,
+      "modifiedDate": 1790230375728,
+      "sizeInBytes": 60609,
+      "sessionStart": {
+        "noteCount": 1,
+        "pageCount": 15.33,
+        "wordCount": 4599,
+        "characterCount": 60533,
+        "nonWhitespaceCharacterCount": 30753
+      }
+    },
     "sections/appendix/benchmark-embedding.md": {
       "isCountable": true,
       "targetNodeType": "file",
@@ -600,21 +625,21 @@
       "wordCountTowardGoal": 0,
       "wordGoal": null,
       "pageCount": 5.69,
-      "characterCount": 16091,
-      "nonWhitespaceCharacterCount": 11775,
+      "characterCount": 15937,
+      "nonWhitespaceCharacterCount": 11769,
       "readingTimeInMinutes": 6.441509433962264,
       "linkCount": 0,
       "embedCount": 2,
       "aliases": null,
       "createdDate": 1790178400576,
-      "modifiedDate": 1790230529944,
-      "sizeInBytes": 16094,
+      "modifiedDate": 1790231161184,
+      "sizeInBytes": 15940,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 5.613333333333333,
-        "wordCount": 1684,
-        "characterCount": 15823,
-        "nonWhitespaceCharacterCount": 11451
+        "pageCount": 5.69,
+        "wordCount": 1707,
+        "characterCount": 15915,
+        "nonWhitespaceCharacterCount": 11758
       }
     },
     "sections/Methodology.md": {
@@ -688,8 +713,8 @@
         "noteCount": 1,
         "pageCount": 3.1166666666666667,
         "wordCount": 935,
-        "characterCount": 6525,
-        "nonWhitespaceCharacterCount": 5571
+        "characterCount": 6529,
+        "nonWhitespaceCharacterCount": 5575
       }
     },
     "sections/Conclusion.md": {
@@ -713,7 +738,7 @@
         "noteCount": 1,
         "pageCount": 1.61,
         "wordCount": 483,
-        "characterCount": 3231,
+        "characterCount": 3229,
         "nonWhitespaceCharacterCount": 2696
       }
     },
@@ -1282,8 +1307,8 @@
       "embedCount": 0,
       "aliases": [],
       "createdDate": 1789691179756,
-      "modifiedDate": 1790230791342,
-      "sizeInBytes": 0,
+      "modifiedDate": 1790231234868,
+      "sizeInBytes": 170816,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -1307,8 +1332,8 @@
       "embedCount": 0,
       "aliases": [],
       "createdDate": 1789656772961,
-      "modifiedDate": 1790230535978,
-      "sizeInBytes": 115503,
+      "modifiedDate": 1790231237344,
+      "sizeInBytes": 66299,
       "sessionStart": {
         "noteCount": 0,
         "pageCount": 0,
@@ -1811,10 +1836,10 @@
       "sizeInBytes": 5451,
       "sessionStart": {
         "noteCount": 1,
-        "pageCount": 1.2766666666666666,
-        "wordCount": 383,
-        "characterCount": 3568,
-        "nonWhitespaceCharacterCount": 3125
+        "pageCount": 1.28,
+        "wordCount": 384,
+        "characterCount": 3616,
+        "nonWhitespaceCharacterCount": 3171
       },
       "frontmatter": {
         "title": "General machine intelligence is uninterpretably organized",
@@ -1869,56 +1894,6 @@
         "wordCount": 420,
         "characterCount": 3082,
         "nonWhitespaceCharacterCount": 2648
-      }
-    },
-    "sections/appendix/benchmark-g-rankings.md": {
-      "isCountable": true,
-      "targetNodeType": "file",
-      "noteCount": 1,
-      "wordCount": 4599,
-      "wordCountTowardGoal": 0,
-      "wordGoal": null,
-      "pageCount": 15.33,
-      "characterCount": 60533,
-      "nonWhitespaceCharacterCount": 30753,
-      "readingTimeInMinutes": 17.354716981132075,
-      "linkCount": 0,
-      "embedCount": 0,
-      "aliases": null,
-      "createdDate": 1790224842886,
-      "modifiedDate": 1790230375728,
-      "sizeInBytes": 60609,
-      "sessionStart": {
-        "noteCount": 0,
-        "pageCount": 0,
-        "wordCount": 0,
-        "characterCount": 0,
-        "nonWhitespaceCharacterCount": 0
-      }
-    },
-    "latex-template/Main.pdflatex.log": {
-      "isCountable": false,
-      "targetNodeType": "file",
-      "noteCount": 0,
-      "wordCount": 0,
-      "wordCountTowardGoal": 0,
-      "wordGoal": 0,
-      "pageCount": 0,
-      "characterCount": 0,
-      "nonWhitespaceCharacterCount": 0,
-      "readingTimeInMinutes": 0,
-      "linkCount": 0,
-      "embedCount": 0,
-      "aliases": [],
-      "createdDate": 1790230791852,
-      "modifiedDate": 1790230795094,
-      "sizeInBytes": 121332,
-      "sessionStart": {
-        "noteCount": 0,
-        "pageCount": 0,
-        "wordCount": 0,
-        "characterCount": 0,
-        "nonWhitespaceCharacterCount": 0
       }
     }
   }
