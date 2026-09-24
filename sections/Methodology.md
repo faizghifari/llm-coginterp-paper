@@ -200,7 +200,7 @@ Table 1 in Data Collection):
 - **Correlation-level recovery**: instead exploits the fact that factor analysis needs a correlation matrix, not a data matrix. The benchmark × benchmark correlation structure is a substantially weaker requirement, and so this family estimates that correlation matrix directly. Includes OneSidedMC \citep{cao2023}-corr, OptSpace \citep{keshavan2010}, USVT \citep{chatterjee2015}, maximum-determinant SDP completion, and Gaussian graphical model completion. We also reused the softimpute algorithm as a correlation matrix imputer.
 - **PSD smoothing**: a variant of the correlation-level recovery is by filling the missing entries with a scalar, then applying a PSD smoothing for the resulting matrix. The zeros method fill the missing entries with 0, while the mean uses the mean observed Pearson r.%%
 
-**Imputation.** We applied 2 families of missing data imputers: **full-dataset** algorithms (SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}) and **correlation recovery** (OneSidedMC \citep{cao2023}-corr, USVT \citep{chatterjee2015}, and SoftImpute on the correlation matrix). Method-level descriptions and implementation detail for all of the above are given in `\hyperref[imputation-methods]{Appendix~\ref*{imputation-methods}}`{=latex}. To ascertain whether or not are the imputations trustworthy, we use an $R^2$ measure to compare prediction on held-out cells compared to prediting with just the expected value detailed in `\hyperref[imputation-evaluation]{Appendix~\ref*{imputation-evaluation}}`{=latex}. 
+**Imputation.** We applied 2 families of missing data imputers: **full-dataset** algorithms (SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}) and **correlation recovery** (OneSidedMC \citep{cao2023}-corr, USVT \citep{chatterjee2015}, and SoftImpute on the correlation matrix). Method-level descriptions and implementation detail for all of the above are given in `\hyperref[imputation-methods]{Appendix~\ref*{imputation-methods}}`{=latex}. To ascertain whether or not are the imputations trustworthy, we use an $R^2$ measure to compare prediction on held-out cells compared to predicting with just the expected value detailed in `\hyperref[imputation-evaluation]{Appendix~\ref*{imputation-evaluation}}`{=latex}. 
 
 %%
 **Evaluating the imputations.** At each stage of the imputation, we masked ~20% of the observed cells as an evaluation set. To prevent high-observation benchmarks from inflating the score, we use a column-stratified mask, such that each benchmark is masked at least once and leaving at least two training observations in every column. Columns are standardised using training-cell moments only.
@@ -209,7 +209,7 @@ Held-out cells are scored in standard-deviation units against a baseline that pr
 
 $$\text{RMSE} = \sqrt{\frac{1}{n}\sum{(\hat z_i - z_i)^2}}, \qquad R^2 = 1 - \frac{\text{MSE}}{\text{MSE}_{\text{baseline}}}$$
 
-$R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputations whose held-out $R^2$ falls below 0.2 are not%% factored.
+$R^2$ is used for hyperparameter selection within each method (rank, $k$, number of trees, etc.), and as a gate for factor analysis. Imputations whose held-out $R^2$ falls below 0.2 are not factored.%%
 
 <!-- Cut for space 2026-09-23 (the formula already defines R2, and Appendix G gives the column-balanced aggregation). The two sentences read: Intuitively, by the $\text{MSE}$ division, the ${R}^2$ measures the proportion of errors reduced from using a model relative to the baseline. Both measures are column-balanced, so the final $\text{RMSE}$ is an average of column-wise $\text{RMSE}$, and the $\text{MSE}$ used in $\text{RMSE}$ are also averages of column-wise $\text{MSE}$s. -->
 
@@ -287,14 +287,14 @@ root-level Appendix-Methods.md lettering and pointed at nothing in this paper. -
 
 ## Label Cohesion Analysis
 
-We measure benchmark similarity as cosine distance between benchmarks' factor-analytic loading vectors, described further in `\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}. Given this benchmark–benchmark distance matrix, we ask whether each label's members sit closer together than chance. For a label, let **within** be their mean pairwise distance. We compare this to the **null_mean**: benchmarks are binned into quartiles of $log_{10}(\text{model coverage})$, and the null redraws, 2,000 times, a random same-size set matched to the label's members' coverage-quartile composition, recomputing the same mean-pairwise-distance statistic each draw. Coverage stratification matters because coverage is itself correlated with tightness in this factor space. Labels with fewer than four members, or comprising the entire benchmark set, are not scored. The reported effect size is:
+We measure benchmark similarity as cosine distance between benchmarks' factor-analytic loading vectors, described further in `\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}. Given this benchmark–benchmark distance matrix, we ask whether each label's members sit closer together than chance. For a label, let **within** be their mean pairwise distance. We compare this to the **null_mean**: benchmarks are binned into quartiles of $\log_{10}(\text{model coverage})$, and the null redraws, 2,000 times, a random same-size set matched to the label's members' coverage-quartile composition, recomputing the same mean-pairwise-distance statistic each draw. Coverage stratification matters because coverage is itself correlated with tightness in this factor space. Labels with fewer than four members, or comprising the entire benchmark set, are not scored. The reported effect size is:
 
 $$A = 1 − \frac{\text{within}}{\text{null\_mean}}$$
 
 0 means the label's members are no tighter than a random draw, 1 means effectively identical members, and negative values mean the members are more spread out than chance. 
 <!-- Because it is a ratio, A does not grow with corpus size, so labels with very different member counts remain comparable on this scale. This is a self-contained one-vs-rest test — each label is scored independently against its own resampled reference set, not jointly against a hard partition of all labels — because benchmarks carry multiple labels simultaneously (subject, task, and language axes are non-exclusive), so no single partition of the corpus exists for a joint test to run against. -->
 
-**Significance** the p-value is computed empirically from the same 2,000 permutation draws:
+**Significance.** The p-value is computed empirically from the same 2,000 permutation draws:
 
 $$p = (1 + \#\{\text{null draws at least as tight as observed}\}) / (1 + 2000)$$
 
