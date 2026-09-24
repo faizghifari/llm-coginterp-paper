@@ -94,7 +94,7 @@ Label & Median A & Significant \\
 
 Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). Something striking from this visual is how benchmarks with common subject only occasionally cluster together. Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. A telling example is how, for coding, `livecodebench`, `swe_bench`, and `humaneval` stands very far apart from each other, and the same is true for math with the benchmarks `gsm8k`, `math`, and `aime25`. In other words, **capability in one task does not always generalize well to another task of the same subject**. A degree of generality exists, of course, evident by `bigcodebench` stands relatively close to `humaneval` A semantically coherent generalization is probable but not guaranteed, which can make isolating domain abilities difficult to do from a purely semantic and intuitive standpoint. This phenomena, where same-domain benchmarks lacks a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further at (`\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}).
 
-![[S_softimpute.png]]
+![[S_softimpute.png| UMAP plot of S, softimpute.]]
 
 %%Figure 1 below shows a UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). Something striking from this visual is how benchmarks with common subject only occasionally cluster together. This is supported by the low cohesion scores in Table 4, where only `code` shows a weak cohesion, while others do not show a structure distinguishable to chance. It is also telling that even commonly-targeted benchmarks like `arc` and `gpqa_diamond` are located quite far from each other, and a coding benchmark like `swe_bench` is closer to some mathematics benchmarks like `math500` and `aime25` than it is to `FlashInfer-Bench`. In other words, **capability in one task does not always generalize well to another task of the same subject**.
 
@@ -106,28 +106,29 @@ A degree of generality exists, of course. The bottom figure, using composite dis
 
 ## $g$-loaded benchmarks
 
-Another point of interest for the research question is what benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. Table 4 answers this question by showing the top 20 benchmarks, averaged by the normalized average rank-order[^4] based on their loadings on the $g$ factor.
+Another point of interest for the research question is what benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. Table 4 answers this question by showing the top 20 benchmarks, averaged by the normalized average rank-order[^4] based on their loadings on the $g$ factor. To account for confounding effects from benchmark frequency, we report the residuals of the rank order regressed by frequency. Further details and justification are given in (`\hyperref[benchmark-g-rankings.md]{Appendix~\ref*{benchmark-g-rankings.md}}`{=latex}).
 
 [^4]: We use rank-order as factor loadings vary in range, and they are normalized as different datasets have different number of benchmarks.
 
-Surprisingly, the top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of traditional NLP tasks, legal use case, sports-related knowledge, and even emotional intelligence. There is no evidence that a $g$ factor is abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. **The assumption that reasoning, mathematics, and coding benchmarks are best proxies of the latent factor $g$ best does not hold**.
+Surprisingly, the top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of creativity, legal use case, and even emotional intelligence. There is no evidence that a $g$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. **Our results are evidence that the prevailing assumption that reasoning, mathematics, and coding benchmarks are best proxies of the latent factor $g$ best does not hold**. 
 
+**Table 5**. Top 10 benchmarks, sorted by their average normalized rank-order (ANR) of their $g$ factor loadings, residualized (RANR) against their frequency. The normalized rank-order ranges from 0 to 1. 0 = ranked first, 1 = ranked last. $N$ cells = number of EFA solutions with that benchmark. CI and Best/Worst refers to ANR.
 
-**Table 5**. Top 20 benchmarks, sorted by the normalized rank-order of their $g$ factor loadings, residualized against their frequency. The normalized rank-order ranges from 0 to 1. 0 = ranked first, 1 = ranked last. N is the number of solutions containing the benchmark, and the 95% CI is a t-interval over those N, so it is not bounded to [0, 1]. Best/Worst refers to ANR.
-
-| No  | Benchmark                | RANR   | ANR   | 95% CI          | Best  | Worst | $N$ cells |
-| --- | ------------------------ | ------ | ----- | --------------- | ----- | ----- | --------- |
-| 1   | bhasa                    | -0.346 | 0.141 | [-0.005, 0.287] | 0.024 | 0.318 | 5         |
-| 2   | mtrag                    | -0.341 | 0.147 | [-0.051, 0.346] | 0.021 | 0.394 | 5         |
-| 3   | creativityprism          | -0.339 | 0.156 | [-0.019, 0.332] | 0.026 | 0.367 | 5         |
-| 4   | eqbench                  | -0.332 | 0.156 | [-0.060, 0.372] | 0.017 | 0.451 | 5         |
-| 5   | mceval                   | -0.331 | 0.156 | [0.024, 0.288]  | 0.051 | 0.333 | 5         |
-| 6   | pwc_svamp                | -0.329 | 0.169 | [-0.033, 0.371] | 0.058 | 0.298 | 4         |
-| 7   | pwc_drop_test            | -0.328 | 0.162 | [-0.139, 0.462] | 0.008 | 0.431 | 4         |
-| 8   | ProphetArena             | -0.315 | 0.183 | [-0.036, 0.401] | 0.092 | 0.385 | 4         |
-| 9   | dialogbench              | -0.295 | 0.210 | [-1.351, 1.770] | 0.087 | 0.332 | 2         |
-| 10  | pwc_piqa                 | -0.282 | 0.253 | [0.162, 0.345]  | 0.003 | 0.822 | 20        |
+| No  | Benchmark       | RANR   | ANR   | 95% CI          | Best  | Worst | $N$ cells |
+| --- | --------------- | ------ | ----- | --------------- | ----- | ----- | --------- |
+| 1   | bhasa           | -0.346 | 0.141 | [-0.005, 0.287] | 0.024 | 0.318 | 5         |
+| 2   | mtrag           | -0.341 | 0.147 | [-0.051, 0.346] | 0.021 | 0.394 | 5         |
+| 3   | creativityprism | -0.339 | 0.156 | [-0.019, 0.332] | 0.026 | 0.367 | 5         |
+| 4   | eqbench         | -0.332 | 0.156 | [-0.060, 0.372] | 0.017 | 0.451 | 5         |
+| 5   | mceval          | -0.331 | 0.156 | [0.024, 0.288]  | 0.051 | 0.333 | 5         |
+| 6   | pwc_svamp       | -0.329 | 0.169 | [-0.033, 0.371] | 0.058 | 0.298 | 4         |
+| 7   | pwc_drop_test   | -0.328 | 0.162 | [-0.139, 0.462] | 0.008 | 0.431 | 4         |
+| 8   | ProphetArena    | -0.315 | 0.183 | [-0.036, 0.401] | 0.092 | 0.385 | 4         |
+| 9   | dialogbench     | -0.295 | 0.210 | [-1.351, 1.770] | 0.087 | 0.332 | 2         |
+| 10  | pwc_piqa        | -0.282 | 0.253 | [0.162, 0.345]  | 0.003 | 0.822 | 20        |
+%%
 | 11  | pwc_timequestions        | -0.275 | 0.230 | [0.173, 0.288]  | 0.226 | 0.235 | 2         |
+| --- | ------------------------ | ------ | ----- | --------------- | ----- | ----- | --------- |
 | 12  | tablebench_data_analysis | -0.272 | 0.223 | [-0.185, 0.631] | 0.000 | 0.787 | 5         |
 | 13  | pwc_multinli             | -0.271 | 0.233 | [-0.459, 0.925] | 0.179 | 0.288 | 2         |
 | 14  | lawbench                 | -0.264 | 0.222 | [-0.288, 0.731] | 0.057 | 0.452 | 3         |
@@ -137,6 +138,7 @@ Surprisingly, the top benchmarks are not dominated by common standard benchmarks
 | 18  | pinocchio                | -0.256 | 0.249 | [-0.564, 1.062] | 0.185 | 0.313 | 2         |
 | 19  | tombench                 | -0.255 | 0.234 | [0.056, 0.413]  | 0.062 | 0.446 | 5         |
 | 20  | indicgenbench            | -0.252 | 0.253 | [-0.347, 0.853] | 0.206 | 0.300 | 2         |
+%%
 
 %%
 

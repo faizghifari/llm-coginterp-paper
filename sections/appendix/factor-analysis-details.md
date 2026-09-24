@@ -7,11 +7,7 @@ We fit the exploratory factor analysis with the minimum-residual estimator \cite
 ## Factor count
 
 Horn's \citep{horn1965} parallel analysis in its PC flavour: the observed eigenvalues of the correlation matrix are compared position-by-position against the 95th percentile of eigenvalues from 100 random $n \times p$ standard-normal matrices' correlation matrices, and
-
 $$nf = \#\{i : \lambda_i^{\text{obs}} > \lambda_i^{\text{cut}}\},\quad nf \geq 2.$$
-
-Because the random baseline depends only on the matrix shape, the iteration count and the quantile, we compute it once per shape and cache it. The cache is **shape-keyed and never global**, so two datasets share cutoffs only when their shapes are identical.
-
 The count is then capped at 20, beyond which the bifactor fits become prohibitively slow, and at $\min(p-1,\, n-1,\, \operatorname{rank}(R) - 1)$, since the completed and surrogate matrices are frequently rank-deficient or have $p \gg n$ and the estimator would otherwise error. If the fit still fails, we decrement the count until it succeeds, and record the count actually used.
 
 ## Bifactor decomposition
