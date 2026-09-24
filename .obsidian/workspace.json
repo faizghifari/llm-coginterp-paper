@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "sections/Results.md",
+                "file": "Main.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Results"
+              "title": "Main"
             }
           }
         ],
@@ -95,8 +95,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 325.5,
-    "collapsed": true
+    "width": 325.5
   },
   "right": {
     "id": "d8979859c2db4958",
@@ -228,9 +227,11 @@
     "latex-template/Main.aux",
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
+    "sections/Conclusion.md",
+    "sections/Discussion.md",
+    "sections/Results.md",
     "sections/appendix/benchmark-g-rankings.md",
     "sections/appendix/missingness-and-g-rankings.md",
-    "sections/Results.md",
     "sections/appendix/llm-usage.md",
     "sections/appendix/label-cohesion.md",
     "Untitled.md",
@@ -261,10 +262,8 @@
     "sections/appendix/completion-methods.md",
     "sections/appendix/common-subject-distances.md",
     "Untitled 2.base",
-    "References.md",
     "Untitled 1.base",
     "latex-template/S_softimpute.png",
-    "sections/appendix/held-out-metric.md",
     "S_softimpute.png"
   ]
 }
