@@ -33,6 +33,10 @@
                         % table-attached caption without colliding with the
                         % manually-numbered Table 1-4 captions in the main text
 \usepackage{amsmath}
+% A display after a short lead-in line (e.g. "tasks:") gets \abovedisplayshortskip,
+% which is 0pt in the ICLR style and squeezes the equation against the text.
+% Wrap such a paragraph in {\fulldisplayskips ...} to give it the normal skips.
+\newcommand{\fulldisplayskips}{\abovedisplayshortskip=\abovedisplayskip\belowdisplayshortskip=\belowdisplayskip}
 \usepackage{textcomp}
 \setlength{\LTcapwidth}{\textwidth} % To make captions fit within page width
 \usepackage{calc} % arithmetic in table column-width specs (pandoc's multi-column

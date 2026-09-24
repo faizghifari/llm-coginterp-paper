@@ -31,15 +31,15 @@ Various LLM benchmarks are known to be intercorrelated, though the origin of thi
 
 <!-- Style pass 2026-09-23 (already-X-but-Y-makes-it-concrete construction). The sentence read: The precedence assumed of a content-free intelligence \citep{chollet2019} already implies such a relation, but model development makes it concrete. -->
 
-**Definition 1.** Let $F$ be a set of latent factors and $T$ the set of performance scores over all possible tasks:
+**Definition 1.** `{\fulldisplayskips{}`{=latex}Let $F$ be a set of latent factors and $T$ the set of performance scores over all possible tasks:
 $$F = \{\, f_i \mid i \in \mathcal{I} \,\}, \qquad g \longrightarrow F \longrightarrow T, \quad F \not\longrightarrow g.$$
-That is, $g$ is a first-order factor that causally affects the set of latent factors $F$, through which it in turn influences task performance. No causal path runs from $F$ back to $g$.
+That is, $g$ is a first-order factor that causally affects the set of latent factors $F$, through which it in turn influences task performance. No causal path runs from $F$ back to $g$.`}`{=latex}
 
 There is a growing assumption in the field that a subset of $T$, mostly assumed to be reasoning, mathematics, and coding, measures $g$ better than the rest. When a model is fine-tuned to perform better on such tasks, the implicitly expected transfer happens because training improves $g$ and, through it, the factors $F$:
 
-**Definition 2.** Let $F$ be a set of latent factors and $T$ the set of performance scores over all possible tasks. Task performance $t_i$ is given by a linear predictor:
+**Definition 2.** `{\fulldisplayskips{}`{=latex}Let $F$ be a set of latent factors and $T$ the set of performance scores over all possible tasks. Task performance $t_i$ is given by a linear predictor:
 $$t_i = \lambda_gg + \lambda_1 f_1 + \dots + \lambda_n f_n, \qquad i \in \mathcal{I},$$
-where the $\lambda_i$ are the task's factor loadings (standardized regression coefficients).
+where the $\lambda_i$ are the task's factor loadings (standardized regression coefficients).`}`{=latex}
 
 %%Definition 1 only describes how scores are produced and interpreted, not how the model is trained. There is also a growing assumption in the community that a subset of $T$, mostly assumed to be reasoning, mathematics, and coding, measures $g$ better than the rest.
 %%
