@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "sections/appendix/factor-analysis-details.md",
+                "file": "sections/Results.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "factor-analysis-details"
+              "title": "Results"
             }
           }
         ],
@@ -220,6 +220,7 @@
   },
   "active": "93ea3d27a4f203ca",
   "lastOpenFiles": [
+    "sections/appendix/factor-analysis-details.md",
     "latex-template/Main.bbl",
     "latex-template/Main.blg",
     "latex-template/Main.bibtex.log",
@@ -242,7 +243,6 @@
     "sections/Methodology.md",
     "sections/Background.md",
     "sections/appendix/densification-algorithm.md",
-    "sections/appendix/factor-analysis-details.md",
     "sections/appendix/imputation-diagnostics.md",
     "sections/appendix/correlation-adequacy.md",
     "sections/appendix/omega-sensitivity.md",
