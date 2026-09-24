@@ -621,19 +621,19 @@
       "isCountable": true,
       "targetNodeType": "file",
       "noteCount": 1,
-      "wordCount": 1707,
+      "wordCount": 1715,
       "wordCountTowardGoal": 0,
       "wordGoal": null,
-      "pageCount": 5.69,
-      "characterCount": 15937,
-      "nonWhitespaceCharacterCount": 11769,
-      "readingTimeInMinutes": 6.441509433962264,
+      "pageCount": 5.716666666666667,
+      "characterCount": 16014,
+      "nonWhitespaceCharacterCount": 11838,
+      "readingTimeInMinutes": 6.471698113207547,
       "linkCount": 0,
       "embedCount": 2,
       "aliases": null,
       "createdDate": 1790178400576,
-      "modifiedDate": 1790231161184,
-      "sizeInBytes": 15940,
+      "modifiedDate": 1790231440495,
+      "sizeInBytes": 16017,
       "sessionStart": {
         "noteCount": 1,
         "pageCount": 5.69,
@@ -1894,6 +1894,31 @@
         "wordCount": 420,
         "characterCount": 3082,
         "nonWhitespaceCharacterCount": 2648
+      }
+    },
+    "latex-template/Main.pdflatex.log": {
+      "isCountable": false,
+      "targetNodeType": "file",
+      "noteCount": 0,
+      "wordCount": 0,
+      "wordCountTowardGoal": 0,
+      "wordGoal": 0,
+      "pageCount": 0,
+      "characterCount": 0,
+      "nonWhitespaceCharacterCount": 0,
+      "readingTimeInMinutes": 0,
+      "linkCount": 0,
+      "embedCount": 0,
+      "aliases": [],
+      "createdDate": 1790231235351,
+      "modifiedDate": 1790231238593,
+      "sizeInBytes": 120478,
+      "sessionStart": {
+        "noteCount": 0,
+        "pageCount": 0,
+        "wordCount": 0,
+        "characterCount": 0,
+        "nonWhitespaceCharacterCount": 0
       }
     }
   }
