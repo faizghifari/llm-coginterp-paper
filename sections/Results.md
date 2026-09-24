@@ -23,11 +23,11 @@ We present the evaluation and parameters of the missing data imputations in tabl
 %%
 ## Point summaries
 
-From our imputation, only 20 dataset-imputer combination yields an $R^2$ satisfying the threshold. Additional diagnostics and trustworthiness analyses are provided in (`\hyperref[imputation-diagnostics]{Appendix~\ref*{imputation-diagnostics}}`{=latex}).
+From our imputation, only 20 dataset-imputer combination yields an $R^2$ satisfying the threshold. The full table of the imputation results are provided in (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}).
 
 Table 3 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. Two things are worth noting here. First, while $\omega_h$ has a wide range, by our estimates' maximum, **a universally causal $g$ factor accounts, at the most, 70.8% of variance in model performance**.
 
-Still, something to note is that the range of $\omega_h$ spans quite widely. The best-performing imputer, softimpute on S_standard, yielded a solution with a modestly effective $g$ factor that accounts for just 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend across release cohorts (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}).
+Still, something to note is that the range of $\omega_h$ spans quite widely. The best-performing imputer, softimpute on S_standard, yielded a solution with a modestly effective $g$ factor that accounts for just 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend across release cohorts (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). To ascertain whether the $\omega_h$ estimates are trustworthy, we provide additional diagnostics in (`\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
 
 **Table 3**. Point summaries of factor analyses results. AVE = average variance explained per factor, $k$ = number of factors extracted, $\phi$ = average inter-factor correlation.
 
@@ -112,67 +112,56 @@ Another point of interest for the research question is what benchmarks act as a 
 
 Surprisingly, the top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of traditional NLP tasks, legal use case, sports-related knowledge, and even emotional intelligence. There is no evidence that a $g$ factor is abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. **The assumption that reasoning, mathematics, and coding benchmarks are best proxies of the latent factor $g$ best does not hold**.
 
-<!-- REVISED in response to the Google PAT review, weakness 4 and Results point 3.
-The superseded text read:
 
-Surprisingly, the top benchmarks are not dominated by common standard benchmarks.
-Rather, there is no coherent common top 20 benchmarks. The top proxies include
-measures of traditional NLP tasks, legal use case, sports-related knowledge, and
-even emotional intelligence. There is no evidence that a $g$ factor is abstract
-reasoning. Rather, it tends to be more a "dump" of diverse semantically unrelated
-and miscellaneous tasks. **In other words, the $g$ factor of LLMs are arbitrary,
-incoherent, and uninterpretable**.
+**Table 5**. Top 20 benchmarks, sorted by the normalized rank-order of their $g$ factor loadings, residualized against their frequency. The normalized rank-order ranges from 0 to 1. 0 = ranked first, 1 = ranked last. N is the number of solutions containing the benchmark, and the 95% CI is a t-interval over those N, so it is not bounded to [0, 1]. Best/Worst refers to ANR.
 
-Two sentences were cut and one replaced, all of them the ones resting on semantic
-diversity. Under Spearman's indifference of the indicator a general factor is
-expected to be indifferent to the content of its indicators, so a diverse top 20
-is what classical theory predicts and cannot be evidence against a general
-factor. Background 2.3 now concedes this explicitly, so leaving the inference
-here would have put the Background and the Results in contradiction.
+| No  | Benchmark                | RANR   | ANR   | 95% CI          | Best  | Worst | $N$ cells |
+| --- | ------------------------ | ------ | ----- | --------------- | ----- | ----- | --------- |
+| 1   | bhasa                    | -0.346 | 0.141 | [-0.005, 0.287] | 0.024 | 0.318 | 5         |
+| 2   | mtrag                    | -0.341 | 0.147 | [-0.051, 0.346] | 0.021 | 0.394 | 5         |
+| 3   | creativityprism          | -0.339 | 0.156 | [-0.019, 0.332] | 0.026 | 0.367 | 5         |
+| 4   | eqbench                  | -0.332 | 0.156 | [-0.060, 0.372] | 0.017 | 0.451 | 5         |
+| 5   | mceval                   | -0.331 | 0.156 | [0.024, 0.288]  | 0.051 | 0.333 | 5         |
+| 6   | pwc_svamp                | -0.329 | 0.169 | [-0.033, 0.371] | 0.058 | 0.298 | 4         |
+| 7   | pwc_drop_test            | -0.328 | 0.162 | [-0.139, 0.462] | 0.008 | 0.431 | 4         |
+| 8   | ProphetArena             | -0.315 | 0.183 | [-0.036, 0.401] | 0.092 | 0.385 | 4         |
+| 9   | dialogbench              | -0.295 | 0.210 | [-1.351, 1.770] | 0.087 | 0.332 | 2         |
+| 10  | pwc_piqa                 | -0.282 | 0.253 | [0.162, 0.345]  | 0.003 | 0.822 | 20        |
+| 11  | pwc_timequestions        | -0.275 | 0.230 | [0.173, 0.288]  | 0.226 | 0.235 | 2         |
+| 12  | tablebench_data_analysis | -0.272 | 0.223 | [-0.185, 0.631] | 0.000 | 0.787 | 5         |
+| 13  | pwc_multinli             | -0.271 | 0.233 | [-0.459, 0.925] | 0.179 | 0.288 | 2         |
+| 14  | lawbench                 | -0.264 | 0.222 | [-0.288, 0.731] | 0.057 | 0.452 | 3         |
+| 15  | pwc_arc_challenge        | -0.260 | 0.277 | [0.149, 0.405]  | 0.000 | 0.808 | 20        |
+| 16  | tablebench_fact_checking | -0.260 | 0.235 | [-0.165, 0.635] | 0.020 | 0.784 | 5         |
+| 17  | sea_helm                 | -0.257 | 0.235 | [-0.069, 0.539] | 0.045 | 0.603 | 5         |
+| 18  | pinocchio                | -0.256 | 0.249 | [-0.564, 1.062] | 0.185 | 0.313 | 2         |
+| 19  | tombench                 | -0.255 | 0.234 | [0.056, 0.413]  | 0.062 | 0.446 | 5         |
+| 20  | indicgenbench            | -0.252 | 0.253 | [-0.347, 0.853] | 0.206 | 0.300 | 2         |
 
-What survives is the attack on the proxy assumption: the top benchmarks are not
-the standard ones, and there is no evidence G is abstract reasoning. Indifference
-of the indicator has no bearing on either. The new bolded sentence is worded to
-echo Background 2.2 ("a subset of T, mostly assumed to be reasoning, mathematics,
-and coding, measures G better than the rest") so that the Background states the
-assumption and this section refutes it.
-
-Also fixes the subject-verb error in the old bolded sentence ("the G factor of
-LLMs are").
-
-Note on the title: "uninterpretable" was load-bearing for "Machine Intelligence is
-Idiosyncratic and Uninterpretably Structured". Its support now comes from 4.2
-(content-similar benchmarks not clustering, so the group factors do not map onto
-content domains, which indifference of the indicator does not defend since group
-factors are exactly what should be content-organised) and from the variance
-instability in 4.1. The authors plan to change the title in any case.
-
-Still open here and not addressed by this edit: Table 4's top two rows have N = 2
-of about 19 pipeline configurations and CIs spanning negative values on a stated
-[0, 1] scale, which the same review raises separately. -->
+%%
 
 
-**Table 5**. Top 20 benchmarks, sorted by the normalized rank-order of their $g$ factor loadings, ranging from 0 to 1. 0 = ranked first, 1 = ranked last. N is the number of solutions containing the benchmark, and the 95% CI is a t-interval over those N, so it is not bounded to [0, 1].
+| No  | Benchmark                | RANR   | 95% CI           | SD    | ANR   | 95% CI          | Best  | Worst | $N$ cells |
+| --- | ------------------------ | ------ | ---------------- | ----- | ----- | --------------- | ----- | ----- | --------- |
+| 1   | bhasa                    | -0.346 | [-0.478, -0.215] | 0.106 | 0.141 | [-0.005, 0.287] | 0.024 | 0.318 | 5         |
+| 2   | mtrag                    | -0.341 | [-0.558, -0.124] | 0.175 | 0.147 | [-0.051, 0.346] | 0.021 | 0.394 | 5         |
+| 3   | creativityprism          | -0.339 | [-0.514, -0.164] | 0.141 | 0.156 | [-0.019, 0.332] | 0.026 | 0.367 | 5         |
+| 4   | eqbench                  | -0.332 | [-0.570, -0.095] | 0.191 | 0.156 | [-0.060, 0.372] | 0.017 | 0.451 | 5         |
+| 5   | mceval                   | -0.331 | [-0.488, -0.173] | 0.127 | 0.156 | [0.024, 0.288]  | 0.051 | 0.333 | 5         |
+| 6   | pwc_svamp                | -0.329 | [-0.521, -0.136] | 0.121 | 0.169 | [-0.033, 0.371] | 0.058 | 0.298 | 4         |
+| 7   | pwc_drop_test            | -0.328 | [-0.667, 0.012]  | 0.213 | 0.162 | [-0.139, 0.462] | 0.008 | 0.431 | 4         |
+| 8   | ProphetArena             | -0.315 | [-0.519, -0.112] | 0.128 | 0.183 | [-0.036, 0.401] | 0.092 | 0.385 | 4         |
+| 9   | dialogbench              | -0.295 | [-1.945, 1.354]  | 0.184 | 0.210 | [-1.351, 1.770] | 0.087 | 0.332 | 2         |
+| 10  | pwc_piqa                 | -0.282 | [-0.383, -0.180] | 0.218 | 0.253 | [0.162, 0.345]  | 0.003 | 0.822 | 20        |
+| 11  | pwc_timequestions        | -0.275 | [-0.420, -0.129] | 0.016 | 0.230 | [0.173, 0.288]  | 0.226 | 0.235 | 2         |
+| 12  | tablebench_data_analysis | -0.272 | [-0.674, 0.131]  | 0.324 | 0.223 | [-0.185, 0.631] | 0.000 | 0.787 | 5         |
+| 13  | pwc_multinli             | -0.271 | [-1.035, 0.493]  | 0.085 | 0.233 | [-0.459, 0.925] | 0.179 | 0.288 | 2         |
+| 14  | lawbench                 | -0.264 | [-0.706, 0.179]  | 0.178 | 0.222 | [-0.288, 0.731] | 0.057 | 0.452 | 3         |
+| 15  | pwc_arc_challenge        | -0.260 | [-0.407, -0.113] | 0.314 | 0.277 | [0.149, 0.405]  | 0.000 | 0.808 | 20        |
+| 16  | tablebench_fact_checking | -0.260 | [-0.649, 0.130]  | 0.314 | 0.235 | [-0.165, 0.635] | 0.020 | 0.784 | 5         |
+| 17  | sea_helm                 | -0.257 | [-0.552, 0.038]  | 0.238 | 0.235 | [-0.069, 0.539] | 0.045 | 0.603 | 5         |
+| 18  | pinocchio                | -0.256 | [-0.980, 0.467]  | 0.081 | 0.249 | [-0.564, 1.062] | 0.185 | 0.313 | 2         |
+| 19  | tombench                 | -0.255 | [-0.427, -0.084] | 0.138 | 0.234 | [0.056, 0.413]  | 0.062 | 0.446 | 5         |
+| 20  | indicgenbench            | -0.252 | [-0.760, 0.255]  | 0.056 | 0.253 | [-0.347, 0.853] | 0.206 | 0.300 | 2         |
 
-| no  | Benchmark                | Average | SD    | 95% CI          | N | Best  | Worst |
-| --- | ------------------------ | ------------- | ----- | --------------- | ------- | ----- | ----- |
-| 1   | bhasa                    | 0.141         | 0.118 | [-0.005, 0.287] | 5       | 0.024 | 0.318 |
-| 2   | mtrag                    | 0.147         | 0.160 | [-0.051, 0.346] | 5       | 0.021 | 0.394 |
-| 3   | eqbench                  | 0.156         | 0.174 | [-0.060, 0.372] | 5       | 0.017 | 0.451 |
-| 4   | mceval                   | 0.156         | 0.106 | [0.024, 0.288]  | 5       | 0.051 | 0.333 |
-| 5   | creativityprism          | 0.156         | 0.141 | [-0.019, 0.332] | 5       | 0.026 | 0.367 |
-| 6   | pwc_drop_test            | 0.162         | 0.189 | [-0.139, 0.462] | 4       | 0.008 | 0.431 |
-| 7   | pwc_svamp                | 0.169         | 0.127 | [-0.033, 0.371] | 4       | 0.058 | 0.298 |
-| 8   | ProphetArena             | 0.183         | 0.137 | [-0.036, 0.401] | 4       | 0.092 | 0.385 |
-| 9   | dialogbench              | 0.210         | 0.174 | [-1.351, 1.770] | 2       | 0.087 | 0.332 |
-| 10  | lawbench                 | 0.222         | 0.205 | [-0.288, 0.731] | 3       | 0.057 | 0.452 |
-| 11  | tablebench_data_analysis | 0.223         | 0.328 | [-0.185, 0.631] | 5       | 0.000 | 0.787 |
-| 12  | pwc_timequestions        | 0.230         | 0.006 | [0.173, 0.288]  | 2       | 0.226 | 0.235 |
-| 13  | pwc_multinli             | 0.233         | 0.077 | [-0.459, 0.925] | 2       | 0.179 | 0.288 |
-| 14  | tombench                 | 0.234         | 0.144 | [0.056, 0.413]  | 5       | 0.062 | 0.446 |
-| 15  | sea_helm                 | 0.235         | 0.245 | [-0.069, 0.539] | 5       | 0.045 | 0.603 |
-| 16  | tablebench_fact_checking | 0.235         | 0.322 | [-0.165, 0.635] | 5       | 0.020 | 0.784 |
-| 17  | dischargeme              | 0.245         | 0.122 | [0.093, 0.396]  | 5       | 0.087 | 0.402 |
-| 18  | milu                     | 0.248         | 0.126 | [0.092, 0.404]  | 5       | 0.044 | 0.350 |
-| 19  | pinocchio                | 0.249         | 0.090 | [-0.564, 1.062] | 2       | 0.185 | 0.313 |
-| 20  | indicgenbench            | 0.253         | 0.067 | [-0.347, 0.853] | 2       | 0.206 | 0.300 |
+%%

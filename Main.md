@@ -80,8 +80,6 @@ Appendix-Methods.md. %%
 
 ![[sections/appendix/imputation-evaluation]]
 
-<!--![[sections/appendix/held-out-metric]]-->
-
 ![[sections/appendix/factor-analysis-details]]
 
 ![[sections/appendix/benchmark-embedding]]
@@ -90,7 +88,9 @@ Appendix-Methods.md. %%
 
 ![[sections/appendix/common-subject-distances]]
 
-![[sections/appendix/imputation-diagnostics]]
+![[sections/appendix/imputation-results]]
+
+![[sections/appendix/omega-sensitivity]]
 
 ![[sections/appendix/release-date-analysis]]
 

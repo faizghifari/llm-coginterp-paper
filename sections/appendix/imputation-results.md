@@ -33,7 +33,7 @@ In descriptive terms, knowing the missingness pattern
 | R_all_aggressive   |   47895 |    20188 |    42.2 |         6.1 |       4.0 |         64 |                 0.4665 |               0.2813 |
 | S_all_standard     |    7626 |     4198 |    55.0 |        20.0 |      29.1 |        332 |                 0.4848 |               0.2731 |
 | S_all_aggressive   |   42778 |    20230 |    47.3 |         6.1 |       4.2 |         70 |                 0.4661 |               0.2813 |
-
+%%
 ### Plots
 
 ![[density_corr_count.png| Descriptive plot of computable pairwise Pearson correlations for each individual benchmark.]]
@@ -49,7 +49,7 @@ Figure shows the distribution of observation counts per benchmark.
 Figure shows the distribution of shared non-missing observations per computable benchmark pair.
 
 ![[density_pair_n.png | Plot of the number of unique benchmark pairs with computable correlations.]]
-
+%%
 <!--
 density_corr_count.png
 density_corr_n.png

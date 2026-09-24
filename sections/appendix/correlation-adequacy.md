@@ -19,7 +19,7 @@ Table 1 provides this illustration through a benchmark perspective. The dataset 
 | S_all_standard     | 124 |       124 |        67.7 |      21.5 |        118 |                20.2 |              11.2 |
 | S_all_aggressive   | 293 |       292 |       138.1 |      71.2 |        254 |                 5.8 |               1.6 |
 
-Table 2 provides a similar illustration, but this time through the view of the pairwise correlations. The `raw_all_standard` benchmarks again come out possessing the lowest adequacy, with only 15.3% of computable Pearson correlations are minimally adequate. The C datasets appear to have the greatest number of minimally adequate $r$, but this comes at a cost that the benchmarks are lacking in diversity and narrow in scope, making it highly biased to commonly measured LLM abilities. Like the benchmarks data, the pairwise correlations tend ot have large standard deviations relative to their mean statistics.
+Table 2 provides a similar illustration, but this time through the view of the pairwise correlations. The `raw_all_standard` benchmarks again come out possessing the lowest adequacy, with only 15.3% of pairwise correlations are minimally adequate. The C datasets appear to have the greatest number of minimally adequate $r$, but this comes at a cost that the benchmarks are lacking in diversity and narrow in scope, making it highly biased to commonly measured LLM abilities. Like the benchmarks data, the pairwise correlations tend ot have large standard deviations relative to their mean statistics.
 
 **Table 2**. Pairwise correlations: shared $N$ and $|r|$ of adequate correlations (unit = benchmark pair). $N$/pair = shared non-missing models.
 
