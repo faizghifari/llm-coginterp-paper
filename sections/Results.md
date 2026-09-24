@@ -79,7 +79,8 @@ It read:
 -->
 
 ```{=latex}
-\begin{wraptable}{R}{0.46\textwidth}
+\begin{wraptable}{R}{0.48\textwidth}
+\vspace{-2pt}
 \footnotesize\setlength{\tabcolsep}{3pt}
 \centering
 \textbf{Table 4.} Cohesion of subject labels. Full cohesion results for every label can be seen in \hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}} \par\vspace{4pt}
@@ -93,6 +94,7 @@ Label & Median A & Significant \\
 \texttt{math} & +0.048 & 0/16 \\
 \bottomrule
 \end{tabular}
+\vspace{4pt}
 \end{wraptable}
 ```
 
