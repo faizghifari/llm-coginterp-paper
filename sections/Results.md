@@ -79,7 +79,7 @@ It read:
 -->
 
 ```{=latex}
-\begin{wraptable}{r}{0.46\textwidth}
+\begin{wraptable}{R}{0.46\textwidth}
 \footnotesize\setlength{\tabcolsep}{3pt}
 \centering
 \textbf{Table 4.} Cohesion of subject labels. Full cohesion results for every label can be seen in \hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}} \par\vspace{4pt}
