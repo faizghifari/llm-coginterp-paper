@@ -45,21 +45,21 @@ Primary papers & 587 & 95 \\
 \bottomrule
 \end{tabular}
 \end{minipage}\hfill
-\begin{minipage}[t]{0.49\textwidth}
+\begin{minipage}[t]{0.49\textwidth}\setlength{\tabcolsep}{3pt}
 \label{tab:matrices}\textbf{Table 2.} Aggregated model $\times$ benchmark matrices, text-only corpus. ``Retained'' is the fraction of observed cells surviving the densifier peel.\par\vspace{4pt}
 \centering
 \begin{tabular}{@{}llrrr@{}}
 \toprule
 Densifier & Strategy & Shape & Density & Retained \\
 \midrule
-raw & Standard & 1266 $\times$ 404 & 2.2\% & \\
-raw & Aggressive & 334 $\times$ 380 & 3.5\% & \\
-C & Standard & 671 $\times$ 78 & 13.8\% & 65\% \\
-C & Aggressive & 201 $\times$ 102 & 13.6\% & 63\% \\
-S & Standard & 669 $\times$ 124 & 10\% & 75\% \\
-S & Aggressive & 124 $\times$ 293 & 10\% & 81\% \\
-R & Standard & 175 $\times$ 298 & 11.8\% & 55\% \\
-R & Aggressive & 97 $\times$ 310 & 11.7\% & 78\% \\
+raw & Std. & 1266 $\times$ 404 & 2.2\% & \\
+raw & Aggr. & 334 $\times$ 380 & 3.5\% & \\
+C & Std. & 671 $\times$ 78 & 13.8\% & 65\% \\
+C & Aggr. & 201 $\times$ 102 & 13.6\% & 63\% \\
+S & Std. & 669 $\times$ 124 & 10\% & 75\% \\
+S & Aggr. & 124 $\times$ 293 & 10\% & 81\% \\
+R & Std. & 175 $\times$ 298 & 11.8\% & 55\% \\
+R & Aggr. & 97 $\times$ 310 & 11.7\% & 78\% \\
 \bottomrule
 \end{tabular}
 \end{minipage}
