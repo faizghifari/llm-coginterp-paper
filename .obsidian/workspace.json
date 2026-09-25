@@ -202,9 +202,8 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "3ad77bd8b306828c",
+  "active": "5a10cf72a4585ae0",
   "lastOpenFiles": [
-    "sections/Discussion.md",
     "latex-template/Main.bbl",
     "latex-template/Main.blg",
     "latex-template/Main.bibtex.log",
@@ -212,6 +211,7 @@
     "latex-template/Main.aux",
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
+    "sections/Discussion.md",
     "sections/Results.md",
     "latex-template/Main.pdf",
     "sections/appendix/common-subject-distances.md",
