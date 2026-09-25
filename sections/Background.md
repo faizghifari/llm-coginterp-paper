@@ -38,7 +38,7 @@ That is, $g$ is a first-order factor that causally affects the set of latent fac
 There is a growing assumption in the field that a subset of $T$, mostly assumed to be reasoning, mathematics, and coding, measures $g$ better than the rest. When a model is fine-tuned to perform better on such tasks, the implicitly expected transfer happens because training improves $g$ and, through it, the factors $F$:
 
 **Definition 2.** `{\fulldisplayskips{}`{=latex}Let $F$ be a set of latent factors and $T$ the set of performance scores over all possible tasks. Task performance $t_i$ is given by a linear predictor:
-$$t_i = \lambda_gg + \lambda_1 f_1 + \dots + \lambda_n f_n + \epsilon_i, \qquad i \in \mathcal{I},$$
+$$t_i = \lambda_gg + \lambda_1 f_1 + \dots + \lambda_k f_k + \epsilon_i, \qquad i \in \mathcal{I},$$
 where the $\lambda_i$ are the task's factor loadings (standardized regression coefficients) and $\epsilon_i$ is the task's unique variance.`}`{=latex}
 
 %%Definition 1 only describes how scores are produced and interpreted, not how the model is trained. There is also a growing assumption in the community that a subset of $T$, mostly assumed to be reasoning, mathematics, and coding, measures $g$ better than the rest.
