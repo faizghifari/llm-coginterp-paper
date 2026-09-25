@@ -16,3 +16,6 @@ latex-template/*.png
 
 conflict-files-obsidian-git.md
 Main.tex
+
+.obsidian/workspace.json
+.obsidian/plugins/novel-word-count/data.json
