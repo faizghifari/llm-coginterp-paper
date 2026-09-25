@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "sections/Results.md",
+                "file": "sections/appendix/benchmark-g-rankings.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Results"
+              "title": "benchmark-g-rankings"
             }
           }
         ],
@@ -203,8 +203,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 332.953125
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -220,7 +219,6 @@
   },
   "active": "93ea3d27a4f203ca",
   "lastOpenFiles": [
-    "sections/appendix/factor-analysis-details.md",
     "latex-template/Main.bbl",
     "latex-template/Main.blg",
     "latex-template/Main.bibtex.log",
@@ -228,10 +226,12 @@
     "latex-template/Main.aux",
     "latex-template/Main.log",
     "latex-template/Main.pdflatex.log",
+    "sections/Results.md",
+    "sections/Background.md",
+    "sections/appendix/factor-analysis-details.md",
     "sections/appendix/imputation-methods.md",
     "sections/appendix/imputation-results.md",
     "sections/appendix/imputation-evaluation.md",
-    "sections/Results.md",
     "Main.md",
     "sections/Conclusion.md",
     "sections/Discussion.md",
@@ -241,7 +241,6 @@
     "sections/appendix/label-cohesion.md",
     "Untitled.md",
     "sections/Methodology.md",
-    "sections/Background.md",
     "sections/appendix/densification-algorithm.md",
     "sections/appendix/imputation-diagnostics.md",
     "sections/appendix/correlation-adequacy.md",

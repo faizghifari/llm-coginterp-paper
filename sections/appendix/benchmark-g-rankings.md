@@ -1,6 +1,6 @@
 # Benchmark $g$-rankings
 
-## Frequency adjustment
+## Frequency-ranking correlations
 
 A pressing concern with regards to our findings on the top $g$ benchmarks in table 5 of the main content, is to what degree a benchmark's $g$-factor loading is correlated with their non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
 
@@ -50,9 +50,8 @@ Naively, as shown in table 1 below, benchmark frequency *is* correlated with $g$
 | **Average**                  |                    |     | **+0.1783** | 37 (groups) |
 | **Average $\lvert r\lvert$** |                    |     |  **0.3432** |             |
 
-## Frequency-adjusted normalized ranks
+## Frequency adjustment
 
-### Ranking
 
 Let $C$ denote a factor cell: a method and dataset combination for which factor loadings are available. Within each cell $C$, benchmarks are ranked by absolute loading $|g_i|$ ($i$ indexes benchmarks). The rank $r_i$ is normalized within the cell,
 
@@ -60,15 +59,11 @@ $$a_i = \frac{r_i - 1}{n - 1}, \qquad r_i \in \{1, \dots, n\},$$
 
 so $a_i = 0$ at the top of the cell and $a_i = 1$ at the bottom. This makes cells with different numbers of benchmarks $n$ comparable. Each benchmark's raw score is the mean of its $a_i$ over the cells in which it appears. Benchmarks appearing in fewer than two cells are excluded.
 
-### Benchmark frequency
-
 For a dataset with $m$ models, the frequency of benchmark $i$ is the proportion of models with an observed score,
 
 $$f_i = \frac{\#\{\text{models with non-missing score for } i\}}{m}.$$
 
 Columns with fewer than two observations or zero variance are excluded before computing $f_i$. Where several datasets contribute, the benchmark's frequency is the mean of its per-dataset $f_i$.
-
-### Frequency adjustment
 
 As shown in table 2 above, within most cells, frequently measured benchmarks obtain higher $|g_i|$ and lower (better) $a_i$. A benchmark may therefore rank highly partly because it is measured often rather than because it is a strong indicator of $g$.
 
