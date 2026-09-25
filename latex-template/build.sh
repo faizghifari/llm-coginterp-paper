@@ -68,12 +68,15 @@ def resolve(target, base_dir):
     return None
 
 out_dir = os.path.dirname(os.path.abspath(dst))
+saw_subject_distances = [False]
 
 def expand(path, visited):
     path = os.path.normpath(path)
     if path in visited:
         sys.exit(f"error: circular ![[embed]] detected involving {path}")
     visited = visited | {path}
+    if os.path.basename(path) == "common-subject-distances.md":
+        saw_subject_distances[0] = True
     text = open(path, encoding="utf-8").read()
     base_dir = os.path.dirname(path)
     def repl(m):
@@ -104,6 +107,43 @@ def expand(path, visited):
     return EMBED_RE.sub(repl, text)
 
 text = expand(src, set())
+# Special case: sections/appendix/common-subject-distances.md links its images
+# as ../../umaps/<name>.png -- correct relative to that file's location, which
+# is what plain markdown viewers need. But pandoc emits the path verbatim into
+# \includegraphics and pdflatex runs inside latex-template/, where
+# ../../umaps/ doesn't exist (nor does it exist relative to the pandoc
+# resource paths). So when that file was inlined (possibly via an ![[embed]]
+# from Main.md), copy each umaps image next to the output .tex (same
+# convention as the ![[embed]] image handler above) and rewrite the links to
+# bare filenames. Other files' image links are untouched.
+if saw_subject_distances[0]:
+    # The image lines are back-to-back, which markdown parses as a single
+    # paragraph; pandoc's implicit_figures only turns an image into a captioned,
+    # auto-numbered figure when it is alone in its paragraph. Blank-line
+    # separating them is what Results.md's embeds already do.
+    text = re.sub(
+        r"(\]\(\.\./\.\./umaps/[^)\n]+\))[ \t]*\n(?=!\[)",
+        r"\1\n\n",
+        text,
+    )
+    def repl_local(m):
+        # Split Obsidian's ![alt|caption](path) alt syntax: the part after the
+        # pipe is the caption. Alone on its line with a nonempty alt, pandoc's
+        # implicit_figures emits a \begin{figure}+\caption, which LaTeX numbers
+        # ("Figure 3: ..."). Without a caption, use an empty alt so the image
+        # stays inline rather than becoming a figure captioned with its
+        # filename.
+        alt = m.group(1)
+        caption = alt.split("|", 1)[1].strip() if "|" in alt else ""
+        name = m.group(2)
+        resolved = os.path.join(repo_root, "umaps", name)
+        if not os.path.isfile(resolved):
+            sys.stderr.write(f"warning: {src} references missing image umaps/{name}\n")
+            return m.group(0)
+        for dest_dir in dict.fromkeys([os.path.join(repo_root, "latex-template"), out_dir]):
+            shutil.copy2(resolved, os.path.join(dest_dir, name))
+        return f"![{caption}]({name})"
+    text = re.sub(r"!\[([^\]\n]*)\]\(\.\./\.\./umaps/([^)\n]+)\)", repl_local, text)
 # Obsidian comments: %% ... %%, non-greedy, spans multiple lines/paragraphs.
 text = re.sub(r"%%.*?%%", "", text, flags=re.DOTALL)
 # collapse the blank-line runs the removal leaves behind

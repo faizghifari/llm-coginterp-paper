@@ -1,6 +1,6 @@
 # Benchmark $g$-rankings
 
-## Frequency-ranking correlations
+## Frequency and $g$-ranking corrlations
 
 A pressing concern with regards to our findings on the top $g$ benchmarks in table 5 of the main content, is to what degree a benchmark's $g$-factor loading is correlated with their non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
 
@@ -131,7 +131,7 @@ Table 4 below shows benchmarks sorted by their rank order, similar to table 5 in
 
 **Table 4**. All used 380 benchmarks, sorted by their average normalized rank-order (ANR) of their $g$ factor loadings, residualized (RANR) against their frequency. The normalized rank-order ranges from 0 to 1. 0 = ranked first, 1 = ranked last. $N$ cells = number of EFA solutions with that benchmark. CI and Best/Worst refers to ANR.
 
-| No  | Benchmark                        | RANR      | ANR      | 95% CI               | Best  | Worst | $N$ cells |
+| No  | Benchmark                        | $\rho_\epsilon$      | $\rho$      | 95% CI               | Best  | Worst | $N$ |
 | --: | -------------------------------- | --------- | -------- | -------------------- | ----: | ----: | --------: |
 | 1   | bhasa                                                    | -0.346 | 0.141 | [-0.005, 0.287] | 0.024 | 0.318 | 5         |
 | 2   | mtrag                                                    | -0.341 | 0.147 | [-0.051, 0.346] | 0.021 | 0.394 | 5         |
