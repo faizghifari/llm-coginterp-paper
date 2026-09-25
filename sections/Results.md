@@ -11,15 +11,15 @@ We present the evaluation and parameters of the missing data imputations in tabl
 
 | Dataset          | Imputer         |   RMSE |    R² | Parameters                         |
 | ---------------- | --------------- | -----: | ----: | ---------------------------------- |
-| S_standard   | softimpute      | 0.6338 | 0.504 | rank=5 (swept 1..10)               |
-| C_standard   | softimpute      | 0.6575 | 0.493 | rank=9 (swept 1..10)               |
-| S_standard   | missforest      | 0.6798 | 0.471 | ntree=400 (swept [50,100,200,400]) |
-| C_standard   | missforest      | 0.7321 | 0.399 | ntree=50 (swept [50,100,200,400])  |
-| S_standard   | softimpute_corr | 0.7637 | 0.378 | rank=6 (swept 1..10)               |
-| S_standard   | onesidedmc      | 0.7500 | 0.340 | r=2 (swept 1..10)                  |
-| C_aggressive | softimpute      | 0.6739 | 0.337 | rank=5 (swept 1..10)               |
-| C_standard   | onesidedmc      | 0.8213 | 0.333 | r=2 (swept 1..10)                  |
-| C_standard   | softimpute_corr | 0.8126 | 0.317 | rank=5 (swept 1..7)                |
+| S. Std.   | softimpute      | 0.6338 | 0.504 | rank=5 (swept 1..10)               |
+| C. Std.   | softimpute      | 0.6575 | 0.493 | rank=9 (swept 1..10)               |
+| S. Std.   | missforest      | 0.6798 | 0.471 | ntree=400 (swept [50,100,200,400]) |
+| C. Std.   | missforest      | 0.7321 | 0.399 | ntree=50 (swept [50,100,200,400])  |
+| S. Std.   | softimpute_corr | 0.7637 | 0.378 | rank=6 (swept 1..10)               |
+| S. Std.   | onesidedmc      | 0.7500 | 0.340 | r=2 (swept 1..10)                  |
+| C. Aggr. | softimpute      | 0.6739 | 0.337 | rank=5 (swept 1..10)               |
+| C. Std.   | onesidedmc      | 0.8213 | 0.333 | r=2 (swept 1..10)                  |
+| C. Std.   | softimpute_corr | 0.8126 | 0.317 | rank=5 (swept 1..7)                |
 %%
 ## Point summaries
 
@@ -29,34 +29,34 @@ Table 3 below shows the point summaries of the factor analyses. The most importa
 
 <!-- Style pass 2026-09-24 (signposting 'Two things are worth noting' with no second point). The paragraph read: Table 3 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. Two things are worth noting here. First, while $\omega_h$ has a wide range, by our estimates' maximum, **a universally causal $g$ factor accounts, at the most, 70.8% of variance in model performance**. -->
 
-The range of $\omega_h$ is wide. The best-performing imputer, softimpute on S_standard, yielded a $g$ factor that accounts for 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend across release cohorts (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). To ascertain whether the $\omega_h$ estimates are trustworthy, we provide additional diagnostics in (`\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
+The range of $\omega_h$ is wide. The best-performing imputer, softimpute on S. Std., yielded a $g$ factor that accounts for 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend across release cohorts (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). To ascertain whether the $\omega_h$ estimates are trustworthy, we provide additional diagnostics in (`\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
 
-<!-- Style pass 2026-09-24 (fillers 'something to note', 'quite', 'modestly effective', 'just'). The paragraph read: Still, something to note is that the range of $\omega_h$ spans quite widely. The best-performing imputer, softimpute on S_standard, yielded a solution with a modestly effective $g$ factor that accounts for just 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend across release cohorts (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). To ascertain whether the $\omega_h$ estimates are trustworthy, we provide additional diagnostics in (`\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}). -->
+<!-- Style pass 2026-09-24 (fillers 'something to note', 'quite', 'modestly effective', 'just'). The paragraph read: Still, something to note is that the range of $\omega_h$ spans quite widely. The best-performing imputer, softimpute on S. Std., yielded a solution with a modestly effective $g$ factor that accounts for just 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend across release cohorts (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). To ascertain whether the $\omega_h$ estimates are trustworthy, we provide additional diagnostics in (`\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}). -->
 
 **Table 3**. Point summaries of factor analyses results. AVE = average variance explained per factor, $k$ = number of factors extracted, $\phi_\text{avg}$ = average inter-factor correlation.
 
 | Dataset            | Imputer         | $k$ |   AVE | $\omega_h$ | $\phi_\text{avg}$ | $R^2$ |
 | ------------------ | --------------- | --: | ----: | ---------: | ----------------: | ----: |
-| C_all_standard     | fill-mean       |  14 |  5.5% |      0.708 |             0.142 | 0.224 |
-| C_all_standard     | missforest      |   4 | 22.1% |      0.695 |             0.398 | 0.399 |
-| S_all_standard     | softimpute_corr |   5 |  9.3% |      0.676 |             0.306 | 0.378 |
-| C_all_standard     | fill-zeros      |  14 |  5.4% |      0.621 |             0.093 | 0.286 |
-| C_all_aggressive   | missforest      |   4 | 19.3% |      0.521 |             0.112 | 0.241 |
-| C_all_standard     | knn             |   7 | 10.8% |      0.516 |             0.209 | 0.288 |
-| C_all_standard     | softimpute_corr |   4 | 14.6% |      0.514 |             0.247 | 0.317 |
-| R_all_standard     | softimpute      |  20 |  4.6% |      0.367 |             0.012 | 0.290 |
-| S_all_standard     | softimpute      |   5 | 18.3% |      0.257 |             0.094 | 0.504 |
-| C_all_standard     | softimpute      |   9 | 10.5% |      0.242 |             0.038 | 0.493 |
-| S_all_aggressive   | softimpute      |  20 |  4.7% |      0.225 |             0.031 | 0.282 |
-| S_all_standard     | knn             |  11 |  6.9% |      0.204 |             0.048 | 0.296 |
-| R_all_aggressive   | softimpute      |  20 |  4.7% |      0.187 |             0.008 | 0.209 |
-| C_all_aggressive   | softimpute      |   5 | 17.8% |      0.183 |            -0.001 | 0.337 |
-| raw_all_aggressive | softimpute      |  10 |  8.9% |      0.132 |             0.013 | 0.228 |
-| C_all_standard     | onesidedmc      |   2 | 50.0% |      0.102 |             0.125 | 0.321 |
-| raw_all_standard   | softimpute      |  10 |  9.0% |      0.071 |            -0.010 | 0.249 |
-| C_all_aggressive   | onesidedmc      |   2 | 50.0% |      0.065 |             0.097 | 0.278 |
-| S_all_standard     | missforest      |   4 | 22.5% |      0.032 |             0.054 | 0.471 |
-| S_all_standard     | onesidedmc      |   2 | 50.0% |      0.014 |            -0.040 | 0.365 |
+| C. Std.     | fill-mean       |  14 |  5.5% |      0.708 |             0.142 | 0.224 |
+| C. Std.     | missforest      |   4 | 22.1% |      0.695 |             0.398 | 0.399 |
+| S. Std.     | softimpute_corr |   5 |  9.3% |      0.676 |             0.306 | 0.378 |
+| C. Std.     | fill-zeros      |  14 |  5.4% |      0.621 |             0.093 | 0.286 |
+| C. Aggr.   | missforest      |   4 | 19.3% |      0.521 |             0.112 | 0.241 |
+| C. Std.     | knn             |   7 | 10.8% |      0.516 |             0.209 | 0.288 |
+| C. Std.     | softimpute_corr |   4 | 14.6% |      0.514 |             0.247 | 0.317 |
+| R. Std.     | softimpute      |  20 |  4.6% |      0.367 |             0.012 | 0.290 |
+| S. Std.     | softimpute      |   5 | 18.3% |      0.257 |             0.094 | 0.504 |
+| C. Std.     | softimpute      |   9 | 10.5% |      0.242 |             0.038 | 0.493 |
+| S. Aggr.   | softimpute      |  20 |  4.7% |      0.225 |             0.031 | 0.282 |
+| S. Std.     | knn             |  11 |  6.9% |      0.204 |             0.048 | 0.296 |
+| R. Aggr.   | softimpute      |  20 |  4.7% |      0.187 |             0.008 | 0.209 |
+| C. Aggr.   | softimpute      |   5 | 17.8% |      0.183 |            -0.001 | 0.337 |
+| raw. Aggr. | softimpute      |  10 |  8.9% |      0.132 |             0.013 | 0.228 |
+| C. Std.     | onesidedmc      |   2 | 50.0% |      0.102 |             0.125 | 0.321 |
+| raw. Std.   | softimpute      |  10 |  9.0% |      0.071 |            -0.010 | 0.249 |
+| C. Aggr.   | onesidedmc      |   2 | 50.0% |      0.065 |             0.097 | 0.278 |
+| S. Std.     | missforest      |   4 | 22.5% |      0.032 |             0.054 | 0.471 |
+| S. Std.     | onesidedmc      |   2 | 50.0% |      0.014 |            -0.040 | 0.365 |
 
 ## Benchmark clusters
 
