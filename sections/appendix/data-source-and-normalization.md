@@ -6,10 +6,10 @@ The corpus is assembled from published evaluation records. Sources fall into fou
 
 **Tier 1, curated evaluation suites** (standardised harness, documented setup, one evaluator across many models).
 
-| Suite | Sub-leaderboards used |
-|---|---|
-| Stanford HELM (CRFM) | Classic, Lite, Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR, Finance |
-| HuggingFace Open LLM Leaderboard | v1, v2 |
+| Suite                            | Sub-leaderboards used                                                                      |
+| -------------------------------- | ------------------------------------------------------------------------------------------ |
+| Stanford HELM (CRFM)             | Classic, Lite, Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR, Finance |
+| HuggingFace Open LLM Leaderboard | v1, v2                                                                                     |
 
 **Tier 2, aggregators and result trackers.** Papers With Code evaluation tables, Kaggle AI Benchmarks, llm-stats.com, Artificial Analysis, Vellum, LiveBench, Chatbot Arena / LMArena, pricepertoken.com.
 
@@ -98,21 +98,21 @@ The tier labels are still the pipeline's own enum values and are due to be
 rewritten as English in the appendix tidy-up; only the counts changed here. -->
 
 
-### Verification is three-way, not binary.
+### Three-way verification
 
 Every dated answer carrying a citation was re-checked by fetching the cited page and asking two questions: does it name this model, and does it carry this date. The outcomes are **verified**, **unverifiable** (the page is bot-blocked, paywalled, or script-only, giving no evidence either way), and **contradicted** (the page read cleanly and did not support the claim). Only the third is evidence of an error. Of 565 dated answers, 404 verified (72 %), 96 were unverifiable and 65 contradicted.
 
-The distinction that matters is that **a contradicted verdict impugns the citation, not necessarily the date**, and in this corpus the two came apart in both directions. StarCoder2-15B was answered 2023-05 and cited the StarCoder *2* paper, which is 2024-02: the citation is right and the answer wrong. StarCoderBase was answered 2023-05 and cited an unrelated paper: the answer is right and only the citation wrong. Because the same verdict demanded opposite handling, the bucket could not be applied or discarded wholesale, and all 65 rows were re-checked individually against evidence independent of the original citation. 61 were resolved, each with its own recorded evidence, and four were left at their existing values because no identity-given source could be found.
+The distinction that matters is that a contradicted verdict impugns the citation, not necessarily the date, and in this corpus the two came apart in both directions. StarCoder2-15B was answered 2023-05 and cited the StarCoder 2 paper, which is 2024-02: the citation is right and the answer wrong. StarCoderBase was answered 2023-05 and cited an unrelated paper: the answer is right and only the citation wrong. Because the same verdict demanded opposite handling, the bucket could not be applied or discarded wholesale, and all 65 rows were re-checked individually against evidence independent of the original citation. 61 were resolved, each with its own recorded evidence, and four were left at their existing values because no identity-given source could be found.
 
-### Two lower bounds, and only one of them is sound.
+### Release date lower bounds
 
 A repository cannot postdate the model it distributes, so a repository creation date is a genuine lower bound. However, since it can sit well below the release, that bound is often loose. The StarCoder2-3B repository was created 2023-11-29 for a model that became public in 2024-02. A paper date is *not* a lower bound, because papers routinely trail the release: Pythia-12B had a public, archived model page on 2023-02-03, two months before the Pythia paper. We built a guard taking the later of the two, and discarded it after measuring it. Of the seven rows it moved, one was right and at least five were wrong. Repository creation dates are therefore used unmodified and documented as a lower bound, with individual cases corrected by hand rather than by rule.
 
-### Failure modes that recur.
+### Recurring failure modes
 
 Three are worth naming because each produced errors that survived an earlier pass. (i) *Family attribution*: a page about the family, or about a later version, supplies a real date for the wrong artefact. (ii) *Staged releases*, which are family attribution inside a single model line. GPT-2 shipped in four tranches (124M 2019-02, 355M 2019-05, 774M 2019-08, 1.5B 2019-11, each datable from the publisher's own commits), and six corpus rows had collapsed them onto one date. (iii) *Name collision*, where SGPT-2.7B-msmarco was dated 2019-02 as though it were a GPT-2 variant when it is in fact SGPT, 2022-02.
 
-### The known bias is toward being early.
+### Early-release bias
 
 Dates produced by asking a language model run systematically early for models released after that model's training cutoff. Correcting the weak tiers moved 119 model dates, 85 of them later, which is the bias being paid down where it was concentrated. Twenty rows moved by a year or more, several by two (GPT-4.1 from 2023-03 to 2025-04, and Gemini 3 Pro from 2023-12 to 2025-11).
 
