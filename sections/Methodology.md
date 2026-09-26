@@ -1,6 +1,6 @@
 # Methodology
 
-In this study we investigate the low-dimensional structure of model benchmark scores, which comprises distinct but correlated latent factors that each dominantly affects different clusters of benchmarks, and a $g$ factor that accounts for the variances of all benchmarks. Our raw $1{,}618 \times 456$ matrix is supersparse (~1.8% density) and missing not at random (MNAR) \citep{rubin1976}, since popular models and popular benchmarks are observed far more often. We therefore apply several densification and imputation methods, each with its own biases and assumptions, and triangulate their results to find a common characteristic.
+In this study we investigate the low-dimensional structure of model benchmark scores, which comprises distinct but correlated latent factors that each dominantly affects different clusters of benchmarks, and a $g$ factor that accounts for the variances of all benchmarks. Our raw $1{,}618 \times 456$ matrix is super-sparse (~1.8% density) and missing not at random (MNAR) \citep{rubin1976}, since popular models and popular benchmarks are observed far more often. We therefore apply several densification and imputation methods, each with its own biases and assumptions, and triangulate their results to find a common characteristic.
 
 <!-- Opening paragraph condensed to save space (2026-09-23). The matrix size, density,
 MNAR point and the triangulation aim are kept, and the densifier and imputer
@@ -52,12 +52,12 @@ Primary papers & 587 & 95 \\
 \toprule
 Densifier & Strategy & Shape & Density & Retained \\
 \midrule
-raw & Std. & 1266 $\times$ 404 & 2.2\% & \\
+raw & Std. & 1,266 $\times$ 404 & 2.2\% & \\
 raw & Aggr. & 334 $\times$ 380 & 3.5\% & \\
 C & Std. & 671 $\times$ 78 & 13.8\% & 65\% \\
 C & Aggr. & 201 $\times$ 102 & 13.6\% & 63\% \\
-S & Std. & 669 $\times$ 124 & 10\% & 75\% \\
-S & Aggr. & 124 $\times$ 293 & 10\% & 81\% \\
+S & Std. & 669 $\times$ 124 & 10.0\% & 75\% \\
+S & Aggr. & 124 $\times$ 293 & 10.0\% & 81\% \\
 R & Std. & 175 $\times$ 298 & 11.8\% & 55\% \\
 R & Aggr. & 97 $\times$ 310 & 11.7\% & 78\% \\
 \bottomrule

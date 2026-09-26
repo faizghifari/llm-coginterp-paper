@@ -31,7 +31,7 @@ section titles carried the strategy names in code font and are now plain. -->
 
 ## Post-collapse filtering
 
-Benchmarks observed for only one collapse key are dropped, then collapse keys with no remaining benchmarks are dropped. This yields the two raw matrices of `\hyperref[tab:matrices]{Table~2}`{=latex}, 1,266 × 404 at 2.2 % and 334 × 380 at 3.5 %, from 2,183 distinct source-level model identifiers.
+Benchmarks observed for only one collapse key are dropped, then collapse keys with no remaining benchmarks are dropped. This yields the two raw matrices of `\hyperref[tab:matrices]{Table~\ref*{tab:matrices}}`{=latex}, 1,266 × 404 at 2.2% and 334 × 380 at 3.5%, from 2,183 distinct source-level model identifiers.
 
 <!-- The parenthetical here gave two pairs of shapes, and all four were wrong:
 "(1,310 x 455 at 2.33 %; 350 x 431 at 3.55 % -- provisional, from matrices

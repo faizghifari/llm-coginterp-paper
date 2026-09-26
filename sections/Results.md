@@ -124,11 +124,11 @@ Figure 1 below shows an illustrative UMAP plot of benchmarks using composite dis
 
 ## Benchmarks' $g$-centrality
 
-Another point of interest for the research question is which benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} answers this question by ranking the benchmarks by the normalized average rank-order[^4] of their loadings on the $g$ factor ($\rho$). To account for confounding effects from benchmark frequency, we report the residuals of the rank order regressed on frequency ($\rho_\epsilon$). Further details and justification are given in `\hyperref[benchmark-g-rankings]{Appendix~\ref*{benchmark-g-rankings}}`{=latex}.
+Another point of interest for the research question is which benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} answers this question by ranking the benchmarks by the normalized average rank order[^4] of their loadings on the $g$ factor ($\rho$). To account for confounding effects from benchmark frequency, we report the residuals of the rank order regressed on frequency ($\rho_\epsilon$). Further details and justification are given in `\hyperref[benchmark-g-rankings]{Appendix~\ref*{benchmark-g-rankings}}`{=latex}.
 
 <!-- Style pass 2026-09-24 (table number and row count did not match Table 5, and the appendix label had .md so it rendered as Appendix ??). The paragraph read: Another point of interest for the research question is what benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. Table 4 answers this question by showing the top 20 benchmarks, averaged by the normalized average rank-order[^4] based on their loadings on the $g$ factor. To account for confounding effects from benchmark frequency, we report the residuals of the rank order regressed by frequency. Further details and justification are given in (`\hyperref[benchmark-g-rankings.md]{Appendix~\ref*{benchmark-g-rankings.md}}`{=latex}). -->
 
-[^4]: We use rank-order as factor loadings vary in range, and they are normalized as different datasets have different numbers of benchmarks.
+[^4]: We use rank order as factor loadings vary in range, and they are normalized as different datasets have different numbers of benchmarks.
 
 Surprisingly, the top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of creativity, legal use cases, and even emotional intelligence. There is no evidence that a $g$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. To add to this, standard intelligence benchmarks like `arc` and `gpqa_diamond` are placed near the middle of the rankings. **Our results are evidence that the prevailing assumption that reasoning, mathematics, and coding benchmarks are the best proxies of general intelligence does not hold**. 
 
@@ -136,7 +136,7 @@ Surprisingly, the top benchmarks are not dominated by common standard benchmarks
 
 ```{=latex}
 \begin{longtable}{@{}rlrrlrrr@{}}
-\caption{Benchmarks and their average normalized rank-order ($\rho$) of their $g$ factor loadings. Sorted by frequency-residualized rank ($\rho_\epsilon$). $\rho$ ranges from 0 to 1, where 0 = ranked first, 1 = ranked last. $N$ = number of EFA estimations with that benchmark. CI and Best/Worst refer to $\rho$.}\label{tab:g-rankings}\\
+\caption{Benchmarks and their average normalized rank order ($\rho$) of their $g$ factor loadings. Sorted by frequency-residualized rank ($\rho_\epsilon$). $\rho$ ranges from 0 to 1, where 0 = ranked first, 1 = ranked last. $N$ = number of EFA estimations with that benchmark. CI and Best/Worst refer to $\rho$.}\label{tab:g-rankings}\\
 \toprule
 No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ \\
 \midrule
