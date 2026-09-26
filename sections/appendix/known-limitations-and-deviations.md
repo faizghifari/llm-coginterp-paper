@@ -4,7 +4,7 @@ All scores in the corpus are as published, and we evaluate no model ourselves. T
 
 Metric direction is recorded but not applied, so a lower-is-better benchmark contributes a sign-flipped column. In a correlation-based analysis this shows up as a negative loading rather than as a bias, though orienting every column before analysis would be cleaner. Two downstream consequences follow. The cosine distance behind Figure 1 places a sign-flipped benchmark far from a same-direction benchmark measuring the same thing, and the mean fill assigns a positive correlation to pairs that should be negative.
 
-Not every completion method we implement is carried through the full design. The results reported here cover SoftImpute, k-NN, missForest and OneSidedMC. The correlation-level estimators added most recently have not been run across every densifier and collapse strategy, and regularised EM-PCA is excluded entirely because its built-in cross-validation is intractable at this matrix size.
+Not every completion method we implement is carried through the full design. The results reported here cover SoftImpute, k-NN, missForest and OneSidedMC. The correlation-level estimators added most recently have not been run across every densifier and collapse strategy, and regularized EM-PCA is excluded entirely because its built-in cross-validation is intractable at this matrix size.
 
 <!-- Pass 4, second cut, 2026-09-19. Twelve worklog subsections became seven
 paragraphs, and seven paragraphs are now three. Title shortened to "Limitations",

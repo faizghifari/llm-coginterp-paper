@@ -12,7 +12,7 @@ Target density $\tau = 0.10$. Let $\mathbf{M}$ be the boolean observation mask.
 
 **Degenerate-column guard.** Finally drop any column with fewer than 2 observed values or zero variance among its observed values, matching exactly what the downstream estimators would drop at runtime. This parity is deliberate: it keeps the reported matrix shape equal to the shape actually factored.
 
-The tables analysed in this paper were generated with the floor set to 3 observations.<!-- The constant name MIN_OBS was removed here and above in pass 5. -->
+The tables analyzed in this paper were generated with the floor set to 3 observations.<!-- The constant name MIN_OBS was removed here and above in pass 5. -->
 
 <!-- This sentence used to read: "The tables analysed in this paper were
 generated with MIN_OBS = 2, verified against the shipped matrices -- the minimum

@@ -4,7 +4,7 @@
 
 The corpus is assembled from published evaluation records, and for every score we record which of four source tiers it comes from.
 
-**Tier 1, curated evaluation suites** with a standardised harness and one evaluator across many models. These are Stanford HELM (the Classic, Lite, Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR and Finance leaderboards) and the HuggingFace Open LLM Leaderboard (v1 and v2).
+**Tier 1, curated evaluation suites** with a standardized harness and one evaluator across many models. These are Stanford HELM (the Classic, Lite, Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR and Finance leaderboards) and the HuggingFace Open LLM Leaderboard (v1 and v2).
 
 **Tier 2, aggregators and result trackers.** Papers With Code, Kaggle AI Benchmarks, llm-stats.com, Artificial Analysis, Vellum, LiveBench, Chatbot Arena / LMArena and pricepertoken.com.
 
@@ -12,7 +12,7 @@ The corpus is assembled from published evaluation records, and for every score w
 
 **Tier 4, primary papers** reporting original evaluations (arXiv, ACL Anthology, OpenReview, ACM Digital Library and journals). These are also our source for benchmark metadata.
 
-The "Other online leaderboards" row of `\hyperref[tab:sources]{Table~\ref*{tab:sources}}`{=latex} combines Chatbot Arena / LMArena (202 rows), llm-stats.com (121), Vellum (96), Artificial Analysis (77), LiveBench (55) and the remaining named leaderboards (420). For 295 rows (2.2%) the source organisation was not recorded, and we assigned these by source name and URL host.
+The "Other online leaderboards" row of `\hyperref[tab:sources]{Table~\ref*{tab:sources}}`{=latex} combines Chatbot Arena / LMArena (202 rows), llm-stats.com (121), Vellum (96), Artificial Analysis (77), LiveBench (55) and the remaining named leaderboards (420). For 295 rows (2.2%) the source organization was not recorded, and we assigned these by source name and URL host.
 
 <!-- ---------- ORIGINAL (pre-revision) TEXT of this subsection, before the 2026-09-26 rewrite. Table A1 (the uncollapsed Table 1) was dropped, and its breakdown folded into one sentence.
 Inner comments are kept as {note: ...} since comments cannot nest.
@@ -286,11 +286,11 @@ Link validity was checked by a multi-threaded URL sweep across both metadata tab
 
 ## Score normalization
 
-Scores are normalised to a 0 to 100 scale. Papers With Code and Kaggle report scores in mixed formats. For these two sources, a raw value in $[0,1]$ is multiplied by 100 and a value above 1 is kept as it is. The other sources report on one scale per leaderboard and are converted as a whole. A few columns remain on a 0 to 1 scale, which column standardisation absorbs. Results are capped at 100 to absorb floating-point noise. Exempt metrics, kept on their native scale, are perplexity, bits-per-byte, BLEURT, BERTScore, Elo, and count-type metrics ("# eval").
+Scores are normalized to a 0 to 100 scale. Papers With Code and Kaggle report scores in mixed formats. For these two sources, a raw value in $[0,1]$ is multiplied by 100 and a value above 1 is kept as it is. The other sources report on one scale per leaderboard and are converted as a whole. A few columns remain on a 0 to 1 scale, which column standardization absorbs. Results are capped at 100 to absorb floating-point noise. Exempt metrics, kept on their native scale, are perplexity, bits-per-byte, BLEURT, BERTScore, Elo, and count-type metrics ("# eval").
 
 ## Canonical metric selection
 
-When a benchmark is reported under more than one metric, we keep one. Metric names are first normalised for case and whitespace, and spelling variants of the same measurement (such as written-out and abbreviated forms of accuracy or bits per byte) are merged by a hand-curated alias map. We then keep the metric that covers the most models, unless a per-benchmark override applies, and break ties by row count and then by name. This affects 92 benchmarks and drops 1,420 rows (706 model-benchmark cells), and about half of these benchmarks lose no model.
+When a benchmark is reported under more than one metric, we keep one. Metric names are first normalized for case and whitespace, and spelling variants of the same measurement (such as written-out and abbreviated forms of accuracy or bits per byte) are merged by a hand-curated alias map. We then keep the metric that covers the most models, unless a per-benchmark override applies, and break ties by row count and then by name. This affects 92 benchmarks and drops 1,420 rows (706 model-benchmark cells), and about half of these benchmarks lose no model.
 
 Accuracy and exact match are kept apart, even though they look like the same measure on multiple-choice tasks. On the sixteen benchmarks that carry both, exact match comes from HELM and accuracy mostly from the Open LLM Leaderboard and papers, and no model is scored both ways, so the offset between the two cannot be estimated. Merging them would put two evaluation regimes into one column. The coverage rule picks accuracy on four of these benchmarks (MMLU, TruthfulQA, HellaSwag and PubMedQA) and exact match on the other twelve.
 
@@ -337,7 +337,7 @@ support. That is still open. }
 
 ## Remaining column defects
 
-Two columns need fixing after metric selection. On GPQA, 447 of 454 rows are the normalised accuracy of the Open LLM Leaderboard v2 (chance mapped to zero, with negative values clamped to zero), and the other 7 are raw accuracy from papers and llm-stats.com. The two ranges do not overlap, so we drop the 7 raw rows. Since 56 of the remaining rows sit at the clamp, GPQA separates weak models poorly. On ELEPHANT the metric field holds model configurations instead of metrics, so we remove the benchmark (9 models).
+Two columns need fixing after metric selection. On GPQA, 447 of 454 rows are the normalized accuracy of the Open LLM Leaderboard v2 (chance mapped to zero, with negative values clamped to zero), and the other 7 are raw accuracy from papers and llm-stats.com. The two ranges do not overlap, so we drop the 7 raw rows. Since 56 of the remaining rows sit at the clamp, GPQA separates weak models poorly. On ELEPHANT the metric field holds model configurations instead of metrics, so we remove the benchmark (9 models).
 
 Three other benchmarks (WildBench, SEA-Exam and MultiPL-E) have sources with non-overlapping score ranges. We leave them as they are, since trackers of frontier models evaluate stronger models and a gap alone does not show a scale conflict.
 

@@ -4,7 +4,7 @@
 
 Within each benchmark $j$, sample $n_{\text{hold}} = \max\big(1,\ \min(\lfloor 0.2\, n_{\text{obs}(j)} \rfloor,\; n_{\text{obs}(j)} - 2)\big)$ observed cells for $n_{\text{obs}(j)} > 2$, so at least 2 training observations remain in every column. Every column with more than 2 observations contributes at least one held-out cell, so no benchmark is unrepresented in the evaluation set.
 
-At each stage of the imputation, we mask ~20% of the observed cells as an evaluation set. To prevent high-observation benchmarks from inflating the score, we use a column-stratified mask, such that each benchmark is masked at least once and keeps at least two training observations in every column. Columns are standardised using training-cell moments only. 
+At each stage of the imputation, we mask ~20% of the observed cells as an evaluation set. To prevent high-observation benchmarks from inflating the score, we use a column-stratified mask, such that each benchmark is masked at least once and keeps at least two training observations in every column. Columns are standardized using training-cell moments only. 
 
 
 Let $\text{MSE}_j$ and $\text{base}_j$ be the mean squared error and mean baseline within column $j$. Then

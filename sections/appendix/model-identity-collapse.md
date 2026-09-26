@@ -1,24 +1,24 @@
 # Model-identity collapse
 
-Both strategies operate on the source-specific model identifier, which each result row carries exactly as its source spelled it, alongside the canonical model it resolves to. Keeping both is what makes cross-source duplicate detection possible after canonicalisation. Each identifier's family and parameter-count metadata is first canonicalised to the first non-null value observed for it.<!-- The second sentence is the one fact worth keeping from the Schema section of the unembedded sections/appendix/unused/data-sources-and-extraction.md, which otherwise documents table joins and column counts and stays out. Without it, the paper never says why a source-specific identifier is retained at all. The three code field names here were also written out. --> Multiple evaluations of the same (identifier, benchmark) are averaged before collapsing, and rows sharing a collapse key are averaged again per benchmark.
+Both strategies operate on the source-specific model identifier, which each result row carries exactly as its source spelled it, alongside the canonical model it resolves to. Keeping both is what makes cross-source duplicate detection possible after canonicalization. Each identifier's family and parameter-count metadata is first canonicalized to the first non-null value observed for it.<!-- The second sentence is the one fact worth keeping from the Schema section of the unembedded sections/appendix/unused/data-sources-and-extraction.md, which otherwise documents table joins and column counts and stays out. Without it, the paper never says why a source-specific identifier is retained at all. The three code field names here were also written out. --> Multiple evaluations of the same (identifier, benchmark) are averaged before collapsing, and rows sharing a collapse key are averaged again per benchmark.
 
 ## Standard (variant-level)
 
 We apply the following steps in order to each identifier.
 
-1. Strip the organisation prefix, meaning everything before the first slash.
-2. Reduce parenthesised content to a parameter count where one is present, and drop it otherwise.
+1. Strip the organization prefix, meaning everything before the first slash.
+2. Reduce parenthesized content to a parameter count where one is present, and drop it otherwise.
 3. Strip trailing separators and any text after them, reasoning-effort phrases such as "medium effort" or "high reasoning", every date format we encountered, and any bare four-digit number, which in this corpus is a release year, a checkpoint stamp, or a context length.
-4. Normalise version numbers written with hyphens so that they read as decimals.
-5. Where a model family is recorded and is not itself numeric, take it as the stem and tokenise the remaining suffix. Otherwise tokenise the whole cleaned identifier.
-6. Then, token by token, drop generic training and serving tokens (instruction tuning, chat, base, the preference-optimisation family, thinking and reasoning markers, greedy decoding, and API markers), language and region tokens, legacy engine names, and month names. Preserve named tier tokens, since Opus, Sonnet, Haiku, Pro, Mini, Flash, Maverick and Scout each denote a distinct released model rather than a serving option. Drop context-length tokens. Recognise a parameter count either from a billions suffix or by matching the identifier's own recorded size, falling back to a whitelist of common sizes. Merge a version number into the family stem when one extends the other.
+4. Normalize version numbers written with hyphens so that they read as decimals.
+5. Where a model family is recorded and is not itself numeric, take it as the stem and tokenize the remaining suffix. Otherwise tokenize the whole cleaned identifier.
+6. Then, token by token, drop generic training and serving tokens (instruction tuning, chat, base, the preference-optimization family, thinking and reasoning markers, greedy decoding, and API markers), language and region tokens, legacy engine names, and month names. Preserve named tier tokens, since Opus, Sonnet, Haiku, Pro, Mini, Flash, Maverick and Scout each denote a distinct released model rather than a serving option. Drop context-length tokens. Recognize a parameter count either from a billions suffix or by matching the identifier's own recorded size, falling back to a whitelist of common sizes. Merge a version number into the family stem when one extends the other.
 7. Emit the family stem, the preserved tokens, and the parameter count.
 
 The common-size whitelist is guarded against version-number collisions, since a bare 3 or 4 in a Claude or GPT identifier is a version rather than a parameter count.
 
 ## Aggressive (family-level)
 
-Take the first alphabetic token of the recorded model family where it is not numeric. Otherwise strip the organisation prefix, the parentheses and the dates from the identifier, and take its first alphabetic token. Everything else is discarded.
+Take the first alphabetic token of the recorded model family where it is not numeric. Otherwise strip the organization prefix, the parentheses and the dates from the identifier, and take its first alphabetic token. Everything else is discarded.
 
 <!-- Pass 5. Steps 3, 6 and 7 were literal token dumps: the full drop-list
 (instruct, chat, base, sft, dpo, rlhf, thinking, reasoning, cot, greedy, api,

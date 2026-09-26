@@ -16,7 +16,7 @@ Method & Description & Package & Configuration \\
 \endhead
 \bottomrule
 \endlastfoot
-SoftImpute \citep{mazumder2010} & Nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD, assuming a low-rank signal plus noise. Primary cell-level method. & softImpute & sweeps rank: 1\ldots10 (capped at $\min(n,p)-1$), and at each rank a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts \\
+SoftImpute \citep{mazumder2010} & Nuclear-norm-penalized low-rank completion by iterative soft-thresholded SVD, assuming a low-rank signal plus noise. Primary cell-level method. & softImpute & sweeps rank: 1\ldots10 (capped at $\min(n,p)-1$), and at each rank a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts \\
 k-NN & Each missing cell filled from the $k$ most similar models, an assumption-light baseline with no low-rank, linearity, or normality assumption. & VIM & sweeps $k$: 1\ldots10 (capped below $n$), Gower distance over benchmarks, weighted-mean aggregation \\
 missForest \citep{stekhoven2012} & Iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent. & missForest & sweeps number of trees: \{50, 100, 200, 400\}, at most 10 iterations \\
 \end{longtable}
@@ -44,7 +44,7 @@ USVT \citep{chatterjee2015} & Universal singular value thresholding: completes t
 
 ## One-sided matrix completion 
 
-We use a custom implementation of OSMC \citep{cao2023} written in Julia. The premise is that when observations are too sparse to complete cells, the right singular vectors (the benchmark-space factors) may still be recoverable. The estimator targets $\Theta = \frac{1}{n}Z^\top Z$ over the $n$ models. Each product $z_{ij}z_{ij'}$ of two observed standardised scores in one row is an estimate of $\Theta_{jj'}$, and we fit $\hat\Theta = \hat V\hat V^\top$, with $\hat V \in \mathbb{R}^{p \times r}$, to all such products by squared loss using Adam. Off-diagonal and diagonal terms are each averaged over their total count across rows.
+We use a custom implementation of OSMC \citep{cao2023} written in Julia. The premise is that when observations are too sparse to complete cells, the right singular vectors (the benchmark-space factors) may still be recoverable. The estimator targets $\Theta = \frac{1}{n}Z^\top Z$ over the $n$ models. Each product $z_{ij}z_{ij'}$ of two observed standardized scores in one row is an estimate of $\Theta_{jj'}$, and we fit $\hat\Theta = \hat V\hat V^\top$, with $\hat V \in \mathbb{R}^{p \times r}$, to all such products by squared loss using Adam. Off-diagonal and diagonal terms are each averaged over their total count across rows.
 
 Its native error is defined on pairwise products, which is not comparable to the other methods, so each held-out cell is additionally predicted from the recovered covariance by the conditional-Gaussian (best linear) predictor $\hat z_j = V_j^\top V_S^{+} z_S$, solved in the $r$-dimensional factor space rather than by inverting the rank-deficient $|S| \times |S|$ covariance block, which is numerically unstable on richly-observed rows. For the hold-out column stratification, the masking also ensures each row has at least 2 observations.
 

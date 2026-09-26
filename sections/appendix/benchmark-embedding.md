@@ -1,6 +1,6 @@
 # Benchmark embedding
 
-Figure 1 places each benchmark in two dimensions using a composite distance computed from the factor loadings rather than from the score matrix. This section describes how that distance is built and how the figure is coloured.
+Figure 1 places each benchmark in two dimensions using a composite distance computed from the factor loadings rather than from the score matrix. This section describes how that distance is built and how the figure is colored.
 
 ## Composite distancing
 
@@ -8,7 +8,7 @@ Every bifactor solution assigns each benchmark a row of loadings, consisting of 
 
 Within a single solution we compute the cosine distance between every pair of benchmark vectors, which is one minus their cosine similarity, clipped to the range 0 to 2. Cosine distance is invariant to the rotation and to the sign of the factors, so per-solution distances remain comparable even though the factors themselves are not. We then average each pair's distance across every solution in which both benchmarks appear. This average is the composite distance, and it is what the figure embeds.
 
-The composite distance matrix is passed to UMAP \citep{mcinnes2018} as a precomputed metric, with two components, ten neighbours, a minimum distance of 0.15, and a fixed random seed. Nothing is re-standardised at this stage, since the distances already share a common scale.
+The composite distance matrix is passed to UMAP \citep{mcinnes2018} as a precomputed metric, with two components, ten neighbors, a minimum distance of 0.15, and a fixed random seed. Nothing is re-standardized at this stage, since the distances already share a common scale.
 
 ## Uncomputable distance handling
 <!-- **Colours.** We label all 456 benchmarks by hand on three axes: subject (what the benchmark is about), task (how the test is administered), and language. The labels are multi-label, so a reading-comprehension benchmark on medical text carries both labels. The subject axis has 46 distinct labels and is the one used to colour Figure 1. Labels are authored from each benchmark's own documentation, and we never tune them against the embedding or against any factor solution. -->
@@ -41,7 +41,7 @@ all & 318 & 160 & 50403 & 0.32\% \\
 All benchmarks were labeled along three independent, non-exclusive axes: subject (content domain), task (administration format), and language. A benchmark can carry several subject tags, and some of those tags are nested within a broader parent label (e.g. medical under specialized_domain). Labels were curated from each benchmark's documentation, independent of the distance-geometry and cohesion analyses.
 
 ## UMAP limitations
-It must be stressed, however, that UMAP preserves neither density nor global distance. Groups that appear tight or far apart in two dimensions are partly an artefact of the embedding. We therefore read the figure as a visual summary, and any claim we make about clustering rests on the composite distance matrix itself.
+It must be stressed, however, that UMAP preserves neither density nor global distance. Groups that appear tight or far apart in two dimensions are partly an artifact of the embedding. We therefore read the figure as a visual summary, and any claim we make about clustering rests on the composite distance matrix itself.
 
 <!-- New appendix, written 2026-09-19. Figure 1 was previously undocumented: no
 part of the paper said what the composite distance was, how loadings were
