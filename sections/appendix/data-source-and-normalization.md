@@ -108,7 +108,19 @@ Everything else is left blank, including the inference stack for open models, th
 
 ## Release dates
 
-<!-- Heading was "Release-date provenance" until 2026-09-26. -->
+We record the release date of every model and benchmark to the month, together with the kind of evidence behind it. For models, the direct sources are the creation date of a HuggingFace repository named after the model (801 models), a web page that we fetched and checked to name the model and give the date (434), the model's own paper (25) and a date written in the model name (1). These date 1,261 of the 1,618 models (78%). Most of the rest come from a cited page that we could not re-read (210) or from a single language-model lookup (89), and 5 models are undated. Benchmark dates are weaker. Only one benchmark is dated from a direct source (its arXiv identifier), and most carry either a date from an earlier pass whose origin was not recorded (223) or one that two lookups agree on only to the year (136).
+
+Every date that came with a citation was checked by fetching the cited page and asking whether it names the model and gives the date. Of the 565 such dates, 404 were confirmed and 96 could not be checked, since the page was blocked or paywalled. The other 65 were re-checked by hand against other sources, and 61 of them were resolved this way.
+
+Two caveats remain. A repository is often created some time before the model is made public, so its creation date is a lower bound on the release. Also, dates from language-model lookups tend to be too early for models released after the training cutoff of the lookup model. Correcting the weaker tiers moved 119 model dates, 85 of them to a later month, but the dates still resting on a single lookup may run early.
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT of this subsection, before the 2026-09-26 rewrite. The evidence-tier table (Table A2) and the subsections on three-way verification, lower bounds, failure modes and early-release bias were folded into three paragraphs.
+Inner comments are kept as {note: ...} since comments cannot nest.
+
+## Release dates
+
+
+{note: Heading was "Release-date provenance" until 2026-09-26. }
 
 Release dates are recorded to year and month, alongside the class of evidence each came from. The tiers are ordered, and the ordering is the point: a filter on this column is the only way to use the field responsibly.
 
@@ -139,7 +151,7 @@ Pre-existing, origin unrecorded & a date already present before this pass & 24 &
 
 Grouping the first five tiers as *strong* covers **1,261 of 1,618 model rows (78 %)** but only **1 of 456 benchmark rows (0.2 %)**.
 
-<!-- Every count in this table was recomputed from data/text_only/models.csv and
+{note: Every count in this table was recomputed from data/text_only/models.csv and
 benchmarks.csv on 2026-09-19. The previous version was tallied over 2,014 model
 rows and 624 benchmark rows, which is the pre-filter corpus, not the 1,618
 models and 456 benchmarks the paper actually analyses. The superseded column
@@ -148,7 +160,7 @@ pairs, in table order: 0/1, 921/0, 39/2, 1/0, 605/0, 129/86, 9/5, 135/0, 36/162,
 benchmark rows (0.5 %)". The strong-tier share of models is unchanged at 78 %.
 
 The tier labels are still the pipeline's own enum values and are due to be
-rewritten as English in the appendix tidy-up; only the counts changed here. -->
+rewritten as English in the appendix tidy-up; only the counts changed here. }
 
 
 ### Three-way verification
@@ -168,6 +180,7 @@ Three are worth naming because each produced errors that survived an earlier pas
 ### Early-release bias
 
 Dates produced by asking a language model run systematically early for models released after that model's training cutoff. Correcting the weak tiers moved 119 model dates, 85 of them later, which is the bias being paid down where it was concentrated. Twenty rows moved by a year or more, several by two (GPT-4.1 from 2023-03 to 2025-04, and Gemini 3 Pro from 2023-12 to 2025-11).
+-->
 
 ## Inclusion and exclusion criteria
 
