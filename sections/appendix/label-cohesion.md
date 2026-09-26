@@ -1,6 +1,6 @@
 # Label cohesion results
 
-We present the full label cohesion results for all labels here. From the subject category, only `finance` and `professional_writing` show significantly strong cohesion, both of which are very specific benchmarks with low median n. The next few labels show moderate to weak cohesion at best, a lot of which do not have enough significance to distinguish from chance. Labeling by language surprisingly show many weakly cohesive structure, especially for `monolingual_non_english`, which is an aggregate label. Individual labels for each language are not used due low n. All of the results support our claim that benchmark clusters are weakly cohesive.
+We present the full label cohesion results for all labels here. From the subject category, only `finance` and `professional_writing` show significantly strong cohesion, both of which are very specific labels with low median n. The next few labels show moderate to weak cohesion at best, a lot of which do not have enough significance to distinguish from chance. Labeling by language surprisingly shows many weakly cohesive structures, especially for `monolingual_non_english`, which is an aggregate label. Individual labels for each language are not used due to low n. All of the results support our claim that benchmark clusters are weakly cohesive.
 
 ```{=latex}
 \begin{longtable}{@{}lrrr@{}}

@@ -1,10 +1,10 @@
 # Benchmark $g$-rankings
 
-## Frequency and $g$-ranking corrlations
+## Frequency and $g$-ranking correlations
 
-A pressing concern with regards to our findings on the top $g$ benchmarks in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main content, is to what degree a benchmark's $g$-factor loading is correlated with their non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
+A pressing concern with regard to our findings on the top $g$ benchmarks in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main content is to what degree a benchmark's $g$ factor loading is correlated with its non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
 
-Naively, as shown in `\hyperref[tab:g-rank-freq-corr]{Table~\ref*{tab:g-rank-freq-corr}}`{=latex} below, benchmark frequency *is* correlated with $g$ loadings. Unsigned averages suggest this correlation is ignorable ($r = 0.3432$), but the range of the correlations are quite dispersed, and some dataset-imputation combination can be as high as ~0.5. Thus, identifying benchmarks which proxy a supposed latent $g$ factor well requires adjusting the statistics with respect to their frequency.
+Naively, as shown in `\hyperref[tab:g-rank-freq-corr]{Table~\ref*{tab:g-rank-freq-corr}}`{=latex} below, benchmark frequency *is* correlated with $g$ loadings. Unsigned averages suggest this correlation is ignorable ($r = 0.3432$), but the correlations are quite dispersed, and some dataset-imputation combinations can be as high as ~0.5. Thus, identifying benchmarks which proxy a supposed latent $g$ factor well requires adjusting the statistics with respect to their frequency.
 
 ```{=latex}
 \begin{longtable}{@{}llrrr@{}}
@@ -90,7 +90,7 @@ The adjusted score of benchmark $i$ is the mean of its residuals over the cells 
 
 ## Diagnostics
 
-We present 2 diagnostics that justify the method of adjustment. `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below shows, within each cell, the Pearson correlation $r(f_i, a_i)$ is reported, with the mean $r$, the mean $|r|$, and the counts of negative and positive cells. Negative $r$ indicates that more frequently measured benchmarks load higher on $g$.
+We present two diagnostics that justify the method of adjustment. `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below reports, within each cell, the Pearson correlation $r(f_i, a_i)$, with the mean $r$, the mean $|r|$, and the counts of negative and positive cells. Negative $r$ indicates that more frequently measured benchmarks load higher on $g$.
 
 ```{=latex}
 \begin{longtable}{@{}llrr@{}}
@@ -129,7 +129,7 @@ Zero fill & C Std. & 78 & -0.572 \\
 \end{longtable}
 ```
 
-Second, `\hyperref[tab:g-rank-pooled-corr]{Table~\ref*{tab:g-rank-pooled-corr}}`{=latex} reports the the pooled correlation between mean frequency and mean rank is before and after the adjustment, stratified by the number of cells $k$ in which a benchmark appears. The within-cell association does not survive pooling with a consistent sign: cells disagree in direction, so the pooled raw correlation is small even though the within-cell correlations are not.
+Second, `\hyperref[tab:g-rank-pooled-corr]{Table~\ref*{tab:g-rank-pooled-corr}}`{=latex} reports the pooled correlation between mean frequency and mean rank before and after the adjustment, stratified by the number of cells $k$ in which a benchmark appears. The within-cell association does not survive pooling with a consistent sign: cells disagree in direction, so the pooled raw correlation is small even though the within-cell correlations are not.
 
 ```{=latex}
 \begin{longtable}{@{}lrrr@{}}

@@ -6,13 +6,13 @@ We fit the exploratory factor analysis with the minimum-residual estimator, appl
 
 ## Factor count
 
-Horn's \citep{horn1965} parallel analysis in its PC flavour: the observed eigenvalues of the correlation matrix are compared position-by-position against the 95th percentile of eigenvalues from 100 random $n \times p$ standard-normal matrices' correlation matrices, and
-$$nf = \#\{i : \lambda_i^{\text{obs}} > \lambda_i^{\text{cut}}\},\quad nf \geq 2.$$
+We use Horn's parallel analysis \citep{horn1965} in its PC flavour. The observed eigenvalues of the correlation matrix are compared position-by-position against the 95th percentile of eigenvalues from 100 random $n \times p$ standard-normal matrices' correlation matrices, and
+$$n_f = \#\{i : \lambda_i^{\text{obs}} > \lambda_i^{\text{cut}}\},\quad n_f \geq 2.$$
 The count is then capped at 20, beyond which the bifactor fits become prohibitively slow, and at $\min(p-1,\, n-1,\, \operatorname{rank}(R) - 1)$, since the completed and surrogate matrices are frequently rank-deficient or have $p \gg n$ and the estimator would otherwise error. If the fit still fails, we decrement the count until it succeeds, and record the count actually used.
 
 ## Bifactor decomposition
 
-The bifactor step uses the Schmid-Leiman \citep{schmidleiman1957,reise2010,reise2012} transformation for EFA without sign flipping. We record per cell the full Schmid-Leiman loading matrix (the general factor plus the domain factors, per benchmark), $\omega_h$ . From the first-order solution we also record cumulative variance explained, per-factor proportions, and the inter-factor correlation matrix $\Phi$ with its mean off-diagonal.
+The bifactor step uses the Schmid-Leiman \citep{schmidleiman1957,reise2010,reise2012} transformation for EFA without sign flipping. We record per cell the full Schmid-Leiman loading matrix (the general factor plus the domain factors, per benchmark) and $\omega_h$. From the first-order solution we also record cumulative variance explained, per-factor proportions, and the inter-factor correlation matrix $\Phi$ with its mean off-diagonal.
 
 %%We run each cell twice, once at the parallel-analysis count and once at exactly 2 factors. This is an exploratory Schmid-Leiman solution, in which cross-loadings are not constrained to zero, and it is not equivalent to a confirmatory bifactor CFA.%%
 

@@ -1,6 +1,6 @@
 # Score-redundancy pruning
 
-Applied to the text-only copy only, after the scope filter of `\hyperref[benchmarks]{Appendix~\ref*{benchmarks}}`{=latex}. Each family was audited by computing the full pairwise Pearson correlation among its columns over the models evaluated on both columns. The removal decision was taken per family, on the evidence, and we verified that the resulting cascades orphan no models.
+This pass is applied to the text-only copy, after the scope filter of `\hyperref[benchmarks]{Appendix~\ref*{benchmarks}}`{=latex}. Each family was audited by computing the full pairwise Pearson correlation among its columns over the models evaluated on both columns. The removal decision was taken per family, on the evidence, and we verified that the resulting cascades orphan no models.
 
 ```{=latex}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.32\textwidth}>{\raggedright\arraybackslash}p{0.20\textwidth}r@{}}

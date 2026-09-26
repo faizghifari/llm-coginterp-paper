@@ -64,7 +64,7 @@ The table below lists, for every dataset-imputer combination, the held-out RMSE,
 
 ```{=latex}
 \begin{longtable}{@{}llrrl@{}}
-\caption{Result of all imputation runs, sorted by $R^2$.}\label{tab:imputation-results-all}\\
+\caption{Results of all imputation runs, sorted by $R^2$.}\label{tab:imputation-results-all}\\
 \toprule
 Dataset & Imputer & RMSE & $R^2$ & Configuration \\
 \midrule
