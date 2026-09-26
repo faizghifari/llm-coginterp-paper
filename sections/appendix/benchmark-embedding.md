@@ -41,7 +41,7 @@ all & 318 & 160 & 50403 & 0.32\% \\
 All benchmarks were labeled along three independent, non-exclusive axes: subject (content domain), task (administration format), and language. A benchmark can carry several subject tags, and some of those tags are nested within a broader parent label (e.g. medical under specialized_domain). Labels were curated from each benchmark's documentation, independent of the distance-geometry and cohesion analyses.
 
 ## UMAP limitations
-It must be stressed, however, that UMAP preserves neither density nor global distance. Groups that appear tight or far apart in two dimensions are partly an artifact of the embedding. We therefore read the figure as a visual summary, and any claim we make about clustering rests on the composite distance matrix itself.
+UMAP preserves neither density nor global distance. Groups that appear tight or far apart in two dimensions are partly an artifact of the embedding. We therefore read the figure as a visual summary, and any claim we make about clustering rests on the composite distance matrix itself.
 
 <!-- New appendix, written 2026-09-19. Figure 1 was previously undocumented: no
 part of the paper said what the composite distance was, how loadings were
