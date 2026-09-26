@@ -2,7 +2,7 @@
 
 ## Estimator
 
-We fit the exploratory factor analysis with the minimum-residual estimator, applying a promax rotation whenever more than one factor is extracted and no rotation otherwise. Where the default squared-multiple-correlation start for the communalities errors on a singular correlation matrix, we retry the fit from a unity diagonal. Only hard errors trigger that fallback, since benign warnings still return a usable fit. The factor analysis used the R package `psych` \citep{revelle2024}
+We fit the exploratory factor analysis with the minimum-residual estimator, applying a promax rotation whenever more than one factor is extracted and no rotation otherwise. Where the default squared-multiple-correlation start for the communalities errors on a singular correlation matrix, we retry the fit from a unity diagonal. Only hard errors trigger that fallback, since benign warnings still return a usable fit. The factor analysis used the R package `psych` \citep{revelle2024}.
 
 ## Factor count
 
