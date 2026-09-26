@@ -192,4 +192,9 @@ since OneSidedMC was refactored.
 The 20% density is dropped from this appendix (authors' decision, 2026-09-23,
 20% results were outdated). Its old rows, in git history before this change:
 Table A5 24 fits, 3 above, 7 below, congruence 0.96 / 0.99, and Table A8
-counts pooled over both densities of 6, 17, 19 and 10 of 20. -->
+counts pooled over both densities of 6, 17, 19 and 10 of 20.
+
+Rechecked 2026-09-26 against the re-uploaded 10perc.canon.zip. Its data/ and
+release_date outputs are byte-identical to the run above, so nothing changed.
+The report's A5 and A7 now live in the text, and its A6 and A8 are the paper's
+A5 and A6. -->
