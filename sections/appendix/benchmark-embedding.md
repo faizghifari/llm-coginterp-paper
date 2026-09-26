@@ -1,6 +1,6 @@
 # Benchmark embedding
 
-Figure 1 places each benchmark in two dimensions using a composite distance computed from the factor loadings rather than from the score matrix. This appendix describes how that distance is built and how the figure is coloured.
+Figure 1 places each benchmark in two dimensions using a composite distance computed from the factor loadings rather than from the score matrix. This section describes how that distance is built and how the figure is coloured.
 
 ## Composite distancing
 
