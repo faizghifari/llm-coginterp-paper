@@ -16,9 +16,9 @@ Method & Description & Package & Configuration \\
 \endhead
 \bottomrule
 \endlastfoot
-SoftImpute \citep{mazumder2010} & Nuclear-norm-penalized low-rank completion by iterative soft-thresholded SVD, assuming a low-rank signal plus noise. Primary cell-level method. & softImpute & sweeps rank: 1\ldots10 (capped at $\min(n,p)-1$), and at each rank a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts \\
-k-NN & Each missing cell filled from the $k$ most similar models, an assumption-light baseline with no low-rank, linearity, or normality assumption. & VIM & sweeps $k$: 1\ldots10 (capped below $n$), Gower distance over benchmarks, weighted-mean aggregation \\
-missForest \citep{stekhoven2012} & Iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent. & missForest & sweeps number of trees: \{50, 100, 200, 400\}, at most 10 iterations \\
+SoftImpute \citep{mazumder2010} & Nuclear-norm-penalized low-rank completion by iterative soft-thresholded SVD, assuming a low-rank signal plus noise. Primary cell-level method. & softImpute & sweeps rank: 1\ldots10 (capped at $\min(n,p)-1$), and at each rank a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts \\*
+k-NN & Each missing cell filled from the $k$ most similar models, an assumption-light baseline with no low-rank, linearity, or normality assumption. & VIM & sweeps $k$: 1\ldots10 (capped below $n$), Gower distance over benchmarks, weighted-mean aggregation \\*
+missForest \citep{stekhoven2012} & Iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent. & missForest & sweeps number of trees: \{50, 100, 200, 400\}, at most 10 iterations \\*
 \end{longtable}
 ```
 
