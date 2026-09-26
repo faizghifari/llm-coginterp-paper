@@ -2,53 +2,60 @@
 
 ## Frequency and $g$-ranking corrlations
 
-A pressing concern with regards to our findings on the top $g$ benchmarks in table 5 of the main content, is to what degree a benchmark's $g$-factor loading is correlated with their non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
+A pressing concern with regards to our findings on the top $g$ benchmarks in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main content, is to what degree a benchmark's $g$-factor loading is correlated with their non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
 
-Naively, as shown in table 1 below, benchmark frequency *is* correlated with $g$ loadings. Unsigned averages suggest this correlation is ignorable ($r = 0.3432$), but the range of the correlations are quite dispersed, and some dataset-imputation combination can be as high as ~0.5. Thus, identifying benchmarks which proxy a supposed latent $g$ factor well requires adjusting the statistics with respect to their frequency.
+Naively, as shown in `\hyperref[tab:g-rank-freq-corr]{Table~\ref*{tab:g-rank-freq-corr}}`{=latex} below, benchmark frequency *is* correlated with $g$ loadings. Unsigned averages suggest this correlation is ignorable ($r = 0.3432$), but the range of the correlations are quite dispersed, and some dataset-imputation combination can be as high as ~0.5. Thus, identifying benchmarks which proxy a supposed latent $g$ factor well requires adjusting the statistics with respect to their frequency.
 
-**Table 1**. Correlations between benchmark frequency and their $g$ loadings. $k$ = number of factors extracted.
-
-| Method                       | Dataset            | $k$ |         $r$ |         $N$ |
-| ---------------------------- | ------------------ | --: | ----------: | ----------: |
-| fill-mean                    | C_all_standard     |   2 |     +0.4192 |          78 |
-| fill-mean                    | C_all_standard     |  14 |     +0.4192 |          78 |
-| knn                          | C_all_standard     |   2 |     +0.4065 |          78 |
-| knn                          | C_all_standard     |   7 |     +0.4065 |          78 |
-| knn                          | S_all_standard     |   2 |     +0.2335 |         124 |
-| knn                          | S_all_standard     |  11 |     +0.2335 |         124 |
-| missforest                   | C_all_aggressive   |   2 |     +0.3251 |         102 |
-| missforest                   | C_all_aggressive   |   4 |     +0.3251 |         102 |
-| missforest                   | C_all_standard     |   2 |     +0.2203 |          78 |
-| missforest                   | C_all_standard     |   4 |     +0.2203 |          78 |
-| missforest                   | S_all_standard     |   2 |     −0.2462 |         124 |
-| missforest                   | S_all_standard     |   4 |     −0.2462 |         124 |
-| onesidedmc                   | C_all_aggressive   |   2 |     −0.4090 |         102 |
-| onesidedmc                   | C_all_standard     |   2 |     +0.4786 |          78 |
-| onesidedmc                   | S_all_standard     |   2 |     +0.3609 |         124 |
-| softimpute                   | C_all_aggressive   |   2 |     +0.5763 |         102 |
-| softimpute                   | C_all_aggressive   |   5 |     +0.5763 |         102 |
-| softimpute                   | C_all_standard     |   2 |     +0.5513 |          78 |
-| softimpute                   | C_all_standard     |   9 |     +0.5513 |          78 |
-| softimpute                   | R_all_aggressive   |   2 |     −0.3041 |         310 |
-| softimpute                   | R_all_aggressive   |  20 |     −0.3041 |         310 |
-| softimpute                   | R_all_standard     |   2 |     −0.2140 |         298 |
-| softimpute                   | R_all_standard     |  20 |     −0.2140 |         298 |
-| softimpute                   | S_all_aggressive   |   2 |     −0.3161 |         293 |
-| softimpute                   | S_all_aggressive   |  20 |     −0.3161 |         293 |
-| softimpute                   | S_all_standard     |   2 |     +0.1885 |         124 |
-| softimpute                   | S_all_standard     |   5 |     +0.1885 |         124 |
-| softimpute                   | raw_all_aggressive |   2 |     −0.2404 |         380 |
-| softimpute                   | raw_all_aggressive |  10 |     −0.2404 |         380 |
-| softimpute                   | raw_all_standard   |   2 |     +0.1815 |         404 |
-| softimpute                   | raw_all_standard   |  10 |     +0.1815 |         404 |
-| softimpute_corr              | C_all_standard     |   2 |     +0.3788 |          78 |
-| softimpute_corr              | C_all_standard     |   4 |     +0.3788 |          78 |
-| softimpute_corr              | S_all_standard     |   2 |     +0.3890 |         124 |
-| softimpute_corr              | S_all_standard     |   5 |     +0.3890 |         124 |
-| fill-zeros                   | C_all_standard     |   2 |     +0.5343 |          78 |
-| fill-zeros                   | C_all_standard     |  14 |     +0.5343 |          78 |
-| **Average**                  |                    |     | **+0.1783** | 37 (groups) |
-| **Average $\lvert r\lvert$** |                    |     |  **0.3432** |             |
+```{=latex}
+\begin{longtable}{@{}llrrr@{}}
+\caption{Correlations between benchmark frequency and their $g$ loadings. $k$ = number of factors extracted.}\label{tab:g-rank-freq-corr}\\
+\toprule
+Method & Dataset & $k$ & $r$ & $N$ \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+fill-mean & C\_all\_standard & 2 & +0.4192 & 78 \\
+fill-mean & C\_all\_standard & 14 & +0.4192 & 78 \\
+knn & C\_all\_standard & 2 & +0.4065 & 78 \\
+knn & C\_all\_standard & 7 & +0.4065 & 78 \\
+knn & S\_all\_standard & 2 & +0.2335 & 124 \\
+knn & S\_all\_standard & 11 & +0.2335 & 124 \\
+missforest & C\_all\_aggressive & 2 & +0.3251 & 102 \\
+missforest & C\_all\_aggressive & 4 & +0.3251 & 102 \\
+missforest & C\_all\_standard & 2 & +0.2203 & 78 \\
+missforest & C\_all\_standard & 4 & +0.2203 & 78 \\
+missforest & S\_all\_standard & 2 & -0.2462 & 124 \\
+missforest & S\_all\_standard & 4 & -0.2462 & 124 \\
+onesidedmc & C\_all\_aggressive & 2 & -0.4090 & 102 \\
+onesidedmc & C\_all\_standard & 2 & +0.4786 & 78 \\
+onesidedmc & S\_all\_standard & 2 & +0.3609 & 124 \\
+softimpute & C\_all\_aggressive & 2 & +0.5763 & 102 \\
+softimpute & C\_all\_aggressive & 5 & +0.5763 & 102 \\
+softimpute & C\_all\_standard & 2 & +0.5513 & 78 \\
+softimpute & C\_all\_standard & 9 & +0.5513 & 78 \\
+softimpute & R\_all\_aggressive & 2 & -0.3041 & 310 \\
+softimpute & R\_all\_aggressive & 20 & -0.3041 & 310 \\
+softimpute & R\_all\_standard & 2 & -0.2140 & 298 \\
+softimpute & R\_all\_standard & 20 & -0.2140 & 298 \\
+softimpute & S\_all\_aggressive & 2 & -0.3161 & 293 \\
+softimpute & S\_all\_aggressive & 20 & -0.3161 & 293 \\
+softimpute & S\_all\_standard & 2 & +0.1885 & 124 \\
+softimpute & S\_all\_standard & 5 & +0.1885 & 124 \\
+softimpute & raw\_all\_aggressive & 2 & -0.2404 & 380 \\
+softimpute & raw\_all\_aggressive & 10 & -0.2404 & 380 \\
+softimpute & raw\_all\_standard & 2 & +0.1815 & 404 \\
+softimpute & raw\_all\_standard & 10 & +0.1815 & 404 \\
+softimpute\_corr & C\_all\_standard & 2 & +0.3788 & 78 \\
+softimpute\_corr & C\_all\_standard & 4 & +0.3788 & 78 \\
+softimpute\_corr & S\_all\_standard & 2 & +0.3890 & 124 \\
+softimpute\_corr & S\_all\_standard & 5 & +0.3890 & 124 \\
+fill-zeros & C\_all\_standard & 2 & +0.5343 & 78 \\
+fill-zeros & C\_all\_standard & 14 & +0.5343 & 78 \\
+\textbf{Average} & & & \textbf{+0.1783} & 37 (groups) \\
+\textbf{Average $\lvert r\lvert$} & & & \textbf{0.3432} & \\
+\end{longtable}
+```
 
 ## Frequency adjustment
 
@@ -65,7 +72,7 @@ $$f_i = \frac{\#\{\text{models with non-missing score for } i\}}{m}.$$
 
 Columns with fewer than two observations or zero variance are excluded before computing $f_i$. Where several datasets contribute, the benchmark's frequency is the mean of its per-dataset $f_i$.
 
-As shown in table 2 above, within most cells, frequently measured benchmarks obtain higher $|g_i|$ and lower (better) $a_i$. A benchmark may therefore rank highly partly because it is measured often rather than because it is a strong indicator of $g$.
+As shown in `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} above, within most cells, frequently measured benchmarks obtain higher $|g_i|$ and lower (better) $a_i$. A benchmark may therefore rank highly partly because it is measured often rather than because it is a strong indicator of $g$.
 
 The adjustment is applied within each cell rather than to the pooled averages. Within cell $C$, the normalized ranks are regressed on the cell's own frequencies by ordinary least squares,
 
@@ -78,52 +85,66 @@ The adjusted score of benchmark $i$ is the mean of its residuals over the cells 
 
 ## Diagnostics
 
-We present 2 diagnostics that justify the method of adjustment. Table 2 below shows, within each cell, the Pearson correlation $r(f_i, a_i)$ is reported, with the mean $r$, the mean $|r|$, and the counts of negative and positive cells. Negative $r$ indicates that more frequently measured benchmarks load higher on $g$.
+We present 2 diagnostics that justify the method of adjustment. `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below shows, within each cell, the Pearson correlation $r(f_i, a_i)$ is reported, with the mean $r$, the mean $|r|$, and the counts of negative and positive cells. Negative $r$ indicates that more frequently measured benchmarks load higher on $g$.
 
-**Table 2**. Correlations between benchmark frequency and their $g$ rankings. Mean $r = -0.173$, mean $\lvert r \rvert = 0.273$; 13 negative and 7 positive cells.
+```{=latex}
+\begin{longtable}{@{}llrr@{}}
+\caption{Correlations between benchmark frequency and their $g$ rankings. Mean $r = -0.173$, mean $\lvert r \rvert = 0.273$; 13 negative and 7 positive cells.}\label{tab:g-rank-cellwise-corr}\\
+\toprule
+method & dataset & $N$ & $r$ \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+default & C\_all\_standard & 78 & -0.429 \\
+knn & C\_all\_standard & 78 & -0.429 \\
+knn & S\_all\_standard & 124 & +0.020 \\
+missforest & C\_all\_aggressive & 102 & -0.342 \\
+missforest & C\_all\_standard & 78 & -0.106 \\
+missforest & S\_all\_standard & 124 & +0.261 \\
+onesidedmc & C\_all\_aggressive & 102 & +0.383 \\
+onesidedmc & C\_all\_standard & 78 & -0.242 \\
+onesidedmc & S\_all\_standard & 124 & -0.271 \\
+softimpute & C\_all\_aggressive & 102 & -0.470 \\
+softimpute & C\_all\_standard & 78 & -0.497 \\
+softimpute & R\_all\_aggressive & 310 & +0.006 \\
+softimpute & R\_all\_standard & 298 & +0.222 \\
+softimpute & S\_all\_aggressive & 293 & +0.094 \\
+softimpute & S\_all\_standard & 124 & -0.162 \\
+softimpute & raw\_all\_aggressive & 380 & +0.012 \\
+softimpute & raw\_all\_standard & 404 & -0.091 \\
+softimpute\_corr & C\_all\_standard & 78 & -0.425 \\
+softimpute\_corr & S\_all\_standard & 124 & -0.431 \\
+fill-zeros & C\_all\_standard & 78 & -0.572 \\
+\end{longtable}
+```
 
-| method | dataset | $N$ | $r$ |
-|---|---|---|---|
-| default | C_all_standard | 78 | −0.429 |
-| knn | C_all_standard | 78 | −0.429 |
-| knn | S_all_standard | 124 | +0.020 |
-| missforest | C_all_aggressive | 102 | −0.342 |
-| missforest | C_all_standard | 78 | −0.106 |
-| missforest | S_all_standard | 124 | +0.261 |
-| onesidedmc | C_all_aggressive | 102 | +0.383 |
-| onesidedmc | C_all_standard | 78 | −0.242 |
-| onesidedmc | S_all_standard | 124 | −0.271 |
-| softimpute | C_all_aggressive | 102 | −0.470 |
-| softimpute | C_all_standard | 78 | −0.497 |
-| softimpute | R_all_aggressive | 310 | +0.006 |
-| softimpute | R_all_standard | 298 | +0.222 |
-| softimpute | S_all_aggressive | 293 | +0.094 |
-| softimpute | S_all_standard | 124 | −0.162 |
-| softimpute | raw_all_aggressive | 380 | +0.012 |
-| softimpute | raw_all_standard | 404 | −0.091 |
-| softimpute_corr | C_all_standard | 78 | −0.425 |
-| softimpute_corr | S_all_standard | 124 | −0.431 |
-| fill-zeros | C_all_standard | 78 | −0.572 |
+Second, `\hyperref[tab:g-rank-pooled-corr]{Table~\ref*{tab:g-rank-pooled-corr}}`{=latex} reports the the pooled correlation between mean frequency and mean rank is before and after the adjustment, stratified by the number of cells $k$ in which a benchmark appears. The within-cell association does not survive pooling with a consistent sign: cells disagree in direction, so the pooled raw correlation is small even though the within-cell correlations are not.
 
-Second, table 3 reports the the pooled correlation between mean frequency and mean rank is before and after the adjustment, stratified by the number of cells $k$ in which a benchmark appears. The within-cell association does not survive pooling with a consistent sign: cells disagree in direction, so the pooled raw correlation is small even though the within-cell correlations are not.
-
-**Table 3**. Pooled correlation between mean frequency and mean rank.
-
-| $N$ cells | $N$ benchmarks | $r$ raw | $r$ adjusted |
-| --------- | -------------- | ------- | ------------ |
-| 2         | 54             | −0.023  | −0.021       |
-| 3         | 26             | −0.024  | −0.049       |
-| 4         | 24             | −0.214  | −0.232       |
-| 5         | 141            | +0.061  | +0.046       |
-| 8         | 10             | +0.040  | +0.038       |
-| 10        | 33             | +0.518  | +0.516       |
-| 13        | 13             | −0.538  | −0.539       |
-| 20        | 78             | −0.382  | +0.073       |
-| Pooled    | 380            | −0.128  | −0.039       |
+```{=latex}
+\begin{longtable}{@{}lrrr@{}}
+\caption{Pooled correlation between mean frequency and mean rank.}\label{tab:g-rank-pooled-corr}\\
+\toprule
+$N$ cells & $N$ benchmarks & $r$ raw & $r$ adjusted \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+2 & 54 & -0.023 & -0.021 \\
+3 & 26 & -0.024 & -0.049 \\
+4 & 24 & -0.214 & -0.232 \\
+5 & 141 & +0.061 & +0.046 \\
+8 & 10 & +0.040 & +0.038 \\
+10 & 33 & +0.518 & +0.516 \\
+13 & 13 & -0.538 & -0.539 \\
+20 & 78 & -0.382 & +0.073 \\
+Pooled & 380 & -0.128 & -0.039 \\
+\end{longtable}
+```
 
 %%The adjustment is therefore evaluated per stratum rather than by the pooled correlation alone. Because the stratum-level diagnostic correlates against the *mean* frequency across a benchmark's datasets while the adjustment orthogonalizes against each *cell's* frequency, a residual stratum-level correlation is expected and does not indicate a failure of the adjustment.%%
 
-For this reason, we report the cellwise-frequency-adjusted average normalized rank as the primary ordering of benchmarks (table 5 in the main content): it removes the linear component of the within-cell rank–frequency association, which reaches $|r| \approx 0.3$ in the average cell, before averaging across cells. The raw average normalized rank is retained alongside it for comparison, as the two orderings agree closely. The adjustment mainly matters for benchmarks measured across many cells, where the within-cell association is strongest and where the adjusted ranking reorders the raw ranking.
+For this reason, we report the cellwise-frequency-adjusted average normalized rank as the primary ordering of benchmarks (`\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} in the main content): it removes the linear component of the within-cell rank–frequency association, which reaches $|r| \approx 0.3$ in the average cell, before averaging across cells. The raw average normalized rank is retained alongside it for comparison, as the two orderings agree closely. The adjustment mainly matters for benchmarks measured across many cells, where the within-cell association is strongest and where the adjusted ranking reorders the raw ranking.
 
 The full ranking of all 380 benchmarks is given in `\hyperref[full-g-rankings]{Appendix~\ref*{full-g-rankings}}`{=latex}.
 

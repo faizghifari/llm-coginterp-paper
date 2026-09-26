@@ -1,22 +1,36 @@
 # Imputation methods
 
-Every method on the R side shares one interface. It takes the sparse matrix in, and returns the completed matrix, the swept-parameter grid, and the held-out RMSE and $R^2$ at each parameter value. None of them factor. This is what allows the factoring stage to be identical across methods. Table 1 shows the lists of full-dataset missing data estimators, while table 2 shows the list for the correlation-level imputers.
+Every method on the R side shares one interface. It takes the sparse matrix in, and returns the completed matrix, the swept-parameter grid, and the held-out RMSE and $R^2$ at each parameter value. None of them factor. This is what allows the factoring stage to be identical across methods. `\hyperref[tab:imputation-cell-methods]{Table~\ref*{tab:imputation-cell-methods}}`{=latex} shows the lists of full-dataset missing data estimators, while `\hyperref[tab:imputation-corr-methods]{Table~\ref*{tab:imputation-corr-methods}}`{=latex} shows the list for the correlation-level imputers.
 
-**Table 1**. Estimators of the missing dataset entries.
+```{=latex}
+\begin{longtable}{@{}p{0.15\textwidth}p{0.27\textwidth}p{0.13\textwidth}p{0.09\textwidth}p{0.15\textwidth}@{}}
+\caption{Estimators of the missing dataset entries.}\label{tab:imputation-cell-methods}\\
+\toprule
+Method & Description & Package & Swept parameter & Grid \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+SoftImpute \citep{mazumder2010} & Nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD, assuming a low-rank signal plus noise. Primary cell-level method. & softImpute & rank & 1\ldots10 (capped at $\min(n,p)-1$), and at each rank a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts \\
+k-NN & Each missing cell filled from the $k$ most similar models, an assumption-light baseline with no low-rank, linearity, or normality assumption. & VIM & $k$ & 1\ldots10 (capped below $n$), Gower distance over benchmarks, weighted-mean aggregation \\
+missForest \citep{stekhoven2012} & Iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent. & missForest & number of trees & \{50, 100, 200, 400\}, at most 10 iterations \\
+\end{longtable}
+```
 
-| Method                           | Description                                                                                                                                     | Package    | Swept parameter | Grid                                                                                                                                                |
-| -------------------------------------------- | ------------------------------------------------------------------------------------------------- | ------------------------------ | -------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| SoftImpute \citep{mazumder2010}  | Nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD, assuming a low-rank signal plus noise. Primary cell-level method. | softImpute | rank            | 1…10 (capped at $\min(n,p)-1$), and at each rank a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts |
-| k-NN                             | Each missing cell filled from the $k$ most similar models, an assumption-light baseline with no low-rank, linearity, or normality assumption.   | VIM        | $k$             | 1…10 (capped below $n$), Gower distance over benchmarks, weighted-mean aggregation                                                                  |
-| missForest \citep{stekhoven2012} | Iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent.                  | missForest | number of trees | {50, 100, 200, 400}, at most 10 iterations                                                                                                          |
-
-**Table 2**. Estimators of the missing correlation entries.
-
-| Estimator                                   | Description                                                                                                                                                                                | Package           | Configuration                                                                        |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------- | ------------------------------------------------------------------------------------ |
-| One-sided matrix completion \citep{cao2023} | Recovers the right-singular vectors of a reduced matrix of a large, super-sparse dataset. Originally demonstrated to work with simply 2 observations per row.                              | Custom Julia code | Sweeps  rank 1...10, selecting the rank with the best $R^2$.                         |
-| SoftImpute \citep{mazumder2010}             | Applies SoftImpute's low-rank completion to the observed pairwise correlation matrix rather than the data matrix, whose missing entries are exactly the benchmark pairs never co-observed. | softImpute        | sweeps rank 1…10 with the same nested $\lambda$ grid as the cell-level methods above |
-| USVT \citep{chatterjee2015}                 | Universal singular value thresholding: completes the correlation matrix by hard-thresholding its singular values.                                                                          | filling           | fixed singular-value threshold $\eta = 0.01$, no sweep                               |
+```{=latex}
+\begin{longtable}{@{}p{0.16\textwidth}p{0.29\textwidth}p{0.13\textwidth}p{0.15\textwidth}@{}}
+\caption{Estimators of the missing correlation entries.}\label{tab:imputation-corr-methods}\\
+\toprule
+Estimator & Description & Package & Configuration \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+One-sided matrix completion \citep{cao2023} & Recovers the right-singular vectors of a reduced matrix of a large, super-sparse dataset. Originally demonstrated to work with simply 2 observations per row. & Custom Julia code & Sweeps rank 1...10, selecting the rank with the best $R^2$. \\
+SoftImpute \citep{mazumder2010} & Applies SoftImpute's low-rank completion to the observed pairwise correlation matrix rather than the data matrix, whose missing entries are exactly the benchmark pairs never co-observed. & softImpute & sweeps rank 1\ldots10 with the same nested $\lambda$ grid as the cell-level methods above \\
+USVT \citep{chatterjee2015} & Universal singular value thresholding: completes the correlation matrix by hard-thresholding its singular values. & filling & fixed singular-value threshold $\eta = 0.01$, no sweep \\
+\end{longtable}
+```
 
 ## One-sided matrix completion 
 

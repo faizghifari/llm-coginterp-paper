@@ -57,6 +57,10 @@ Appendix-Methods.md. %%
 \bibliographystyle{iclr2027_conference}
 
 \appendix
+% Match the paper's existing convention (previously hand-typed): main-text
+% tables are numbered 1, 2, 3..., appendix tables restart at A1, A2, A3...
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{table}{0}
 ```
 
 ![[sections/appendix/known-limitations-and-deviations]]

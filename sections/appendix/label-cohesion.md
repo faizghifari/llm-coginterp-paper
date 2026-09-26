@@ -6,7 +6,7 @@ We present the full label cohesion results for all labels here. From the subject
 
 ```{=latex}
 \begin{longtable}{@{}lrrr@{}}
-\caption*{\textbf{Task type.} Cohesion by task-format label, sorted by descending median A.}\\
+\caption{Cohesion by task-format label, sorted by descending median A.}\label{tab:cohesion-task-type}\\
 \toprule
 Label & Median A & Significant & Median n \\
 \midrule
@@ -29,7 +29,7 @@ Label & Median A & Significant & Median n \\
 
 ```{=latex}
 \begin{longtable}{@{}lrrr@{}}
-\caption*{\textbf{Language.} Cohesion by language-coverage label, sorted by descending median A.}\\
+\caption{Cohesion by language-coverage label, sorted by descending median A.}\label{tab:cohesion-language}\\
 \toprule
 Label & Median A & Significant & Median n \\
 \midrule
@@ -45,7 +45,7 @@ Label & Median A & Significant & Median n \\
 
 ```{=latex}
 \begin{longtable}{@{}lrrr@{}}
-\caption*{\textbf{Subject.} Cohesion by subject-matter label, sorted by descending median A.}\\
+\caption{Cohesion by subject-matter label, sorted by descending median A.}\label{tab:cohesion-subject}\\
 \toprule
 Label & Median A & Significant & Median n \\
 \midrule
