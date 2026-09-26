@@ -91,9 +91,8 @@ It read:
 Label & Median A & Significant \\
 \midrule
 \texttt{code} & +0.264 & 6/18 \\
-\texttt{logical\_reasoning} & +0.068 & 2/18 \\
-\texttt{encyclopedic} & +0.104 & 1/18 \\
 \texttt{math} & +0.031 & 0/18 \\
+\texttt{reasoning} & -0.008 & 0/18 \\
 \bottomrule
 \end{tabular}
 \vspace{4pt}
