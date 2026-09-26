@@ -10,7 +10,9 @@ Figure 1 places each benchmark in two dimensions using a composite distance comp
 
 **Embedding.** The composite distance matrix is passed to UMAP \citep{mcinnes2018} as a precomputed metric, with two components, ten neighbours, a minimum distance of 0.15, and a fixed random seed. Nothing is re-standardised at this stage, since the distances already share a common scale.
 
-**Colours.** We label all 456 benchmarks by hand on three axes: subject (what the benchmark is about), task (how the test is administered), and language. The labels are multi-label, so a reading-comprehension benchmark on medical text carries both labels. The subject axis has 46 distinct labels and is the one used to colour Figure 1. Labels are authored from each benchmark's own documentation, and we never tune them against the embedding or against any factor solution.
+<!-- **Colours.** We label all 456 benchmarks by hand on three axes: subject (what the benchmark is about), task (how the test is administered), and language. The labels are multi-label, so a reading-comprehension benchmark on medical text carries both labels. The subject axis has 46 distinct labels and is the one used to colour Figure 1. Labels are authored from each benchmark's own documentation, and we never tune them against the embedding or against any factor solution. -->
+
+**Labels** All benchmarks were labeled along three independent, non-exclusive axes: subject (content domain), task (administration format), and language. A benchmark can carry several subject tags, and some of those tags are nested within a broader parent label (e.g. medical under specialized_domain). Labesls were curated from each benchmark's documentation, independent of the distance-geometry and cohesion analyses.
 
 **Reading the figure.** It must be stressed, however, that UMAP preserves neither density nor global distance. Groups that appear tight or far apart in two dimensions are partly an artefact of the embedding. We therefore read the figure as a visual summary, and any claim we make about clustering rests on the composite distance matrix itself.
 
