@@ -188,7 +188,31 @@ Dates produced by asking a language model run systematically early for models re
 
 **Included.** We include general-purpose generative LLMs, domain- or task-adapted models (code, medical, legal) that still accept arbitrary prompts, and multimodal models built by adding an encoder to an LLM backbone, provided the backbone still handles arbitrary text prompts.
 
-**Excluded.** We exclude encoder-only or classification-only architectures (BERT, RoBERTa, BigBird), narrow single-purpose systems that cannot be prompted generally (such as dedicated translation systems like NLLB and speech systems like SeamlessM4T), bare embedding or vision encoders (CLIP variants, ST5, monoT5), non-deployable research systems, evaluation *metrics* misfiled as models (such as YiSi-1), and undocumented community uploads whose source cannot be traced. <!-- Wording 2026-09-26. Read: ... undocumented community uploads without reliable provenance. -->
+**Excluded.** We exclude encoder-only or classification-only models, narrow single-purpose systems that cannot be prompted generally (such as dedicated translation or speech systems), bare embedding or vision encoders, non-deployable research systems, evaluation metrics misfiled as models, and undocumented community uploads whose source cannot be traced.
+
+**Not a separate model.** A different setup of the same model, such as a context-length variant, a reasoning mode, an effort level or a prompting scheme, is recorded on the result row instead.
+
+Borderline cases, such as encoder-decoder models, are reviewed one by one against the same criterion, namely whether the model can follow an arbitrary prompt and generate text.
+
+### Benchmarks
+
+We keep only benchmarks that do not require image, audio, video or speech understanding, and remove benchmarks that are left with no results once out-of-scope models are removed. The content of a benchmark is not otherwise filtered.
+
+### Benchmark translation duplicates
+
+We remove benchmarks that are literal translations of another benchmark in the corpus, and keep those whose content is sourced separately for each language, checking each case against the benchmark's paper. The removed ones are the per-language variants of MGSM and Global MMLU Lite, a translated Arabic MMLU, the Multilingual MMLU and Global MMLU aggregates, IndicXNLI and HumanEval-XL. Translated benchmarks with no original in the corpus (the language splits of XCOPA, XNLI and XQuAD) are merged into one benchmark each. Natively multilingual benchmarks such as MultiLoKo, ArabicMMLU, FLORES, LINDSEA and the Thai national exams are kept. We also keep cross-language aggregates (MGSM, Belebele and MultiLoKo), since none of them duplicates a column we hold (MGSM shares no models with GSM8K, for instance) and they also measure transfer across languages.
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT of this subsection, before the 2026-09-26 rewrite. Named examples and case histories (T5, BigBird-Pegasus, HumanEval-XL, MGSM and Belebele) were cut down to the criteria. The paragraph on rows that differ in setup, source or language moved to the duplicate-detection subsection.
+Inner comments are kept as {note: ...} since comments cannot nest.
+
+## Inclusion and exclusion criteria
+
+
+### Models
+
+**Included.** We include general-purpose generative LLMs, domain- or task-adapted models (code, medical, legal) that still accept arbitrary prompts, and multimodal models built by adding an encoder to an LLM backbone, provided the backbone still handles arbitrary text prompts.
+
+**Excluded.** We exclude encoder-only or classification-only architectures (BERT, RoBERTa, BigBird), narrow single-purpose systems that cannot be prompted generally (such as dedicated translation systems like NLLB and speech systems like SeamlessM4T), bare embedding or vision encoders (CLIP variants, ST5, monoT5), non-deployable research systems, evaluation *metrics* misfiled as models (such as YiSi-1), and undocumented community uploads whose source cannot be traced. {note: Wording 2026-09-26. Read: ... undocumented community uploads without reliable provenance. }
 
 **Not a separate model:** a different *setup* of the same model, such as a context-length variant, a reasoning or thinking mode, an effort level, or a prompting scheme. These are recorded on the result row instead.
 
@@ -198,19 +222,19 @@ BigBird-Pegasus was **removed**, which sharpens where the boundary sits. Pegasus
 
 Rows differing in evaluation setup, source, or language are **legitimately distinct evaluations**, not duplicates, and are retained. A benchmark with few rows is flagged for review as a possible interrupted extraction, but the flag is never satisfied by averaging rows to hit a count.
 
-<!-- Merged in from sections/appendix/unused/inclusion-and-exclusion-criteria.md,
+{note: Merged in from sections/appendix/unused/inclusion-and-exclusion-criteria.md,
 which Main.md does not embed: "evaluation metrics misfiled as models", the
 "Not a separate model" paragraph, the borderline-cases paragraph, the
 BigBird-Pegasus paragraph, and the former "Multiple scores per model-benchmark
 pair" section (the last paragraph above). The three field names this text used to
 quote as code (setup, reasoning_enabled, source_url) are written out in words;
-the code-stripping pass would have done that anyway. -->
+the code-stripping pass would have done that anyway. }
 
 ### Benchmarks
 
 We remove benchmarks that have zero results after filtering models. Removing out-of-scope models cascades here, since benchmarks whose entire evaluated population was out of scope (pure NER and machine-translation leaderboards from Papers With Code, a vision-only task whose sole model was an image encoder) are left with no rows at all. We further select for benchmarks that do not require multimodal capabilities such as image, audio, video, or speech understanding. No relevance or "is this really intelligence" filter is applied to benchmark content.
 
-<!-- The second sentence was a literal placeholder, "benchmarks that do not
+{note: The second sentence was a literal placeholder, "benchmarks that do not
 require multimodal capabilities such as XXX", and it reached the built PDF. The
 completion and the cascade sentence come from the unembedded twin of this
 section, sections/appendix/unused/inclusion-and-exclusion-criteria.md, which
@@ -219,7 +243,7 @@ carries the finished text. The opening sentence is kept as written.
 The procedure that actually performs the modality filter (pattern vocabulary,
 allow-list, deny-list, cascade counts) is still unembedded, in
 sections/appendix/unused/text-only-classifier.md. It is held back until the
-code-stripping pass, and a cross-reference should be added here once it goes in. -->
+code-stripping pass, and a cross-reference should be added here once it goes in. }
 
 
 ### Benchmark translation duplicates
@@ -234,14 +258,14 @@ A later pass resolved the cases the first had left open. HumanEval-XL was **remo
 
 MGSM and Belebele were **kept**, and the reason is worth stating because it looks like an inconsistency. Both are cross-language *aggregates*, and neither duplicates any column we hold. MGSM shares **zero** models with GSM8K, and Belebele has no in-corpus original at all (its 122 languages are internally parallel, but there is no English Belebele here for it to duplicate). A redundancy claim is a claim that two columns track each other, and columns that never co-occur cannot track each other. Both also measure multilingual transfer alongside the underlying skill, which the monolingual originals do not. This matches the treatment of MultiLoKo, whose paper-sourced across-language aggregate was likewise kept while its per-language splits were dropped. Excluding cross-language aggregates would be a defensible alternative, but it is a single policy choice covering MGSM, Belebele and MultiLoKo together, not a per-benchmark judgement.
 
-<!-- The opening sentence and the two paragraphs above are merged in from the
+{note: The opening sentence and the two paragraphs above are merged in from the
 unembedded sections/appendix/normalisation-rules.md. They are what makes the
 "Left intact" bullet defensible: without them the appendix drops MGSM
 per-language variants and keeps the MGSM aggregate with no stated reason, which
 reads as an inconsistency. Benchmark names are written as prose rather than as
 code identifiers, matching the main text. The sentence about lowercase
-identifiers serving as the primary key was left out as repository detail. -->
-
+identifiers serving as the primary key was left out as repository detail. }
+-->
 
 ## Duplicate detection and integrity checks
 
