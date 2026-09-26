@@ -23,7 +23,9 @@ We present the evaluation and parameters of the missing data imputations in tabl
 %%
 ## Point summaries
 
-From our imputation, only 20 dataset-imputer combination yields an $R^2$ satisfying the threshold. The full table of the imputation results are provided in (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}).
+Only 20 dataset-imputer combinations yield an $R^2$ above the threshold (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}).
+
+<!-- 2026-09-26, shortened to one line so Table 3 fits on page 6. The paragraph read: From our imputation, only 20 dataset-imputer combination yields an $R^2$ satisfying the threshold. The full table of the imputation results are provided in (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}). -->
 
 Table 3 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. **At most, a universally causal $g$ factor accounts for 70.8% of variance in model performance**.
 
