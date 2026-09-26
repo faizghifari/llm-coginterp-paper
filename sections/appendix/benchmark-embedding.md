@@ -13,24 +13,32 @@ The composite distance matrix is passed to UMAP \citep{mcinnes2018} as a precomp
 ## Uncomputable distance handling
 <!-- **Colours.** We label all 456 benchmarks by hand on three axes: subject (what the benchmark is about), task (how the test is administered), and language. The labels are multi-label, so a reading-comprehension benchmark on medical text carries both labels. The subject axis has 46 distinct labels and is the one used to colour Figure 1. Labels are authored from each benchmark's own documentation, and we never tune them against the embedding or against any factor solution. -->
 
-Two benchmarks that never appear together in any solution have no measured distance between them. We fill each such entry with the mean of the distances that one of the two benchmarks does have, falling back to the global mean when neither has any. Luckily missing entries are only observed in the R dataset (which also only have 1 valid imputation, softimpute), with a very small percentange of just 0.32% for all cohorts. Table 1 shows the summary statistics.
+Two benchmarks that never appear together in any solution have no measured distance between them. We fill each such entry with the mean of the distances that one of the two benchmarks does have, falling back to the global mean when neither has any. Luckily missing entries are only observed in the R dataset (which also only have 1 valid imputation, softimpute), with a very small percentange of just 0.32% for all cohorts. `\hyperref[tab:uncomputable-distance]{Table~\ref*{tab:uncomputable-distance}}`{=latex} shows the summary statistics.
 
-**Table 1**. Missing entries of benchmark pairs (uncomputable distance) for the R dataset, softimpute imputation
-
-| Cohort | $N$ benchmarks | $N$ missing pairs | $N$ total pairs | % missing pairs |
-| ------ | -------------- | ----------------- | --------------- | --------------- |
-| all    | 318            | 160               | 50403           | 0.32%           |
-| 2020   | 318            | 160               | 50403           | 0.32%           |
-| 2021   | 318            | 160               | 50403           | 0.32%           |
-| 2022   | 318            | 160               | 50403           | 0.32%           |
-| 2023   | 318            | 160               | 50403           | 0.32%           |
-| 2024   | 318            | 160               | 50403           | 0.32%           |
-| 2025   | 318            | 160               | 50403           | 0.32%           |
+```{=latex}
+\begin{longtable}{@{}lrrrr@{}}
+\caption{Missing entries of benchmark pairs (uncomputable distance) for the R dataset, softimpute imputation.}\label{tab:uncomputable-distance}\\
+\toprule
+Cohort & $N$ benchmarks & $N$ missing pairs & $N$ total pairs & \% missing pairs \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+all & 318 & 160 & 50403 & 0.32\% \\
+2020 & 318 & 160 & 50403 & 0.32\% \\
+2021 & 318 & 160 & 50403 & 0.32\% \\
+2022 & 318 & 160 & 50403 & 0.32\% \\
+2023 & 318 & 160 & 50403 & 0.32\% \\
+2024 & 318 & 160 & 50403 & 0.32\% \\
+2025 & 318 & 160 & 50403 & 0.32\% \\
+\end{longtable}
+```
 
 ## Labels 
 
 All benchmarks were labeled along three independent, non-exclusive axes: subject (content domain), task (administration format), and language. A benchmark can carry several subject tags, and some of those tags are nested within a broader parent label (e.g. medical under specialized_domain). Labels were curated from each benchmark's documentation, independent of the distance-geometry and cohesion analyses.
-## Limitations
+
+## UMAP limitations
 It must be stressed, however, that UMAP preserves neither density nor global distance. Groups that appear tight or far apart in two dimensions are partly an artefact of the embedding. We therefore read the figure as a visual summary, and any claim we make about clustering rests on the composite distance matrix itself.
 
 <!-- New appendix, written 2026-09-19. Figure 1 was previously undocumented: no
