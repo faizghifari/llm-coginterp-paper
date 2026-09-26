@@ -85,7 +85,18 @@ LiveBench & 55 & 1 \\
 - **Stanford HELM.** Extracted per sub-project into staging files, then merged. We stage before merging so that a partial or malformed extraction can be discarded without touching the canonical tables.
 - **Papers and repositories.** ArXiv PDFs and abstracts converted to HTML for methodology extraction. GitHub READMEs and evaluation scripts read directly from the raw file host, under both default-branch names, and HuggingFace dataset cards through the Hub API.
 
+## Inferred fields
+
+Two fields are filled from the record itself when the source leaves them blank.
+
+1. **Inference platform of closed models.** A closed-weights model cannot have been run locally, so we set its inference platform to a vendor API.
+2. **Temperature under the evaluation harness.** Generative tasks in EleutherAI's evaluation harness default to greedy decoding, so for benchmarks documented to use the harness we record a sampling temperature of zero.
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT of this subsection, before the 2026-09-26 rewrite. Renamed from Deductive fills, and the closing paragraph on blank fields was cut since the Protocol paragraph of the main text already says it.
+Inner comments are kept as {note: ...} since comments cannot nest.
+
 ## Deductive fills
+
 
 Two rules are applied, both entailed by the record rather than inferred from it:
 
@@ -93,6 +104,7 @@ Two rules are applied, both entailed by the record rather than inferred from it:
 2. **Harness decoding.** For benchmarks *verified* to use EleutherAI's evaluation harness, generative tasks default to greedy decoding, so we record a sampling temperature of zero. This is applied only where harness usage is documented, never inferred from the benchmark being open-source.
 
 Everything else is left blank, including the inference stack for open models, the decoding parameters for benchmarks whose papers omit them, and all fields for "bring your own predictions" benchmarks. Aggregator sources that do not publish their engineering stack contribute no inference metadata at all.
+-->
 
 ## Release dates
 
