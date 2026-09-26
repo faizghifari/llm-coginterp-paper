@@ -228,7 +228,10 @@ if command -v pdflatex >/dev/null 2>&1; then
     for pass in 1 2 3 4 5; do
       pdflatex -interaction=nonstopmode -halt-on-error "$BASE.tex" >"$BASE.pdflatex.log" 2>&1 \
         || { echo "pdflatex failed — see $OUT_DIR/$BASE.pdflatex.log" >&2; tail -40 "$BASE.pdflatex.log" >&2; exit 1; }
-      LC_ALL=C grep -aq "Rerun to get cross-references right" "$BASE.log" || break
+      # Match any "Rerun to get ..." request, not just cross-references:
+      # natbib asks with "Rerun to get citations correct", and when that was
+      # the only request the loop stopped with every citation still at [?].
+      LC_ALL=C grep -aq "Rerun to get" "$BASE.log" || break
       if [ "$pass" = 5 ]; then
         echo "warning: cross-references still unsettled after 5 passes" >&2
       fi
