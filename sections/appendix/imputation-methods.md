@@ -3,17 +3,17 @@
 Every method on the R side shares one interface. It takes the sparse matrix in, and returns the completed matrix, the swept-parameter grid, and the held-out RMSE and $R^2$ at each parameter value. None of them factor. This is what allows the factoring stage to be identical across methods. `\hyperref[tab:imputation-cell-methods]{Table~\ref*{tab:imputation-cell-methods}}`{=latex} shows the lists of full-dataset missing data estimators, while `\hyperref[tab:imputation-corr-methods]{Table~\ref*{tab:imputation-corr-methods}}`{=latex} shows the list for the correlation-level imputers.
 
 ```{=latex}
-\begin{longtable}{@{}p{0.15\textwidth}p{0.27\textwidth}p{0.13\textwidth}p{0.09\textwidth}p{0.15\textwidth}@{}}
+\begin{longtable}{@{}p{0.15\textwidth}p{0.30\textwidth}p{0.12\textwidth}p{0.26\textwidth}@{}}
 \caption{Estimators of the missing dataset entries.}\label{tab:imputation-cell-methods}\\
 \toprule
-Method & Description & Package & Swept parameter & Grid \\
+Method & Description & Package & Configuration \\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
-SoftImpute \citep{mazumder2010} & Nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD, assuming a low-rank signal plus noise. Primary cell-level method. & softImpute & rank & 1\ldots10 (capped at $\min(n,p)-1$), and at each rank a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts \\
-k-NN & Each missing cell filled from the $k$ most similar models, an assumption-light baseline with no low-rank, linearity, or normality assumption. & VIM & $k$ & 1\ldots10 (capped below $n$), Gower distance over benchmarks, weighted-mean aggregation \\
-missForest \citep{stekhoven2012} & Iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent. & missForest & number of trees & \{50, 100, 200, 400\}, at most 10 iterations \\
+SoftImpute \citep{mazumder2010} & Nuclear-norm-penalised low-rank completion by iterative soft-thresholded SVD, assuming a low-rank signal plus noise. Primary cell-level method. & softImpute & sweeps rank: 1\ldots10 (capped at $\min(n,p)-1$), and at each rank a 30-point geometric $\lambda$ grid from $\lambda_0$ down to $\lambda_0/100$, ALS with warm starts \\
+k-NN & Each missing cell filled from the $k$ most similar models, an assumption-light baseline with no low-rank, linearity, or normality assumption. & VIM & sweeps $k$: 1\ldots10 (capped below $n$), Gower distance over benchmarks, weighted-mean aggregation \\
+missForest \citep{stekhoven2012} & Iterative random-forest imputation, nonparametric, able to capture nonlinear dependence the low-rank methods cannot represent. & missForest & sweeps number of trees: \{50, 100, 200, 400\}, at most 10 iterations \\
 \end{longtable}
 ```
 

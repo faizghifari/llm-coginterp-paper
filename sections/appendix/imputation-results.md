@@ -60,7 +60,7 @@ density_pair_n.png-->
 
 <!--## Imputation results-->
 
-The table below lists, for every dataset-imputer combination, the held-out RMSE, $R^2$, and the selected configuration. Rows are sorted by $R^2$.As decsribed in the results, only 20 of the combinations pass the $R^2 \ge 0.2$ gate. In particular, USVT yielded no usable solutions, while CVXR and GGM completely failed to converge, hence they are missing from this table.
+The table below lists, for every dataset-imputer combination, the held-out RMSE, $R^2$, and the selected configuration. Rows are sorted by $R^2$. As decsribed in the results, only 20 of the combinations pass the $R^2 \ge 0.2$ gate. Of all the methods presented, only USVT yielded no valid solutions or crashes mid-estimation.
 
 ```{=latex}
 \begin{longtable}{@{}llrrl@{}}
