@@ -20,43 +20,43 @@ Method & Dataset & $k$ & $r$ & $N$ \\
 \endhead
 \bottomrule
 \endlastfoot
-fill-mean & C\_all\_standard & 2 & +0.4192 & 78 \\
-fill-mean & C\_all\_standard & 14 & +0.4192 & 78 \\
-knn & C\_all\_standard & 2 & +0.4065 & 78 \\
-knn & C\_all\_standard & 7 & +0.4065 & 78 \\
-knn & S\_all\_standard & 2 & +0.2335 & 124 \\
-knn & S\_all\_standard & 11 & +0.2335 & 124 \\
-missforest & C\_all\_aggressive & 2 & +0.3251 & 102 \\
-missforest & C\_all\_aggressive & 4 & +0.3251 & 102 \\
-missforest & C\_all\_standard & 2 & +0.2203 & 78 \\
-missforest & C\_all\_standard & 4 & +0.2203 & 78 \\
-missforest & S\_all\_standard & 2 & -0.2462 & 124 \\
-missforest & S\_all\_standard & 4 & -0.2462 & 124 \\
-onesidedmc & C\_all\_aggressive & 2 & -0.4090 & 102 \\
-onesidedmc & C\_all\_standard & 2 & +0.4786 & 78 \\
-onesidedmc & S\_all\_standard & 2 & +0.3609 & 124 \\
-softimpute & C\_all\_aggressive & 2 & +0.5763 & 102 \\
-softimpute & C\_all\_aggressive & 5 & +0.5763 & 102 \\
-softimpute & C\_all\_standard & 2 & +0.5513 & 78 \\
-softimpute & C\_all\_standard & 9 & +0.5513 & 78 \\
-softimpute & R\_all\_aggressive & 2 & -0.3041 & 310 \\
-softimpute & R\_all\_aggressive & 20 & -0.3041 & 310 \\
-softimpute & R\_all\_standard & 2 & -0.2140 & 298 \\
-softimpute & R\_all\_standard & 20 & -0.2140 & 298 \\
-softimpute & S\_all\_aggressive & 2 & -0.3161 & 293 \\
-softimpute & S\_all\_aggressive & 20 & -0.3161 & 293 \\
-softimpute & S\_all\_standard & 2 & +0.1885 & 124 \\
-softimpute & S\_all\_standard & 5 & +0.1885 & 124 \\
-softimpute & raw\_all\_aggressive & 2 & -0.2404 & 380 \\
-softimpute & raw\_all\_aggressive & 10 & -0.2404 & 380 \\
-softimpute & raw\_all\_standard & 2 & +0.1815 & 404 \\
-softimpute & raw\_all\_standard & 10 & +0.1815 & 404 \\
-softimpute\_corr & C\_all\_standard & 2 & +0.3788 & 78 \\
-softimpute\_corr & C\_all\_standard & 4 & +0.3788 & 78 \\
-softimpute\_corr & S\_all\_standard & 2 & +0.3890 & 124 \\
-softimpute\_corr & S\_all\_standard & 5 & +0.3890 & 124 \\
-fill-zeros & C\_all\_standard & 2 & +0.5343 & 78 \\
-fill-zeros & C\_all\_standard & 14 & +0.5343 & 78 \\
+fill-mean & C Std. & 2 & +0.4192 & 78 \\
+fill-mean & C Std. & 14 & +0.4192 & 78 \\
+knn & C Std. & 2 & +0.4065 & 78 \\
+knn & C Std. & 7 & +0.4065 & 78 \\
+knn & S Std. & 2 & +0.2335 & 124 \\
+knn & S Std. & 11 & +0.2335 & 124 \\
+missforest & C Aggr. & 2 & +0.3251 & 102 \\
+missforest & C Aggr. & 4 & +0.3251 & 102 \\
+missforest & C Std. & 2 & +0.2203 & 78 \\
+missforest & C Std. & 4 & +0.2203 & 78 \\
+missforest & S Std. & 2 & -0.2462 & 124 \\
+missforest & S Std. & 4 & -0.2462 & 124 \\
+onesidedmc & C Aggr. & 2 & -0.4090 & 102 \\
+onesidedmc & C Std. & 2 & +0.4786 & 78 \\
+onesidedmc & S Std. & 2 & +0.3609 & 124 \\
+softimpute & C Aggr. & 2 & +0.5763 & 102 \\
+softimpute & C Aggr. & 5 & +0.5763 & 102 \\
+softimpute & C Std. & 2 & +0.5513 & 78 \\
+softimpute & C Std. & 9 & +0.5513 & 78 \\
+softimpute & R Aggr. & 2 & -0.3041 & 310 \\
+softimpute & R Aggr. & 20 & -0.3041 & 310 \\
+softimpute & R Std. & 2 & -0.2140 & 298 \\
+softimpute & R Std. & 20 & -0.2140 & 298 \\
+softimpute & S Aggr. & 2 & -0.3161 & 293 \\
+softimpute & S Aggr. & 20 & -0.3161 & 293 \\
+softimpute & S Std. & 2 & +0.1885 & 124 \\
+softimpute & S Std. & 5 & +0.1885 & 124 \\
+softimpute & raw Aggr. & 2 & -0.2404 & 380 \\
+softimpute & raw Aggr. & 10 & -0.2404 & 380 \\
+softimpute & raw Std. & 2 & +0.1815 & 404 \\
+softimpute & raw Std. & 10 & +0.1815 & 404 \\
+softimpute\_corr & C Std. & 2 & +0.3788 & 78 \\
+softimpute\_corr & C Std. & 4 & +0.3788 & 78 \\
+softimpute\_corr & S Std. & 2 & +0.3890 & 124 \\
+softimpute\_corr & S Std. & 5 & +0.3890 & 124 \\
+fill-zeros & C Std. & 2 & +0.5343 & 78 \\
+fill-zeros & C Std. & 14 & +0.5343 & 78 \\
 \textbf{Average} & & & \textbf{+0.1783} & 37 (groups) \\
 \textbf{Average $\lvert r\lvert$} & & & \textbf{0.3432} & \\
 \end{longtable}
@@ -106,26 +106,26 @@ Method & Dataset & $N$ & $r$ \\
 \endhead
 \bottomrule
 \endlastfoot
-default & C\_all\_standard & 78 & -0.429 \\
-knn & C\_all\_standard & 78 & -0.429 \\
-knn & S\_all\_standard & 124 & +0.020 \\
-missforest & C\_all\_aggressive & 102 & -0.342 \\
-missforest & C\_all\_standard & 78 & -0.106 \\
-missforest & S\_all\_standard & 124 & +0.261 \\
-onesidedmc & C\_all\_aggressive & 102 & +0.383 \\
-onesidedmc & C\_all\_standard & 78 & -0.242 \\
-onesidedmc & S\_all\_standard & 124 & -0.271 \\
-softimpute & C\_all\_aggressive & 102 & -0.470 \\
-softimpute & C\_all\_standard & 78 & -0.497 \\
-softimpute & R\_all\_aggressive & 310 & +0.006 \\
-softimpute & R\_all\_standard & 298 & +0.222 \\
-softimpute & S\_all\_aggressive & 293 & +0.094 \\
-softimpute & S\_all\_standard & 124 & -0.162 \\
-softimpute & raw\_all\_aggressive & 380 & +0.012 \\
-softimpute & raw\_all\_standard & 404 & -0.091 \\
-softimpute\_corr & C\_all\_standard & 78 & -0.425 \\
-softimpute\_corr & S\_all\_standard & 124 & -0.431 \\
-fill-zeros & C\_all\_standard & 78 & -0.572 \\
+default & C Std. & 78 & -0.429 \\
+knn & C Std. & 78 & -0.429 \\
+knn & S Std. & 124 & +0.020 \\
+missforest & C Aggr. & 102 & -0.342 \\
+missforest & C Std. & 78 & -0.106 \\
+missforest & S Std. & 124 & +0.261 \\
+onesidedmc & C Aggr. & 102 & +0.383 \\
+onesidedmc & C Std. & 78 & -0.242 \\
+onesidedmc & S Std. & 124 & -0.271 \\
+softimpute & C Aggr. & 102 & -0.470 \\
+softimpute & C Std. & 78 & -0.497 \\
+softimpute & R Aggr. & 310 & +0.006 \\
+softimpute & R Std. & 298 & +0.222 \\
+softimpute & S Aggr. & 293 & +0.094 \\
+softimpute & S Std. & 124 & -0.162 \\
+softimpute & raw Aggr. & 380 & +0.012 \\
+softimpute & raw Std. & 404 & -0.091 \\
+softimpute\_corr & C Std. & 78 & -0.425 \\
+softimpute\_corr & S Std. & 124 & -0.431 \\
+fill-zeros & C Std. & 78 & -0.572 \\
 \end{longtable}
 ```
 
