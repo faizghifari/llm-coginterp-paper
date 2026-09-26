@@ -53,9 +53,9 @@ The range of $\omega_h$ is wide. The best-performing imputer, softimpute on S. S
 | S. Std.     | knn             |  11 |  6.9% |      0.204 |             0.048 | 0.296 |
 | R. Aggr.   | softimpute      |  20 |  4.7% |      0.187 |             0.008 | 0.209 |
 | C. Aggr.   | softimpute      |   5 | 17.8% |      0.183 |            -0.001 | 0.337 |
-| raw. Aggr. | softimpute      |  10 |  8.9% |      0.132 |             0.013 | 0.228 |
+| Raw. Aggr. | softimpute      |  10 |  8.9% |      0.132 |             0.013 | 0.228 |
 | C. Std.     | onesidedmc      |   2 | 50.0% |      0.102 |             0.125 | 0.321 |
-| raw. Std.   | softimpute      |  10 |  9.0% |      0.071 |            -0.010 | 0.249 |
+| Raw. Std.   | softimpute      |  10 |  9.0% |      0.071 |            -0.010 | 0.249 |
 | C. Aggr.   | onesidedmc      |   2 | 50.0% |      0.065 |             0.097 | 0.278 |
 | S. Std.     | missforest      |   4 | 22.5% |      0.032 |             0.054 | 0.471 |
 | S. Std.     | onesidedmc      |   2 | 50.0% |      0.014 |            -0.040 | 0.365 |
