@@ -303,4 +303,4 @@ $$A = 1 − \frac{\text{within}}{\text{null\_mean}}$$
 
 $$p = (1 + \#\{\text{null draws at least as tight as observed}\}) / (1 + 2000)$$
 
-We control the false discovery rate across that family via Benjamini–Hochberg at q = 0.05. A label's reported significant count (e.g. "7/16") is the number of cells, out of the cells where it had enough members to be scored at all, in which it passed this FDR-corrected threshold.
+Within each cell, we control the false discovery rate across the labels of one axis via Benjamini–Hochberg at q = 0.05. A label's reported significant count (e.g. "6/18") is the number of cells in which it passed this FDR-corrected threshold, out of the cells where it could be scored.
