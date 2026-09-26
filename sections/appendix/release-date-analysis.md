@@ -42,7 +42,7 @@ Only six benchmarks are observed in every year group (BBH, GPQA, IFEval, MATH, M
 
 ## Benchmark release date
 
-We also check whether the release year of a benchmark relates to its place in the pooled solutions. Benchmark dates are less reliable than model dates (`\hyperref[release-date-provenance]{Appendix~\ref*{release-date-provenance}}`{=latex}), so we only use the year. Since only the pooled loadings are needed here, all five imputers enter (Table A6).
+We also check whether the release year of a benchmark relates to its place in the pooled solutions. Benchmark dates are less reliable than model dates (`\hyperref[release-dates]{Appendix~\ref*{release-dates}}`{=latex}), so we only use the year. Since only the pooled loadings are needed here, all five imputers enter (Table A6).
 
 First off, release year does not predict the general-factor loading. The Spearman correlation between year and absolute loading is significant in only 3 of 10 solutions, twice positive and once negative.
 

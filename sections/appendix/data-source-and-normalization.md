@@ -2,7 +2,7 @@
 
 ## Source inventory
 
-The corpus is assembled from published evaluation records. Sources fall into four tiers, which we record as the provenance of each score.
+The corpus is assembled from published evaluation records. Sources fall into four tiers, and we record the tier of every score. <!-- Wording 2026-09-26 (dropped 'provenance'). Read: Sources fall into four tiers, which we record as the provenance of each score. -->
 
 **Tier 1, curated evaluation suites** (standardised harness, documented setup, one evaluator across many models).
 
@@ -62,7 +62,9 @@ Two rules are applied, both entailed by the record rather than inferred from it:
 
 Everything else is left blank, including the inference stack for open models, the decoding parameters for benchmarks whose papers omit them, and all fields for "bring your own predictions" benchmarks. Aggregator sources that do not publish their engineering stack contribute no inference metadata at all.
 
-## Release-date provenance
+## Release dates
+
+<!-- Heading was "Release-date provenance" until 2026-09-26. -->
 
 Release dates are recorded to year and month, alongside the class of evidence each came from. The tiers are ordered, and the ordering is the point: a filter on this column is the only way to use the field responsibly.
 
@@ -122,7 +124,7 @@ Dates produced by asking a language model run systematically early for models re
 
 **Included.** We include general-purpose generative LLMs, domain- or task-adapted models (code, medical, legal) that still accept arbitrary prompts, and multimodal models built by adding an encoder to an LLM backbone, provided the backbone still handles arbitrary text prompts.
 
-**Excluded.** We exclude encoder-only or classification-only architectures (BERT, RoBERTa, BigBird), narrow single-purpose systems that cannot be prompted generally (such as dedicated translation systems like NLLB and speech systems like SeamlessM4T), bare embedding or vision encoders (CLIP variants, ST5, monoT5), non-deployable research systems, evaluation *metrics* misfiled as models (such as YiSi-1), and undocumented community uploads without reliable provenance.
+**Excluded.** We exclude encoder-only or classification-only architectures (BERT, RoBERTa, BigBird), narrow single-purpose systems that cannot be prompted generally (such as dedicated translation systems like NLLB and speech systems like SeamlessM4T), bare embedding or vision encoders (CLIP variants, ST5, monoT5), non-deployable research systems, evaluation *metrics* misfiled as models (such as YiSi-1), and undocumented community uploads whose source cannot be traced. <!-- Wording 2026-09-26. Read: ... undocumented community uploads without reliable provenance. -->
 
 **Not a separate model:** a different *setup* of the same model, such as a context-length variant, a reasoning or thinking mode, an effort level, or a prompting scheme. These are recorded on the result row instead.
 
