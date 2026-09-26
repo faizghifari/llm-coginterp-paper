@@ -21,7 +21,7 @@ We present the evaluation and parameters of the missing data imputations in tabl
 | C. Std.   | onesidedmc      | 0.8213 | 0.333 | r=2 (swept 1..10)                  |
 | C. Std.   | softimpute_corr | 0.8126 | 0.317 | rank=5 (swept 1..7)                |
 %%
-## Point summaries
+## Variance explained by $g$
 
 Only 20 dataset-imputer combinations yield an $R^2$ above the threshold (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}).
 
