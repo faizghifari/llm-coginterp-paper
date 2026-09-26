@@ -8,6 +8,11 @@ Applied to the text-only copy only, after the scope filter of `\hyperref[benchma
 \toprule
 Family & Correlation evidence & Decision & Rows removed \\
 \midrule
+\endfirsthead
+\caption{Benchmark families audited for score redundancy, with the correlation evidence and decision for each.}\\
+\toprule
+Family & Correlation evidence & Decision & Rows removed \\
+\midrule
 \endhead
 \bottomrule
 \endlastfoot

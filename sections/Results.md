@@ -45,6 +45,11 @@ The range of $\omega_h$ is wide. The best-performing imputer, softimpute on S. S
 \toprule
 Dataset & Imputer & $k$ & AVE & $\omega_h$ & $\phi_\text{avg}$ & $R^2$ \\
 \midrule
+\endfirsthead
+\caption{Point summaries of factor analyses results. AVE = average variance explained per factor, $k$ = number of factors extracted, $\phi_\text{avg}$ = average inter-factor correlation.}\\
+\toprule
+Dataset & Imputer & $k$ & AVE & $\omega_h$ & $\phi_\text{avg}$ & $R^2$ \\
+\midrule
 \endhead
 \bottomrule
 \endlastfoot
@@ -132,6 +137,11 @@ Surprisingly, the top benchmarks are not dominated by common standard benchmarks
 ```{=latex}
 \begin{longtable}{@{}rlrrlrrr@{}}
 \caption{Benchmarks and their average normalized rank-order ($\rho$) of their $g$ factor loadings. Sorted by frequency-residualized rank ($\rho_\epsilon$). $\rho$ ranges from 0 to 1, where 0 = ranked first, 1 = ranked last. $N$ = number of EFA estimations with that benchmark. CI and Best/Worst refers to $\rho$.}\label{tab:g-rankings}\\
+\toprule
+No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ \\
+\midrule
+\endfirsthead
+\caption{Benchmarks and their average normalized rank-order ($\rho$) of their $g$ factor loadings. Sorted by frequency-residualized rank ($\rho_\epsilon$). $\rho$ ranges from 0 to 1, where 0 = ranked first, 1 = ranked last. $N$ = number of EFA estimations with that benchmark. CI and Best/Worst refers to $\rho$.}\\
 \toprule
 No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ \\
 \midrule

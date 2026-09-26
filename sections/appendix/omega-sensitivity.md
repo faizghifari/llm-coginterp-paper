@@ -9,6 +9,11 @@ To quantify to what degree missing observations affect our results, we run leave
 \toprule
 Method & Dataset & $k$ & $r$ & $N$ \\
 \midrule
+\endfirsthead
+\caption{Correlations between benchmark observation and their $\Delta\omega_h$. $k$ = number of factors extracted.}\\
+\toprule
+Method & Dataset & $k$ & $r$ & $N$ \\
+\midrule
 \endhead
 \bottomrule
 \endlastfoot

@@ -12,6 +12,11 @@ Naively, as shown in `\hyperref[tab:g-rank-freq-corr]{Table~\ref*{tab:g-rank-fre
 \toprule
 Method & Dataset & $k$ & $r$ & $N$ \\
 \midrule
+\endfirsthead
+\caption{Correlations between benchmark frequency and their $g$ loadings. $k$ = number of factors extracted.}\\
+\toprule
+Method & Dataset & $k$ & $r$ & $N$ \\
+\midrule
 \endhead
 \bottomrule
 \endlastfoot
@@ -93,6 +98,11 @@ We present 2 diagnostics that justify the method of adjustment. `\hyperref[tab:g
 \toprule
 method & dataset & $N$ & $r$ \\
 \midrule
+\endfirsthead
+\caption{Correlations between benchmark frequency and their $g$ rankings. Mean $r = -0.173$, mean $\lvert r \rvert = 0.273$; 13 negative and 7 positive cells.}\\
+\toprule
+method & dataset & $N$ & $r$ \\
+\midrule
 \endhead
 \bottomrule
 \endlastfoot
@@ -124,6 +134,11 @@ Second, `\hyperref[tab:g-rank-pooled-corr]{Table~\ref*{tab:g-rank-pooled-corr}}`
 ```{=latex}
 \begin{longtable}{@{}lrrr@{}}
 \caption{Pooled correlation between mean frequency and mean rank.}\label{tab:g-rank-pooled-corr}\\
+\toprule
+$N$ cells & $N$ benchmarks & $r$ raw & $r$ adjusted \\
+\midrule
+\endfirsthead
+\caption{Pooled correlation between mean frequency and mean rank.}\\
 \toprule
 $N$ cells & $N$ benchmarks & $r$ raw & $r$ adjusted \\
 \midrule

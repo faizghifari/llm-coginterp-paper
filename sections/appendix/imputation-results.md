@@ -68,6 +68,11 @@ The table below lists, for every dataset-imputer combination, the held-out RMSE,
 \toprule
 Dataset & Imputer & RMSE & $R^2$ & Configuration \\
 \midrule
+\endfirsthead
+\caption{Result of all imputation runs, sorted by $R^2$.}\\
+\toprule
+Dataset & Imputer & RMSE & $R^2$ & Configuration \\
+\midrule
 \endhead
 \bottomrule
 \endlastfoot

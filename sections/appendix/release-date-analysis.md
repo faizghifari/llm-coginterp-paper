@@ -16,6 +16,11 @@ It must be stressed, however, that each matrix is imputed once over all models b
 \toprule
 Densifier & Benchmarks & $\leq 2022$ & 2023 & 2024 & $\geq 2025$ \\
 \midrule
+\endfirsthead
+\caption{Size and coverage of each release-year group. Each cell gives the number of models, the share of observed cells, and the number of benchmarks with no observed score in that group.}\\
+\toprule
+Densifier & Benchmarks & $\leq 2022$ & 2023 & 2024 & $\geq 2025$ \\
+\midrule
 \endhead
 \bottomrule
 \endlastfoot
@@ -35,6 +40,11 @@ Newer models do score higher on the general factor (`\hyperref[tab:a5]{Table~\re
 ```{=latex}
 \begin{longtable}{@{}llrrrr@{}}
 \caption{Mean general-factor score of each release-year group, with mean zero over all models.}\label{tab:a5}\\
+\toprule
+Densifier & Imputer & $\leq 2022$ & 2023 & 2024 & $\geq 2025$ \\
+\midrule
+\endfirsthead
+\caption{Mean general-factor score of each release-year group, with mean zero over all models.}\\
 \toprule
 Densifier & Imputer & $\leq 2022$ & 2023 & 2024 & $\geq 2025$ \\
 \midrule
@@ -69,6 +79,11 @@ The observed scores alone show a small era effect on S. Among benchmark pairs ob
 ```{=latex}
 \begin{longtable}{@{}llrrlr@{}}
 \caption{Benchmark release year against the pooled solutions. $\rho$ is the Spearman correlation between release year and absolute general-factor loading. Era $z$ compares within-era loading distance with permuted eras (negative means same-era benchmarks sit closer). The last two columns are standardised rank-regression coefficients of a pair's loading distance on its release-year gap (with permutation $p$) and on the Jaccard distance between its sets of observed models (co-obs.).}\label{tab:a6}\\
+\toprule
+Densifier & Imputer & $\rho$ & Era $z$ & Year gap ($p$) & Co-obs. \\
+\midrule
+\endfirsthead
+\caption{Benchmark release year against the pooled solutions. $\rho$ is the Spearman correlation between release year and absolute general-factor loading. Era $z$ compares within-era loading distance with permuted eras (negative means same-era benchmarks sit closer). The last two columns are standardised rank-regression coefficients of a pair's loading distance on its release-year gap (with permutation $p$) and on the Jaccard distance between its sets of observed models (co-obs.).}\\
 \toprule
 Densifier & Imputer & $\rho$ & Era $z$ & Year gap ($p$) & Co-obs. \\
 \midrule

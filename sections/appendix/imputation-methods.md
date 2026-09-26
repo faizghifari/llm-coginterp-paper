@@ -8,6 +8,11 @@ Every method on the R side shares one interface. It takes the sparse matrix in, 
 \toprule
 Method & Description & Package & Configuration \\
 \midrule
+\endfirsthead
+\caption{Estimators of the missing dataset entries.}\\
+\toprule
+Method & Description & Package & Swept parameter & Grid \\
+\midrule
 \endhead
 \bottomrule
 \endlastfoot
@@ -20,6 +25,11 @@ missForest \citep{stekhoven2012} & Iterative random-forest imputation, nonparame
 ```{=latex}
 \begin{longtable}{@{}p{0.16\textwidth}p{0.29\textwidth}p{0.13\textwidth}p{0.15\textwidth}@{}}
 \caption{Estimators of the missing correlation entries.}\label{tab:imputation-corr-methods}\\
+\toprule
+Estimator & Description & Package & Configuration \\
+\midrule
+\endfirsthead
+\caption{Estimators of the missing correlation entries.}\\
 \toprule
 Estimator & Description & Package & Configuration \\
 \midrule
