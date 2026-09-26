@@ -91,15 +91,18 @@ Appendix-Methods.md. %%
 omega sensitivity, g-rankings, release date). Label cohesion is last here at
 the authors' request, since its long tables come after its explanation. -->
 
-![[sections/appendix/imputation-results]]
-
-![[sections/appendix/omega-sensitivity]]
-
 ![[sections/appendix/release-date-analysis]]
 
 ![[sections/appendix/benchmark-g-rankings.md]]
 
 ![[sections/appendix/label-cohesion]]
+
+<!-- Table-heavy diagnostics after the explained results, shortest first.
+Moved here 2026-09-26 (were right before release date). -->
+
+![[sections/appendix/imputation-results]]
+
+![[sections/appendix/omega-sensitivity]]
 
 <!-- Full tables and figures at the very end, so no explanation sits behind
 them. The UMAP plots come last because their figures float, and as the final
