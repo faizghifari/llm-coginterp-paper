@@ -1,8 +1,26 @@
 # Data source and normalization
 
+## Data sources
+
+The corpus is assembled from published evaluation records, and for every score we record which of four source tiers it comes from.
+
+**Tier 1, curated evaluation suites** with a standardised harness and one evaluator across many models. These are Stanford HELM (the Classic, Lite, Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR and Finance leaderboards) and the HuggingFace Open LLM Leaderboard (v1 and v2).
+
+**Tier 2, aggregators and result trackers.** Papers With Code, Kaggle AI Benchmarks, llm-stats.com, Artificial Analysis, Vellum, LiveBench, Chatbot Arena / LMArena and pricepertoken.com.
+
+**Tier 3, benchmark-specific leaderboards**, about 30 in total (e.g. BigCodeBench, CRUXEval, SWE-bench, BFCL, VMLU, SEA-LION, PubMedQA and AlpacaEval).
+
+**Tier 4, primary papers** reporting original evaluations (arXiv, ACL Anthology, OpenReview, ACM Digital Library and journals). These are also our source for benchmark metadata.
+
+The "Other online leaderboards" row of `\hyperref[tab:sources]{Table~\ref*{tab:sources}}`{=latex} combines Chatbot Arena / LMArena (202 rows), llm-stats.com (121), Vellum (96), Artificial Analysis (77), LiveBench (55) and the remaining named leaderboards (420). For 295 rows (2.2%) the source organisation was not recorded, and we assigned these by source name and URL host.
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT of this subsection, before the 2026-09-26 rewrite. Table A1 (the uncollapsed Table 1) was dropped, and its breakdown folded into one sentence.
+Inner comments are kept as {note: ...} since comments cannot nest.
+
 ## Source inventory
 
-The corpus is assembled from published evaluation records. Sources fall into four tiers, and we record the tier of every score. <!-- Wording 2026-09-26 (dropped 'provenance'). Read: Sources fall into four tiers, which we record as the provenance of each score. -->
+
+The corpus is assembled from published evaluation records. Sources fall into four tiers, and we record the tier of every score. {note: Wording 2026-09-26 (dropped 'provenance'). Read: Sources fall into four tiers, which we record as the provenance of each score. }
 
 **Tier 1, curated evaluation suites** (standardised harness, documented setup, one evaluator across many models).
 
@@ -27,14 +45,14 @@ HuggingFace Open LLM Leaderboard & v1, v2 \\
 
 That table collapses the five smallest source families into a single "Other online leaderboards" row, and `\hyperref[tab:a1]{Table~\ref*{tab:a1}}`{=latex} below gives the uncollapsed breakdown behind it.
 
-<!-- Both paragraphs merged in from the unembedded
+{note: Both paragraphs merged in from the unembedded
 sections/appendix/unused/data-sources-and-extraction.md. The first is what makes
 Table 1's counts checkable: they are tallied over source_organization after a
 reattribution pass, not over source_name, which is why a naive recount of Vellum
 and Artificial Analysis by source name returns 84 and 71 rather than 96 and 77.
 The second explains why Table 1 and Table A1 are not duplicates of each other.
 The URL-host inventory that sat between them in the source file was left out as
-repository detail. -->
+repository detail. }
 
 ```{=latex}
 \begin{longtable}{@{}lrr@{}}
@@ -58,6 +76,7 @@ Artificial Analysis & 77 & 2 \\
 LiveBench & 55 & 1 \\
 \end{longtable}
 ```
+-->
 
 ## Extraction routes
 

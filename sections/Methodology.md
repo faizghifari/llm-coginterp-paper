@@ -30,7 +30,7 @@ Table 2 at the end of Densification. Keep the numbers in both places in step. --
 ```{=latex}
 \begin{center}\small\setlength{\tabcolsep}{4pt}
 \begin{minipage}[t]{0.47\textwidth}
-\refstepcounter{table}\label{tab:sources}\textbf{Table~\thetable.} Composition of the text-only corpus by source family. More detailed breakdown is given in \hyperref[tab:a1]{Table~\ref*{tab:a1}}.\par\vspace{4pt}
+\refstepcounter{table}\label{tab:sources}\textbf{Table~\thetable.} Composition of the text-only corpus by source family.\par\vspace{4pt}
 \centering
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -65,6 +65,7 @@ R & Aggr. & 97 $\times$ 310 & 11.7\% & 78\% \\
 \end{minipage}
 \end{center}
 ```
+<!-- 2026-09-26: Table A1 was dropped from the appendix. The caption ended: More detailed breakdown is given in \hyperref[tab:a1]{Table~\ref*{tab:a1}}. -->
 
 <!-- Table 1 caption shortened for space, 2026-09-23, since the section opener and Table A1 give the totals. It read: Composition of the text-only corpus by source family (13,251 result rows over 456 benchmarks and 1,618 models). More detailed breakdown is given in Table A1. -->
 
