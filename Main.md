@@ -96,6 +96,8 @@ Appendix-Methods.md. %%
 
 ![[sections/appendix/benchmark-g-rankings.md]]
 
+![[sections/appendix/full-g-rankings]]
+
 ![[sections/appendix/release-date-analysis]]
 
 <!-- Software environment and reproduction was deleted in pass 5. It was a
