@@ -8,14 +8,21 @@ We group models by release year into four groups (2022 or earlier, 2023, 2024, a
 
 A smaller sample moves $\omega_h$ on its own. For each year group we therefore also factor 50 random subsets of the same size, drawn from all dated models regardless of year, and only count a group as different when its $\omega_h$ falls outside the 5th to 95th percentile of its subsets. We also compare the general factor of each fit with the pooled one by Tucker's congruence.
 
-It must be stressed, however, that each matrix is imputed once over all models before the split. The missing cells of one year group are filled partly from the other groups, and a benchmark that no model in the group took is filled entirely from them. This happens often (Table A4), up to 42 of the 124 S benchmarks in the oldest group. Imputing each group on its own does not work either, since a benchmark with no observation in a group cannot be imputed from inside it. If the correlations between benchmarks are the same in every year and only the level of performance shifts, the shared imputation does no harm. If they are not, it pulls every group toward the pooled structure, and the differences we report below are smaller than the true ones.
+It must be stressed, however, that each matrix is imputed once over all models before the split. The missing cells of one year group are filled partly from the other groups, and a benchmark that no model in the group took is filled entirely from them. This happens often (`\hyperref[tab:a4]{Table~\ref*{tab:a4}}`{=latex}), up to 42 of the 124 S benchmarks in the oldest group. Imputing each group on its own does not work either, since a benchmark with no observation in a group cannot be imputed from inside it. If the correlations between benchmarks are the same in every year and only the level of performance shifts, the shared imputation does no harm. If they are not, it pulls every group toward the pooled structure, and the differences we report below are smaller than the true ones.
 
-`\label{tab:a4}`{=latex}**Table A4.** Size and coverage of each release-year group. Each cell gives the number of models, the share of observed cells, and the number of benchmarks with no observed score in that group.
-
-| Densifier | Benchmarks | $\leq 2022$ | 2023 | 2024 | $\geq 2025$ |
-| -------- | ---------: | -------------- | -------------- | -------------- | -------------- |
-| C | 78 | 87/20%/10 | 196/14%/6 | 294/12%/21 | 93/12%/10 |
-| S | 124 | 86/14%/42 | 196/9%/30 | 292/9%/26 | 94/10%/16 |
+```{=latex}
+\begin{longtable}{@{}lrllll@{}}
+\caption{Size and coverage of each release-year group. Each cell gives the number of models, the share of observed cells, and the number of benchmarks with no observed score in that group.}\label{tab:a4}\\
+\toprule
+Densifier & Benchmarks & $\leq 2022$ & 2023 & 2024 & $\geq 2025$ \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+C & 78 & 87/20\%/10 & 196/14\%/6 & 294/12\%/21 & 93/12\%/10 \\
+S & 124 & 86/14\%/42 & 196/9\%/30 & 292/9\%/26 & 94/10\%/16 \\
+\end{longtable}
+```
 
 ## Models by release year
 
@@ -23,18 +30,25 @@ It must be stressed, however, that each matrix is imputed once over all models b
 
 ![[release-cohort-omega.png|$\omega_h$ of each release-year group (dots) against the 5th to 95th percentile of 50 random subsets of the same size (bars), per imputer, on the C (left) and S (right) matrices.`\label{fig:release-year-omega}`{=latex}]]
 
-Newer models do score higher on the general factor (Table A5). We score each model as the loading-weighted sum of its standardised completed scores on the pooled general factor, so the mean over all models is zero. In four of the six solutions the mean score goes from between $-1.5$ and $-1.0$ for models of 2022 or earlier to between $0.0$ and $1.2$ for models of 2025 or later. In the other two (missForest and k-NN on S) the newest models still score highest. So newer models are better on average, but their general factor does not explain more of the variance. We find no sign that later model generations are converging on a more general intelligence.
+Newer models do score higher on the general factor (`\hyperref[tab:a5]{Table~\ref*{tab:a5}}`{=latex}). We score each model as the loading-weighted sum of its standardised completed scores on the pooled general factor, so the mean over all models is zero. In four of the six solutions the mean score goes from between $-1.5$ and $-1.0$ for models of 2022 or earlier to between $0.0$ and $1.2$ for models of 2025 or later. In the other two (missForest and k-NN on S) the newest models still score highest. So newer models are better on average, but their general factor does not explain more of the variance. We find no sign that later model generations are converging on a more general intelligence.
 
-`\label{tab:a5}`{=latex}**Table A5.** Mean general-factor score of each release-year group, with mean zero over all models.
-
-| Densifier | Imputer | $\leq 2022$ | 2023 | 2024 | $\geq 2025$ |
-| --------- | ------- | ----: | ---: | ---: | ----: |
-| C | SoftImpute | -1.33 | -0.29 | 0.59 | 0.00 |
-| C | missForest | -1.02 | -0.40 | 0.22 | 1.11 |
-| C | k-NN | -1.36 | -0.34 | 0.25 | 1.22 |
-| S | SoftImpute | -1.47 | -0.21 | 0.37 | 0.67 |
-| S | missForest | 0.43 | -0.32 | -0.19 | 0.86 |
-| S | k-NN | -0.52 | 0.06 | -0.27 | 1.20 |
+```{=latex}
+\begin{longtable}{@{}llrrrr@{}}
+\caption{Mean general-factor score of each release-year group, with mean zero over all models.}\label{tab:a5}\\
+\toprule
+Densifier & Imputer & $\leq 2022$ & 2023 & 2024 & $\geq 2025$ \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+C & SoftImpute & -1.33 & -0.29 & 0.59 & 0.00 \\
+C & missForest & -1.02 & -0.40 & 0.22 & 1.11 \\
+C & k-NN & -1.36 & -0.34 & 0.25 & 1.22 \\
+S & SoftImpute & -1.47 & -0.21 & 0.37 & 0.67 \\
+S & missForest & 0.43 & -0.32 & -0.19 & 0.86 \\
+S & k-NN & -0.52 & 0.06 & -0.27 & 1.20 \\
+\end{longtable}
+```
 
 ## Without imputation
 
@@ -42,7 +56,7 @@ Only six benchmarks are observed in every year group (BBH, GPQA, IFEval, MATH, M
 
 ## Benchmark release date
 
-We also check whether the release year of a benchmark relates to its place in the pooled solutions. Benchmark dates are less reliable than model dates (`\hyperref[release-dates]{Appendix~\ref*{release-dates}}`{=latex}), so we only use the year. Since only the pooled loadings are needed here, all five imputers enter (Table A6).
+We also check whether the release year of a benchmark relates to its place in the pooled solutions. Benchmark dates are less reliable than model dates (`\hyperref[release-dates]{Appendix~\ref*{release-dates}}`{=latex}), so we only use the year. Since only the pooled loadings are needed here, all five imputers enter (`\hyperref[tab:a6]{Table~\ref*{tab:a6}}`{=latex}).
 
 First off, release year does not predict the general-factor loading. The Spearman correlation between year and absolute loading is significant in only 3 of 10 solutions, twice positive and once negative.
 
@@ -52,20 +66,27 @@ Most of this closeness, however, comes from which models took each benchmark. Ne
 
 The observed scores alone show a small era effect on S. Among benchmark pairs observed together on at least 30 models, pairs released four or more years apart correlate at 0.36, against 0.50 for pairs released within a year of each other. On C there is no gap (0.51 against 0.51). Succinctly, most of the era effect comes from the missingness pattern, and the small part left matches the year-to-year shift we find for the models.
 
-`\label{tab:a6}`{=latex}**Table A6.** Benchmark release year against the pooled solutions. $\rho$ is the Spearman correlation between release year and absolute general-factor loading. Era $z$ compares within-era loading distance with permuted eras (negative means same-era benchmarks sit closer). The last two columns are standardised rank-regression coefficients of a pair's loading distance on its release-year gap (with permutation $p$) and on the Jaccard distance between its sets of observed models (co-obs.).
-
-| Densifier | Imputer | $\rho$ | Era $z$ | Year gap ($p$) | Co-obs. |
-| -------- | ------------------ | -----: | -----: | ------------ | ------------: |
-| C | SoftImpute | -0.16 | -6.1 | 0.07 (0.022) | 0.39 |
-| C | missForest | 0.21 | -4.2 | 0.10 (0.054) | 0.31 |
-| C | k-NN | -0.34 | -8.2 | 0.06 (0.082) | 0.43 |
-| C | OneSidedMC | 0.10 | -12.6 | 0.15 (0.000) | 0.54 |
-| C | SoftImpute (corr.) | -0.06 | -6.1 | 0.11 (0.018) | 0.25 |
-| S | SoftImpute | -0.03 | -6.9 | 0.09 (0.004) | 0.20 |
-| S | missForest | 0.22 | -14.2 | 0.20 (0.000) | 0.47 |
-| S | k-NN | 0.26 | -6.0 | 0.01 (0.314) | 0.24 |
-| S | OneSidedMC | 0.13 | -9.9 | 0.10 (0.000) | 0.45 |
-| S | SoftImpute (corr.) | -0.02 | -1.7 | 0.04 (0.158) | 0.20 |
+```{=latex}
+\begin{longtable}{@{}llrrlr@{}}
+\caption{Benchmark release year against the pooled solutions. $\rho$ is the Spearman correlation between release year and absolute general-factor loading. Era $z$ compares within-era loading distance with permuted eras (negative means same-era benchmarks sit closer). The last two columns are standardised rank-regression coefficients of a pair's loading distance on its release-year gap (with permutation $p$) and on the Jaccard distance between its sets of observed models (co-obs.).}\label{tab:a6}\\
+\toprule
+Densifier & Imputer & $\rho$ & Era $z$ & Year gap ($p$) & Co-obs. \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+C & SoftImpute & -0.16 & -6.1 & 0.07 (0.022) & 0.39 \\
+C & missForest & 0.21 & -4.2 & 0.10 (0.054) & 0.31 \\
+C & k-NN & -0.34 & -8.2 & 0.06 (0.082) & 0.43 \\
+C & OneSidedMC & 0.10 & -12.6 & 0.15 (0.000) & 0.54 \\
+C & SoftImpute (corr.) & -0.06 & -6.1 & 0.11 (0.018) & 0.25 \\
+S & SoftImpute & -0.03 & -6.9 & 0.09 (0.004) & 0.20 \\
+S & missForest & 0.22 & -14.2 & 0.20 (0.000) & 0.47 \\
+S & k-NN & 0.26 & -6.0 & 0.01 (0.314) & 0.24 \\
+S & OneSidedMC & 0.13 & -9.9 & 0.10 (0.000) & 0.45 \\
+S & SoftImpute (corr.) & -0.02 & -1.7 & 0.04 (0.158) & 0.20 \\
+\end{longtable}
+```
 
 <!-- Rewrite 2026-09-26 (shorter, author voice, "cohort" replaced by "year group").
 Changes besides wording: the one-row cohorts-vs-random table (old A5) and the

@@ -11,6 +11,9 @@ Within a single solution we compute the cosine distance between every pair of be
 The composite distance matrix is passed to UMAP \citep{mcinnes2018} as a precomputed metric, with two components, ten neighbours, a minimum distance of 0.15, and a fixed random seed. Nothing is re-standardised at this stage, since the distances already share a common scale.
 
 ## Uncomputable distance handling
+<!-- **Colours.** We label all 456 benchmarks by hand on three axes: subject (what the benchmark is about), task (how the test is administered), and language. The labels are multi-label, so a reading-comprehension benchmark on medical text carries both labels. The subject axis has 46 distinct labels and is the one used to colour Figure 1. Labels are authored from each benchmark's own documentation, and we never tune them against the embedding or against any factor solution. -->
+
+**Labels** All benchmarks were labeled along three independent, non-exclusive axes: subject (content domain), task (administration format), and language. A benchmark can carry several subject tags, and some of those tags are nested within a broader parent label (e.g. medical under specialized_domain). Labesls were curated from each benchmark's documentation, independent of the distance-geometry and cohesion analyses.
 
 Two benchmarks that never appear together in any solution have no measured distance between them. We fill each such entry with the mean of the distances that one of the two benchmarks does have, falling back to the global mean when neither has any. Luckily missing entries are only observed in the R dataset (which also only have 1 valid imputation, softimpute), with a very small percentange of just 0.32% for all cohorts. Table 1 shows the summary statistics.
 

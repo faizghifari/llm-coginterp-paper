@@ -6,10 +6,16 @@ The corpus is assembled from published evaluation records. Sources fall into fou
 
 **Tier 1, curated evaluation suites** (standardised harness, documented setup, one evaluator across many models).
 
-| Suite                            | Sub-leaderboards used                                                                      |
-| -------------------------------- | ------------------------------------------------------------------------------------------ |
-| Stanford HELM (CRFM)             | Classic, Lite, Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR, Finance |
-| HuggingFace Open LLM Leaderboard | v1, v2                                                                                     |
+```{=latex}
+\begin{tabular}{@{}p{0.32\textwidth}p{0.55\textwidth}@{}}
+\toprule
+Suite & Sub-leaderboards used \\
+\midrule
+Stanford HELM (CRFM) & Classic, Lite, Safety, Reasoning, MedHELM, SEA-HELM, Arabic, ThaiExam, EWoK, TORR, Finance \\
+HuggingFace Open LLM Leaderboard & v1, v2 \\
+\bottomrule
+\end{tabular}
+```
 
 **Tier 2, aggregators and result trackers.** Papers With Code evaluation tables, Kaggle AI Benchmarks, llm-stats.com, Artificial Analysis, Vellum, LiveBench, Chatbot Arena / LMArena, pricepertoken.com.
 
@@ -17,9 +23,9 @@ The corpus is assembled from published evaluation records. Sources fall into fou
 
 **Tier 4, primary papers.** arXiv, ACL Anthology, OpenReview, and journal articles reporting original evaluations (e.g. ELEPHANT, SI-Bench, Swiss-Bench), used both as the source of record for benchmark metadata and, where no leaderboard exists, as the source of scores.
 
-`\hyperref[tab:sources]{Table~1}`{=latex} in the main text reports each tier and family's row and benchmark counts, read off the recorded source-organisation field. That field was blank or literally unknown on 295 rows (2.2 %), spread across nearly every family rather than forming a family of its own, and each was reattributed by source name and URL host instead of left uncategorised. GitHub-hosted benchmark READMEs went to Tier 3, and arXiv, ACL Anthology, OpenReview, ACM Digital Library and journal hosts to Tier 4. This moved 157 rows into Tier 4 and 120 into Tier 3, and gave Vellum and Artificial Analysis 12 and 6 rows respectively that had been recorded under their correct source name but not their organisation. Tier 3 there ("Other online leaderboards") spans 30-odd single-benchmark leaderboards, and Tier 4 ("Primary papers") spans arXiv preprints, ACL Anthology, OpenReview, ACM Digital Library, and journals such as *Nature* and *Frontiers*.
+`\hyperref[tab:sources]{Table~\ref*{tab:sources}}`{=latex} in the main text reports each tier and family's row and benchmark counts, read off the recorded source-organisation field. That field was blank or literally unknown on 295 rows (2.2 %), spread across nearly every family rather than forming a family of its own, and each was reattributed by source name and URL host instead of left uncategorised. GitHub-hosted benchmark READMEs went to Tier 3, and arXiv, ACL Anthology, OpenReview, ACM Digital Library and journal hosts to Tier 4. This moved 157 rows into Tier 4 and 120 into Tier 3, and gave Vellum and Artificial Analysis 12 and 6 rows respectively that had been recorded under their correct source name but not their organisation. Tier 3 there ("Other online leaderboards") spans 30-odd single-benchmark leaderboards, and Tier 4 ("Primary papers") spans arXiv preprints, ACL Anthology, OpenReview, ACM Digital Library, and journals such as *Nature* and *Frontiers*.
 
-That table collapses the five smallest source families into a single "Other online leaderboards" row, and Table A1 below gives the uncollapsed breakdown behind it.
+That table collapses the five smallest source families into a single "Other online leaderboards" row, and `\hyperref[tab:a1]{Table~\ref*{tab:a1}}`{=latex} below gives the uncollapsed breakdown behind it.
 
 <!-- Both paragraphs merged in from the unembedded
 sections/appendix/unused/data-sources-and-extraction.md. The first is what makes
@@ -30,21 +36,28 @@ The second explains why Table 1 and Table A1 are not duplicates of each other.
 The URL-host inventory that sat between them in the source file was left out as
 repository detail. -->
 
-`\label{tab:a1}`{=latex}**Table A1.** Composition of the text-only corpus by source family, uncollapsed (13,251 result rows over 456 benchmarks and 1,618 models).
-
-| Source family | Result rows | Distinct benchmarks |
-|---|---:|---:|
-| Stanford HELM | 4,942 | 138 |
-| HF Open LLM Leaderboard | 4,529 | 12 |
-| Papers With Code | 1,378 | 151 |
-| Kaggle AI Benchmarks | 844 | 26 |
-| Primary papers | 587 | 95 |
-| Other named leaderboards | 420 | 45 |
-| Chatbot Arena / LMArena | 202 | 1 |
-| llm-stats.com | 121 | 11 |
-| Vellum | 96 | 7 |
-| Artificial Analysis | 77 | 2 |
-| LiveBench | 55 | 1 |
+```{=latex}
+\begin{longtable}{@{}lrr@{}}
+\caption{Composition of the text-only corpus by source family, uncollapsed (13,251 result rows over 456 benchmarks and 1,618 models).}\label{tab:a1}\\
+\toprule
+Source family & Result rows & Distinct benchmarks \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+Stanford HELM & 4,942 & 138 \\
+HF Open LLM Leaderboard & 4,529 & 12 \\
+Papers With Code & 1,378 & 151 \\
+Kaggle AI Benchmarks & 844 & 26 \\
+Primary papers & 587 & 95 \\
+Other named leaderboards & 420 & 45 \\
+Chatbot Arena / LMArena & 202 & 1 \\
+llm-stats.com & 121 & 11 \\
+Vellum & 96 & 7 \\
+Artificial Analysis & 77 & 2 \\
+LiveBench & 55 & 1 \\
+\end{longtable}
+```
 
 ## Extraction routes
 
@@ -68,23 +81,30 @@ Everything else is left blank, including the inference stack for open models, th
 
 Release dates are recorded to year and month, alongside the class of evidence each came from. The tiers are ordered, and the ordering is the point: a filter on this column is the only way to use the field responsibly.
 
-`\label{tab:a2}`{=latex}**Table A2.** Release-date evidence tiers, with the number of models and benchmarks dated by each.
-
-| Tier | Evidence | Models | Benchmarks |
-|-----------|------------------------|------|---------|
-| arXiv identifier in the record | the identifier decodes to the month exactly | 0 | 1 |
-| Repository creation timestamp | the creation date of a HuggingFace repository whose name *is* the model | 801 | 0 |
-| The model's own paper | confirmed by reading the paper's title | 25 | 0 |
-| Date stamped in the name | the identifier carries its own release date | 1 | 0 |
-| Verified web page | a page fetched and confirmed to name this model *and* carry this date | 434 | 0 |
-| Citation present, not re-readable | a citation exists but could not be re-read by a non-browser client | 93 | 61 |
-| Corroborated to the month | two independent systems agreed to the month | 8 | 5 |
-| Citation present, page inaccessible | a real citation whose page is bot-blocked, paywalled, or script-only | 117 | 0 |
-| Corroborated to the year only | two systems agreed to the year but not the month | 20 | 136 |
-| Inherited from the base model | an evaluation or method variant taking its base model's date | 1 | 0 |
-| Single uncorroborated answer | one language model's answer, with no corroboration and a measured error of roughly 30 % | 89 | 29 |
-| Pre-existing, origin unrecorded | a date already present before this pass | 24 | 223 |
-| (blank) | undated | 5 | 1 |
+```{=latex}
+\begin{longtable}{@{}p{0.24\textwidth}p{0.42\textwidth}rr@{}}
+\caption{Release-date evidence tiers, with the number of models and benchmarks dated by each.}\label{tab:a2}\\
+\toprule
+Tier & Evidence & Models & Benchmarks \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+arXiv identifier in the record & the identifier decodes to the month exactly & 0 & 1 \\
+Repository creation timestamp & the creation date of a HuggingFace repository whose name \emph{is} the model & 801 & 0 \\
+The model's own paper & confirmed by reading the paper's title & 25 & 0 \\
+Date stamped in the name & the identifier carries its own release date & 1 & 0 \\
+Verified web page & a page fetched and confirmed to name this model \emph{and} carry this date & 434 & 0 \\
+Citation present, not re-readable & a citation exists but could not be re-read by a non-browser client & 93 & 61 \\
+Corroborated to the month & two independent systems agreed to the month & 8 & 5 \\
+Citation present, page inaccessible & a real citation whose page is bot-blocked, paywalled, or script-only & 117 & 0 \\
+Corroborated to the year only & two systems agreed to the year but not the month & 20 & 136 \\
+Inherited from the base model & an evaluation or method variant taking its base model's date & 1 & 0 \\
+Single uncorroborated answer & one language model's answer, with no corroboration and a measured error of roughly 30\% & 89 & 29 \\
+Pre-existing, origin unrecorded & a date already present before this pass & 24 & 223 \\
+(blank) & undated & 5 & 1 \\
+\end{longtable}
+```
 
 Grouping the first five tiers as *strong* covers **1,261 of 1,618 model rows (78 %)** but only **1 of 456 benchmark rows (0.2 %)**.
 

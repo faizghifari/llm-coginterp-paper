@@ -1,12 +1,10 @@
 # Label cohesion results
 
-**Labels** All benchmarks were labeled along three independent, non-exclusive axes: subject (content domain), task (administration format), and language. A benchmark can carry several subject tags directly, and some of those tags are themselves nested within a broader parent label (e.g. medical under specialized_domain). Labeling was finalized independently of the distance-geometry and cohesion analyses.
-
 We present the full label cohesion results for all labels here. From the subject category, only `finance` and `professional_writing` show significantly strong cohesion, both of which are very specific benchmarks with low median n. The next few labels show moderate to weak cohesion at best, a lot of which do not have enough significance to distinguish from chance. Labeling by language surprisingly show many weakly cohesive structure, especially for `monolingual_non_english`, which is an aggregate label. Individual labels for each language are not used due low n. All of the results support our claim that benchmark clusters are weakly cohesive.
 
 ```{=latex}
 \begin{longtable}{@{}lrrr@{}}
-\caption*{\textbf{Task type.} Cohesion by task-format label, sorted by descending median A.}\\
+\caption{Cohesion by task-format label, sorted by descending median A.}\label{tab:cohesion-task-type}\\
 \toprule
 Label & Median A & Significant & Median n \\
 \midrule
@@ -29,7 +27,7 @@ Label & Median A & Significant & Median n \\
 
 ```{=latex}
 \begin{longtable}{@{}lrrr@{}}
-\caption*{\textbf{Language.} Cohesion by language-coverage label, sorted by descending median A.}\\
+\caption{Cohesion by language-coverage label, sorted by descending median A.}\label{tab:cohesion-language}\\
 \toprule
 Label & Median A & Significant & Median n \\
 \midrule
@@ -45,7 +43,7 @@ Label & Median A & Significant & Median n \\
 
 ```{=latex}
 \begin{longtable}{@{}lrrr@{}}
-\caption*{\textbf{Subject.} Cohesion by subject-matter label, sorted by descending median A.}\\
+\caption{Cohesion by subject-matter label, sorted by descending median A.}\label{tab:cohesion-subject}\\
 \toprule
 Label & Median A & Significant & Median n \\
 \midrule

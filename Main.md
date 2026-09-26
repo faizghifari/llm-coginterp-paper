@@ -57,6 +57,10 @@ Appendix-Methods.md. %%
 \bibliographystyle{iclr2027_conference}
 
 \appendix
+% Match the paper's existing convention (previously hand-typed): main-text
+% tables are numbered 1, 2, 3..., appendix tables restart at A1, A2, A3...
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{table}{0}
 ```
 
 ![[sections/appendix/known-limitations-and-deviations]]
@@ -91,15 +95,18 @@ Appendix-Methods.md. %%
 omega sensitivity, g-rankings, release date). Label cohesion is last here at
 the authors' request, since its long tables come after its explanation. -->
 
-![[sections/appendix/imputation-results]]
-
-![[sections/appendix/omega-sensitivity]]
-
 ![[sections/appendix/release-date-analysis]]
 
 ![[sections/appendix/benchmark-g-rankings.md]]
 
 ![[sections/appendix/label-cohesion]]
+
+<!-- Table-heavy diagnostics after the explained results, shortest first.
+Moved here 2026-09-26 (were right before release date). -->
+
+![[sections/appendix/imputation-results]]
+
+![[sections/appendix/omega-sensitivity]]
 
 <!-- Full tables and figures at the very end, so no explanation sits behind
 them. The UMAP plots come last because their figures float, and as the final

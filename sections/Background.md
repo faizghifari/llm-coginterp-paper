@@ -71,7 +71,7 @@ after we say Definition 1 makes no claim about training. We never study training
 and the same review warns elsewhere against drawing causal training conclusions
 from cross-sectional data, so the operative half was cut. Whether developers are
 right to train on this subset does not arise here. Whether the subset measures G
-best is a question about loadings, which Table 4 answers.
+best is a question about loadings, which `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} answers.
 
 The concrete list (reasoning, mathematics, coding) is deliberate. It gives 4.3 a
 named target and connects the definition to benchmaxxing. Cut it and "a subset of
@@ -151,7 +151,7 @@ An earlier draft answered it with Jensen's complexity ordering: g-loadings are
 indifferent to content but still track task complexity, so reasoning and
 mathematics should top the ranking and do not. That argument was dropped. Our
 loading ranking is not stable enough to carry it. The same review notes that
-Table 4's top two rows have N = 2 of about 19 pipeline configurations and that
+`\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex}'s top two rows have N = 2 of about 19 pipeline configurations and that
 the CIs span negative values, so the ranking cannot establish that a prediction
 fails.
 

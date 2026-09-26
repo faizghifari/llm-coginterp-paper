@@ -14,7 +14,7 @@ In this study we investigate the low-dimensional structure of model benchmark sc
 
 <!-- Cut for space 2026-09-23 (the schema is described in the EveryEvalEver paper and Appendix B). The text read: The schema includes fields for model, benchmark, metric, score, and other metadata such as inference setup, metric interpretation, evaluation date, and source. -->
 
-**Sources.** Table 1 gives the composition of the text-only corpus by source family. `\hyperref[data-source-and-normalization]{Appendix~\ref*{data-source-and-normalization}}`{=latex} lists every named source and the extraction route used for each.
+**Sources.** `\hyperref[tab:sources]{Table~\ref*{tab:sources}}`{=latex} gives the composition of the text-only corpus by source family. `\hyperref[data-source-and-normalization]{Appendix~\ref*{data-source-and-normalization}}`{=latex} lists every named source and the extraction route used for each.
 <!-- Specifically, these sources can be broken down into source families such as Stanford HELM \citep{helm2023}, HuggingFace Open LLM Leaderboard (v1 and v2) \citep{openllmleaderboard2024}, Papers With Code, Kaggle AI Benchmarks, Chatbot Arena / LMArena \citep{chatbotarena2024}, llm-stats.com, Artificial Analysis, Vellum, and LiveBench, together with benchmark-specific leaderboards and primary papers reporting original evaluations.  -->
 
 <!-- The Sources paragraph opened with a sentence cut to save space (2026-09-23),
@@ -30,7 +30,7 @@ Table 2 at the end of Densification. Keep the numbers in both places in step. --
 ```{=latex}
 \begin{center}\small\setlength{\tabcolsep}{4pt}
 \begin{minipage}[t]{0.47\textwidth}
-\label{tab:sources}\textbf{Table 1.} Composition of the text-only corpus by source family. More detailed breakdown is given in \hyperref[tab:a1]{Table A1}.\par\vspace{4pt}
+\refstepcounter{table}\label{tab:sources}\textbf{Table~\thetable.} Composition of the text-only corpus by source family. More detailed breakdown is given in \hyperref[tab:a1]{Table~\ref*{tab:a1}}.\par\vspace{4pt}
 \centering
 \begin{tabular}{@{}lrr@{}}
 \toprule
@@ -46,7 +46,7 @@ Primary papers & 587 & 95 \\
 \end{tabular}
 \end{minipage}\hfill
 \begin{minipage}[t]{0.49\textwidth}\setlength{\tabcolsep}{3pt}
-\label{tab:matrices}\textbf{Table 2.} Aggregated model $\times$ benchmark matrices, text-only corpus. ``Retained'' is the fraction of observed cells surviving the densifier peel.\par\vspace{4pt}
+\refstepcounter{table}\label{tab:matrices}\textbf{Table~\thetable.} Aggregated model $\times$ benchmark matrices, text-only corpus. ``Retained'' is the fraction of observed cells surviving the densifier peel.\par\vspace{4pt}
 \centering
 \begin{tabular}{@{}llrrr@{}}
 \toprule
