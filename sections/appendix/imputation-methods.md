@@ -11,7 +11,7 @@ Method & Description & Package & Configuration \\
 \endfirsthead
 \caption{Estimators of the missing dataset entries.}\\
 \toprule
-Method & Description & Package & Swept parameter & Grid \\
+Method & Description & Package & Configuration \\
 \midrule
 \endhead
 \bottomrule
