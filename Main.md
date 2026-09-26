@@ -61,6 +61,8 @@ Appendix-Methods.md. %%
 
 ![[sections/appendix/known-limitations-and-deviations]]
 
+![[sections/appendix/llm-usage]]
+
 ![[sections/appendix/data-source-and-normalization]]
 
 <!-- Merged to data section -->
@@ -95,8 +97,6 @@ Appendix-Methods.md. %%
 ![[sections/appendix/benchmark-g-rankings.md]]
 
 ![[sections/appendix/release-date-analysis]]
-
-![[sections/appendix/llm-usage]]
 
 <!-- Software environment and reproduction was deleted in pass 5. It was a
 repository README (shell commands, output paths, SQLite table names, package
