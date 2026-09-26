@@ -2,9 +2,7 @@
 
 ## The Psychometric Paradigm
 
-A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2004}, and \citet{federiakin2025} applies the same distinction to the design of LLM benchmarks. Individuals differ in some latent factor, hence individuals differ in some observable outcomes. If there are no causal latent factors, then the covariance among observed behaviors would have no source at all, which makes little sense.
-
-<!-- Style pass 2026-09-23 (trailing appositive). The sentence read: \citep{borsboom2004}, a distinction now also drawn explicitly in the design of LLM benchmarks \citep{federiakin2025}. -->
+A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2003,borsboom2004}, and \citet{federiakin2025} applies the same distinction to the design of LLM benchmarks. Individuals differ in some latent factor, hence individuals differ in some observable outcomes. If there are no causal latent factors, then the covariance among observed behaviors would have no source at all, which makes little sense.
 
 Personality and intelligence research are prime examples. \citet{allport1936} extracted all or most of the words from the English dictionary that can describe someone's personality, and had a large sample self-report how well each word describes themselves, hence measuring as much of the set of all possible personalities \citep{john1988}. \citet{spearman1904} did much the same for intelligence, collecting the scores of students across school subjects and finding that their variance overwhelmingly loads to a single wide-breadth latent variable called the $g$ factor \citep{jensen2002}, which remains generally accepted \citep{johnson2004,johnson2008}. Both follow the same paradigm. Exhaustively measure observable behaviors, subject them to dimensional-reduction techniques, and draw theories from the resulting latent factor. Subsequent research decomposes the hierarchy further, into facets for personality \citep{lee2018,deyoung2007} and into specific cognitive abilities for intelligence \citep{schneider2018}.
 
@@ -12,7 +10,7 @@ Personality and intelligence research are prime examples. \citet{allport1936} ex
 
 <!-- ---------- ORIGINAL (pre-revision) TEXT, kept for reference ----------
 
-A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2004}, a distinction now also drawn explicitly in the design of LLM benchmarks \citep{federiakin2025}. This assumption applies to all sorts of measurements, from arbitrary attitudinal surveys to psychological primitives like personality and intelligence.
+A common theoretical ground in psychometric measurement is that observable human behaviors are **causally** influenced by latent variables internal to an individual \citep{borsboom2003,borsboom2004}, a distinction now also drawn explicitly in the design of LLM benchmarks \citep{federiakin2025}. This assumption applies to all sorts of measurements, from arbitrary attitudinal surveys to psychological primitives like personality and intelligence.
 
 The two is worth discussing as background. In the early days of personality research, the pioneering psychometrician \citet{allport1936} ran an ingenious idea: extract all or most of words from the English dictionary that can describe someone's personality, and then have a large sample of test takers to self-report how well the word describe themselves. The exhaustive dictionary search effectively allows researchers to measure as much of "the universe of all possible personalities". Following this, keyword self-reports are subject dimensional-reduction techniques like factor analysis, and the resulting low-dimensional latent factor is interpreted as a latent variable that causally influence the variance of all possible personality traits \citep{john1988}.
 
@@ -20,7 +18,7 @@ The same is true for research of human intelligence. In the early days, \citet{s
 
 Personality and intelligence research are prime examples of the psychometric paradigm. Exhaustively measure observable behaviors or reports, subject the data to dimensional-reduction techniques, and draw theories from interpreting the resulting latent factor. Subsequent research aims to decompose the causal hierarchy further. Personality research are concerned with dimensions and facets \citep{lee2018,deyoung2007}, while intelligence research with abstract but specific cognitive abilities, like quantitative knowledge, long-term retrieval, etc. \citep{schneider2018}.
 
-It must be stressed, however, that the theories in question largely depend on a causal interpretation. Succinctly, \citet{borsboom2004} spoke against a purely operational psychometric paradigm. Individuals differ in some latent factor; hence, individuals differ in some observable outcomes. If there is no causal latent factors, then observable behavior would have emerged *ex nihilo*, which made little sense. Everything has a cause, including human behavior.
+It must be stressed, however, that the theories in question largely depend on a causal interpretation. Succinctly, \citet{borsboom2003,borsboom2004} spoke against a purely operational psychometric paradigm. Individuals differ in some latent factor; hence, individuals differ in some observable outcomes. If there is no causal latent factors, then observable behavior would have emerged *ex nihilo*, which made little sense. Everything has a cause, including human behavior.
 
 ---------- END ORIGINAL ---------- -->
 
@@ -80,7 +78,7 @@ T" is abstract enough that 4.3 no longer reads as the test of anything stated.
 Layer two of this argument, that task training largely fails to raise g in humans,
 belongs in Discussion 5.1 where Afrizal cites simons2016, so it is not made here. -->
 %%
-The causal view is also called the reflective paradigm in psychometrics \citep{borsboom2004} that asserts psychological traits are latent, but real, higher-order causal variable. This ontological position is methodologically significant, as this rules out the use of PCA over EFA (which can partition out error from systematic variance).
+The causal view, also called the reflective paradigm in psychometrics \citep{borsboom2003,borsboom2004,borsboom2013}, asserts psychological traits are latent, but real, higher-order causal variable. This ontological position is methodologically significant, as this rules out the use of PCA over EFA (which can partition out error from systematic variance).
 
 Nevertheless, a causal view is only one way to understand the origins of a covariance matrix. The formative paradigm, usually associated with PCA, makes no claim about the nature of the resultant components \citep{vandermaas2014}. Even so, generalizability would be impossible without a common factor to begin with, since two tasks sharing a dominant factor decompose into a similar lower-level representation \citep{caruana1997,menghi2025} that the network must discern. 
 %%
@@ -110,7 +108,7 @@ without weakening any claim we make later. -->
 
 <!-- ---------- ORIGINAL (pre-revision) TEXT, kept for reference ----------
 
-Whether or not intelligence theories are causal concerns, as \citet{borsboom2004} described for psychometrics, the need to explain the origins of indicator covariance. It is evident that various LLM benchmarks are intercorrelated. Where does this correlation originate?  We argue that benchmark correlations are causally originated from latent variables, and add that existing paradigms of machine intelligence are implicitly causal.
+Whether or not intelligence theories are causal concerns, as \citet{borsboom2003,borsboom2004} described for psychometrics, the need to explain the origins of indicator covariance. It is evident that various LLM benchmarks are intercorrelated. Where does this correlation originate?  We argue that benchmark correlations are causally originated from latent variables, and add that existing paradigms of machine intelligence are implicitly causal.
 
 Theoretically, in improving the capabilities of neural networks, the notion of a "general intelligence" has permeated the field. A common sentiment \citep{chollet2019} is that intelligence is an abstract, higher-order ability that contrasts performance like memorization or domain-specific abilities. It is "content-free", analogous to human fluid intelligence, and precedes performance across the universe of all possible cognitive tasks.
 
