@@ -2,17 +2,32 @@
 
 Figure 1 places each benchmark in two dimensions using a composite distance computed from the factor loadings rather than from the score matrix. This appendix describes how that distance is built and how the figure is coloured.
 
-**Vectors.** Every bifactor solution assigns each benchmark a row of loadings, consisting of its loading on the general factor followed by its loadings on each specific factor. We take that row as the benchmark's vector within that solution. A benchmark absent from a given solution does not contribute to it.
+## Composite distancing
 
-**Composite distance.** Within a single solution we compute the cosine distance between every pair of benchmark vectors, which is one minus their cosine similarity, clipped to the range 0 to 2. Cosine distance is invariant to the rotation and to the sign of the factors, so per-solution distances remain comparable even though the factors themselves are not. We then average each pair's distance across every solution in which both benchmarks appear. This average is the composite distance, and it is what the figure embeds.
+Every bifactor solution assigns each benchmark a row of loadings, consisting of its loading on the general factor followed by its loadings on each specific factor. We take that row as the benchmark's vector within that solution. A benchmark absent from a given solution does not contribute to it.
 
-**Pairs that never co-occur.** Two benchmarks that never appear together in any solution have no measured distance between them. We fill each such entry with the mean of the distances that one of the two benchmarks does have, falling back to the global mean when neither has any. These filled values are indistinguishable from measured ones once the figure is drawn, which is worth keeping in mind when reading isolated points.
+Within a single solution we compute the cosine distance between every pair of benchmark vectors, which is one minus their cosine similarity, clipped to the range 0 to 2. Cosine distance is invariant to the rotation and to the sign of the factors, so per-solution distances remain comparable even though the factors themselves are not. We then average each pair's distance across every solution in which both benchmarks appear. This average is the composite distance, and it is what the figure embeds.
 
-**Embedding.** The composite distance matrix is passed to UMAP \citep{mcinnes2018} as a precomputed metric, with two components, ten neighbours, a minimum distance of 0.15, and a fixed random seed. Nothing is re-standardised at this stage, since the distances already share a common scale.
+The composite distance matrix is passed to UMAP \citep{mcinnes2018} as a precomputed metric, with two components, ten neighbours, a minimum distance of 0.15, and a fixed random seed. Nothing is re-standardised at this stage, since the distances already share a common scale.
 
-**Colours.** We label all 456 benchmarks by hand on three axes: subject (what the benchmark is about), task (how the test is administered), and language. The labels are multi-label, so a reading-comprehension benchmark on medical text carries both labels. The subject axis has 46 distinct labels and is the one used to colour Figure 1. Labels are authored from each benchmark's own documentation, and we never tune them against the embedding or against any factor solution.
+## Uncomputable distance handling
 
-**Reading the figure.** It must be stressed, however, that UMAP preserves neither density nor global distance. Groups that appear tight or far apart in two dimensions are partly an artefact of the embedding. We therefore read the figure as a visual summary, and any claim we make about clustering rests on the composite distance matrix itself.
+Two benchmarks that never appear together in any solution have no measured distance between them. We fill each such entry with the mean of the distances that one of the two benchmarks does have, falling back to the global mean when neither has any. Luckily missing entries are only observed in the R dataset (which also only have 1 valid imputation, softimpute), with a very small percentange of just 0.32% for all cohorts. Table 1 shows the summary statistics.
+
+**Table 1**. Missing entries of benchmark pairs (uncomputable distance) for the R dataset, softimpute imputation
+
+| Cohort | $N$ benchmarks | $N$ missing pairs | $N$ total pairs | % missing pairs |
+| ------ | -------------- | ----------------- | --------------- | --------------- |
+| all    | 318            | 160               | 50403           | 0.32%           |
+| 2020   | 318            | 160               | 50403           | 0.32%           |
+| 2021   | 318            | 160               | 50403           | 0.32%           |
+| 2022   | 318            | 160               | 50403           | 0.32%           |
+| 2023   | 318            | 160               | 50403           | 0.32%           |
+| 2024   | 318            | 160               | 50403           | 0.32%           |
+| 2025   | 318            | 160               | 50403           | 0.32%           |
+
+#### Limitations
+It must be stressed, however, that UMAP preserves neither density nor global distance. Groups that appear tight or far apart in two dimensions are partly an artefact of the embedding. We therefore read the figure as a visual summary, and any claim we make about clustering rests on the composite distance matrix itself.
 
 <!-- New appendix, written 2026-09-19. Figure 1 was previously undocumented: no
 part of the paper said what the composite distance was, how loadings were
