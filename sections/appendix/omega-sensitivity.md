@@ -1,7 +1,7 @@
 # Omega sensitivity
 
 
-To quantify to what degree missing observations affect our results, we run leave-one-covariate out (LOCO) factor analyses for each valid datasets. For each benchmarks in the dataset, we run factor analysis with the dataset left out, and store the difference in $\omega_h$ as a measure of sensitivity. Table 1 shows the correlations between benchmark frequency and the deltas. Signed averages of $r$ shows negligible correlation at $r=0.054$, but this may simply be because signed correlations cancel out to 0. Average of unsigned, absolute $r$ yielded a larger but still modest correlation of $r=0.184$.
+To quantify to what degree missing observations affect our results, we run leave-one-covariate out (LOCO) factor analyses for each valid datasets. For each benchmarks in the dataset, we run factor analysis with the dataset left out, and store the difference in $\omega_h$ as a measure of sensitivity. Table 1 shows the correlations between benchmark frequency (normalized within the dataset) and the deltas. Signed averages of $r$ shows negligible correlation at $r=0.054$, but this may simply be because signed correlations cancel out to 0. Average of unsigned, absolute $r$ yielded a larger but still modest correlation of $r=0.184$.
 
 **Table 1**. Correlations between benchmark observation and their $\Delta\omega_h$. $k$ = number of factors extracted.
 
@@ -46,4 +46,3 @@ To quantify to what degree missing observations affect our results, we run leave
 | fill-zeros                    | C_all_standard     |  14 |     +0.2493 |          78 |
 | **Average $r$**               |                    |     | **+0.0542** | 37 (groups) |
 | **Average $\lvert r \lvert$** |                    |     |  **0.1840** |             |
-
