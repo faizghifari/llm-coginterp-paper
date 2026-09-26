@@ -269,17 +269,36 @@ identifiers serving as the primary key was left out as repository detail. }
 
 ## Duplicate detection and integrity checks
 
+Two rows are duplicates if they agree on model, benchmark, metric, setup, source, model identifier and language, and redundant copies are removed after review. Rows that differ in any of these are separate evaluations and are kept, and all rows of one model-benchmark pair are averaged at aggregation (87 model-benchmark-metric triples have scores from more than one source). After every write we check that every result row points to an existing model and benchmark and that no model or benchmark is left without results, and we flag benchmarks with fewer than five rows for review.
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT of this subsection, before the 2026-09-26 rewrite. The link-validity sentence was cut.
+Inner comments are kept as {note: ...} since comments cannot nest.
+
+## Duplicate detection and integrity checks
+
+
 The duplicate identity key is the tuple (model, benchmark, metric, setup, source, model identifier, language). The duplicate report flags rows that share this identity, and redundant copies are removed after review. All remaining rows for one (model, benchmark) pair, including those from different sources, are averaged at aggregation. In the analysed corpus 87 (model, benchmark, metric) triples carry scores from more than one source.
 
 The integrity pass asserts zero foreign-key violations in both directions, zero models with no result rows, and zero benchmarks with no result rows. It also flags benchmarks with fewer than five rows for manual review. It is run after every write, including after each of the pruning passes in `\hyperref[score-redundancy-pruning]{Appendix~\ref*{score-redundancy-pruning}}`{=latex}.
 
 Link validity was checked by a multi-threaded URL sweep across both metadata tables, ignoring anti-bot 403s, repairing moved repositories, and filling 53 previously-blank benchmark source links.
+-->
 
-## Score Normalization
+## Score normalization
 
 Scores are normalised to a 0 to 100 scale. Papers With Code and Kaggle report scores in mixed formats. For these two sources, a raw value in $[0,1]$ is multiplied by 100 and a value above 1 is kept as it is. The other sources report on one scale per leaderboard and are converted as a whole. A few columns remain on a 0 to 1 scale, which column standardisation absorbs. Results are capped at 100 to absorb floating-point noise. Exempt metrics, kept on their native scale, are perplexity, bits-per-byte, BLEURT, BERTScore, Elo, and count-type metrics ("# eval").
 
 ## Canonical metric selection
+
+When a benchmark is reported under more than one metric, we keep one. Metric names are first normalised for case and whitespace, and spelling variants of the same measurement (such as written-out and abbreviated forms of accuracy or bits per byte) are merged by a hand-curated alias map. We then keep the metric that covers the most models, unless a per-benchmark override applies, and break ties by row count and then by name. This affects 92 benchmarks and drops 1,420 rows (706 model-benchmark cells), and about half of these benchmarks lose no model.
+
+Accuracy and exact match are kept apart, even though they look like the same measure on multiple-choice tasks. On the sixteen benchmarks that carry both, exact match comes from HELM and accuracy mostly from the Open LLM Leaderboard and papers, and no model is scored both ways, so the offset between the two cannot be estimated. Merging them would put two evaluation regimes into one column. The coverage rule picks accuracy on four of these benchmarks (MMLU, TruthfulQA, HellaSwag and PubMedQA) and exact match on the other twelve.
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT of this subsection, before the 2026-09-26 rewrite. The four-step procedure, the alias-map examples and the accuracy versus exact-match argument were condensed to two paragraphs.
+Inner comments are kept as {note: ...} since comments cannot nest.
+
+## Canonical metric selection
+
 
 Applied to the derived copy after the benchmark removals, so coverage is counted over the surviving population. Selection proceeds in four steps, first match wins:
 
@@ -300,7 +319,7 @@ Second, those regimes score **near-disjoint model populations**. A merged column
 
 For the same reason we do not pin accuracy globally. The coverage rule already selects it where it genuinely dominates (MMLU, TruthfulQA, HellaSwag, PubMedQA) and selects exact match on the other twelve. Forcing accuracy everywhere would cost 449 further model-cells (OpenBookQA 120 to 22, LegalBench 90 to 5, IMDB 67 to 6, MedQA 99 to 42) and would systematically evict the most methodologically controlled source in the corpus. Accuracy is the more conventional name. Here it is not a quality signal.
 
-<!-- Merged in from the unembedded sections/appendix/normalisation-rules.md: the
+{note: Merged in from the unembedded sections/appendix/normalisation-rules.md: the
 curated-alias-map paragraph, the net-effect line, and the four-paragraph accuracy
 versus exact-match argument. This is the substantive defence of the metric filter
 and the paper had no version of it that reached the PDF.
@@ -313,9 +332,20 @@ because that table lives in the root-level Methodology.md, which Main.md does no
 embed. The table itself (HELM x HELM median 4 shared models, OLL x OLL 160,
 HELM x OLL 0, with 87 % of pairs not estimable) is worth moving into
 sections/Methodology.md, and the cross-reference restored, if the claim needs the
-support. That is still open. -->
+support. That is still open. }
+-->
+
+## Remaining column defects
+
+Two columns need fixing after metric selection. On GPQA, 447 of 454 rows are the normalised accuracy of the Open LLM Leaderboard v2 (chance mapped to zero, with negative values clamped to zero), and the other 7 are raw accuracy from papers and llm-stats.com. The two ranges do not overlap, so we drop the 7 raw rows. Since 56 of the remaining rows sit at the clamp, GPQA separates weak models poorly. On ELEPHANT the metric field holds model configurations instead of metrics, so we remove the benchmark (9 models).
+
+Three other benchmarks (WildBench, SEA-Exam and MultiPL-E) have sources with non-overlapping score ranges. We leave them as they are, since trackers of frontier models evaluate stronger models and a gap alone does not show a scale conflict.
+
+<!-- ---------- ORIGINAL (pre-revision) TEXT of this subsection, before the 2026-09-26 rewrite. Renamed from Defects below the metric name and condensed.
+Inner comments are kept as {note: ...} since comments cannot nest.
 
 ## Defects below the metric name
+
 
 Two problems survive metric selection because they are not distinguishable by metric name at all.
 
@@ -326,3 +356,5 @@ The same detector, which looks for benchmarks whose sources have strictly non-ov
 **Structurally defective column on ELEPHANT.** On this social-sycophancy benchmark the metric field holds model *configurations* rather than metrics, so selecting a canonical metric keeps one arbitrary configuration, which measures nothing. The benchmark is removed from the derived copy (9 models) and recorded for re-extraction.
 
 Two further columns that appear in earlier drafts as defects are **resolved by the metric filter itself** and need no special handling. Those are Vectara, whose two metrics are complements differing by +86.5 across 7 shared models, and LAMBADA, which mixed accuracy with perplexity.
+-->
+
