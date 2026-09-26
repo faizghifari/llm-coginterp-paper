@@ -9,7 +9,7 @@ We present the full label cohesion results for all labels here. From the subject
 Label & Median A & Significant & Median n \\
 \midrule
 \endfirsthead
-\caption{Cohesion by task-format label, sorted by descending median A.}\\
+\caption[]{(continued)}\\
 \toprule
 Label & Median A & Significant & Median n \\
 \midrule
@@ -37,7 +37,7 @@ Label & Median A & Significant & Median n \\
 Label & Median A & Significant & Median n \\
 \midrule
 \endfirsthead
-\caption{Cohesion by language-coverage label, sorted by descending median A.}\\
+\caption[]{(continued)}\\
 \toprule
 Label & Median A & Significant & Median n \\
 \midrule
@@ -58,7 +58,7 @@ Label & Median A & Significant & Median n \\
 Label & Median A & Significant & Median n \\
 \midrule
 \endfirsthead
-\caption{Cohesion by subject-matter label, sorted by descending median A.}\\
+\caption[]{(continued)}\\
 \toprule
 Label & Median A & Significant & Median n \\
 \midrule

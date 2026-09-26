@@ -17,7 +17,7 @@ It must be stressed, however, that each matrix is imputed once over all models b
 Densifier & Benchmarks & $\leq 2022$ & 2023 & 2024 & $\geq 2025$ \\
 \midrule
 \endfirsthead
-\caption{Size and coverage of each release-year group. Each cell gives the number of models, the share of observed cells, and the number of benchmarks with no observed score in that group.}\\
+\caption[]{(continued)}\\
 \toprule
 Densifier & Benchmarks & $\leq 2022$ & 2023 & 2024 & $\geq 2025$ \\
 \midrule
@@ -44,7 +44,7 @@ Newer models do score higher on the general factor (`\hyperref[tab:a5]{Table~\re
 Densifier & Imputer & $\leq 2022$ & 2023 & 2024 & $\geq 2025$ \\
 \midrule
 \endfirsthead
-\caption{Mean general-factor score of each release-year group, with mean zero over all models.}\\
+\caption[]{(continued)}\\
 \toprule
 Densifier & Imputer & $\leq 2022$ & 2023 & 2024 & $\geq 2025$ \\
 \midrule
@@ -83,23 +83,23 @@ The observed scores alone show a small era effect on S. Among benchmark pairs ob
 Densifier & Imputer & $\rho$ & Era $z$ & Year gap ($p$) & Co-obs. \\
 \midrule
 \endfirsthead
-\caption{Benchmark release year against the pooled solutions. $\rho$ is the Spearman correlation between release year and absolute general-factor loading. Era $z$ compares within-era loading distance with permuted eras (negative means same-era benchmarks sit closer). The last two columns are standardised rank-regression coefficients of a pair's loading distance on its release-year gap (with permutation $p$) and on the Jaccard distance between its sets of observed models (co-obs.).}\\
+\caption[]{(continued)}\\
 \toprule
 Densifier & Imputer & $\rho$ & Era $z$ & Year gap ($p$) & Co-obs. \\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
-C & SoftImpute & -0.16 & -6.1 & 0.07 (0.022) & 0.39 \\
-C & missForest & 0.21 & -4.2 & 0.10 (0.054) & 0.31 \\
-C & k-NN & -0.34 & -8.2 & 0.06 (0.082) & 0.43 \\
-C & OneSidedMC & 0.10 & -12.6 & 0.15 (0.000) & 0.54 \\
-C & SoftImpute (corr.) & -0.06 & -6.1 & 0.11 (0.018) & 0.25 \\
-S & SoftImpute & -0.03 & -6.9 & 0.09 (0.004) & 0.20 \\
-S & missForest & 0.22 & -14.2 & 0.20 (0.000) & 0.47 \\
-S & k-NN & 0.26 & -6.0 & 0.01 (0.314) & 0.24 \\
-S & OneSidedMC & 0.13 & -9.9 & 0.10 (0.000) & 0.45 \\
-S & SoftImpute (corr.) & -0.02 & -1.7 & 0.04 (0.158) & 0.20 \\
+C & SoftImpute & -0.16 & -6.1 & 0.07 (0.022) & 0.39 \\*
+C & missForest & 0.21 & -4.2 & 0.10 (0.054) & 0.31 \\*
+C & k-NN & -0.34 & -8.2 & 0.06 (0.082) & 0.43 \\*
+C & OneSidedMC & 0.10 & -12.6 & 0.15 (0.000) & 0.54 \\*
+C & SoftImpute (corr.) & -0.06 & -6.1 & 0.11 (0.018) & 0.25 \\*
+S & SoftImpute & -0.03 & -6.9 & 0.09 (0.004) & 0.20 \\*
+S & missForest & 0.22 & -14.2 & 0.20 (0.000) & 0.47 \\*
+S & k-NN & 0.26 & -6.0 & 0.01 (0.314) & 0.24 \\*
+S & OneSidedMC & 0.13 & -9.9 & 0.10 (0.000) & 0.45 \\*
+S & SoftImpute (corr.) & -0.02 & -1.7 & 0.04 (0.158) & 0.20 \\*
 \end{longtable}
 ```
 

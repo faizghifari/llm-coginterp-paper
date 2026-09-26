@@ -60,7 +60,7 @@ density_pair_n.png-->
 
 <!--## Imputation results-->
 
-The table below lists, for every dataset-imputer combination, the held-out RMSE, $R^2$, and the selected configuration. Rows are sorted by $R^2$. As decsribed in the results, only 20 of the combinations pass the $R^2 \ge 0.2$ gate. Of all the methods presented, only USVT yielded no valid solutions or crashes mid-estimation.
+The table below lists, for every dataset-imputer combination, the held-out RMSE, $R^2$, and the selected configuration. Rows are sorted by $R^2$. As described in the results, only 20 of the combinations pass the $R^2 \ge 0.2$ gate. Of all the methods presented, only USVT yielded no valid solutions or crashes mid-estimation.
 
 ```{=latex}
 \begin{longtable}{@{}llrrl@{}}
@@ -69,7 +69,7 @@ The table below lists, for every dataset-imputer combination, the held-out RMSE,
 Dataset & Imputer & RMSE & $R^2$ & Configuration \\
 \midrule
 \endfirsthead
-\caption{Result of all imputation runs, sorted by $R^2$.}\\
+\caption[]{(continued)}\\
 \toprule
 Dataset & Imputer & RMSE & $R^2$ & Configuration \\
 \midrule

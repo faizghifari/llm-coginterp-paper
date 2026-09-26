@@ -3,13 +3,13 @@
 Applied to the text-only copy only, after the scope filter of `\hyperref[benchmarks]{Appendix~\ref*{benchmarks}}`{=latex}. Each family was audited by computing the full pairwise Pearson correlation among its columns over the models evaluated on both columns. The removal decision was taken per family, on the evidence, and we verified that the resulting cascades orphan no models.
 
 ```{=latex}
-\begin{longtable}{@{}p{0.19\textwidth}p{0.32\textwidth}p{0.20\textwidth}r@{}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.19\textwidth}>{\raggedright\arraybackslash}p{0.32\textwidth}>{\raggedright\arraybackslash}p{0.20\textwidth}r@{}}
 \caption{Benchmark families audited for score redundancy, with the correlation evidence and decision for each.}\label{tab:a3}\\
 \toprule
 Family & Correlation evidence & Decision & Rows removed \\
 \midrule
 \endfirsthead
-\caption{Benchmark families audited for score redundancy, with the correlation evidence and decision for each.}\\
+\caption[]{(continued)}\\
 \toprule
 Family & Correlation evidence & Decision & Rows removed \\
 \midrule

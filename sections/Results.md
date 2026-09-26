@@ -46,7 +46,7 @@ The range of $\omega_h$ is wide. The best-performing imputer, softimpute on S. S
 Dataset & Imputer & $k$ & AVE & $\omega_h$ & $\phi_\text{avg}$ & $R^2$ \\
 \midrule
 \endfirsthead
-\caption{Point summaries of factor analyses results. AVE = average variance explained per factor, $k$ = number of factors extracted, $\phi_\text{avg}$ = average inter-factor correlation.}\\
+\caption[]{(continued)}\\
 \toprule
 Dataset & Imputer & $k$ & AVE & $\omega_h$ & $\phi_\text{avg}$ & $R^2$ \\
 \midrule
@@ -141,7 +141,7 @@ Surprisingly, the top benchmarks are not dominated by common standard benchmarks
 No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ \\
 \midrule
 \endfirsthead
-\caption{Benchmarks and their average normalized rank-order ($\rho$) of their $g$ factor loadings. Sorted by frequency-residualized rank ($\rho_\epsilon$). $\rho$ ranges from 0 to 1, where 0 = ranked first, 1 = ranked last. $N$ = number of EFA estimations with that benchmark. CI and Best/Worst refers to $\rho$.}\\
+\caption[]{(continued)}\\
 \toprule
 No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ \\
 \midrule

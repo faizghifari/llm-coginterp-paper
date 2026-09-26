@@ -9,7 +9,7 @@
 No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ \\
 \midrule
 \endfirsthead
-\caption{All used 380 benchmarks, sorted by their average normalized rank-order (ANR) of their $g$ factor loadings, residualized (RANR) against their frequency. The normalized rank-order ranges from 0 to 1. 0 = ranked first, 1 = ranked last. $N$ cells = number of EFA solutions with that benchmark. CI and Best/Worst refers to ANR.}\\
+\caption[]{(continued)}\\
 \toprule
 No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ \\
 \midrule
