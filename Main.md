@@ -86,19 +86,36 @@ Appendix-Methods.md. %%
 
 ![[sections/appendix/benchmark-embedding]]
 
-![[sections/appendix/label-cohesion]]
-
-![[sections/appendix/common-subject-distances]]
+<!-- Supplementary results, in the order Results cites them. Reordered
+2026-09-26 (was: label cohesion, common-subject UMAP, imputation results,
+omega sensitivity, g-rankings, release date). Label cohesion is last here at
+the authors' request, since its long tables come after its explanation. -->
 
 ![[sections/appendix/imputation-results]]
 
 ![[sections/appendix/omega-sensitivity]]
 
+![[sections/appendix/release-date-analysis]]
+
 ![[sections/appendix/benchmark-g-rankings.md]]
+
+![[sections/appendix/label-cohesion]]
+
+<!-- Full tables and figures at the very end, so no explanation sits behind
+them. The UMAP plots come last because their figures float, and as the final
+section they cannot drift into another section. -->
+
+```{=latex}
+\clearpage
+```
 
 ![[sections/appendix/full-g-rankings]]
 
-![[sections/appendix/release-date-analysis]]
+```{=latex}
+\clearpage
+```
+
+![[sections/appendix/common-subject-distances]]
 
 <!-- Software environment and reproduction was deleted in pass 5. It was a
 repository README (shell commands, output paths, SQLite table names, package
