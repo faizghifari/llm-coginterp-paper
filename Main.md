@@ -61,6 +61,9 @@ Appendix-Methods.md. %%
 % tables are numbered 1, 2, 3..., appendix tables restart at A1, A2, A3...
 \renewcommand{\thetable}{A\arabic{table}}
 \setcounter{table}{0}
+% Figures follow the same scheme (added 2026-09-26, they ran on from the main text as 2, 3, 4...).
+\renewcommand{\thefigure}{A\arabic{figure}}
+\setcounter{figure}{0}
 ```
 
 ![[sections/appendix/known-limitations-and-deviations]]
