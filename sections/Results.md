@@ -31,7 +31,7 @@ Only 20 dataset-imputer combinations yield an $R^2$ above the threshold (`\hyper
 
 <!-- Style pass 2026-09-24 (signposting 'Two things are worth noting' with no second point). The paragraph read: Table 3 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. Two things are worth noting here. First, while $\omega_h$ has a wide range, by our estimates' maximum, **a universally causal $g$ factor accounts, at the most, 70.8% of variance in model performance**. -->
 
-The range of $\omega_h$ is wide. The best-performing imputer, softimpute on S Std., yielded a $g$ factor that accounts for 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend with release year (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). Leaving out single benchmarks shows that the change in $\omega_h$ is only weakly related to how often a benchmark is observed (mean $|r| = 0.18$, `\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
+The range of $\omega_h$ is wide. The best-performing imputer, SoftImpute on S Std., yielded a $g$ factor that accounts for 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend with release year (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). Leaving out single benchmarks shows that the change in $\omega_h$ is only weakly related to how often a benchmark is observed (mean $|r| = 0.18$, `\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
 
 <!-- 2026-09-26: the last sentence above read: To ascertain whether the $\omega_h$ estimates are trustworthy, we provide additional diagnostics in (`\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}). -->
 
@@ -53,26 +53,26 @@ Dataset & Imputer & $k$ & AVE & $\omega_h$ & $\phi_\text{avg}$ & $R^2$ \\
 \endhead
 \bottomrule
 \endlastfoot
-C Std. & fill-mean & 14 & 5.5\% & 0.708 & 0.142 & 0.224 \\
-C Std. & missforest & 4 & 22.1\% & 0.695 & 0.398 & 0.399 \\
-S Std. & softimpute\_corr & 5 & 9.3\% & 0.676 & 0.306 & 0.378 \\
-C Std. & fill-zeros & 14 & 5.4\% & 0.621 & 0.093 & 0.286 \\
-C Aggr. & missforest & 4 & 19.3\% & 0.521 & 0.112 & 0.241 \\
-C Std. & knn & 7 & 10.8\% & 0.516 & 0.209 & 0.288 \\
-C Std. & softimpute\_corr & 4 & 14.6\% & 0.514 & 0.247 & 0.317 \\
-R Std. & softimpute & 20 & 4.6\% & 0.367 & 0.012 & 0.290 \\
-S Std. & softimpute & 5 & 18.3\% & 0.257 & 0.094 & 0.504 \\
-C Std. & softimpute & 9 & 10.5\% & 0.242 & 0.038 & 0.493 \\
-S Aggr. & softimpute & 20 & 4.7\% & 0.225 & 0.031 & 0.282 \\
-S Std. & knn & 11 & 6.9\% & 0.204 & 0.048 & 0.296 \\
-R Aggr. & softimpute & 20 & 4.7\% & 0.187 & 0.008 & 0.209 \\
-C Aggr. & softimpute & 5 & 17.8\% & 0.183 & -0.001 & 0.337 \\
-raw Aggr. & softimpute & 10 & 8.9\% & 0.132 & 0.013 & 0.228 \\
-C Std. & onesidedmc & 2 & 50.0\% & 0.102 & 0.125 & 0.321 \\
-raw Std. & softimpute & 10 & 9.0\% & 0.071 & -0.010 & 0.249 \\
-C Aggr. & onesidedmc & 2 & 50.0\% & 0.065 & 0.097 & 0.278 \\
-S Std. & missforest & 4 & 22.5\% & 0.032 & 0.054 & 0.471 \\
-S Std. & onesidedmc & 2 & 50.0\% & 0.014 & -0.040 & 0.365 \\
+C Std. & Mean fill & 14 & 5.5\% & 0.708 & 0.142 & 0.224 \\
+C Std. & missForest & 4 & 22.1\% & 0.695 & 0.398 & 0.399 \\
+S Std. & SoftImpute (corr.) & 5 & 9.3\% & 0.676 & 0.306 & 0.378 \\
+C Std. & Zero fill & 14 & 5.4\% & 0.621 & 0.093 & 0.286 \\
+C Aggr. & missForest & 4 & 19.3\% & 0.521 & 0.112 & 0.241 \\
+C Std. & k-NN & 7 & 10.8\% & 0.516 & 0.209 & 0.288 \\
+C Std. & SoftImpute (corr.) & 4 & 14.6\% & 0.514 & 0.247 & 0.317 \\
+R Std. & SoftImpute & 20 & 4.6\% & 0.367 & 0.012 & 0.290 \\
+S Std. & SoftImpute & 5 & 18.3\% & 0.257 & 0.094 & 0.504 \\
+C Std. & SoftImpute & 9 & 10.5\% & 0.242 & 0.038 & 0.493 \\
+S Aggr. & SoftImpute & 20 & 4.7\% & 0.225 & 0.031 & 0.282 \\
+S Std. & k-NN & 11 & 6.9\% & 0.204 & 0.048 & 0.296 \\
+R Aggr. & SoftImpute & 20 & 4.7\% & 0.187 & 0.008 & 0.209 \\
+C Aggr. & SoftImpute & 5 & 17.8\% & 0.183 & -0.001 & 0.337 \\
+raw Aggr. & SoftImpute & 10 & 8.9\% & 0.132 & 0.013 & 0.228 \\
+C Std. & OneSidedMC & 2 & 50.0\% & 0.102 & 0.125 & 0.321 \\
+raw Std. & SoftImpute & 10 & 9.0\% & 0.071 & -0.010 & 0.249 \\
+C Aggr. & OneSidedMC & 2 & 50.0\% & 0.065 & 0.097 & 0.278 \\
+S Std. & missForest & 4 & 22.5\% & 0.032 & 0.054 & 0.471 \\
+S Std. & OneSidedMC & 2 & 50.0\% & 0.014 & -0.040 & 0.365 \\
 \end{longtable}
 ```
 
@@ -119,7 +119,7 @@ Figure 1 below shows an illustrative UMAP plot of benchmarks using composite dis
 
 <!-- Style pass 2026-09-24 (fillers 'striking', 'telling', 'of course', plus a missing period and grammar). The paragraph read: Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). Something striking from this visual is how benchmarks with common subject only occasionally cluster together. Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. A telling example is how, for coding, `livecodebench`, `swe_bench`, and `humaneval` stands very far apart from each other, and the same is true for math with the benchmarks `gsm8k`, `math`, and `aime25`. In other words, **capability in one task does not always generalize well to another task of the same subject**. A degree of generality exists, of course, evident by `bigcodebench` stands relatively close to `humaneval` A semantically coherent generalization is probable but not guaranteed, which can make isolating domain abilities difficult to do from a purely semantic and intuitive standpoint. This phenomena, where same-domain benchmarks lacks a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further at (`\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}). -->
 
-![[umaps/S_softimpute.png| UMAP plot of benchmark distances from S, softimpute. Domain-similar benchmarks are not guaranteed to cluster together.]]
+![[umaps/S_softimpute.png| UMAP plot of benchmark distances from S, SoftImpute. Domain-similar benchmarks are not guaranteed to cluster together.]]
 
 
 ## Benchmarks' $g$-centrality
