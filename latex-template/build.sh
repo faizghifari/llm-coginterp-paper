@@ -108,12 +108,12 @@ def expand(path, visited):
 
 text = expand(src, set())
 # Special case: sections/appendix/common-subject-distances.md links its images
-# as ../../umaps/<name>.png -- correct relative to that file's location, which
+# as ../../umaps_new/<name>.png -- correct relative to that file's location, which
 # is what plain markdown viewers need. But pandoc emits the path verbatim into
 # \includegraphics and pdflatex runs inside latex-template/, where
-# ../../umaps/ doesn't exist (nor does it exist relative to the pandoc
+# ../../umaps_new/ doesn't exist (nor does it exist relative to the pandoc
 # resource paths). So when that file was inlined (possibly via an ![[embed]]
-# from Main.md), copy each umaps image next to the output .tex (same
+# from Main.md), copy each umaps_new image next to the output .tex (same
 # convention as the ![[embed]] image handler above) and rewrite the links to
 # bare filenames. Other files' image links are untouched.
 if saw_subject_distances[0]:
@@ -122,7 +122,7 @@ if saw_subject_distances[0]:
     # auto-numbered figure when it is alone in its paragraph. Blank-line
     # separating them is what Results.md's embeds already do.
     text = re.sub(
-        r"(\]\(\.\./\.\./umaps/[^)\n]+\))[ \t]*\n(?=!\[)",
+        r"(\]\(\.\./\.\./umaps_new/[^)\n]+\))[ \t]*\n(?=!\[)",
         r"\1\n\n",
         text,
     )
@@ -136,14 +136,14 @@ if saw_subject_distances[0]:
         alt = m.group(1)
         caption = alt.split("|", 1)[1].strip() if "|" in alt else ""
         name = m.group(2)
-        resolved = os.path.join(repo_root, "umaps", name)
+        resolved = os.path.join(repo_root, "umaps_new", name)
         if not os.path.isfile(resolved):
-            sys.stderr.write(f"warning: {src} references missing image umaps/{name}\n")
+            sys.stderr.write(f"warning: {src} references missing image umaps_new/{name}\n")
             return m.group(0)
         for dest_dir in dict.fromkeys([os.path.join(repo_root, "latex-template"), out_dir]):
             shutil.copy2(resolved, os.path.join(dest_dir, name))
         return f"![{caption}]({name})"
-    text = re.sub(r"!\[([^\]\n]*)\]\(\.\./\.\./umaps/([^)\n]+)\)", repl_local, text)
+    text = re.sub(r"!\[([^\]\n]*)\]\(\.\./\.\./umaps_new/([^)\n]+)\)", repl_local, text)
 # Obsidian comments: %% ... %%, non-greedy, spans multiple lines/paragraphs.
 text = re.sub(r"%%.*?%%", "", text, flags=re.DOTALL)
 # collapse the blank-line runs the removal leaves behind

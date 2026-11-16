@@ -8,8 +8,9 @@
 #      non-aggregate file (single available solution, so aggregation
 #      produced a duplicate).
 #   3. If duplicate checksums remain among non-aggregates (e.g. standard.png
-#      byte-identical to standard_msoftimpute.png), keep only
-#      standard_msoftimpute.png from that group.
+#      byte-identical to standard_msoftimpute.png), keep the most specific
+#      name from that group: the one with the most underscore-separated
+#      components, preferring a non-"aggregate" name on ties.
 #   4. Rename remaining files, removing the "pa_s_" infix.
 
 set -euo pipefail
@@ -46,11 +47,16 @@ if [ "${#remaining[@]}" -gt 0 ]; then
     dup_hashes=$(echo "$sums" | cut -d' ' -f1 | sort | uniq -d)
     for h in $dup_hashes; do
         group=$(echo "$sums" | grep "^$h" | cut -d' ' -f3- | sort)
-        keep=""
-        for f in $group; do
-            [ "$f" = "standard_msoftimpute.png" ] && keep=$f
-        done
-        [ -z "$keep" ] && keep=$(echo "$group" | head -n 1)
+        # Most specific name wins: most underscore-separated components;
+        # ties broken against "aggregate" (a composite that coincidentally
+        # equals a single-solution plot must not shadow the specific one).
+        keep=$(echo "$group" | awk '
+            {
+                n = split($0, p, "_")
+                agg = ($0 ~ /aggregate/) ? 1 : 0
+                if (n > bn || (n == bn && agg < bagg)) { bn = n; bagg = agg; keep = $0 }
+            }
+            END { print keep }')
         for f in $group; do
             if [ "$f" != "$keep" ]; then
                 echo "removing duplicate (hash $h): $f (keeping $keep)"
