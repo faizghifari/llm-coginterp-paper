@@ -39,62 +39,32 @@ The range of $\omega_h$ is wide. The best-performing imputer, SoftImpute on S St
 
 <!-- Style pass 2026-09-24 (fillers 'something to note', 'quite', 'modestly effective', 'just'). The paragraph read: Still, something to note is that the range of $\omega_h$ spans quite widely. The best-performing imputer, softimpute on S. Std., yielded a solution with a modestly effective $g$ factor that accounts for just 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend across release cohorts (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). To ascertain whether the $\omega_h$ estimates are trustworthy, we provide additional diagnostics in (`\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}). -->
 
+
 ```{=latex}
 \begin{longtable}{@{}llrrrrr@{}}
 \caption{Point summaries of factor analysis results. AVE = average variance explained per factor, $k$ = number of factors extracted, $\phi_\text{avg}$ = average inter-factor correlation.}\label{tab:point-summaries}\\
 \toprule
-Dataset & Imputer & $k$ & AVE & $\omega_h$ & $\phi_\text{avg}$ & $R^2$ \\
+Dataset & Imputer & $\text{AVE}^{\uparrow}$ & ${\omega_h}^{\uparrow}$ & $\text{ECV}^{\uparrow}$ & $\phi_\text{avg}$ & ${wR^2}^{\uparrow}$ \\
 \midrule
 \endfirsthead
 \caption[]{(continued)}\\
 \toprule
-Dataset & Imputer & $k$ & AVE & $\omega_h$ & $\phi_\text{avg}$ & $R^2$ \\
+Dataset & Imputer & $\text{AVE}^{\uparrow}$ & ${\omega_h}^{\uparrow}$ & $\text{ECV}^{\uparrow}$ & $\phi_\text{avg}$ & ${wR^2}^{\uparrow}$ \\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
-C Std. & Mean fill & 14 & 5.5\% & 0.708 & 0.142 & 0.224 \\
-C Std. & missForest & 4 & 22.1\% & 0.695 & 0.398 & 0.399 \\
-S Std. & SoftImpute (corr.) & 5 & 9.3\% & 0.676 & 0.306 & 0.378 \\
-C Std. & Zero fill & 14 & 5.4\% & 0.621 & 0.093 & 0.286 \\
-C Aggr. & missForest & 4 & 19.3\% & 0.521 & 0.112 & 0.241 \\
-C Std. & k-NN & 7 & 10.8\% & 0.516 & 0.209 & 0.288 \\
-C Std. & SoftImpute (corr.) & 4 & 14.6\% & 0.514 & 0.247 & 0.317 \\
-R Std. & SoftImpute & 20 & 4.6\% & 0.367 & 0.012 & 0.290 \\
-S Std. & SoftImpute & 5 & 18.3\% & 0.257 & 0.094 & 0.504 \\
-C Std. & SoftImpute & 9 & 10.5\% & 0.242 & 0.038 & 0.493 \\
-S Aggr. & SoftImpute & 20 & 4.7\% & 0.225 & 0.031 & 0.282 \\
-S Std. & k-NN & 11 & 6.9\% & 0.204 & 0.048 & 0.296 \\
-R Aggr. & SoftImpute & 20 & 4.7\% & 0.187 & 0.008 & 0.209 \\
-C Aggr. & SoftImpute & 5 & 17.8\% & 0.183 & -0.001 & 0.337 \\
-raw Aggr. & SoftImpute & 10 & 8.9\% & 0.132 & 0.013 & 0.228 \\
-C Std. & OneSidedMC & 2 & 50.0\% & 0.102 & 0.125 & 0.321 \\
-raw Std. & SoftImpute & 10 & 9.0\% & 0.071 & -0.010 & 0.249 \\
-C Aggr. & OneSidedMC & 2 & 50.0\% & 0.065 & 0.097 & 0.278 \\
-S Std. & missForest & 4 & 22.5\% & 0.032 & 0.054 & 0.471 \\
-S Std. & OneSidedMC & 2 & 50.0\% & 0.014 & -0.040 & 0.365 \\
+S Std. & missForest & 17.6\% & 0.760 & 0.501 & 0.215 & 0.455 \\
+C Std. & k-NN & 9.7\% & 0.731 & 0.451 & 0.216 & 0.442 \\
+C Std. & missForest & 22.0\% & 0.713 & 0.520 & -0.088 & 0.566 \\
+C Std. & SoftImpute & 9.6\% & 0.367 & 0.126 & 0.038 & 0.586 \\
+R Aggr. & SoftImpute & 4.9\% & 0.287 & 0.321 & 0.028 & 0.441 \\
+S Std. & SoftImpute & 11.6\% & 0.044 & 0.114 & 0.041 & 0.428 \\
 \end{longtable}
 ```
 
 ## Benchmark clusters
 
-<!-- Table 4 as markdown, before being made smaller and wrapped with body text via wraptable (2026-09-23).
-(2026-09-24: briefly suspected wrapfig of corrupting an unrelated appendix longtable's column widths
-and reverted to a non-wrapping minipage; that table's garbling turned out to be caused by
-disproportionate separator dashes in imputation-methods.md's own markdown tables, unrelated to
-wrapfig, so the wraptable was restored. See that file's git history if wrapfig is ever suspected again.)
-
-It read:
-
-**Table 4**. Cohesion of subject labels. A is the
-
-| Label | Median A | Significant | Median n |
-|---|---|---|---|
-| `code` | +0.263 | 7/16 | 11 |
-| `logical_reasoning` | +0.090 | 1/16 | 6 |
-| `encyclopedic` | +0.076 | 1/16 | 23 |
-| `math` | +0.048 | 0/16 | 10 |
--->
 
 ```{=latex}
 \begin{wraptable}{R}{0.48\textwidth}
@@ -117,51 +87,48 @@ Label & Median A & Significant \\
 
 Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). In this plot, benchmarks with a common subject only occasionally cluster together. This is supported by the low cohesion scores in `\hyperref[tab:cohesion-subset]{Table~\ref*{tab:cohesion-subset}}`{=latex}, where among these labels only `code` shows a weak cohesion, while the others show no structure distinguishable from chance. Narrow labels such as `finance` are cohesive, but they have very few members (`\hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}}`{=latex}). Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. For coding, `livecodebench`, `swe_bench`, and `humaneval` stand far apart from each other, and the same is true for math with the benchmarks `gsm8k`, `math`, and `aime25`. In other words, **capability in one task does not always generalize to another task of the same subject**. A semantically coherent generalization is probable but not guaranteed, which makes domain abilities difficult to isolate from a purely semantic and intuitive standpoint. This phenomenon, where same-domain benchmarks lack a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further in `\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}.
 
-<!-- Style pass 2026-09-24 (fillers 'striking', 'telling', 'of course', plus a missing period and grammar). The paragraph read: Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). Something striking from this visual is how benchmarks with common subject only occasionally cluster together. Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. A telling example is how, for coding, `livecodebench`, `swe_bench`, and `humaneval` stands very far apart from each other, and the same is true for math with the benchmarks `gsm8k`, `math`, and `aime25`. In other words, **capability in one task does not always generalize well to another task of the same subject**. A degree of generality exists, of course, evident by `bigcodebench` stands relatively close to `humaneval` A semantically coherent generalization is probable but not guaranteed, which can make isolating domain abilities difficult to do from a purely semantic and intuitive standpoint. This phenomena, where same-domain benchmarks lacks a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further at (`\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}). -->
-
-![[umaps/S_softimpute.png| UMAP plot of benchmark distances from S, SoftImpute. Domain-similar benchmarks are not guaranteed to cluster together.]]
+![[umaps_new/0_C_standard_msoftimpute.png| UMAP plot of benchmark distances from S, SoftImpute ($wR^2 = 0.586$). Domain-similar benchmarks are not guaranteed to cluster together.]]
 
 
 ## Benchmarks' $g$-centrality
 
 Another point of interest for the research question is which benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} answers this question by ranking the benchmarks by the normalized average rank order[^4] of their loadings on the $g$ factor ($\rho$). To account for confounding effects from benchmark frequency, we report the residuals of the rank order regressed on frequency ($\rho_\epsilon$). Further details and justification are given in `\hyperref[benchmark-g-rankings]{Appendix~\ref*{benchmark-g-rankings}}`{=latex}.
 
-<!-- Style pass 2026-09-24 (table number and row count did not match Table 5, and the appendix label had .md so it rendered as Appendix ??). The paragraph read: Another point of interest for the research question is what benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. Table 4 answers this question by showing the top 20 benchmarks, averaged by the normalized average rank-order[^4] based on their loadings on the $g$ factor. To account for confounding effects from benchmark frequency, we report the residuals of the rank order regressed by frequency. Further details and justification are given in (`\hyperref[benchmark-g-rankings.md]{Appendix~\ref*{benchmark-g-rankings.md}}`{=latex}). -->
 
 [^4]: We use rank order as factor loadings vary in range, and they are normalized as different datasets have different numbers of benchmarks.
 
-The top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of creativity, legal use cases, and even emotional intelligence. There is no evidence that a $g$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. To add to this, standard intelligence benchmarks like `arc` and `gpqa_diamond` are placed near the middle of the rankings. **Our results are evidence that the prevailing assumption that reasoning, mathematics, and coding benchmarks are the best proxies of general intelligence does not hold**. 
-
-<!-- Style pass 2026-09-24 (doubled 'best'). The paragraph read: Surprisingly, the top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of creativity, legal use case, and even emotional intelligence. There is no evidence that a $g$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. **Our results are evidence that the prevailing assumption that reasoning, mathematics, and coding benchmarks are best proxies of the latent factor $g$ best does not hold**. -->
+The top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of creativity, legal use cases, and even emotional intelligence. There is no evidence that a $g$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. To add to this, standard intelligence benchmarks like `arc` and `gpqa_diamond` are placed near the middle of the rankings. **Our results are evidence that the prevailing assumption that reasoning, mathematics, and coding benchmarks are the best proxies of general intelligence does not hold**.
 
 ```{=latex}
+
 \begin{longtable}{@{}rlrrlrrr@{}}
 \caption{Benchmarks and their average normalized rank order ($\rho$) of their $g$ factor loadings. Sorted by frequency-residualized rank ($\rho_\epsilon$). $\rho$ ranges from 0 to 1, where 0 = ranked first, 1 = ranked last. $N$ = number of EFA estimations with that benchmark. CI and Best/Worst refer to $\rho$.}\label{tab:g-rankings}\\
 \toprule
-No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ \\
+No & Benchmark & ${\rho_\epsilon}^{\downarrow}$ & $\rho^{\downarrow}$ & 95\% CI & Best & Worst & $N$ \\
 \midrule
 \endfirsthead
 \caption[]{(continued)}\\
 \toprule
-No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ \\
+No & Benchmark & ${\rho_\epsilon}^{\downarrow}$ & $\rho^{\downarrow}$ & 95\% CI & Best & Worst & $N$ \\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
-1 & bhasa & -0.346 & 0.141 & [-0.005, 0.287] & 0.024 & 0.318 & 5 \\
-2 & mtrag & -0.341 & 0.147 & [-0.051, 0.346] & 0.021 & 0.394 & 5 \\
-3 & creativityprism & -0.339 & 0.156 & [-0.019, 0.332] & 0.026 & 0.367 & 5 \\
-4 & eqbench & -0.332 & 0.156 & [-0.060, 0.372] & 0.017 & 0.451 & 5 \\
-5 & mceval & -0.331 & 0.156 & [0.024, 0.288] & 0.051 & 0.333 & 5 \\
-6 & pwc\_svamp & -0.329 & 0.169 & [-0.033, 0.371] & 0.058 & 0.298 & 4 \\
-7 & pwc\_drop\_test & -0.328 & 0.162 & [-0.139, 0.462] & 0.008 & 0.431 & 4 \\
-8 & ProphetArena & -0.315 & 0.183 & [-0.036, 0.401] & 0.092 & 0.385 & 4 \\
-9 & dialogbench & -0.295 & 0.210 & [-1.351, 1.770] & 0.087 & 0.332 & 2 \\
-10 & pwc\_piqa & -0.282 & 0.253 & [0.162, 0.345] & 0.003 & 0.822 & 20 \\
-57 & gsm & -0.169 & 0.319 & [0.162, 0.476] & 0.000 & 0.936 & 20 \\
-138 & arc & -0.056 & 0.356 & [0.230, 0.481] & 0.049 & 1.000 & 20 \\
-139 & gpqa\_diamond & -0.054 & 0.475 & [0.355, 0.595] & 0.016 & 0.992 & 20 \\
-202 & gsm8k & +0.017 & 0.413 & [0.263, 0.563] & 0.000 & 1.000 & 20 \\
-327 & humanitys\_last\_exam & +0.181 & 0.672 & [0.162, 1.182] & 0.047 & 0.966 & 5 \\
+1 & simpleqa & -0.312 & 0.186 & [-0.199, 0.572] & 0.041 & 0.350 & 3 \\
+2 & kaggle\_yulongt\_facts\_parametric & -0.307 & 0.189 & [-0.491, 0.870] & 0.006 & 0.504 & 3 \\
+3 & kaggle\_andrewmingwang\_asset\_ops\_bench & -0.267 & 0.228 & [-0.424, 0.879] & 0.049 & 0.528 & 3 \\
+4 & kaggle\_olamysiak\_eclektic & -0.242 & 0.256 & [0.049, 0.463] & 0.175 & 0.341 & 3 \\
+5 & tydiqa & -0.235 & 0.260 & [0.046, 0.474] & 0.195 & 0.358 & 3 \\
+6 & facts\_search & -0.232 & 0.262 & [-0.208, 0.732] & 0.104 & 0.472 & 3 \\
+7 & medqa & -0.192 & 0.316 & [0.016, 0.615] & 0.065 & 0.819 & 6 \\
+8 & pwc\_arc\_challenge & -0.186 & 0.351 & [0.083, 0.619] & 0.104 & 0.767 & 6 \\
+9 & thai\_exam\_a\_level & -0.175 & 0.354 & [0.020, 0.688] & 0.123 & 0.959 & 6 \\
+10 & bbq & -0.162 & 0.349 & [-0.013, 0.711] & 0.013 & 0.967 & 6 \\
+11 & legalbench & -0.157 & 0.353 & [0.079, 0.627] & 0.078 & 0.748 & 6 \\
+12 & pwc\_piqa & -0.156 & 0.381 & [0.053, 0.710] & 0.033 & 0.939 & 6 \\
+13 & thai\_exam\_tpat1 & -0.156 & 0.373 & [0.013, 0.733] & 0.000 & 0.878 & 6 \\
+14 & openbookqa & -0.154 & 0.343 & [-0.021, 0.708] & 0.026 & 0.862 & 6 \\
+15 & thaiexam & -0.153 & 0.376 & [-0.007, 0.758] & 0.074 & 0.984 & 6 \\
 \end{longtable}
+
 ```

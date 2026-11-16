@@ -4,5 +4,6 @@
   "textFontFamily": "Fira Sans",
   "interfaceFontFamily": "Fira Sans",
   "monospaceFontFamily": "Fira Mono",
-  "baseFontSize": 16
+  "baseFontSize": 16,
+  "showRibbon": true
 }
