@@ -1,6 +1,6 @@
-# Benchmark $g$-rankings
+# Benchmark $G$-rankings
 
-## Frequency and $g$-ranking correlations
+## Frequency and $G$-ranking correlations
 
 A pressing concern with regard to our findings on the top $g$ benchmarks in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main content is to what degree a benchmark's $g$ factor loading is correlated with its non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
 
