@@ -6,12 +6,12 @@ Notably, through the different imputation strategies, all of the visualizations 
 
 
 ![C_aggregate.png|C dataset, aggregated across imputations.](../../umaps_new/0_C_aggregate.png)
-![C_standard_mknn.png|C dataset, standard collapse, k-NN ($wR^2 = 0.442$).](../../umaps_new/0_C_standard_mknn.png)
-![C_standard_mmissforest.png|C dataset, standard collapse, missForest ($wR^2 = 0.566$).](../../umaps_new/0_C_standard_mmissforest.png)
-![C_standard_msoftimpute.png|C dataset, standard collapse, SoftImpute ($wR^2 = 0.586$).](../../umaps_new/0_C_standard_msoftimpute.png)
+![C_standard_mknn.png|C Std., k-NN ($wR^2 = 0.442$).](../../umaps_new/0_C_standard_mknn.png)
+![C_standard_mmissforest.png|C Std., missForest ($wR^2 = 0.566$).](../../umaps_new/0_C_standard_mmissforest.png)
+![C_standard_msoftimpute.png|C Std., SoftImpute ($wR^2 = 0.586$).](../../umaps_new/0_C_standard_msoftimpute.png)
 
-![S_standard_mmissforest.png|S dataset, standard collapse, missForest ($wR^2 = 0.455$).](../../umaps_new/0_S_standard_mmissforest.png)
-![S_standard_msoftimpute.png|S dataset, standard collapse, SoftImpute ($wR^2 = 0.428$).](../../umaps_new/0_S_standard_msoftimpute.png)
+![S_standard_mmissforest.png|S Std., missForest ($wR^2 = 0.455$).](../../umaps_new/0_S_standard_mmissforest.png)
+![S_standard_msoftimpute.png|S Std., SoftImpute ($wR^2 = 0.428$).](../../umaps_new/0_S_standard_msoftimpute.png)
 
-![R_aggressive.png|R dataset, aggressive collapse.](../../umaps_new/0_R_aggressive.png)
-![R_aggressive_msoftimpute.png|R dataset, aggressive collapse, SoftImpute ($wR^2 = 0.441$).](../../umaps_new/0_R_aggressive_msoftimpute.png)
+![R_aggressive.png|R Aggr.](../../umaps_new/0_R_aggressive.png)
+![R_aggressive_msoftimpute.png|R Aggr., SoftImpute ($wR^2 = 0.441$).](../../umaps_new/0_R_aggressive_msoftimpute.png)

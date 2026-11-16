@@ -1,43 +1,12 @@
 # Results
 
-%%
-PINDAH KE APPENDIX!
-%%
-%%## Imputation quality
-
-We present the evaluation and parameters of the missing data imputations in table 3 below. Of the many imputation algorithms we applied, only 3 of them yielded an acceptable R² value. Excluding the PSD-smoothed correlation matrix imputation, there are 9 usable datasets for the factor analyses.
-
-**Table 3**. Summary of accepted imputations (R² > 0.3).
-
-| Dataset          | Imputer         |   RMSE |    R² | Parameters                         |
-| ---------------- | --------------- | -----: | ----: | ---------------------------------- |
-| S. Std.   | softimpute      | 0.6338 | 0.504 | rank=5 (swept 1..10)               |
-| C. Std.   | softimpute      | 0.6575 | 0.493 | rank=9 (swept 1..10)               |
-| S. Std.   | missforest      | 0.6798 | 0.471 | ntree=400 (swept [50,100,200,400]) |
-| C. Std.   | missforest      | 0.7321 | 0.399 | ntree=50 (swept [50,100,200,400])  |
-| S. Std.   | softimpute_corr | 0.7637 | 0.378 | rank=6 (swept 1..10)               |
-| S. Std.   | onesidedmc      | 0.7500 | 0.340 | r=2 (swept 1..10)                  |
-| C. Aggr. | softimpute      | 0.6739 | 0.337 | rank=5 (swept 1..10)               |
-| C. Std.   | onesidedmc      | 0.8213 | 0.333 | r=2 (swept 1..10)                  |
-| C. Std.   | softimpute_corr | 0.8126 | 0.317 | rank=5 (swept 1..7)                |
-%%
 ## Variance explained by $g$
 
 Only 20 dataset-imputer combinations yield an $R^2$ above the threshold (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}).
 
-<!-- 2026-09-26, shortened to one line so Table 3 fits on page 6. The paragraph read: From our imputation, only 20 dataset-imputer combination yields an $R^2$ satisfying the threshold. The full table of the imputation results are provided in (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}). -->
-
-`\hyperref[tab:point-summaries]{Table~\ref*{tab:point-summaries}}`{=latex} below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. **At most, a universally causal $g$ factor accounts for 70.8% of variance in model performance**.
-
-<!-- Style pass 2026-09-24 (signposting 'Two things are worth noting' with no second point). The paragraph read: Table 3 below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. Two things are worth noting here. First, while $\omega_h$ has a wide range, by our estimates' maximum, **a universally causal $g$ factor accounts, at the most, 70.8% of variance in model performance**. -->
+`\hyperref[tab:point-summaries]{Table~\ref*{tab:point-summaries}}`{=latex} below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. In our highest estimate, a universally causal $G$ factor accounts for 76% of variance in model performance, but our best imputation ($wR^2 = 0.586$) suggests a $G$ factor of 36.7%.
 
 The range of $\omega_h$ is wide. The best-performing imputer, SoftImpute on S Std., yielded a $g$ factor that accounts for 25.7% of the variance. $\omega_h$ also stays in this range when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend with release year (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). Leaving out single benchmarks shows that the change in $\omega_h$ is only weakly related to how often a benchmark is observed (mean $|r| = 0.18$, `\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
-
-<!-- 2026-09-26: the last sentence above read: To ascertain whether the $\omega_h$ estimates are trustworthy, we provide additional diagnostics in (`\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}). -->
-
-<!-- Wording 2026-09-26 ('cohort' dropped with the release-date appendix rewrite). The sentence read: Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend across release cohorts. -->
-
-<!-- Style pass 2026-09-24 (fillers 'something to note', 'quite', 'modestly effective', 'just'). The paragraph read: Still, something to note is that the range of $\omega_h$ spans quite widely. The best-performing imputer, softimpute on S. Std., yielded a solution with a modestly effective $g$ factor that accounts for just 25.7% of the variance. The same holds when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend across release cohorts (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). To ascertain whether the $\omega_h$ estimates are trustworthy, we provide additional diagnostics in (`\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}). -->
 
 
 ```{=latex}
@@ -85,7 +54,9 @@ Label & Median A & Significant \\
 \end{wraptable}
 ```
 
-Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). In this plot, benchmarks with a common subject only occasionally cluster together. This is supported by the low cohesion scores in `\hyperref[tab:cohesion-subset]{Table~\ref*{tab:cohesion-subset}}`{=latex}, where among these labels only `code` shows a weak cohesion, while the others show no structure distinguishable from chance. Narrow labels such as `finance` are cohesive, but they have very few members (`\hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}}`{=latex}). Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. For coding, `livecodebench`, `swe_bench`, and `humaneval` stand far apart from each other, and the same is true for math with the benchmarks `gsm8k`, `math`, and `aime25`. In other words, **capability in one task does not always generalize to another task of the same subject**. A semantically coherent generalization is probable but not guaranteed, which makes domain abilities difficult to isolate from a purely semantic and intuitive standpoint. This phenomenon, where same-domain benchmarks lack a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further in `\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}.
+Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). In this plot, benchmarks with a common subject only occasionally cluster together. This is supported by the low cohesion scores in `\hyperref[tab:cohesion-subset]{Table~\ref*{tab:cohesion-subset}}`{=latex}, where among these labels only `code` shows a weak cohesion, while the others show no structure distinguishable from chance. Narrow labels such as `finance` are cohesive, but they have very few members (`\hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}}`{=latex}). Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. In other words, evidence from benchmark correlations suggest that **capability in one task does not always generalize to another task of the same subject**. A semantically coherent generalization is probable but not guaranteed, which makes domain abilities difficult to isolate from a purely semantic and intuitive standpoint. This phenomenon, where same-domain benchmarks lack a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further in `\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}.
+
+%%TODO: RUN AND UPDATE LOCO%%
 
 ![[umaps_new/0_C_standard_msoftimpute.png| UMAP plot of benchmark distances from S, SoftImpute ($wR^2 = 0.586$). Domain-similar benchmarks are not guaranteed to cluster together.]]
 
