@@ -1,6 +1,6 @@
 # Imputation methods
 
-Every method implemented in R shares one interface. It takes the sparse matrix in, and returns the completed matrix, the swept-parameter grid, and the held-out RMSE and $R^2$ at each parameter value. None of them factor. This is what allows the factoring stage to be identical across methods. `\hyperref[tab:imputation-cell-methods]{Table~\ref*{tab:imputation-cell-methods}}`{=latex} shows the list of full-dataset missing data estimators, while `\hyperref[tab:imputation-corr-methods]{Table~\ref*{tab:imputation-corr-methods}}`{=latex} shows the list for the correlation-level imputers.
+Every method implemented in R shares one interface. It takes the sparse matrix in, and returns the completed matrix, the swept-parameter grid, and the held-out RMSE and $wR^2$ at each parameter value. None of them factor. This is what allows the factoring stage to be identical across methods. `\hyperref[tab:imputation-cell-methods]{Table~\ref*{tab:imputation-cell-methods}}`{=latex} shows the list of full-dataset missing data estimators.
 
 ```{=latex}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
@@ -22,42 +22,4 @@ missForest \citep{stekhoven2012} & Iterative random-forest imputation, nonparame
 \end{longtable}
 ```
 
-```{=latex}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.16\textwidth}>{\raggedright\arraybackslash}p{0.29\textwidth}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
-\caption{Estimators of the missing correlation entries.}\label{tab:imputation-corr-methods}\\
-\toprule
-Estimator & Description & Package & Configuration \\
-\midrule
-\endfirsthead
-\caption[]{(continued)}\\
-\toprule
-Estimator & Description & Package & Configuration \\
-\midrule
-\endhead
-\bottomrule
-\endlastfoot
-One-sided matrix completion \citep{cao2023} & Recovers the right-singular vectors of a reduced matrix of a large, super-sparse dataset. Originally demonstrated to work with simply 2 observations per row. & Custom Julia code & Sweeps rank 1\ldots10, selecting the rank with the best $R^2$. \\*
-SoftImpute \citep{mazumder2010} & Applies SoftImpute's low-rank completion to the observed pairwise correlation matrix rather than the data matrix, whose missing entries are exactly the benchmark pairs never co-observed. & softImpute & sweeps rank 1\ldots10 with the same nested $\lambda$ grid as the cell-level methods above \\*
-USVT \citep{chatterjee2015} & Universal singular value thresholding: completes the correlation matrix by hard-thresholding its singular values. & filling & fixed singular-value threshold $\eta = 0.01$, no sweep \\*
-\end{longtable}
-```
-
-## One-sided matrix completion 
-
-We use a custom implementation of OSMC \citep{cao2023} written in Julia. The premise is that when observations are too sparse to complete cells, the right singular vectors (the benchmark-space factors) may still be recoverable. The estimator targets $\Theta = \frac{1}{n}Z^\top Z$ over the $n$ models. Each product $z_{ij}z_{ij'}$ of two observed standardized scores in one row is an estimate of $\Theta_{jj'}$, and we fit $\hat\Theta = \hat V\hat V^\top$, with $\hat V \in \mathbb{R}^{p \times r}$, to all such products by squared loss using Adam. Off-diagonal and diagonal terms are each averaged over their total count across rows.
-
-Its native error is defined on pairwise products, which is not comparable to the other methods, so each held-out cell is additionally predicted from the recovered covariance by the conditional-Gaussian (best linear) predictor $\hat z_j = V_j^\top V_S^{+} z_S$, solved in the $r$-dimensional factor space rather than by inverting the rank-deficient $|S| \times |S|$ covariance block, which is numerically unstable on richly-observed rows. For the hold-out column stratification, the masking also ensures each row has at least 2 observations.
-
-%%
-- **Ragged observations.** Real rows have a variable number of observed benchmarks, so we store observations as a ragged list of column-and-value pairs per row rather than in the original paper's fixed-$k$ rectangular layout. The estimator consumes observed cells only, and never a dense matrix plus a mask. Rows with more observations contribute more pairs, so heavily evaluated models carry more weight in $\hat\Theta$.
-- **Cell-level metric.** Its native error is defined on pairwise products, which is not comparable to the other methods, so each held-out cell is additionally predicted from the recovered covariance by the conditional-Gaussian (best linear) predictor $\hat z_j = V_j^\top V_S^{+} z_S$, solved in the $r$-dimensional factor space rather than by inverting the rank-deficient $|S| \times |S|$ covariance block, which is numerically unstable on richly-observed rows.
-- **Holdout handling.** In addition to the column stratification, the hold-out masking also ensures each row has at least 2 observations.
-
-The output handed to factoring is a synthesised surrogate rather than an imputation of the real cells.
-%%
-
-%%Only SoftImpute-corr sweeps a hyperparameter. The other three take a single fixed configuration, so their reported "sweep" is a single point.
-
-The per-pair confidence band in CVXR exists because a single flat tolerance cannot serve both a correlation estimated from $n = 10$ and one from $n = 200$, so the band widens automatically as $n_{ij}$ falls. Solver infeasibility is a genuine finding. It tells us the observed pairwise correlations are not jointly PSD-consistent even at their sampling uncertainty, and the remedy in that case is a wider band. The Gaussian graphical model has no fallback either, and if its fit fails to converge, the method fails.
-
-Note that neither estimator applies a minimum co-observation threshold. Every pair with a computable correlation enters as a constraint, including pairs resting on very few shared models. For CVXR this is partly self-correcting through the $n$-scaled band. For GGM it makes the conditional-independence graph denser than a trust-filtered version would be.
+There were other methods that we used to impute the data, particularly those that worked with the correlation matrix instead of the full dataset. However, we omit them as we fail to obtain a result that pass the $wR^2$ gate.

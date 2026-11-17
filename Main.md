@@ -37,13 +37,6 @@ abstract: A common assumption in language model development is that cognitive ab
 
 ![[sections/appendix/data-source-and-normalization]]
 
-<!-- Merged to data section -->
-<!-- ![[sections/appendix/inclusion-and-exclusion-criteria]] -->
-<!-- ![[sections/appendix/normalisation-rules]] -->
-
-<!-- Dont think this is needed -->
-<!-- ![[sections/appendix/text-only-classifier]] -->
-
 ![[sections/appendix/score-redundancy-pruning]]
 
 ![[sections/appendix/model-identity-collapse]]
@@ -53,6 +46,8 @@ abstract: A common assumption in language model development is that cognitive ab
 ![[sections/appendix/imputation-methods]]
 
 ![[sections/appendix/imputation-evaluation]]
+
+![[sections/appendix/imputation-simulation.md]]
 
 ![[sections/appendix/factor-analysis-details]]
 
