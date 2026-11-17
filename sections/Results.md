@@ -45,16 +45,17 @@ S Std. & SoftImpute & 11.6\% & 0.044 & 0.114 & 0.041 & 0.428 \\
 \toprule
 Label & Median A & Significant \\
 \midrule
-\texttt{code} & +0.264 & 6/18 \\
-\texttt{math} & +0.031 & 0/18 \\
-\texttt{reasoning} & -0.008 & 0/18 \\
+\texttt{reading\_comprehension} & +0.331 & 3/9 \\
+\texttt{commonsense} & +0.329 & 2/9 \\
+\texttt{code} & +0.278 & 4/9 \\
+\texttt{math} & +0.028 & 0/9 \\
 \bottomrule
 \end{tabular}
 \vspace{4pt}
 \end{wraptable}
 ```
 
-Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). In this plot, benchmarks with a common subject only occasionally cluster together. This is supported by the low cohesion scores in `\hyperref[tab:cohesion-subset]{Table~\ref*{tab:cohesion-subset}}`{=latex}, where among these labels only `code` shows a weak cohesion, while the others show no structure distinguishable from chance. Narrow labels such as `finance` are cohesive, but they have very few members (`\hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}}`{=latex}). Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. In other words, evidence from benchmark correlations suggest that **capability in one task does not always generalize to another task of the same subject**. A semantically coherent generalization is probable but not guaranteed, which makes domain abilities difficult to isolate from a purely semantic and intuitive standpoint. This phenomenon, where same-domain benchmarks lack a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further in `\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}.
+Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). In this plot, benchmarks with a common subject only occasionally cluster together. This is supported by the low cohesion scores in `\hyperref[tab:cohesion-subset]{Table~\ref*{tab:cohesion-subset}}`{=latex}, where `reading_comprehension`, `commonsense`, and `code` show weak cohesion that is significant in at most 4 of 9 cells, while `math` shows no structure distinguishable from chance. Narrow labels such as `finance` are cohesive, but they have very few members (`\hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}}`{=latex}). Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. In other words, evidence from benchmark correlations suggest that **capability in one task does not always generalize to another task of the same subject**. A semantically coherent generalization is probable but not guaranteed, which makes domain abilities difficult to isolate from a purely semantic and intuitive standpoint. This phenomenon, where same-domain benchmarks lack a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further in `\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}.
 
 %%TODO: RUN AND UPDATE LOCO%%
 
