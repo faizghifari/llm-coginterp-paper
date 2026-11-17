@@ -60,18 +60,4 @@ The output handed to factoring is a synthesised surrogate rather than an imputat
 
 The per-pair confidence band in CVXR exists because a single flat tolerance cannot serve both a correlation estimated from $n = 10$ and one from $n = 200$, so the band widens automatically as $n_{ij}$ falls. Solver infeasibility is a genuine finding. It tells us the observed pairwise correlations are not jointly PSD-consistent even at their sampling uncertainty, and the remedy in that case is a wider band. The Gaussian graphical model has no fallback either, and if its fit fails to converge, the method fails.
 
-Note that neither estimator applies a minimum co-observation threshold. Every pair with a computable correlation enters as a constraint, including pairs resting on very few shared models. For CVXR this is partly self-correcting through the $n$-scaled band. For GGM it makes the conditional-independence graph denser than a trust-filtered version would be.<!-- Trailing "See Appendix known-limitations-and-deviations" removed: that appendix is now Limitations and no longer restates this, since the paragraph above says it in full. -->%%
-
-%%## No-imputation (raw) variants
-
-Applied to the undensified matrix, factoring a pairwise-complete correlation matrix with two treatments of the undefined entries:
-
-| Variant | Undefined-entry treatment |
-|---|---|
-| Mean | Fill with the mean observed off-diagonal correlation |
-| Zeros | Fill with 0 (absent co-observation implies assumed no association) |
-
-The two encode opposite priors about an unobserved pair ("behaves like a typical pair" against "is unrelated"), so the gap between them bounds how much the undefined entries alone can move the solution.
-
-Both are smoothed afterwards as a numerical safety net. Effective sample size is taken as the raw row count $n$, **not** the harmonic mean of pairwise complete-case counts: with sparse data a single zero-overlap pair sends the harmonic mean to zero and collapses the whole estimate.
-%%
+Note that neither estimator applies a minimum co-observation threshold. Every pair with a computable correlation enters as a constraint, including pairs resting on very few shared models. For CVXR this is partly self-correcting through the $n$-scaled band. For GGM it makes the conditional-independence graph denser than a trust-filtered version would be.
