@@ -4,11 +4,11 @@
 
 A pressing concern with regard to our findings on the top $g$ benchmarks in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main content is to what degree a benchmark's $g$ factor loading is correlated with its non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
 
-Naively, as shown in `\hyperref[tab:g-rank-freq-corr]{Table~\ref*{tab:g-rank-freq-corr}}`{=latex} below, benchmark frequency *is* correlated with $g$ loadings. Unsigned averages suggest this correlation is modest ($r = 0.3432$), but the correlations are quite dispersed, and some dataset-imputation combinations can be as high as ~0.5. Thus, identifying benchmarks which proxy a supposed latent $g$ factor well requires adjusting the statistics with respect to their frequency.
+Naively, as shown in `\hyperref[tab:g-rank-freq-corr]{Table~\ref*{tab:g-rank-freq-corr}}`{=latex} below, benchmark frequency *is* correlated with $g$ loadings. Unsigned averages suggest this correlation is modest ($r = 0.2740$), but the correlations are quite dispersed, and some dataset-imputation combinations can be as high as ~0.5. Thus, identifying benchmarks which proxy a supposed latent $g$ factor well requires adjusting the statistics with respect to their frequency.
 
 ```{=latex}
 \begin{longtable}{@{}llrrr@{}}
-\caption{Correlations between benchmark frequency and their $g$ loadings. $k$ = number of factors extracted.}\label{tab:g-rank-freq-corr}\\
+\caption{Correlations between benchmark frequency and their $g$ loadings. $k$ = number of factors extracted. Only accepted imputations with $wR^2 > 0.4$ are shown.}\label{tab:g-rank-freq-corr}\\
 \toprule
 Method & Dataset & $k$ & $r$ & $N$ \\
 \midrule
@@ -20,45 +20,20 @@ Method & Dataset & $k$ & $r$ & $N$ \\
 \endhead
 \bottomrule
 \endlastfoot
-Mean fill & C Std. & 2 & +0.4192 & 78 \\
-Mean fill & C Std. & 14 & +0.4192 & 78 \\
-k-NN & C Std. & 2 & +0.4065 & 78 \\
-k-NN & C Std. & 7 & +0.4065 & 78 \\
-k-NN & S Std. & 2 & +0.2335 & 124 \\
-k-NN & S Std. & 11 & +0.2335 & 124 \\
-missForest & C Aggr. & 2 & +0.3251 & 102 \\
-missForest & C Aggr. & 4 & +0.3251 & 102 \\
-missForest & C Std. & 2 & +0.2203 & 78 \\
-missForest & C Std. & 4 & +0.2203 & 78 \\
-missForest & S Std. & 2 & -0.2462 & 124 \\
-missForest & S Std. & 4 & -0.2462 & 124 \\
-OneSidedMC & C Aggr. & 2 & -0.4090 & 102 \\
-OneSidedMC & C Std. & 2 & +0.4786 & 78 \\
-OneSidedMC & S Std. & 2 & +0.3609 & 124 \\
-SoftImpute & C Aggr. & 2 & +0.5763 & 102 \\
-SoftImpute & C Aggr. & 5 & +0.5763 & 102 \\
-SoftImpute & C Std. & 2 & +0.5513 & 78 \\
-SoftImpute & C Std. & 9 & +0.5513 & 78 \\
-SoftImpute & R Aggr. & 2 & -0.3041 & 310 \\
-SoftImpute & R Aggr. & 20 & -0.3041 & 310 \\
-SoftImpute & R Std. & 2 & -0.2140 & 298 \\
-SoftImpute & R Std. & 20 & -0.2140 & 298 \\
-SoftImpute & S Aggr. & 2 & -0.3161 & 293 \\
-SoftImpute & S Aggr. & 20 & -0.3161 & 293 \\
-SoftImpute & S Std. & 2 & +0.1885 & 124 \\
-SoftImpute & S Std. & 5 & +0.1885 & 124 \\
-SoftImpute & raw Aggr. & 2 & -0.2404 & 380 \\
-SoftImpute & raw Aggr. & 10 & -0.2404 & 380 \\
-SoftImpute & raw Std. & 2 & +0.1815 & 404 \\
-SoftImpute & raw Std. & 10 & +0.1815 & 404 \\
-SoftImpute (corr.) & C Std. & 2 & +0.3788 & 78 \\
-SoftImpute (corr.) & C Std. & 4 & +0.3788 & 78 \\
-SoftImpute (corr.) & S Std. & 2 & +0.3890 & 124 \\
-SoftImpute (corr.) & S Std. & 5 & +0.3890 & 124 \\
-Zero fill & C Std. & 2 & +0.5343 & 78 \\
-Zero fill & C Std. & 14 & +0.5343 & 78 \\
-\textbf{Average} & & & \textbf{+0.1783} & 37 (groups) \\
-\textbf{Average $\lvert r\lvert$} & & & \textbf{0.3432} & \\
+k-NN & C Std. & 2 & +0.3447 & 78 \\
+k-NN & C Std. & 8 & +0.3447 & 78 \\
+missForest & C Std. & 2 & +0.3200 & 78 \\
+missForest & C Std. & 4 & +0.3200 & 78 \\
+missForest & S Std. & 2 & +0.2845 & 124 \\
+missForest & S Std. & 5 & +0.2845 & 124 \\
+SoftImpute & C Std. & 2 & +0.4880 & 78 \\
+SoftImpute & C Std. & 10 & +0.4880 & 78 \\
+SoftImpute & R Aggr. & 2 & -0.1257 & 310 \\
+SoftImpute & R Aggr. & 20 & -0.1257 & 310 \\
+SoftImpute & S Std. & 2 & -0.0813 & 124 \\
+SoftImpute & S Std. & 8 & -0.0813 & 124 \\
+\textbf{Average} & & & \textbf{+0.2050} & 12 (groups) \\
+\textbf{Average $\lvert r\lvert$} & & & \textbf{+0.2740} & \\
 \end{longtable}
 ```
 
