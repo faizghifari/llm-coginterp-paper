@@ -62,6 +62,8 @@ the authors' request, since its long tables come after its explanation. -->
 
 ![[sections/appendix/benchmark-g-rankings.md]]
 
+![[sections/appendix/g-model-size]]
+
 ![[sections/appendix/label-cohesion]]
 
 <!-- Table-heavy diagnostics after the explained results, shortest first.
