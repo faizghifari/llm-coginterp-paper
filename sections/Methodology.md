@@ -79,11 +79,15 @@ We also handle redundancy at two levels. Redundant duplicate rows are removed (`
 To perform our dimension reduction, we use exploratory factor analysis (EFA) with the minimum residual estimator and the oblique promax rotation[^2], followed by the Schmid-Leiman bifactor transformation \citep{schmidleiman1957}. This runs factor analysis hierarchically, yielding one additional factor that influences the rest of the extracted factors, and is widely used in psychometric research on the $g$ factor of intelligence \citep{johnson2004,johnson2008}. The hierarchical step makes it a more principled choice than interpreting the highest-eigenvalue solution (e.g., \citealp{krakauer2026}) as the $g$ factor.
 
 
-From the bifactor solution we use the $\omega_h$ coefficient to quantify the variance explained by the $g$ factor. 
+\textcolor{red}{From the bifactor solution we report two statistics for the $g$ factor. The first, $\omega_h$, is the share of variance in the summed score over all benchmarks that is due to $g$. The second, the explained common variance (ECV), is the share of the common variance, excluding error, that is due to $g$ \citep{reise2010}.}
 
 
 **Definition 3**. Let $T$ be a matrix of test scores that can be decomposed into independent additive components due to a **general factor** (g), **specific factors** (s)[^3], and **error** ($\epsilon$). Then $\omega_h$ is the estimand
 $$\omega_h = \frac{\sigma^2_{\mathrm{g}}}{\sigma_T^2}, \qquad \sigma_T^2 = \sigma^2_{\mathrm{g}} + \sigma^2_{\mathrm{s}} + \sigma^2_{\epsilon}.$$
+
+\textcolor{red}{In practice, with $\lambda_{g,j}$ the loading of benchmark $j$ on $g$, $h_j^2$ its communality and $R$ the benchmark correlation matrix, we compute}
+$$\color{red}\omega_h = \frac{(\sum_j \lambda_{g,j})^2}{\mathbf{1}^\top R\,\mathbf{1}}, \qquad \mathrm{ECV} = \frac{\sum_j \lambda_{g,j}^2}{\sum_j h_j^2}$$
+\textcolor{red}{with \texttt{psych::omega} \citep{revelle2009,revelle2024}. $\omega_h$ describes the summed score, not any single benchmark: the share of one benchmark's variance due to $g$ is $\lambda_{g,j}^2$, which can be much lower.}
 
 [^2]: Rotation gives an interpretable "simple structure". Oblique rotations allow the factors to correlate, while default eigendecomposition yields orthogonal solutions.
 [^3]: Usually called "group factors". We avoid the term to prevent confusion with observation grouping.
