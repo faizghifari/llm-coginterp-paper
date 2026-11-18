@@ -101,15 +101,9 @@ $N$ cells & $N$ benchmarks & $r$ raw & $r$ adjusted \\
 \endhead
 \bottomrule
 \endlastfoot
-2 & 54 & -0.023 & -0.021 \\
-3 & 26 & -0.024 & -0.049 \\
-4 & 24 & -0.214 & -0.232 \\
-5 & 141 & +0.061 & +0.046 \\
-8 & 10 & +0.040 & +0.038 \\
-10 & 33 & +0.518 & +0.516 \\
-13 & 13 & -0.538 & -0.539 \\
-20 & 78 & -0.382 & +0.073 \\
-Pooled & 380 & -0.128 & -0.039 \\
+\textcolor{red}{3} & \textcolor{red}{46} & \textcolor{red}{-0.290} & \textcolor{red}{-0.298} \\
+\textcolor{red}{6} & \textcolor{red}{78} & \textcolor{red}{-0.266} & \textcolor{red}{+0.113} \\
+\textcolor{red}{Pooled} & \textcolor{red}{124} & \textcolor{red}{-0.135} & \textcolor{red}{+0.095} \\
 \end{longtable}
 ```
 
