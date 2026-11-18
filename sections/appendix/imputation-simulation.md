@@ -4,7 +4,7 @@ Held-out evaluation measures recovery of the masked cells, but the analysis ulti
 
 ## Synthetic data generation
 
-Two real dataset tables, C (671 $\times$ 78) and S (669 $\times$ 124), supply the observation margins: expected per-row and per-column observation counts are calibrated to the real tables' counts, so the synthetic data reproduce the sparsity profile of the corpus under study.
+Two real dataset tables, C (\textcolor{red}{670} $\times$ 78) and S (\textcolor{red}{667} $\times$ 124), supply the observation margins: expected per-row and per-column observation counts are calibrated to the real tables' counts, so the synthetic data reproduce the sparsity profile of the corpus under study.
 
 For each table we simulate from a hybrid model: a dense cross-loading background plus suite clusters. Benchmark $j$'s score for model $i$ is
 

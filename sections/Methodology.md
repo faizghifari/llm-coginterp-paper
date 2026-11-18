@@ -37,11 +37,11 @@ Densifier & Strategy & Shape & Density & Retained \\
 \midrule
 raw & Std. & 1,266 $\times$ 404 & 2.2\% & \\
 raw & Aggr. & 334 $\times$ 380 & 3.5\% & \\
-C & Std. & 671 $\times$ 78 & 13.8\% & 65\% \\
-C & Aggr. & 201 $\times$ 102 & 13.6\% & 63\% \\
-S & Std. & 669 $\times$ 124 & 10.0\% & 75\% \\
-S & Aggr. & 124 $\times$ 293 & 10.0\% & 81\% \\
-R & Std. & 175 $\times$ 298 & 11.8\% & 55\% \\
+C & Std. & \textcolor{red}{670} $\times$ 78 & 13.8\% & 65\% \\
+C & Aggr. & 201 $\times$ 102 & 13.6\% & \textcolor{red}{62\%} \\
+S & Std. & \textcolor{red}{667} $\times$ 124 & 10.0\% & 75\% \\
+S & Aggr. & \textcolor{red}{123} $\times$ 293 & \textcolor{red}{10.1\%} & 81\% \\
+R & Std. & \textcolor{red}{174} $\times$ 298 & 11.8\% & 55\% \\
 R & Aggr. & 97 $\times$ 310 & 11.7\% & 78\% \\
 \bottomrule
 \end{tabular}
