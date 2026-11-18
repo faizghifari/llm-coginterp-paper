@@ -85,6 +85,12 @@ section they cannot drift into another section. -->
 \clearpage
 ```
 
+![[sections/appendix/factor-top-benchmarks]]
+
+```{=latex}
+\clearpage
+```
+
 ![[sections/appendix/common-subject-distances]]
 
 <!-- Software environment and reproduction was deleted in pass 5. It was a
