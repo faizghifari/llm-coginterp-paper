@@ -1,12 +1,12 @@
 # Results
 
-## Variance explained by $g$
+## Variance explained by $G$
 
 Only \textcolor{red}{6 of the 18} dataset-imputer combinations yield \textcolor{red}{a weighted} $R^2$ above the \textcolor{red}{0.4} threshold (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}).
 
 `\hyperref[tab:point-summaries]{Table~\ref*{tab:point-summaries}}`{=latex} below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, \textcolor{red}{the share of variance in the summed score over all benchmarks that is due to the general factor}. \textcolor{red}{Across the six solutions, $\omega_h$ ranges from 0.04 to 0.76 and ECV from 0.11 to 0.52.}
 
-The range of $\omega_h$ is wide. The best-performing imputer, SoftImpute on \textcolor{red}{C} Std., yielded a $g$ factor that accounts for \textcolor{red}{36.7\%} of the \textcolor{red}{summed-score} variance. $\omega_h$ also stays in this range when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend with release year (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}) `\textcolor{red}{\textbf{[STALE]}}`{=latex}. Leaving out single benchmarks shows that the change in $\omega_h$ is only weakly related to how often a benchmark is observed (mean $|r| = \textcolor{red}{0.241}$, `\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
+The range of $\omega_h$ is wide. The best-performing imputer, SoftImpute on \textcolor{red}{C} Std., yielded a $G$ factor that accounts for \textcolor{red}{36.7\%} of the \textcolor{red}{summed-score} variance. $\omega_h$ also stays in this range when we split the models by release year. Newer models score higher on the $G$ factor, but the variance it accounts for shows no trend with release year (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}) `\textcolor{red}{\textbf{[STALE]}}`{=latex}. Leaving out single benchmarks shows that the change in $\omega_h$ is only weakly related to how often a benchmark is observed (mean $|r| = \textcolor{red}{0.241}$, `\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
 
 
 ```{=latex}
@@ -62,19 +62,19 @@ Figure 1 below shows an illustrative UMAP plot of benchmarks using composite dis
 ![[umaps_new/0_C_standard_msoftimpute.png| UMAP plot of benchmark distances from \textcolor{red}{C}, SoftImpute ($wR^2 = 0.586$). Domain-similar benchmarks are not guaranteed to cluster together.]]
 
 
-## Benchmarks' $g$-centrality
+## Benchmarks' $G$-centrality
 
-Another point of interest for the research question is which benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} answers this question by ranking the benchmarks by the normalized average rank order[^4] of their loadings on the $g$ factor ($\rho$). To account for confounding effects from benchmark frequency, we report the residuals of the rank order regressed on frequency ($\rho_\epsilon$). Further details and justification are given in `\hyperref[benchmark-g-rankings]{Appendix~\ref*{benchmark-g-rankings}}`{=latex}.
+Another point of interest for the research question is which benchmarks act as a good proxy of general intelligence, particularly as research is concerned with performance in certain specific benchmarks to quantify intelligence advancements. `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} answers this question by ranking the benchmarks by the normalized average rank order[^4] of their loadings on the $G$ factor ($\rho$). To account for confounding effects from benchmark frequency, we report the residuals of the rank order regressed on frequency ($\rho_\epsilon$). Further details and justification are given in `\hyperref[benchmark-g-rankings]{Appendix~\ref*{benchmark-g-rankings}}`{=latex}.
 
 
 [^4]: We use rank order as factor loadings vary in range, and they are normalized as different datasets have different numbers of benchmarks.
 
-The top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of creativity, legal use cases, and even emotional intelligence. There is no evidence that a $g$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. To add to this, standard intelligence benchmarks like `arc` and `gpqa_diamond` are placed near the middle of the rankings. **Our results are evidence that the prevailing assumption that reasoning, mathematics, and coding benchmarks are the best proxies of general intelligence does not hold**.
+The top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of creativity, legal use cases, and even emotional intelligence. There is no evidence that a $G$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. To add to this, standard intelligence benchmarks like `arc` and `gpqa_diamond` are placed near the middle of the rankings. **Our results are evidence that the prevailing assumption that reasoning, mathematics, and coding benchmarks are the best proxies of general intelligence does not hold**.
 
 ```{=latex}
 
 \begin{longtable}{@{}rlrrlrrr@{}}
-\caption{Benchmarks and their average normalized rank order ($\rho$) of their $g$ factor loadings. Sorted by frequency-residualized rank ($\rho_\epsilon$). $\rho$ ranges from 0 to 1, where 0 = ranked first, 1 = ranked last. $N$ = number of EFA estimations with that benchmark. CI and Best/Worst refer to $\rho$.}\label{tab:g-rankings}\\
+\caption{Benchmarks and their average normalized rank order ($\rho$) of their $G$ factor loadings. Sorted by frequency-residualized rank ($\rho_\epsilon$). $\rho$ ranges from 0 to 1, where 0 = ranked first, 1 = ranked last. $N$ = number of EFA estimations with that benchmark. CI and Best/Worst refer to $\rho$.}\label{tab:g-rankings}\\
 \toprule
 No & Benchmark & ${\rho_\epsilon}^{\downarrow}$ & $\rho^{\downarrow}$ & 95\% CI & Best & Worst & $N$ \\
 \midrule
