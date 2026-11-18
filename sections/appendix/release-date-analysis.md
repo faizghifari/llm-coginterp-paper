@@ -1,6 +1,6 @@
 # Release-date analysis
 
-Here we check whether the factor structure changes with model release date, and whether a benchmark's release date relates to its place in that structure. Both analyses are exploratory and use the matrices of the main analysis at the 10% target density.
+`\textcolor{red}{\textbf{[STALE: not updated since 01bc207]}}`{=latex} Here we check whether the factor structure changes with model release date, and whether a benchmark's release date relates to its place in that structure. Both analyses are exploratory and use the matrices of the main analysis at the 10% target density.
 
 ## Setup
 
