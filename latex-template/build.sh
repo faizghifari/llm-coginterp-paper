@@ -53,7 +53,10 @@ src, dst, repo_root = sys.argv[1], sys.argv[2], sys.argv[3]
 # Obsidian embed: a line containing only "![[target]]" (optionally "#heading"
 # or "|display", which we don't support resolving into a sub-section -- whole
 # files only). Resolved vault-root-relative, same as Obsidian itself does.
-EMBED_RE = re.compile(r'^!\[\[([^\]\n]+?)\]\][ \t]*$', re.MULTILINE)
+# The body may contain single "]" characters (e.g. a caption with raw LaTeX
+# like \hyperref[label]{...}); only "]]" terminates the embed, so "]" is
+# accepted whenever it isn't immediately followed by another "]".
+EMBED_RE = re.compile(r'^!\[\[((?:[^\]\n]|\](?!\]))+?)\]\][ \t]*$', re.MULTILINE)
 
 def resolve(target, base_dir):
     target = target.split('#', 1)[0].split('|', 1)[0].strip()
@@ -98,8 +101,9 @@ def expand(path, visited):
             # wikilinks extension only understands [[link]], so the whole thing
             # is emitted as literal "[[file|caption]]" text where the figure
             # should be. As ![caption](file) pandoc builds a real figure with
-            # the caption. The embed syntax can't contain "]", so the caption
-            # never needs escaping; a filename with spaces needs <...>.
+            # the caption. The embed can't contain "]]", so the caption never
+            # needs unescaping (single "]"s are fine; see EMBED_RE above); a
+            # filename with spaces needs <...>.
             caption = target.split("|", 1)[1].strip() if "|" in target else ""
             ref = f"<{name}>" if " " in name else name
             return f"![{caption}]({ref})"
