@@ -20,19 +20,14 @@ Method & Dataset & $k$ & $r$ & $N$ \\
 \endhead
 \bottomrule
 \endlastfoot
-k-NN & C Std. & 2 & +0.3447 & 78 \\
+\multicolumn{5}{@{}l}{\textcolor{red}{[$k = 2$ rows removed]}} \\
 k-NN & C Std. & 8 & +0.3447 & 78 \\
-missForest & C Std. & 2 & +0.3200 & 78 \\
 missForest & C Std. & 4 & +0.3200 & 78 \\
-missForest & S Std. & 2 & +0.2845 & 124 \\
 missForest & S Std. & 5 & +0.2845 & 124 \\
-SoftImpute & C Std. & 2 & +0.4880 & 78 \\
 SoftImpute & C Std. & 10 & +0.4880 & 78 \\
-SoftImpute & R Aggr. & 2 & -0.1257 & 310 \\
 SoftImpute & R Aggr. & 20 & -0.1257 & 310 \\
-SoftImpute & S Std. & 2 & -0.0813 & 124 \\
 SoftImpute & S Std. & 8 & -0.0813 & 124 \\
-\textbf{Average} & & & \textbf{+0.2050} & 12 (groups) \\
+\textbf{Average} & & & \textbf{+0.2050} & \textcolor{red}{6} (groups) \\
 \textbf{Average $\lvert r\lvert$} & & & \textbf{+0.2740} & \\
 \end{longtable}
 ```
