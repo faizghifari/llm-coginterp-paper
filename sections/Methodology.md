@@ -22,9 +22,9 @@ Source family & Rows & Benchmarks \\
 Stanford HELM & 4,942 & 138 \\
 HF Open LLM Leaderboard & 4,529 & 12 \\
 Papers With Code & 1,378 & 151 \\
-Other online leaderboards & 971 & 67 \\
+Other online leaderboards & \textcolor{red}{953} & \textcolor{red}{65} \\
 Kaggle AI Benchmarks & 844 & 26 \\
-Primary papers & 587 & 95 \\
+Primary papers & \textcolor{red}{584} & \textcolor{red}{94} \\
 \bottomrule
 \end{tabular}
 \end{minipage}\hfill
