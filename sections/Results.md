@@ -59,7 +59,7 @@ Figure 1 below shows an illustrative UMAP plot of benchmarks using composite dis
 
 %%TODO: RUN AND UPDATE LOCO%%
 
-![[umaps_new/0_C_standard_msoftimpute.png| UMAP plot of benchmark distances from S, SoftImpute ($wR^2 = 0.586$). Domain-similar benchmarks are not guaranteed to cluster together.]]
+![[umaps_new/0_C_standard_msoftimpute.png| UMAP plot of benchmark distances from \textcolor{red}{C}, SoftImpute ($wR^2 = 0.586$). Domain-similar benchmarks are not guaranteed to cluster together.]]
 
 
 ## Benchmarks' $g$-centrality
