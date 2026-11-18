@@ -1,6 +1,6 @@
 # Full $g$-rankings
 
-`\hyperref[tab:full-g-rankings]{Table~\ref*{tab:full-g-rankings}}`{=latex} lists all 380 benchmarks used across our analyses, sorted by their rank order as in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main text. The ranking method and its diagnostics are described in `\hyperref[benchmark-g-rankings]{Appendix~\ref*{benchmark-g-rankings}}`{=latex}. <!-- Moved here from the g-rankings appendix 2026-09-26, so the 380-row table sits at the end of the appendix. The intro read: Table 4 below shows benchmarks sorted by their rank order, similar to table 5 in the main content, but now including the entirety of 380 benchmarks useda cross our analyses. -->
+`\hyperref[tab:full-g-rankings]{Table~\ref*{tab:full-g-rankings}}`{=latex} lists all \textcolor{red}{124} benchmarks used across our analyses, sorted by their rank order as in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main text. The ranking method and its diagnostics are described in `\hyperref[benchmark-g-rankings]{Appendix~\ref*{benchmark-g-rankings}}`{=latex}. <!-- Moved here from the g-rankings appendix 2026-09-26, so the 380-row table sits at the end of the appendix. The intro read: Table 4 below shows benchmarks sorted by their rank order, similar to table 5 in the main content, but now including the entirety of 380 benchmarks useda cross our analyses. -->
 
 ```{=latex}
 \begingroup\normalsize\setlength{\tabcolsep}{3pt}
