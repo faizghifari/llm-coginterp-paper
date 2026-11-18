@@ -64,7 +64,7 @@ We present two diagnostics that justify the method of adjustment. `\hyperref[tab
 
 ```{=latex}
 \begin{longtable}{@{}llrr@{}}
-\caption{Correlations between benchmark frequency and their $g$ rankings. Mean $r = -0.173$, mean $\lvert r \rvert = 0.273$; 13 negative and 7 positive cells.}\label{tab:g-rank-cellwise-corr}\\
+\caption{Correlations between benchmark frequency and their $g$ rankings. Mean $r = \textcolor{red}{-0.151}$, mean $\lvert r \rvert = \textcolor{red}{0.306}$; \textcolor{red}{4} negative and \textcolor{red}{2} positive cells.}\label{tab:g-rank-cellwise-corr}\\
 \toprule
 Method & Dataset & $N$ & $r$ \\
 \midrule
@@ -76,26 +76,12 @@ Method & Dataset & $N$ & $r$ \\
 \endhead
 \bottomrule
 \endlastfoot
-Mean fill & C Std. & 78 & -0.429 \\
-k-NN & C Std. & 78 & -0.429 \\
-k-NN & S Std. & 124 & +0.020 \\
-missForest & C Aggr. & 102 & -0.342 \\
-missForest & C Std. & 78 & -0.106 \\
-missForest & S Std. & 124 & +0.261 \\
-OneSidedMC & C Aggr. & 102 & +0.383 \\
-OneSidedMC & C Std. & 78 & -0.242 \\
-OneSidedMC & S Std. & 124 & -0.271 \\
-SoftImpute & C Aggr. & 102 & -0.470 \\
-SoftImpute & C Std. & 78 & -0.497 \\
-SoftImpute & R Aggr. & 310 & +0.006 \\
-SoftImpute & R Std. & 298 & +0.222 \\
-SoftImpute & S Aggr. & 293 & +0.094 \\
-SoftImpute & S Std. & 124 & -0.162 \\
-SoftImpute & raw Aggr. & 380 & +0.012 \\
-SoftImpute & raw Std. & 404 & -0.091 \\
-SoftImpute (corr.) & C Std. & 78 & -0.425 \\
-SoftImpute (corr.) & S Std. & 124 & -0.431 \\
-Zero fill & C Std. & 78 & -0.572 \\
+\textcolor{red}{k-NN} & \textcolor{red}{C Std.} & \textcolor{red}{78} & \textcolor{red}{-0.413} \\
+\textcolor{red}{missForest} & \textcolor{red}{C Std.} & \textcolor{red}{78} & \textcolor{red}{-0.234} \\
+\textcolor{red}{missForest} & \textcolor{red}{S Std.} & \textcolor{red}{124} & \textcolor{red}{-0.318} \\
+\textcolor{red}{SoftImpute} & \textcolor{red}{C Std.} & \textcolor{red}{78} & \textcolor{red}{-0.406} \\
+\textcolor{red}{SoftImpute} & \textcolor{red}{R Aggr.} & \textcolor{red}{310} & \textcolor{red}{+0.072} \\
+\textcolor{red}{SoftImpute} & \textcolor{red}{S Std.} & \textcolor{red}{124} & \textcolor{red}{+0.394} \\
 \end{longtable}
 ```
 
