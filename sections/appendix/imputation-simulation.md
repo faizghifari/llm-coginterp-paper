@@ -68,15 +68,15 @@ Method & ds & Mask & Truth cell & $\omega_h^{\text{full}}$ & $\omega_h^{\text{es
 missForest & C\_all\_standard & popularity & f5\_weak\_r50   & 0.7397 & 0.8057 & 0.0660 & 0.4961 \\*
 missForest & S\_all\_standard & popularity & f10\_weak\_r50  & 0.7068 & 0.8484 & 0.1416 & 0.4563 \\*
 missForest & C\_all\_standard & popularity & f10\_weak\_r50  & 0.7302 & 0.8562 & 0.1260 & 0.4499 \\*
-SoftImpute & C\_all\_standard & mcar       & f5\_weak\_r50   & 0.7397 & 0.7017 & 0.0380 & 0.4491 \\*
+SoftImpute & C\_all\_standard & mcar       & f5\_weak\_r50   & 0.7397 & 0.7017 & \textcolor{red}{$-$0.0380} & 0.4491 \\*
 missForest & S\_all\_standard & popularity & f5\_loud\_r50   & 0.7750 & 0.8622 & 0.0871 & 0.4477 \\*
 missForest & S\_all\_standard & mcar       & f10\_weak\_r50  & 0.7068 & 0.8862 & 0.1794 & 0.4244 \\*
 missForest & S\_all\_standard & popularity & f5\_weak\_r50   & 0.6925 & 0.8036 & 0.1110 & 0.4145 \\*
 missForest & C\_all\_standard & popularity & f10\_loud\_r50  & 0.7748 & 0.8385 & 0.0637 & 0.4109 \\*
 missForest & C\_all\_standard & popularity & f5\_loud\_r50   & 0.7415 & 0.8353 & 0.0938 & 0.4091 \\*
-SoftImpute & C\_all\_standard & cell       & f5\_weak\_r50   & 0.7397 & 0.7178 & 0.0219 & 0.4021 \\*
+SoftImpute & C\_all\_standard & cell       & f5\_weak\_r50   & 0.7397 & 0.7178 & \textcolor{red}{$-$0.0219} & 0.4021 \\*
 missForest & C\_all\_standard & mcar       & f5\_weak\_r50   & 0.7397 & 0.8359 & 0.0962 & 0.4006 \\
 \end{longtable}
 ```
 
-All surviving runs are generated with mean-$r$ $0.5$; no run generated with mean-$r$ $0.3$ passes the gate. missForest accounts for nine of the eleven surviving runs, spanning both tables and all three mechanisms; SoftImpute accounts for the remaining two, both on the C table. Estimated $\omega_h$ exceeds the fullset arm's estimate in every surviving run ($\Delta\omega_h$ between $0.022$ and $0.179$): under missingness the pipeline mildly overestimates the general-factor share relative to the full-data reference. The largest bias occurs for missForest on the `f10_weak` cells ($0.142$ and $0.179$ under the popularity and mcar mechanisms respectively), while SoftImpute shows the smallest ($0.022$--$0.038$).
+All surviving runs are generated with mean-$r$ $0.5$; no run generated with mean-$r$ $0.3$ passes the gate. missForest accounts for nine of the eleven surviving runs, spanning both tables and all three mechanisms; SoftImpute accounts for the remaining two, both on the C table. \textcolor{red}{Estimated $\omega_h$ exceeds the fullset arm's estimate in all nine missForest runs ($\Delta\omega_h$ between $0.064$ and $0.179$) and falls slightly below it in both SoftImpute runs ($-0.022$ and $-0.038$): under missingness, missForest overestimates the general-factor share relative to the full-data reference, while SoftImpute slightly underestimates it.} The largest bias occurs for missForest on the `f10_weak` cells ($0.142$ and $0.179$ under the popularity and mcar mechanisms respectively), while SoftImpute shows the smallest ($0.022$--$0.038$).
