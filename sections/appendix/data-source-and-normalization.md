@@ -56,7 +56,7 @@ repository detail. }
 
 ```{=latex}
 \begin{longtable}{@{}lrr@{}}
-\caption{Composition of the text-only corpus by source family, uncollapsed (13,251 result rows over 456 benchmarks and 1,618 models).}\label{tab:a1}\\
+\caption{Composition of the text-only corpus by source family, uncollapsed (\textcolor{red}{13,230} result rows over 456 benchmarks and 1,618 models).}\label{tab:a1}\\
 \toprule
 Source family & Result rows & Distinct benchmarks \\
 \midrule
