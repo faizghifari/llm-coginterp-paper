@@ -94,8 +94,6 @@ $$\color{red}\omega_h = \frac{(\sum_j \lambda_{g,j})^2}{\mathbf{1}^\top R\,\math
 
 One additional step we do is parallel analysis \citep{horn1965} to select the number of factor analysis dimensions. To keep wall-clock time tractable we cap the number of factors extracted at 20. 
 
-
-
 ## Label Cohesion Analysis
 
 We measure benchmark similarity as cosine distance between benchmarks' factor-analytic loading vectors, described further in `\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}. Given this benchmark–benchmark distance matrix, we ask whether each label's members sit closer together than chance. For a label, let **within** be their mean pairwise distance. We compare this to the **null_mean**: benchmarks are binned into quartiles of $\log_{10}(\text{model coverage})$, and the null redraws, 2,000 times, a random same-size set matched to the label's members' coverage-quartile composition, recomputing the same mean-pairwise-distance statistic each draw. Coverage stratification matters because coverage is itself correlated with tightness in this factor space. Labels with fewer than four members, or comprising the entire benchmark set, are not scored. The reported effect size is:
@@ -110,3 +108,7 @@ $$A = 1 − \frac{\text{within}}{\text{null\_mean}}$$
 $$p = (1 + \#\{\text{null draws at least as tight as observed}\}) / (1 + 2000)$$
 
 Within each cell, we control the false discovery rate across the labels of one axis via Benjamini–Hochberg at q = 0.05. A label's reported significant count (e.g. "6/9") is the number of cells in which it passed this FDR-corrected threshold, out of the cells where it could be scored.
+
+## Note on triangulation
+
+We emphasize that our conclusions arise not from one or few specific end-to-end analysis pipelines, but by triangulating results from different applied methods and aggregate statistics. Hence our results in the next section and in the appendix should be understood holistically, highlighting the persistent pattern that robustly appears across different modes of bias.

@@ -69,7 +69,7 @@ Another point of interest for the research question is which benchmarks act as a
 
 [^4]: We use rank order as factor loadings vary in range, and they are normalized as different datasets have different numbers of benchmarks.
 
-The top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of creativity, legal use cases, and even emotional intelligence. There is no evidence that a $G$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. To add to this, standard intelligence benchmarks like `arc` and `gpqa_diamond` are placed near the middle of the rankings. **Our results are evidence that the prevailing assumption that reasoning, mathematics, and coding benchmarks are the best proxies of general intelligence does not hold**.
+The top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of creativity, legal use cases, and even emotional intelligence. There is no evidence that a $G$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. To add to this, standard intelligence benchmarks like `mmlu` and `gpqa_diamond` are placed near the middle of the rankings. **Our results suggests that the prevailing assumption that reasoning, mathematics, and coding benchmarks are the best proxies of general intelligence does not hold**.
 
 ```{=latex}
 
@@ -96,11 +96,10 @@ No & Benchmark & ${\rho_\epsilon}^{\downarrow}$ & $\rho^{\downarrow}$ & 95\% CI 
 8 & pwc\_arc\_challenge & -0.186 & 0.351 & [0.083, 0.619] & 0.104 & 0.767 & 6 \\
 9 & thai\_exam\_a\_level & -0.175 & 0.354 & [0.020, 0.688] & 0.123 & 0.959 & 6 \\
 10 & bbq & -0.162 & 0.349 & [-0.013, 0.711] & 0.013 & 0.967 & 6 \\
-11 & legalbench & -0.157 & 0.353 & [0.079, 0.627] & 0.078 & 0.748 & 6 \\
-12 & pwc\_piqa & -0.156 & 0.381 & [0.053, 0.710] & 0.033 & 0.939 & 6 \\
-13 & thai\_exam\_tpat1 & -0.156 & 0.373 & [0.013, 0.733] & 0.000 & 0.878 & 6 \\
-14 & openbookqa & -0.154 & 0.343 & [-0.021, 0.708] & 0.026 & 0.862 & 6 \\
-15 & thaiexam & -0.153 & 0.376 & [-0.007, 0.758] & 0.074 & 0.984 & 6 \\
+46 & mmlu & -.070 & .367 & [.027, .706] & .039 & .829 & 6 \\
+58 & gsm & -.040 & .449 & [.022, .877] & .000 & .935 & 6 \\
+75 & gpqa\_diamond & .019 & .548 & [.353, .743] & .340 & .870 & 6 \\
+85 & swe\_bench & .043 & .535 & [-.512, 1.581] & .084 & .919 & 3 \\
+116 & hellaswag & .162 & .599 & [.329, .870] & .252 & .961 & 6 \\
 \end{longtable}
-
 ```

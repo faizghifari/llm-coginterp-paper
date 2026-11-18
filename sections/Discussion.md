@@ -51,9 +51,9 @@ Negative transfer within similar domains & Same-subject benchmarks do not cluste
 \end{longtable}
 ```
 
-## Open issues
+\textcolor{red}{With regards to this correspondence, several issues remain open. For one, there is a lack of evidence that singular low-level task representations can account for the universe of all (or at least, most) language model abilities. Moreover, it's not clear how fine-grained this low-level representation is. Available experimental evidence are limited to a few set of benchmarks with unknown reporting bias. Are reasoning-like primitives homogenous? If not, are they hierarchically structured such that there is a single reasoning-like latent variable that accounts for all of their variants? Our analysis suggests no to both, given how benchmarks rank on the $G$ loadings. On a similar vein, negative transfers of same-domain training should only exist if models do not group task representations by their semantic interpretability.}
 
-
+\textcolor{red}{Nevertheless, factor analysis by itself is a strictly statistical observational procedure. Stronger evidence and a more final view of machine intelligence should be acquired by running empirical training experiments that 1. Tests a considerably higher number of benchmarks, 2. Analyze the heterogeneity of low-level representations (e.g., are there distinct reasoning-like primitives?), 3. Maps how tasks what kind of shared representation do tasks share with each other such that they are correlated. Such an experiment would be challenging to do, however, as there is no reliable way (as our observations suggest) to determine how many low-level representation there are, how correlated each of them are, and to what degree they are fundamental to model abilities.}
 
 %%
 ## Alternative to a latent factor view
