@@ -12,7 +12,7 @@ The corpus is assembled from published evaluation records, and for every score w
 
 **Tier 4, primary papers** reporting original evaluations (arXiv, ACL Anthology, OpenReview, ACM Digital Library and journals). These are also our source for benchmark metadata.
 
-The "Other online leaderboards" row of `\hyperref[tab:sources]{Table~\ref*{tab:sources}}`{=latex} combines Chatbot Arena / LMArena (202 rows), llm-stats.com (121), Vellum (96), Artificial Analysis (77), LiveBench (55) and the remaining named leaderboards (420). For 295 rows (2.2%) the source organization was not recorded, and we assigned these by source name and URL host.
+The "Other online leaderboards" row of `\hyperref[tab:sources]{Table~\ref*{tab:sources}}`{=latex} combines Chatbot Arena / LMArena (202 rows), llm-stats.com (\textcolor{red}{114}), Vellum (\textcolor{red}{85}), Artificial Analysis (77), LiveBench (55) and the remaining named leaderboards (420). For 295 rows (2.2%) the source organization was not recorded, and we assigned these by source name and URL host.
 
 <!-- ---------- ORIGINAL (pre-revision) TEXT of this subsection, before the 2026-09-26 rewrite. Table A1 (the uncollapsed Table 1) was dropped, and its breakdown folded into one sentence.
 Inner comments are kept as {note: ...} since comments cannot nest.
@@ -67,11 +67,11 @@ Stanford HELM & 4,942 & 138 \\
 HF Open LLM Leaderboard & 4,529 & 12 \\
 Papers With Code & 1,378 & 151 \\
 Kaggle AI Benchmarks & 844 & 26 \\
-Primary papers & 587 & 95 \\
+Primary papers & \textcolor{red}{584} & \textcolor{red}{94} \\
 Other named leaderboards & 420 & 45 \\
 Chatbot Arena / LMArena & 202 & 1 \\
-llm-stats.com & 121 & 11 \\
-Vellum & 96 & 7 \\
+llm-stats.com & \textcolor{red}{114} & \textcolor{red}{10} \\
+Vellum & \textcolor{red}{85} & \textcolor{red}{6} \\
 Artificial Analysis & 77 & 2 \\
 LiveBench & 55 & 1 \\
 \end{longtable}
