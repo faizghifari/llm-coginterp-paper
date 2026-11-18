@@ -60,72 +60,39 @@ density_pair_n.png-->
 
 <!--## Imputation results-->
 
-The table below lists, for every dataset-imputer combination, the held-out RMSE, $R^2$, and the selected configuration. Rows are sorted by $R^2$. As described in the results, only 20 of the combinations pass the $R^2 \ge 0.2$ gate. Of all the methods presented, only USVT yielded no valid solutions or crashes mid-estimation.
+The table below lists the weighted held-out $R^2$ ($wR^2$) of every dataset-imputer combination. Rows are sorted by $wR^2$. As described in the results, only 6 of the 18 combinations pass the $wR^2 \geq 0.4$ gate.
 
 ```{=latex}
-\begin{longtable}{@{}llrrl@{}}
-\caption{Results of all imputation runs, sorted by $R^2$.}\label{tab:imputation-results-all}\\
+\begin{longtable}{@{}llr@{}}
+\caption{\textcolor{red}{Results of all imputation runs, sorted by $wR^2$.}}\label{tab:imputation-results-all}\\
 \toprule
-Dataset & Imputer & RMSE & $R^2$ & Configuration \\
+Dataset & Imputer & $wR^2$ \\
 \midrule
 \endfirsthead
 \caption[]{(continued)}\\
 \toprule
-Dataset & Imputer & RMSE & $R^2$ & Configuration \\
+Dataset & Imputer & $wR^2$ \\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
-S Std. & SoftImpute & 0.6338 & 0.504 & rank=5 (swept 1..10) \\
-C Std. & SoftImpute & 0.6575 & 0.493 & rank=9 (swept 1..10) \\
-S Std. & missForest & 0.6798 & 0.471 & ntree=400 (swept [50,100,200,400]) \\
-C Std. & missForest & 0.7321 & 0.399 & ntree=50 (swept [50,100,200,400]) \\
-S Std. & SoftImpute (corr.) & 0.7637 & 0.378 & rank=6 (swept 1..10) \\
-S Std. & OneSidedMC & 0.7554 & 0.365 & r=2 (swept 1..10) \\
-C Aggr. & SoftImpute & 0.6739 & 0.337 & rank=5 (swept 1..10) \\
-C Std. & OneSidedMC & 0.7261 & 0.321 & r=2 (swept 1..10) \\
-C Std. & SoftImpute (corr.) & 0.8126 & 0.317 & rank=5 (swept 1..7) \\
-S Std. & k-NN & 0.8104 & 0.296 & k=5 (swept 1..10) \\
-R Std. & SoftImpute & 0.7245 & 0.290 & rank=4 (swept 1..10) \\
-C Std. & k-NN & 0.8232 & 0.288 & k=5 (swept 1..10) \\
-C Std. & Zero fill & 0.8910 & 0.286 & fill=zero \\
-S Aggr. & SoftImpute & 0.7068 & 0.282 & rank=10 (swept 1..10) \\
-C Aggr. & OneSidedMC & 0.8815 & 0.278 & r=2 (swept 1..10) \\
-raw Std. & SoftImpute & 0.7401 & 0.249 & rank=9 (swept 1..10) \\
-C Aggr. & missForest & 0.8275 & 0.241 & ntree=50 (swept [50,100,200,400]) \\
-raw Aggr. & SoftImpute & 0.7457 & 0.228 & rank=10 (swept 1..10) \\
-C Std. & Mean fill & 0.9268 & 0.224 & fill=mean \\
-R Aggr. & SoftImpute & 0.7370 & 0.209 & rank=10 (swept 1..10) \\
-S Std. & Zero fill & 0.8926 & 0.180 & fill=zero \\
-S Std. & Mean fill & 0.8923 & 0.179 & fill=mean \\
-S Aggr. & OneSidedMC & 0.9311 & 0.160 & r=2 (swept 1..10) \\
-C Aggr. & k-NN & 0.9253 & 0.085 & k=6 (swept 1..10) \\
-S Aggr. & SoftImpute (corr.) & 1.0514 & 0.076 & rank=1 \\
-raw Aggr. & SoftImpute (corr.) & 1.1797 & 0.075 & rank=3 (swept 1..3) \\
-S Aggr. & k-NN & 1.0841 & 0.069 & k=4 (swept 1..10) \\
-R Std. & SoftImpute (corr.) & 1.2346 & 0.047 & rank=5 (swept 1..10) \\
-raw Std. & OneSidedMC & 1.1045 & 0.044 & r=2 (swept 1..10) \\
-S Aggr. & missForest & 1.0635 & 0.041 & ntree=100 (swept [50,100,200,400]) \\
-R Std. & missForest & 1.2253 & 0.036 & ntree=200 (swept [50,100,200,400]) \\
-R Std. & OneSidedMC & 1.3507 & 0.035 & r=2 (swept 1..10) \\
-raw Aggr. & missForest & 1.2200 & 0.026 & ntree=400 (swept [50,100,200,400]) \\
-raw Aggr. & k-NN & 1.2247 & 0.021 & k=3 (swept 1..10) \\
-R Aggr. & SoftImpute (corr.) & 1.3517 & 0.019 & rank=1 \\
-raw Std. & SoftImpute (corr.) & 1.2551 & 0.015 & rank=2 (swept 1..10) \\
-raw Aggr. & OneSidedMC & 1.5050 & 0.015 & r=2 (swept 1..10) \\
-raw Std. & missForest & 1.2441 & 0.015 & ntree=200 (swept [50,100,200,400]) \\
-R Aggr. & k-NN & 1.4189 & 0.013 & k=2 (swept 1..10) \\
-R Std. & k-NN & 1.2854 & 0.011 & k=3 (swept 1..10) \\
-R Aggr. & OneSidedMC & 2.0522 & 0.007 & r=2 (swept 1..10) \\
-R Aggr. & missForest & 1.3915 & 0.006 & ntree=200 (swept [50,100,200,400]) \\
-raw Std. & Mean fill & 1.3404 & 0.000 & fill=mean \\
-raw Std. & k-NN & 1.3065 & -0.004 & k=5 (swept 1..10) \\
-R Std. & Mean fill & 1.3990 & -0.049 & fill=mean \\
-S Aggr. & Mean fill & 1.2040 & -0.087 & fill=mean \\
-S Aggr. & Zero fill & 1.2298 & -0.139 & fill=zero \\
-R Std. & USVT & 2.5911 & -1.635 & eta=0.01 \\
-S Std. & USVT & 1.7823 & -2.965 & eta=0.01 \\
-raw Std. & USVT & 2.9244 & -5.031 & eta=0.01 \\
-S Aggr. & USVT & 2.9488 & -12.278 & eta=0.01 \\
+C Std. & SoftImpute & 0.586 \\
+C Std. & missForest & 0.566 \\
+S Std. & missForest & 0.455 \\
+C Std. & k-NN & 0.442 \\
+R Aggr. & SoftImpute & 0.441 \\
+S Std. & SoftImpute & 0.428 \\
+C Aggr. & SoftImpute & 0.398 \\
+R Std. & SoftImpute & 0.355 \\
+S Std. & k-NN & 0.326 \\
+C Aggr. & missForest & 0.263 \\
+S Aggr. & SoftImpute & 0.262 \\
+C Aggr. & k-NN & 0.170 \\
+S Aggr. & k-NN & 0.016 \\
+R Aggr. & k-NN & 0.004 \\
+S Aggr. & missForest & 0.001 \\
+R Std. & missForest & 0.000 \\
+R Aggr. & missForest & -0.001 \\
+R Std. & k-NN & -0.004 \\
 \end{longtable}
 ```
