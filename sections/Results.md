@@ -4,7 +4,7 @@
 
 Only \textcolor{red}{6 of the 18} dataset-imputer combinations yield \textcolor{red}{a weighted} $R^2$ above the \textcolor{red}{0.4} threshold (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}).
 
-`\hyperref[tab:point-summaries]{Table~\ref*{tab:point-summaries}}`{=latex} below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. In our highest estimate, a universally causal $G$ factor accounts for 76% of variance in model performance, but our best imputation ($wR^2 = 0.586$) suggests a $G$ factor of 36.7%.
+`\hyperref[tab:point-summaries]{Table~\ref*{tab:point-summaries}}`{=latex} below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, which indicates the degree of indicator variances explained by the general factor. \textcolor{red}{Across the six solutions, $\omega_h$ ranges from 0.04 to 0.76 and ECV from 0.11 to 0.52.}
 
 The range of $\omega_h$ is wide. The best-performing imputer, SoftImpute on \textcolor{red}{C} Std., yielded a $g$ factor that accounts for \textcolor{red}{36.7\%} of the variance. $\omega_h$ also stays in this range when we split the models by release year. Newer models score higher on the $g$ factor, but the variance it accounts for shows no trend with release year (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). Leaving out single benchmarks shows that the change in $\omega_h$ is only weakly related to how often a benchmark is observed (mean $|r| = 0.18$, `\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
 
