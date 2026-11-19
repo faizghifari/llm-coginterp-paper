@@ -2,13 +2,13 @@
 
 ## Frequency and $G$-ranking correlations
 
-A pressing concern with regard to our findings on the top $g$ benchmarks in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main content is to what degree a benchmark's $g$ factor loading is correlated with its non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
+A pressing concern with regard to our findings on the top \textcolor{red}{$G$} benchmarks in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main content is to what degree a benchmark's \textcolor{red}{$G$} factor loading is correlated with its non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
 
-Naively, as shown in `\hyperref[tab:g-rank-freq-corr]{Table~\ref*{tab:g-rank-freq-corr}}`{=latex} below, benchmark frequency *is* correlated with $g$ loadings. Unsigned averages suggest this correlation is modest ($r = 0.2740$), but the correlations are quite dispersed, and some dataset-imputation combinations can be as high as ~0.5. Thus, identifying benchmarks which proxy a supposed latent $g$ factor well requires adjusting the statistics with respect to their frequency.
+Naively, as shown in `\hyperref[tab:g-rank-freq-corr]{Table~\ref*{tab:g-rank-freq-corr}}`{=latex} below, benchmark frequency *is* correlated with \textcolor{red}{$G$} loadings. Unsigned averages suggest this correlation is modest ($r = 0.2740$), but the correlations are quite dispersed, and some dataset-imputation combinations can be as high as ~0.5. Thus, identifying benchmarks which proxy a supposed latent \textcolor{red}{$G$} factor well requires adjusting the statistics with respect to their frequency.
 
 ```{=latex}
 \begin{longtable}{@{}llrrr@{}}
-\caption{Correlations between benchmark frequency and their $g$ loadings. $k$ = number of factors extracted. Only accepted imputations with $wR^2 > 0.4$ are shown.}\label{tab:g-rank-freq-corr}\\
+\caption{Correlations between benchmark frequency and their \textcolor{red}{$G$} loadings. $k$ = number of factors extracted. Only accepted imputations with $wR^2 > 0.4$ are shown.}\label{tab:g-rank-freq-corr}\\
 \toprule
 Method & Dataset & $k$ & $r$ & $N$ \\
 \midrule
@@ -47,7 +47,7 @@ $$f_i = \frac{\#\{\text{models with non-missing score for } i\}}{m}.$$
 
 Columns with fewer than two observations or zero variance are excluded before computing $f_i$. Where several datasets contribute, the benchmark's frequency is the mean of its per-dataset $f_i$.
 
-As shown in `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below, within most cells, frequently measured benchmarks obtain higher $|g_i|$ and lower (better) $a_i$. A benchmark may therefore rank highly partly because it is measured often rather than because it is a strong indicator of $g$.
+As shown in `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below, within most cells, frequently measured benchmarks obtain higher $|g_i|$ and lower (better) $a_i$. A benchmark may therefore rank highly partly because it is measured often rather than because it is a strong indicator of \textcolor{red}{$G$}.
 
 The adjustment is applied within each cell rather than to the pooled averages. Within cell $C$, the normalized ranks are regressed on the cell's own frequencies by ordinary least squares,
 
@@ -60,11 +60,11 @@ The adjusted score of benchmark $i$ is the mean of its residuals over the cells 
 
 ## Diagnostics
 
-We present two diagnostics that justify the method of adjustment. `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below reports, within each cell, the Pearson correlation $r(f_i, a_i)$, with the mean $r$, the mean $|r|$, and the counts of negative and positive cells. Negative $r$ indicates that more frequently measured benchmarks load higher on $g$.
+We present two diagnostics that justify the method of adjustment. `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below reports, within each cell, the Pearson correlation $r(f_i, a_i)$, with the mean $r$, the mean $|r|$, and the counts of negative and positive cells. Negative $r$ indicates that more frequently measured benchmarks load higher on \textcolor{red}{$G$}.
 
 ```{=latex}
 \begin{longtable}{@{}llrr@{}}
-\caption{Correlations between benchmark frequency and their $g$ rankings. Mean $r = \textcolor{red}{-0.151}$, mean $\lvert r \rvert = \textcolor{red}{0.306}$; \textcolor{red}{4} negative and \textcolor{red}{2} positive cells.}\label{tab:g-rank-cellwise-corr}\\
+\caption{Correlations between benchmark frequency and their \textcolor{red}{$G$} rankings. Mean $r = \textcolor{red}{-0.151}$, mean $\lvert r \rvert = \textcolor{red}{0.306}$; \textcolor{red}{4} negative and \textcolor{red}{2} positive cells.}\label{tab:g-rank-cellwise-corr}\\
 \toprule
 Method & Dataset & $N$ & $r$ \\
 \midrule

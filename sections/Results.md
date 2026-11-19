@@ -69,7 +69,7 @@ Another point of interest for the research question is which benchmarks act as a
 
 [^4]: We use rank order as factor loadings vary in range, and they are normalized as different datasets have different numbers of benchmarks.
 
-The top benchmarks are not dominated by common standard benchmarks. The top proxies include measures of creativity, legal use cases, and even emotional intelligence. There is no evidence that a $G$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. To add to this, standard intelligence benchmarks like `mmlu` and `gpqa_diamond` are placed near the middle of the rankings. **Our results suggests that the prevailing assumption that reasoning, mathematics, and coding benchmarks are the best proxies of general intelligence does not hold**.
+The top benchmarks are not dominated by common standard benchmarks. \textcolor{red}{The top proxies include factual question answering (\texttt{simpleqa}, FACTS), medical exams (\texttt{medqa}), Thai school exams, and bias and safety tests (\texttt{bbq}, \texttt{simple\_safety\_tests}, \texttt{anthropic\_red\_team}), with \texttt{legalbench} at rank 11. Of the common reasoning benchmarks, only \texttt{pwc\_arc\_challenge} (rank 8) and \texttt{openbookqa} (rank 14) reach the top 15.} There is no evidence that a $G$ factor resembles anything like abstract reasoning. This diversity is expected on its own, since a general factor is indifferent to the content of its indicators. To add to this, standard intelligence benchmarks like `mmlu` and `gpqa_diamond` are placed near the middle of the rankings \textcolor{red}{(ranks 46 and 75 of 124; \texttt{gsm} is 58)}. **Our results suggests that the prevailing assumption that reasoning, mathematics, and coding benchmarks are the best proxies of general intelligence does not hold**.
 
 ```{=latex}
 
@@ -96,10 +96,10 @@ No & Benchmark & ${\rho_\epsilon}^{\downarrow}$ & $\rho^{\downarrow}$ & 95\% CI 
 8 & pwc\_arc\_challenge & -0.186 & 0.351 & [0.083, 0.619] & 0.104 & 0.767 & 6 \\
 9 & thai\_exam\_a\_level & -0.175 & 0.354 & [0.020, 0.688] & 0.123 & 0.959 & 6 \\
 10 & bbq & -0.162 & 0.349 & [-0.013, 0.711] & 0.013 & 0.967 & 6 \\
-46 & mmlu & -.070 & .367 & [.027, .706] & .039 & .829 & 6 \\
-58 & gsm & -.040 & .449 & [.022, .877] & .000 & .935 & 6 \\
-75 & gpqa\_diamond & .019 & .548 & [.353, .743] & .340 & .870 & 6 \\
-85 & swe\_bench & .043 & .535 & [-.512, 1.581] & .084 & .919 & 3 \\
-116 & hellaswag & .162 & .599 & [.329, .870] & .252 & .961 & 6 \\
+46 & mmlu & \textcolor{red}{-0.070} & \textcolor{red}{0.367} & \textcolor{red}{[0.027, 0.706]} & \textcolor{red}{0.039} & \textcolor{red}{0.829} & 6 \\
+58 & gsm & \textcolor{red}{-0.040} & \textcolor{red}{0.449} & \textcolor{red}{[0.022, 0.877]} & \textcolor{red}{0.000} & \textcolor{red}{0.935} & 6 \\
+75 & gpqa\_diamond & \textcolor{red}{0.019} & \textcolor{red}{0.548} & \textcolor{red}{[0.353, 0.743]} & \textcolor{red}{0.340} & \textcolor{red}{0.870} & 6 \\
+85 & swe\_bench & \textcolor{red}{0.043} & \textcolor{red}{0.535} & \textcolor{red}{[-0.512, 1.581]} & \textcolor{red}{0.084} & \textcolor{red}{0.919} & 3 \\
+116 & hellaswag & \textcolor{red}{0.162} & \textcolor{red}{0.599} & \textcolor{red}{[0.329, 0.870]} & \textcolor{red}{0.252} & \textcolor{red}{0.961} & 6 \\
 \end{longtable}
 ```

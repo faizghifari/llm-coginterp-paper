@@ -45,7 +45,7 @@ Experimental finding & Our observations \\
 \endlastfoot
 Transfer through low-level task representations & $G$ explains only a substantive share of variance ($\omega_h$ 0.04--0.76, ECV 0.11--0.52), but is domain-free \\
 \midrule
-Transfer from unrelated semantic domains & Miscellaneous benchmarks load highest on $G$; \texttt{arc} and \texttt{gpqa\_diamond} rank mid-table \\
+Transfer from unrelated semantic domains & Miscellaneous benchmarks load highest on $G$; \textcolor{red}{\texttt{mmlu} and \texttt{gpqa\_diamond} rank mid-table (46th and 75th of 124)} \\
 \midrule
 Negative transfer within similar domains & Same-subject benchmarks do not cluster (median cohesion $A$ near chance for \texttt{math}) \\
 \end{longtable}

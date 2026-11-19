@@ -41,7 +41,7 @@ Each generated dataset directory is a drop-in data root containing only the C an
 Two levels of scoring follow:
 
 - **Cell level.** Each step's completions are scored against the simulation's complete matrix on the introduced columns' missing cells, column-balanced; the step's planted-truth $R^2$ replaces the held-out $R^2$, and the weighted $R^2$ is the introduced-column-weighted mean of those values — based on the simulated complete matrix rather than held-out cells.
-- **Factor level.** The exact factor-analysis recipe (parallel analysis factor count, minimum-residual/promax EFA, Schmid–Leiman transformation) runs on each completed matrix. A **fullset** arm runs the identical recipe on the complete, unmasked simulated matrix, which separates estimator bias from missingness damage. No quality gate is applied at factoring time; the gate is applied at scoring so that its effect can be reported.
+- **Factor level.** The exact factor-analysis recipe (parallel analysis factor count, minimum-residual/promax EFA, Schmid–Leiman transformation) runs on each completed matrix. A **fullset** arm runs the identical recipe on the complete, unmasked simulated matrix, which separates estimator bias from missingness damage. No \textcolor{red}{quality filter} is applied at factoring time; the \textcolor{red}{filter} is applied at scoring so that its effect can be reported.
 
 ## Metrics
 
@@ -49,7 +49,7 @@ Let $\omega_{h}^{\text{full}}$ be the fullset arm's general-factor coefficient f
 
 ## Results
 
-`\hyperref[tab:synth-factors]{Table~\ref*{tab:synth-factors}}`{=latex} lists the runs that pass the weighted $R^2 \geq 0.4$ gate on the hierarchical end result, sorted by weighted $R^2$.
+\hyperref[tab:synth-factors]{Table~\ref*{tab:synth-factors}} lists the runs that pass the weighted $R^2 \geq 0.4$ \textcolor{red}{quality filter} on the hierarchical end result, sorted by weighted $R^2$.
 
 ```{=latex}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}rrrr@{}}
@@ -79,4 +79,142 @@ missForest & C\_all\_standard & mcar       & f5\_weak\_r50   & 0.7397 & 0.8359 &
 \end{longtable}
 ```
 
-All surviving runs are generated with mean-$r$ $0.5$; no run generated with mean-$r$ $0.3$ passes the gate. missForest accounts for nine of the eleven surviving runs, spanning both tables and all three mechanisms; SoftImpute accounts for the remaining two, both on the C table. \textcolor{red}{Estimated $\omega_h$ exceeds the fullset arm's estimate in all nine missForest runs ($\Delta\omega_h$ between $0.064$ and $0.179$) and falls slightly below it in both SoftImpute runs ($-0.022$ and $-0.038$): under missingness, missForest overestimates the general-factor share relative to the full-data reference, while SoftImpute slightly underestimates it.} The largest bias occurs for missForest on the `f10_weak` cells ($0.142$ and $0.179$ under the popularity and mcar mechanisms respectively), while SoftImpute shows the smallest ($0.022$--$0.038$).
+All surviving runs are generated with mean-$r$ $0.5$; no run generated with mean-$r$ $0.3$ passes the \textcolor{red}{quality filter}. missForest accounts for nine of the eleven surviving runs, spanning both tables \textcolor{red}{and two of the three mechanisms (no missForest run passes under the cell mechanism)}; SoftImpute accounts for the remaining two, both on the C table. \textcolor{red}{Estimated $\omega_h$ exceeds the fullset arm's estimate in all nine missForest runs ($\Delta\omega_h$ between $0.064$ and $0.179$) and falls slightly below it in both SoftImpute runs ($-0.022$ and $-0.038$): under missingness, missForest overestimates the general-factor share relative to the full-data reference, while SoftImpute slightly underestimates it.} The largest bias occurs for missForest on the `f10_weak` cells ($0.142$ and $0.179$ under the popularity and mcar mechanisms respectively), while SoftImpute shows the smallest ($0.022$--$0.038$).
+
+## \textcolor{red}{All runs and structural recovery} {#synth-all-runs-section}
+
+\textcolor{red}{The table above shows only the runs that pass the quality filter. To show what the filter selects, \hyperref[tab:synth-summary]{Table~\ref*{tab:synth-summary}} summarises all 96 runs (2 methods $\times$ 2 tables $\times$ 8 truth cells $\times$ 3 mechanisms), and \hyperref[tab:synth-all-runs]{Table~\ref*{tab:synth-all-runs}} lists each run. One mask seed is used per condition, so the spread reported here is across conditions, not across repetitions. Besides $\omega_h$, we score two structural quantities: the adjusted Rand index (ARI) between the estimated group-factor clusters and the planted suite clusters, and the absolute correlation $|r_G|$ between the estimated general-factor loadings and those of the fullset arm.}
+
+```{=latex}
+\begin{longtable}{@{}>{\color{red}}l>{\color{red}}l>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r@{}}
+\caption{\textcolor{red}{All 96 simulation runs summarised by method and missingness mechanism, split by whether the run passes the weighted $R^2 \geq 0.4$ quality filter. $|\Delta\omega_h|$ = mean absolute difference from the fullset $\omega_h$; ARI = adjusted Rand index between estimated and planted suite clusters; $|r_G|$ = absolute correlation between estimated and fullset general-factor loadings. Each cell is 16 runs (8 truth cells $\times$ 2 tables), one seed each.}}\label{tab:synth-summary}\\
+\toprule
+Method & Mask & Pass & $|\Delta\omega_h|$ pass & $|\Delta\omega_h|$ fail & ARI pass & ARI fail & $|r_G|$ pass & $|r_G|$ fail \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+missForest & cell & 0/16 & -- & 0.19 & -- & 0.52 & -- & 0.23 \\
+missForest & mcar & 2/16 & 0.14 & 0.13 & 0.83 & 0.57 & 0.36 & 0.30 \\
+missForest & popularity & 7/16 & 0.10 & 0.11 & 0.70 & 0.59 & 0.41 & 0.23 \\
+SoftImpute & cell & 1/16 & 0.02 & 0.05 & 0.82 & 0.60 & 0.63 & 0.22 \\
+SoftImpute & mcar & 1/16 & 0.04 & 0.11 & 0.84 & 0.62 & 0.60 & 0.29 \\
+SoftImpute & popularity & 0/16 & -- & 0.23 & -- & 0.56 & -- & 0.34 \\
+\end{longtable}
+```
+
+\textcolor{red}{Passing runs recover the planted suite clusters better than failing runs: mean ARI is 0.73 for missForest and 0.83 for SoftImpute in passing runs, against 0.52 to 0.62 in failing runs. General-factor loadings are recovered only partly ($|r_G|$ 0.40 for missForest and 0.61 for SoftImpute in passing runs, 0.22 to 0.34 in failing runs), in part because the fullset general-factor loadings vary little across benchmarks in this simulation. The quality filter does not reduce the missForest $\omega_h$ bias within a mechanism: missForest overestimates $\omega_h$ in every passing run. SoftImpute passing runs have a small $\omega_h$ error, but SoftImpute never passes on the S table or under the popularity mechanism, so the simulation does not directly validate the SoftImpute solution on the real S table. For these reasons we do not interpret any single real-data $\omega_h$ value as the strength of the general factor.}
+
+```{=latex}
+{\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}>{\color{red}}l>{\color{red}}l>{\color{red}}l>{\color{red}}l>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}c@{}}
+\caption{\textcolor{red}{Every simulation run. $\Delta\omega_h$ is signed (estimate minus fullset). Pass = weighted $R^2 \geq 0.4$.}}\label{tab:synth-all-runs}\\
+\toprule
+Method & Table & Mask & Truth cell & $\omega_h^{\text{full}}$ & $\omega_h^{\text{est}}$ & $\Delta\omega_h$ & ARI & $|r_G|$ & $wR^2$ & Pass \\
+\midrule
+\endfirsthead
+\caption[]{(continued)}\\
+\toprule
+Method & Table & Mask & Truth cell & $\omega_h^{\text{full}}$ & $\omega_h^{\text{est}}$ & $\Delta\omega_h$ & ARI & $|r_G|$ & $wR^2$ & Pass \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+missForest & C & cell & f10\_loud\_r30 & 0.615 & 0.828 & +0.214 & 0.55 & 0.03 & 0.087 &  \\
+missForest & C & cell & f10\_loud\_r50 & 0.775 & 0.942 & +0.168 & 0.29 & 0.23 & 0.329 &  \\
+missForest & C & cell & f10\_weak\_r30 & 0.644 & 0.808 & +0.164 & 0.36 & 0.04 & 0.240 &  \\
+missForest & C & cell & f10\_weak\_r50 & 0.730 & 0.888 & +0.158 & 0.59 & 0.33 & 0.305 &  \\
+missForest & C & cell & f5\_loud\_r30 & 0.617 & 0.789 & +0.173 & 0.83 & 0.25 & 0.158 &  \\
+missForest & C & cell & f5\_loud\_r50 & 0.741 & 0.893 & +0.152 & 0.96 & 0.36 & 0.358 &  \\
+missForest & C & cell & f5\_weak\_r30 & 0.603 & 0.774 & +0.171 & 0.68 & 0.40 & 0.161 &  \\
+missForest & C & cell & f5\_weak\_r50 & 0.740 & 0.856 & +0.116 & 0.92 & 0.46 & 0.367 &  \\
+missForest & C & mcar & f10\_loud\_r30 & 0.615 & 0.796 & +0.181 & 0.68 & 0.27 & 0.105 &  \\
+missForest & C & mcar & f10\_loud\_r50 & 0.775 & 0.908 & +0.133 & 0.52 & 0.29 & 0.349 &  \\
+missForest & C & mcar & f10\_weak\_r30 & 0.644 & 0.731 & +0.087 & 0.64 & 0.07 & 0.191 &  \\
+missForest & C & mcar & f10\_weak\_r50 & 0.730 & 0.910 & +0.180 & 0.20 & 0.24 & 0.362 &  \\
+missForest & C & mcar & f5\_loud\_r30 & 0.617 & 0.637 & +0.021 & 0.78 & 0.34 & 0.161 &  \\
+missForest & C & mcar & f5\_loud\_r50 & 0.741 & 0.890 & +0.149 & 0.92 & 0.42 & 0.335 &  \\
+missForest & C & mcar & f5\_weak\_r30 & 0.603 & 0.700 & +0.097 & 0.81 & 0.48 & 0.171 &  \\
+missForest & C & mcar & f5\_weak\_r50 & 0.740 & 0.836 & +0.096 & 0.85 & 0.55 & 0.401 & yes \\
+missForest & C & popularity & f10\_loud\_r30 & 0.615 & 0.774 & +0.159 & 0.57 & 0.33 & 0.220 &  \\
+missForest & C & popularity & f10\_loud\_r50 & 0.775 & 0.839 & +0.064 & 0.42 & 0.16 & 0.411 & yes \\
+missForest & C & popularity & f10\_weak\_r30 & 0.644 & 0.723 & +0.080 & 0.58 & 0.06 & 0.248 &  \\
+missForest & C & popularity & f10\_weak\_r50 & 0.730 & 0.856 & +0.126 & 0.80 & 0.50 & 0.450 & yes \\
+missForest & C & popularity & f5\_loud\_r30 & 0.617 & 0.443 & -0.174 & 0.69 & 0.46 & 0.187 &  \\
+missForest & C & popularity & f5\_loud\_r50 & 0.741 & 0.835 & +0.094 & 0.96 & 0.40 & 0.409 & yes \\
+missForest & C & popularity & f5\_weak\_r30 & 0.603 & 0.561 & -0.042 & 0.79 & 0.34 & 0.221 &  \\
+missForest & C & popularity & f5\_weak\_r50 & 0.740 & 0.806 & +0.066 & 0.91 & 0.47 & 0.496 & yes \\
+missForest & S & cell & f10\_loud\_r30 & 0.593 & 0.816 & +0.223 & 0.24 & 0.12 & 0.099 &  \\
+missForest & S & cell & f10\_loud\_r50 & 0.746 & 0.946 & +0.199 & 0.39 & 0.27 & 0.271 &  \\
+missForest & S & cell & f10\_weak\_r30 & 0.582 & 0.934 & +0.351 & 0.18 & 0.05 & 0.118 &  \\
+missForest & S & cell & f10\_weak\_r50 & 0.707 & 0.891 & +0.184 & 0.45 & 0.07 & 0.399 &  \\
+missForest & S & cell & f5\_loud\_r30 & 0.606 & 0.824 & +0.218 & 0.54 & 0.26 & 0.065 &  \\
+missForest & S & cell & f5\_loud\_r50 & 0.775 & 0.930 & +0.155 & 0.45 & 0.23 & 0.335 &  \\
+missForest & S & cell & f5\_weak\_r30 & 0.637 & 0.842 & +0.205 & 0.33 & 0.20 & 0.126 &  \\
+missForest & S & cell & f5\_weak\_r50 & 0.693 & 0.871 & +0.178 & 0.61 & 0.43 & 0.325 &  \\
+missForest & S & mcar & f10\_loud\_r30 & 0.593 & 0.769 & +0.176 & 0.49 & 0.40 & 0.133 &  \\
+missForest & S & mcar & f10\_loud\_r50 & 0.746 & 0.863 & +0.117 & 0.58 & 0.36 & 0.345 &  \\
+missForest & S & mcar & f10\_weak\_r30 & 0.582 & 0.780 & +0.198 & 0.39 & 0.12 & 0.168 &  \\
+missForest & S & mcar & f10\_weak\_r50 & 0.707 & 0.886 & +0.179 & 0.81 & 0.17 & 0.424 & yes \\
+missForest & S & mcar & f5\_loud\_r30 & 0.606 & 0.701 & +0.095 & 0.39 & 0.32 & 0.147 &  \\
+missForest & S & mcar & f5\_loud\_r50 & 0.775 & 0.905 & +0.130 & 0.36 & 0.32 & 0.361 &  \\
+missForest & S & mcar & f5\_weak\_r30 & 0.637 & 0.760 & +0.123 & 0.65 & 0.17 & 0.158 &  \\
+missForest & S & mcar & f5\_weak\_r50 & 0.693 & 0.846 & +0.154 & 0.61 & 0.41 & 0.374 &  \\
+missForest & S & popularity & f10\_loud\_r30 & 0.593 & 0.751 & +0.157 & 0.45 & 0.36 & 0.175 &  \\
+missForest & S & popularity & f10\_loud\_r50 & 0.746 & 0.864 & +0.118 & 0.59 & 0.34 & 0.389 &  \\
+missForest & S & popularity & f10\_weak\_r30 & 0.582 & 0.735 & +0.152 & 0.57 & 0.14 & 0.229 &  \\
+missForest & S & popularity & f10\_weak\_r50 & 0.707 & 0.848 & +0.142 & 0.68 & 0.36 & 0.456 & yes \\
+missForest & S & popularity & f5\_loud\_r30 & 0.606 & 0.618 & +0.012 & 0.59 & 0.02 & 0.220 &  \\
+missForest & S & popularity & f5\_loud\_r50 & 0.775 & 0.862 & +0.087 & 0.68 & 0.42 & 0.448 & yes \\
+missForest & S & popularity & f5\_weak\_r30 & 0.637 & 0.725 & +0.087 & 0.51 & 0.06 & 0.230 &  \\
+missForest & S & popularity & f5\_weak\_r50 & 0.693 & 0.804 & +0.111 & 0.49 & 0.55 & 0.415 & yes \\
+SoftImpute & C & cell & f10\_loud\_r30 & 0.615 & 0.628 & +0.013 & 0.86 & 0.24 & 0.179 &  \\
+SoftImpute & C & cell & f10\_loud\_r50 & 0.775 & 0.685 & -0.090 & 0.61 & 0.11 & 0.315 &  \\
+SoftImpute & C & cell & f10\_weak\_r30 & 0.644 & 0.635 & -0.009 & 0.75 & 0.04 & 0.220 &  \\
+SoftImpute & C & cell & f10\_weak\_r50 & 0.730 & 0.685 & -0.045 & 0.55 & 0.13 & 0.277 &  \\
+SoftImpute & C & cell & f5\_loud\_r30 & 0.617 & 0.543 & -0.074 & 0.89 & 0.13 & 0.208 &  \\
+SoftImpute & C & cell & f5\_loud\_r50 & 0.741 & 0.703 & -0.039 & 0.65 & 0.35 & 0.322 &  \\
+SoftImpute & C & cell & f5\_weak\_r30 & 0.603 & 0.631 & +0.028 & 0.55 & 0.38 & 0.192 &  \\
+SoftImpute & C & cell & f5\_weak\_r50 & 0.740 & 0.718 & -0.022 & 0.82 & 0.63 & 0.402 & yes \\
+SoftImpute & C & mcar & f10\_loud\_r30 & 0.615 & 0.549 & -0.066 & 0.45 & 0.26 & 0.160 &  \\
+SoftImpute & C & mcar & f10\_loud\_r50 & 0.775 & 0.635 & -0.140 & 0.67 & 0.22 & 0.371 &  \\
+SoftImpute & C & mcar & f10\_weak\_r30 & 0.644 & 0.546 & -0.097 & 0.86 & 0.15 & 0.284 &  \\
+SoftImpute & C & mcar & f10\_weak\_r50 & 0.730 & 0.631 & -0.099 & 0.59 & 0.39 & 0.297 &  \\
+SoftImpute & C & mcar & f5\_loud\_r30 & 0.617 & 0.348 & -0.269 & 0.80 & 0.10 & 0.183 &  \\
+SoftImpute & C & mcar & f5\_loud\_r50 & 0.741 & 0.628 & -0.113 & 0.40 & 0.37 & 0.249 &  \\
+SoftImpute & C & mcar & f5\_weak\_r30 & 0.603 & 0.473 & -0.130 & 0.88 & 0.30 & 0.276 &  \\
+SoftImpute & C & mcar & f5\_weak\_r50 & 0.740 & 0.702 & -0.038 & 0.84 & 0.60 & 0.449 & yes \\
+SoftImpute & C & popularity & f10\_loud\_r30 & 0.615 & 0.382 & -0.233 & 0.62 & 0.36 & 0.139 &  \\
+SoftImpute & C & popularity & f10\_loud\_r50 & 0.775 & 0.567 & -0.208 & 0.51 & 0.39 & 0.270 &  \\
+SoftImpute & C & popularity & f10\_weak\_r30 & 0.644 & 0.445 & -0.199 & 0.23 & 0.39 & 0.130 &  \\
+SoftImpute & C & popularity & f10\_weak\_r50 & 0.730 & 0.615 & -0.115 & 0.35 & 0.37 & 0.290 &  \\
+SoftImpute & C & popularity & f5\_loud\_r30 & 0.617 & 0.164 & -0.453 & 0.82 & 0.49 & 0.161 &  \\
+SoftImpute & C & popularity & f5\_loud\_r50 & 0.741 & 0.531 & -0.210 & 0.92 & 0.13 & 0.359 &  \\
+SoftImpute & C & popularity & f5\_weak\_r30 & 0.603 & 0.238 & -0.365 & 0.81 & 0.19 & 0.200 &  \\
+SoftImpute & C & popularity & f5\_weak\_r50 & 0.740 & 0.625 & -0.115 & 0.49 & 0.56 & 0.318 &  \\
+SoftImpute & S & cell & f10\_loud\_r30 & 0.593 & 0.544 & -0.049 & 0.56 & 0.21 & 0.160 &  \\
+SoftImpute & S & cell & f10\_loud\_r50 & 0.746 & 0.698 & -0.049 & 0.39 & 0.40 & 0.277 &  \\
+SoftImpute & S & cell & f10\_weak\_r30 & 0.582 & 0.665 & +0.083 & 0.79 & 0.15 & 0.193 &  \\
+SoftImpute & S & cell & f10\_weak\_r50 & 0.707 & 0.720 & +0.013 & 0.21 & 0.05 & 0.264 &  \\
+SoftImpute & S & cell & f5\_loud\_r30 & 0.606 & 0.557 & -0.049 & 0.77 & 0.12 & 0.170 &  \\
+SoftImpute & S & cell & f5\_loud\_r50 & 0.775 & 0.657 & -0.118 & 0.49 & 0.20 & 0.253 &  \\
+SoftImpute & S & cell & f5\_weak\_r30 & 0.637 & 0.555 & -0.082 & 0.60 & 0.27 & 0.167 &  \\
+SoftImpute & S & cell & f5\_weak\_r50 & 0.693 & 0.737 & +0.044 & 0.32 & 0.57 & 0.255 &  \\
+SoftImpute & S & mcar & f10\_loud\_r30 & 0.593 & 0.494 & -0.100 & 0.62 & 0.30 & 0.213 &  \\
+SoftImpute & S & mcar & f10\_loud\_r50 & 0.746 & 0.651 & -0.095 & 0.42 & 0.38 & 0.302 &  \\
+SoftImpute & S & mcar & f10\_weak\_r30 & 0.582 & 0.535 & -0.047 & 0.55 & 0.10 & 0.250 &  \\
+SoftImpute & S & mcar & f10\_weak\_r50 & 0.707 & 0.629 & -0.078 & 0.57 & 0.21 & 0.309 &  \\
+SoftImpute & S & mcar & f5\_loud\_r30 & 0.606 & 0.463 & -0.143 & 0.84 & 0.55 & 0.249 &  \\
+SoftImpute & S & mcar & f5\_loud\_r50 & 0.775 & 0.666 & -0.109 & 0.47 & 0.28 & 0.358 &  \\
+SoftImpute & S & mcar & f5\_weak\_r30 & 0.637 & 0.489 & -0.148 & 0.68 & 0.25 & 0.259 &  \\
+SoftImpute & S & mcar & f5\_weak\_r50 & 0.693 & 0.670 & -0.022 & 0.57 & 0.58 & 0.382 &  \\
+SoftImpute & S & popularity & f10\_loud\_r30 & 0.593 & 0.175 & -0.418 & 0.71 & 0.29 & 0.166 &  \\
+SoftImpute & S & popularity & f10\_loud\_r50 & 0.746 & 0.485 & -0.262 & 0.64 & 0.32 & 0.252 &  \\
+SoftImpute & S & popularity & f10\_weak\_r30 & 0.582 & 0.349 & -0.233 & 0.69 & 0.29 & 0.194 &  \\
+SoftImpute & S & popularity & f10\_weak\_r50 & 0.707 & 0.627 & -0.080 & 0.30 & 0.09 & 0.280 &  \\
+SoftImpute & S & popularity & f5\_loud\_r30 & 0.606 & 0.526 & -0.080 & 0.38 & 0.70 & 0.196 &  \\
+SoftImpute & S & popularity & f5\_loud\_r50 & 0.775 & 0.472 & -0.303 & 0.59 & 0.18 & 0.245 &  \\
+SoftImpute & S & popularity & f5\_weak\_r30 & 0.637 & 0.368 & -0.269 & 0.67 & 0.03 & 0.187 &  \\
+SoftImpute & S & popularity & f5\_weak\_r50 & 0.693 & 0.573 & -0.119 & 0.25 & 0.65 & 0.226 &  \\
+\end{longtable}}
+```

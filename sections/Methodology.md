@@ -83,7 +83,7 @@ To perform our dimension reduction, we use exploratory factor analysis (EFA) wit
 
 
 **Definition 3**. Let $T$ be a matrix of test scores that can be decomposed into independent additive components due to a **general factor** (g), **specific factors** (s)[^3], and **error** ($\epsilon$). Then $\omega_h$ is the estimand
-$$\omega_h = \frac{\sigma^2_{\mathrm{g}}}{\sigma_T^2}, \qquad \sigma_T^2 = \sigma^2_{\mathrm{g}} + \sigma^2_{\mathrm{s}} + \sigma^2_{\epsilon}.$$
+$$\omega_h = \frac{\sigma^2_{\textcolor{red}{G}}}{\sigma_T^2}, \qquad \sigma_T^2 = \sigma^2_{\textcolor{red}{G}} + \sigma^2_{\mathrm{s}} + \sigma^2_{\epsilon}.$$
 
 \textcolor{red}{In practice, with $\lambda_{g,j}$ the loading of benchmark $j$ on $G$, $h_j^2$ its communality and $R$ the benchmark correlation matrix, we compute}
 $$\color{red}\omega_h = \frac{(\sum_j \lambda_{g,j})^2}{\mathbf{1}^\top R\,\mathbf{1}}, \qquad \mathrm{ECV} = \frac{\sum_j \lambda_{g,j}^2}{\sum_j h_j^2}$$

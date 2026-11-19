@@ -22,4 +22,4 @@ missForest \citep{stekhoven2012} & Iterative random-forest imputation, nonparame
 \end{longtable}
 ```
 
-There were other methods that we used to impute the data, particularly those that worked with the correlation matrix instead of the full dataset. However, we omit them as we fail to obtain a result that pass the $wR^2$ gate.
+There were other methods that we used to impute the data, particularly those that worked with the correlation matrix instead of the full dataset. However, we omit them as we fail to obtain a result that pass the $wR^2$ \textcolor{red}{quality filter}.
