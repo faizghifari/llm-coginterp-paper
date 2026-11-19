@@ -2,9 +2,7 @@
 
 ## Variance explained by $G$
 
-Only 6 of the 18 dataset-imputer combinations yield a weighted $R^2$ above the 0.4 threshold (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}).
-
-`\hyperref[tab:point-summaries]{Table~\ref*{tab:point-summaries}}`{=latex} below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, the share of variance in the summed score over all benchmarks that is due to the general factor. Across the six solutions, $\omega_h$ ranges from 0.04 to 0.76 and ECV from 0.11 to 0.52.
+Only 6 of the 18 dataset-imputer combinations yield a weighted $R^2$ above the 0.4 threshold (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}), which are subsequently subject to factor analysis. `\hyperref[tab:point-summaries]{Table~\ref*{tab:point-summaries}}`{=latex} below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, the share of variance in the summed score over all benchmarks that is due to the general factor. Across the six solutions, $\omega_h$ ranges from 0.04 to 0.76 and ECV from 0.11 to 0.52.
 
 The range of $\omega_h$ is wide. The best-performing imputer, SoftImpute on C Std., yielded a $G$ factor that accounts for 36.7\% of the summed-score variance. Newer models score higher on the $G$ factor (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). Leaving out single benchmarks shows that the change in $\omega_h$ is only weakly related to how often a benchmark is observed (mean $|r| = 0.241$, `\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
 
