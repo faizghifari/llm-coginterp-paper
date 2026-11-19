@@ -1,8 +1,8 @@
 # Imputation evaluation
 
-## The density ladder
+## Sequential imputation
 
-Imputation descends a ladder of target densities from 50% down to 10%. The densest slice is imputed directly from its observations. Each sparser step trains on the union of its slice's observed cells and the previous step's completed matrix, with observed cells taking precedence. Because the densification peel only drops whole rows and columns, the observation sets nest exactly down the ladder.
+Imputation descends a ladder of target densities from 50% down to 10%. The densest slice is imputed directly from its observations. Each sparser step trains on the union of its slice's observed cells and the previous step's completed matrix, with observed cells taking precedence. Because the densification is deterministic until it reaches the target, higher-density (smaller subset) slices are guaranteed to be fully nested by a lower-density (bigger subset) slice.
 
 ## Per-step protocol
 
@@ -25,7 +25,3 @@ The reported evaluation metric is the weighted $R^2$. Let $R^2_d$ be the held-ou
 $$\mathrm{wr2} = \frac{\sum_d c_d R^2_d}{\sum_d c_d}$$
 
 Because each benchmark is introduced at exactly one step and graded only there, $\mathrm{wr2}$ is the exact benchmark-balanced mean held-out $R^2$ of the final matrix, decomposed by introduction step. Factor analysis proceeds only on imputations whose $\mathrm{wr2} \geq 0.4$.
-
-## Correlation-level imputers
-
-Since correlation-level imputers cannot recover individual cells, we held out a fraction of observed cells, then predict each held-out cell from the row's remaining observed cells using the conditional-Gaussian (best linear) predictor $\hat{z}_j = \Theta_{jS}\,\Theta_{SS}^{+}\,z_S$, where $S$ indexes the surviving cells of that row and $\Theta$ is the imputed (or fitted) covariance structure. The best guess for a missing cell is a weighted combination of the row's other cells, with weights fixed by the recovered correlations. \textcolor{red}{These imputers are not listed in \hyperref[imputation-methods]{Appendix~\ref*{imputation-methods}}, since none of them passed the $wR^2$ quality filter.} The per-step mask and column restriction apply to these imputers exactly as above.

@@ -6,12 +6,12 @@ Every method implemented in R shares one interface. It takes the sparse matrix i
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
 \caption{Estimators of the missing dataset entries.}\label{tab:imputation-cell-methods}\\
 \toprule
-Method & Description & Package & Configuration \\
+Method & Description & R Package & Configuration \\
 \midrule
 \endfirsthead
 \caption[]{(continued)}\\
 \toprule
-Method & Description & Package & Configuration \\
+Method & Description & R Package & Configuration \\
 \midrule
 \endhead
 \bottomrule
