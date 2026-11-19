@@ -22,9 +22,9 @@ Source family & Rows & Benchmarks \\
 Stanford HELM & 4,942 & 138 \\
 HF Open LLM Leaderboard & 4,529 & 12 \\
 Papers With Code & 1,378 & 151 \\
-Other online leaderboards & \textcolor{red}{953} & \textcolor{red}{65} \\
+Other online leaderboards & 953 & 65 \\
 Kaggle AI Benchmarks & 844 & 26 \\
-Primary papers & \textcolor{red}{584} & \textcolor{red}{94} \\
+Primary papers & 584 & 94 \\
 \bottomrule
 \end{tabular}
 \end{minipage}\hfill
@@ -37,11 +37,11 @@ Densifier & Strategy & Shape & Density & Retained \\
 \midrule
 raw & Std. & 1,266 $\times$ 404 & 2.2\% & \\
 raw & Aggr. & 334 $\times$ 380 & 3.5\% & \\
-C & Std. & \textcolor{red}{670} $\times$ 78 & 13.8\% & 65\% \\
-C & Aggr. & 201 $\times$ 102 & 13.6\% & \textcolor{red}{62\%} \\
-S & Std. & \textcolor{red}{667} $\times$ 124 & 10.0\% & 75\% \\
-S & Aggr. & \textcolor{red}{123} $\times$ 293 & \textcolor{red}{10.1\%} & 81\% \\
-R & Std. & \textcolor{red}{174} $\times$ 298 & 11.8\% & 55\% \\
+C & Std. & 670 $\times$ 78 & 13.8\% & 65\% \\
+C & Aggr. & 201 $\times$ 102 & 13.6\% & 62\% \\
+S & Std. & 667 $\times$ 124 & 10.0\% & 75\% \\
+S & Aggr. & 123 $\times$ 293 & 10.1\% & 81\% \\
+R & Std. & 174 $\times$ 298 & 11.8\% & 55\% \\
 R & Aggr. & 97 $\times$ 310 & 11.7\% & 78\% \\
 \bottomrule
 \end{tabular}
@@ -64,12 +64,12 @@ We also handle redundancy at two levels. Redundant duplicate rows are removed (`
 **Deduplication.** Rows surviving duplicate removal for the same (model, benchmark) pair are averaged into a single score. To keep near-duplicate results from the same models under different conditions (e.g. reasoning effort) from breaking the IID assumption, and to further densify the data, we average rows under two collapse strategies. The **standard** strategy is variant-level. It keeps different version numbers and parameter counts, while collapsing reasoning effort, knowledge cutoff, etc. The **aggressive** strategy is family-level. Every model is collapsed to its base family token (Claude, Llama, etc.), so all sizes and generations of a family form one row.
 
 
-**Metric selection.** 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we keep one metric covering the most distinct models, so the widest comparable population survives. A per-benchmark override list handles cases where coverage alone chooses badly. Finally, benchmarks observed for only one model are dropped. \textcolor{red}{We sign-flip benchmarks whose selected metric is lower-is-better (e.g. error rates) so that a higher score is consistently better.}
+**Metric selection.** 92 of our collected benchmarks were reported under several metrics. As different metrics are not comparable, we keep one metric covering the most distinct models, so the widest comparable population survives. A per-benchmark override list handles cases where coverage alone chooses badly. Finally, benchmarks observed for only one model are dropped. We sign-flip benchmarks whose selected metric is lower-is-better (e.g. error rates) so that a higher score is consistently better.
 
 **Densification.** We further improve the data density by greedily peeling the matrix towards a common target density. We feature three densifiers, differing by the axis they sacrifice: **C (column-primary)** drops the least-observed benchmarks, then any model left empty, retaining famous benchmarks with wide model coverage. **R (row-primary)** drops the least-observed models, then any benchmark left empty, retaining a broad benchmark set over a small set of heavily-evaluated models, which leaves fewer models than benchmarks. **S (symmetric)** drops whichever marginal has the lowest fill-rate, privileging neither axis. After peeling, models and benchmarks that have fewer than 3 observed scores are dropped. Columns with zero variance among observed values are also dropped, since they carry no correlational signal. The algorithm is given in `\hyperref[densification-algorithm]{Appendix~\ref*{densification-algorithm}}`{=latex}. To aid sequential imputation (below), we run the peel towards a ladder of target densities from 50% down to 10%, so that the final, sparsest slice still includes as many different benchmarks as possible.
 
 
-**Imputation.** We applied missing data imputation algorithms\textcolor{red}{:} SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}. Method-level descriptions and implementation details for all of the above are given in `\hyperref[imputation-methods]{Appendix~\ref*{imputation-methods}}`{=latex}. Each imputer runs down a density ladder of 50\%, 40\%, \dots, 10\%: it is seeded by the densification algorithm at the densest slice (`\hyperref[densification-algorithm]{Appendix~\ref*{densification-algorithm}}`{=latex}), and each sparser slice is imputed on the union of its own observations and the previous slice's completed matrix, with observed cells taking precedence. \textcolor{red}{Out method of imputing the denser part of a matrix first and using it to fill the sparser part has precedent in least-squares \citep{zhang2008} and denoising-autoencoder \citep{ma2020} imputations.}
+**Imputation.** We applied missing data imputation algorithms: SoftImpute \citep{mazumder2010}, k-NN, and missForest \citep{stekhoven2012}. Method-level descriptions and implementation details for all of the above are given in `\hyperref[imputation-methods]{Appendix~\ref*{imputation-methods}}`{=latex}. Each imputer runs down a density ladder of 50\%, 40\%, \dots, 10\%: it is seeded by the densification algorithm at the densest slice (`\hyperref[densification-algorithm]{Appendix~\ref*{densification-algorithm}}`{=latex}), and each sparser slice is imputed on the union of its own observations and the previous slice's completed matrix, with observed cells taking precedence. Out method of imputing the denser part of a matrix first and using it to fill the sparser part has precedent in least-squares \citep{zhang2008} and denoising-autoencoder \citep{ma2020} imputations.
 
 **Evaluating the imputations.** At each step of the chain, we mask ~20% of the observed cells as an evaluation set. The mask is column-stratified, so each benchmark is masked at least once and keeps at least two training observations. Held-out cells are drawn only from benchmarks that the step introduces (absent from all denser slices), so each benchmark is graded exactly once across the chain, and are scored by $R^2 = 1 - \text{MSE}/\text{MSE}_{\text{baseline}}$, where the baseline predicts each column's training mean (`\hyperref[imputation-evaluation]{Appendix~\ref*{imputation-evaluation}}`{=latex}). $R^2$ selects the hyperparameters within each method (rank, $k$, number of trees, etc.). We report the weighted $R^2$ ($\mathrm{wr2}$): the introduced-benchmark-weighted mean of the per-step held-out $R^2$, i.e. the exact benchmark-balanced mean held-out $R^2$ of the final matrix; imputations whose $\mathrm{wR^2}$ falls below 0.4 are considered unreliable and not included in factor analysis.
 
@@ -79,15 +79,15 @@ We also handle redundancy at two levels. Redundant duplicate rows are removed (`
 To perform our dimension reduction, we use exploratory factor analysis (EFA) with the minimum residual estimator and the oblique promax rotation[^2], followed by the Schmid-Leiman bifactor transformation \citep{schmidleiman1957}. This runs factor analysis hierarchically, yielding one additional factor that influences the rest of the extracted factors, and is widely used in psychometric research on the $G$ factor of intelligence \citep{johnson2004,johnson2008}. The hierarchical step makes it a more principled choice than interpreting the highest-eigenvalue solution (e.g., \citealp{krakauer2026}) as the $G$ factor.
 
 
-\textcolor{red}{From the bifactor solution we report two statistics for the $G$ factor. The first, $\omega_h$, is the share of variance in the summed score over all benchmarks that is due to $G$. The second, the explained common variance (ECV), is the share of the common variance, excluding error, that is due to $G$ \citep{reise2010}.}
+From the bifactor solution we report two statistics for the $G$ factor. The first, $\omega_h$, is the share of variance in the summed score over all benchmarks that is due to $G$. The second, the explained common variance (ECV), is the share of the common variance, excluding error, that is due to $G$ \citep{reise2010}.
 
 
 **Definition 3**. Let $T$ be a matrix of test scores that can be decomposed into independent additive components due to a **general factor** (g), **specific factors** (s)[^3], and **error** ($\epsilon$). Then $\omega_h$ is the estimand
-$$\omega_h = \frac{\sigma^2_{\textcolor{red}{G}}}{\sigma_T^2}, \qquad \sigma_T^2 = \sigma^2_{\textcolor{red}{G}} + \sigma^2_{\mathrm{s}} + \sigma^2_{\epsilon}.$$
+$$\omega_h = \frac{\sigma^2_{G}}{\sigma_T^2}, \qquad \sigma_T^2 = \sigma^2_{G} + \sigma^2_{\mathrm{s}} + \sigma^2_{\epsilon}.$$
 
-\textcolor{red}{In practice, with $\lambda_{g,j}$ the loading of benchmark $j$ on $G$, $h_j^2$ its communality and $R$ the benchmark correlation matrix, we compute}
-$$\color{red}\omega_h = \frac{(\sum_j \lambda_{g,j})^2}{\mathbf{1}^\top R\,\mathbf{1}}, \qquad \mathrm{ECV} = \frac{\sum_j \lambda_{g,j}^2}{\sum_j h_j^2}$$
-\textcolor{red}{with \texttt{psych::omega} \citep{revelle2009,revelle2024}. $\omega_h$ describes the summed score, not any single benchmark: the share of one benchmark's variance due to $G$ is $\lambda_{g,j}^2$, which can be much lower.}
+In practice, with $\lambda_{g,j}$ the loading of benchmark $j$ on $G$, $h_j^2$ its communality and $R$ the benchmark correlation matrix, we compute
+$$\omega_h = \frac{(\sum_j \lambda_{g,j})^2}{\mathbf{1}^\top R\,\mathbf{1}}, \qquad \mathrm{ECV} = \frac{\sum_j \lambda_{g,j}^2}{\sum_j h_j^2}$$
+with \texttt{psych::omega} \citep{revelle2009,revelle2024}. $\omega_h$ describes the summed score, not any single benchmark: the share of one benchmark's variance due to $G$ is $\lambda_{g,j}^2$, which can be much lower.
 
 [^2]: Rotation gives an interpretable "simple structure". Oblique rotations allow the factors to correlate, while default eigendecomposition yields orthogonal solutions.
 [^3]: Usually called "group factors". We avoid the term to prevent confusion with observation grouping.

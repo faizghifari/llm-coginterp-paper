@@ -4,7 +4,7 @@ Held-out evaluation measures recovery of the masked cells, but the analysis ulti
 
 ## Synthetic data generation
 
-Two real dataset tables, C (\textcolor{red}{670} $\times$ 78) and S (\textcolor{red}{667} $\times$ 124), supply the observation margins: expected per-row and per-column observation counts are calibrated to the real tables' counts, so the synthetic data reproduce the sparsity profile of the corpus under study.
+Two real dataset tables, C (670 $\times$ 78) and S (667 $\times$ 124), supply the observation margins: expected per-row and per-column observation counts are calibrated to the real tables' counts, so the synthetic data reproduce the sparsity profile of the corpus under study.
 
 For each table we simulate from a hybrid model: a dense cross-loading background plus suite clusters. Benchmark $j$'s score for model $i$ is
 
@@ -41,7 +41,7 @@ Each generated dataset directory is a drop-in data root containing only the C an
 Two levels of scoring follow:
 
 - **Cell level.** Each step's completions are scored against the simulation's complete matrix on the introduced columns' missing cells, column-balanced; the step's planted-truth $R^2$ replaces the held-out $R^2$, and the weighted $R^2$ is the introduced-column-weighted mean of those values — based on the simulated complete matrix rather than held-out cells.
-- **Factor level.** The exact factor-analysis recipe (parallel analysis factor count, minimum-residual/promax EFA, Schmid–Leiman transformation) runs on each completed matrix. A **fullset** arm runs the identical recipe on the complete, unmasked simulated matrix, which separates estimator bias from missingness damage. No \textcolor{red}{quality filter} is applied at factoring time; the \textcolor{red}{filter} is applied at scoring so that its effect can be reported.
+- **Factor level.** The exact factor-analysis recipe (parallel analysis factor count, minimum-residual/promax EFA, Schmid–Leiman transformation) runs on each completed matrix. A **fullset** arm runs the identical recipe on the complete, unmasked simulated matrix, which separates estimator bias from missingness damage. No quality filter is applied at factoring time; the filter is applied at scoring so that its effect can be reported.
 
 ## Metrics
 
@@ -49,7 +49,7 @@ Let $\omega_{h}^{\text{full}}$ be the fullset arm's general-factor coefficient f
 
 ## Results
 
-\hyperref[tab:synth-factors]{Table~\ref*{tab:synth-factors}} lists the runs that pass the weighted $R^2 \geq 0.4$ \textcolor{red}{quality filter} on the hierarchical end result, sorted by weighted $R^2$.
+\hyperref[tab:synth-factors]{Table~\ref*{tab:synth-factors}} lists the runs that pass the weighted $R^2 \geq 0.4$ quality filter on the hierarchical end result, sorted by weighted $R^2$.
 
 ```{=latex}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}rrrr@{}}
@@ -68,26 +68,26 @@ Method & ds & Mask & Truth cell & $\omega_h^{\text{full}}$ & $\omega_h^{\text{es
 missForest & C\_all\_standard & popularity & f5\_weak\_r50   & 0.7397 & 0.8057 & 0.0660 & 0.4961 \\*
 missForest & S\_all\_standard & popularity & f10\_weak\_r50  & 0.7068 & 0.8484 & 0.1416 & 0.4563 \\*
 missForest & C\_all\_standard & popularity & f10\_weak\_r50  & 0.7302 & 0.8562 & 0.1260 & 0.4499 \\*
-SoftImpute & C\_all\_standard & mcar       & f5\_weak\_r50   & 0.7397 & 0.7017 & \textcolor{red}{$-$0.0380} & 0.4491 \\*
+SoftImpute & C\_all\_standard & mcar       & f5\_weak\_r50   & 0.7397 & 0.7017 & $-$0.0380 & 0.4491 \\*
 missForest & S\_all\_standard & popularity & f5\_loud\_r50   & 0.7750 & 0.8622 & 0.0871 & 0.4477 \\*
 missForest & S\_all\_standard & mcar       & f10\_weak\_r50  & 0.7068 & 0.8862 & 0.1794 & 0.4244 \\*
 missForest & S\_all\_standard & popularity & f5\_weak\_r50   & 0.6925 & 0.8036 & 0.1110 & 0.4145 \\*
 missForest & C\_all\_standard & popularity & f10\_loud\_r50  & 0.7748 & 0.8385 & 0.0637 & 0.4109 \\*
 missForest & C\_all\_standard & popularity & f5\_loud\_r50   & 0.7415 & 0.8353 & 0.0938 & 0.4091 \\*
-SoftImpute & C\_all\_standard & cell       & f5\_weak\_r50   & 0.7397 & 0.7178 & \textcolor{red}{$-$0.0219} & 0.4021 \\*
+SoftImpute & C\_all\_standard & cell       & f5\_weak\_r50   & 0.7397 & 0.7178 & $-$0.0219 & 0.4021 \\*
 missForest & C\_all\_standard & mcar       & f5\_weak\_r50   & 0.7397 & 0.8359 & 0.0962 & 0.4006 \\
 \end{longtable}
 ```
 
-All surviving runs are generated with mean-$r$ $0.5$; no run generated with mean-$r$ $0.3$ passes the \textcolor{red}{quality filter}. missForest accounts for nine of the eleven surviving runs, spanning both tables \textcolor{red}{and two of the three mechanisms (no missForest run passes under the cell mechanism)}; SoftImpute accounts for the remaining two, both on the C table. \textcolor{red}{Estimated $\omega_h$ exceeds the fullset arm's estimate in all nine missForest runs ($\Delta\omega_h$ between $0.064$ and $0.179$) and falls slightly below it in both SoftImpute runs ($-0.022$ and $-0.038$): under missingness, missForest overestimates the general-factor share relative to the full-data reference, while SoftImpute slightly underestimates it.} The largest bias occurs for missForest on the `f10_weak` cells ($0.142$ and $0.179$ under the popularity and mcar mechanisms respectively), while SoftImpute shows the smallest ($0.022$--$0.038$).
+All surviving runs are generated with mean-$r$ $0.5$; no run generated with mean-$r$ $0.3$ passes the quality filter. missForest accounts for nine of the eleven surviving runs, spanning both tables and two of the three mechanisms (no missForest run passes under the cell mechanism); SoftImpute accounts for the remaining two, both on the C table. Estimated $\omega_h$ exceeds the fullset arm's estimate in all nine missForest runs ($\Delta\omega_h$ between $0.064$ and $0.179$) and falls slightly below it in both SoftImpute runs ($-0.022$ and $-0.038$): under missingness, missForest overestimates the general-factor share relative to the full-data reference, while SoftImpute slightly underestimates it. The largest bias occurs for missForest on the `f10_weak` cells ($0.142$ and $0.179$ under the popularity and mcar mechanisms respectively), while SoftImpute shows the smallest ($0.022$--$0.038$).
 
-## \textcolor{red}{All runs and structural recovery} {#synth-all-runs-section}
+## All runs and structural recovery {#synth-all-runs-section}
 
-\textcolor{red}{The table above shows only the runs that pass the quality filter. To show what the filter selects, \hyperref[tab:synth-summary]{Table~\ref*{tab:synth-summary}} summarises all 96 runs (2 methods $\times$ 2 tables $\times$ 8 truth cells $\times$ 3 mechanisms), and \hyperref[tab:synth-all-runs]{Table~\ref*{tab:synth-all-runs}} lists each run. One mask seed is used per condition, so the spread reported here is across conditions, not across repetitions. Besides $\omega_h$, we score two structural quantities: the adjusted Rand index (ARI) between the estimated group-factor clusters and the planted suite clusters, and the absolute correlation $|r_G|$ between the estimated general-factor loadings and those of the fullset arm.}
+The table above shows only the runs that pass the quality filter. To show what the filter selects, \hyperref[tab:synth-summary]{Table~\ref*{tab:synth-summary}} summarises all 96 runs (2 methods $\times$ 2 tables $\times$ 8 truth cells $\times$ 3 mechanisms), and \hyperref[tab:synth-all-runs]{Table~\ref*{tab:synth-all-runs}} lists each run. One mask seed is used per condition, so the spread reported here is across conditions, not across repetitions. Besides $\omega_h$, we score two structural quantities: the adjusted Rand index (ARI) between the estimated group-factor clusters and the planted suite clusters, and the absolute correlation $|r_G|$ between the estimated general-factor loadings and those of the fullset arm.
 
 ```{=latex}
-\begin{longtable}{@{}>{\color{red}}l>{\color{red}}l>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r@{}}
-\caption{\textcolor{red}{All 96 simulation runs summarised by method and missingness mechanism, split by whether the run passes the weighted $R^2 \geq 0.4$ quality filter. $|\Delta\omega_h|$ = mean absolute difference from the fullset $\omega_h$; ARI = adjusted Rand index between estimated and planted suite clusters; $|r_G|$ = absolute correlation between estimated and fullset general-factor loadings. Each cell is 16 runs (8 truth cells $\times$ 2 tables), one seed each.}}\label{tab:synth-summary}\\
+\begin{longtable}{@{}llrrrrrrr@{}}
+\caption{All 96 simulation runs summarised by method and missingness mechanism, split by whether the run passes the weighted $R^2 \geq 0.4$ quality filter. $|\Delta\omega_h|$ = mean absolute difference from the fullset $\omega_h$; ARI = adjusted Rand index between estimated and planted suite clusters; $|r_G|$ = absolute correlation between estimated and fullset general-factor loadings. Each cell is 16 runs (8 truth cells $\times$ 2 tables), one seed each.}\label{tab:synth-summary}\\
 \toprule
 Method & Mask & Pass & $|\Delta\omega_h|$ pass & $|\Delta\omega_h|$ fail & ARI pass & ARI fail & $|r_G|$ pass & $|r_G|$ fail \\
 \midrule
@@ -103,12 +103,12 @@ SoftImpute & popularity & 0/16 & -- & 0.23 & -- & 0.56 & -- & 0.34 \\
 \end{longtable}
 ```
 
-\textcolor{red}{Passing runs recover the planted suite clusters better than failing runs: mean ARI is 0.73 for missForest and 0.83 for SoftImpute in passing runs, against 0.52 to 0.62 in failing runs. General-factor loadings are recovered only partly ($|r_G|$ 0.40 for missForest and 0.61 for SoftImpute in passing runs, 0.22 to 0.34 in failing runs), in part because the fullset general-factor loadings vary little across benchmarks in this simulation. The quality filter does not reduce the missForest $\omega_h$ bias within a mechanism: missForest overestimates $\omega_h$ in every passing run. SoftImpute passing runs have a small $\omega_h$ error, but SoftImpute never passes on the S table or under the popularity mechanism, so the simulation does not directly validate the SoftImpute solution on the real S table. For these reasons we do not interpret any single real-data $\omega_h$ value as the strength of the general factor.}
+Passing runs recover the planted suite clusters better than failing runs: mean ARI is 0.73 for missForest and 0.83 for SoftImpute in passing runs, against 0.52 to 0.62 in failing runs. General-factor loadings are recovered only partly ($|r_G|$ 0.40 for missForest and 0.61 for SoftImpute in passing runs, 0.22 to 0.34 in failing runs), in part because the fullset general-factor loadings vary little across benchmarks in this simulation. The quality filter does not reduce the missForest $\omega_h$ bias within a mechanism: missForest overestimates $\omega_h$ in every passing run. SoftImpute passing runs have a small $\omega_h$ error, but SoftImpute never passes on the S table or under the popularity mechanism, so the simulation does not directly validate the SoftImpute solution on the real S table. For these reasons we do not interpret any single real-data $\omega_h$ value as the strength of the general factor.
 
 ```{=latex}
 {\footnotesize\setlength{\tabcolsep}{3.5pt}
-\begin{longtable}{@{}>{\color{red}}l>{\color{red}}l>{\color{red}}l>{\color{red}}l>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}r>{\color{red}}c@{}}
-\caption{\textcolor{red}{Every simulation run. $\Delta\omega_h$ is signed (estimate minus fullset). Pass = weighted $R^2 \geq 0.4$.}}\label{tab:synth-all-runs}\\
+\begin{longtable}{@{}llllrrrrrrc@{}}
+\caption{Every simulation run. $\Delta\omega_h$ is signed (estimate minus fullset). Pass = weighted $R^2 \geq 0.4$.}\label{tab:synth-all-runs}\\
 \toprule
 Method & Table & Mask & Truth cell & $\omega_h^{\text{full}}$ & $\omega_h^{\text{est}}$ & $\Delta\omega_h$ & ARI & $|r_G|$ & $wR^2$ & Pass \\
 \midrule

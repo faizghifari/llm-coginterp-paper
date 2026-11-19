@@ -2,11 +2,11 @@
 
 ## Variance explained by $G$
 
-Only \textcolor{red}{6 of the 18} dataset-imputer combinations yield \textcolor{red}{a weighted} $R^2$ above the \textcolor{red}{0.4} threshold (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}).
+Only 6 of the 18 dataset-imputer combinations yield a weighted $R^2$ above the 0.4 threshold (`\hyperref[imputation-results]{Appendix~\ref*{imputation-results}}`{=latex}).
 
-`\hyperref[tab:point-summaries]{Table~\ref*{tab:point-summaries}}`{=latex} below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, \textcolor{red}{the share of variance in the summed score over all benchmarks that is due to the general factor}. \textcolor{red}{Across the six solutions, $\omega_h$ ranges from 0.04 to 0.76 and ECV from 0.11 to 0.52.}
+`\hyperref[tab:point-summaries]{Table~\ref*{tab:point-summaries}}`{=latex} below shows the point summaries of the factor analyses. The most important statistic here is the $\omega_h$, the share of variance in the summed score over all benchmarks that is due to the general factor. Across the six solutions, $\omega_h$ ranges from 0.04 to 0.76 and ECV from 0.11 to 0.52.
 
-The range of $\omega_h$ is wide. The best-performing imputer, SoftImpute on \textcolor{red}{C} Std., yielded a $G$ factor that accounts for \textcolor{red}{36.7\%} of the \textcolor{red}{summed-score} variance. \textcolor{red}{Newer models score higher on the $G$ factor} (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). Leaving out single benchmarks shows that the change in $\omega_h$ is only weakly related to how often a benchmark is observed (mean $|r| = \textcolor{red}{0.241}$, `\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
+The range of $\omega_h$ is wide. The best-performing imputer, SoftImpute on C Std., yielded a $G$ factor that accounts for 36.7\% of the summed-score variance. Newer models score higher on the $G$ factor (`\hyperref[release-date-analysis]{Appendix~\ref*{release-date-analysis}}`{=latex}). Leaving out single benchmarks shows that the change in $\omega_h$ is only weakly related to how often a benchmark is observed (mean $|r| = 0.241$, `\hyperref[omega-sensitivity]{Appendix~\ref*{omega-sensitivity}}`{=latex}).
 
 
 ```{=latex}
@@ -57,7 +57,7 @@ Label & Median A & Significant \\
 
 Figure 1 below shows an illustrative UMAP plot of benchmarks using composite distances aggregated from factor loadings, colored based on their subject matter (`\hyperref[benchmark-embedding]{Appendix~\ref*{benchmark-embedding}}`{=latex}). In this plot, benchmarks with a common subject only occasionally cluster together. This is supported by the low cohesion scores in `\hyperref[tab:cohesion-subset]{Table~\ref*{tab:cohesion-subset}}`{=latex}, where `reading_comprehension`, `commonsense`, and `code` show weak cohesion that is significant in at most 4 of 9 cells, while `math` shows no structure distinguishable from chance. Narrow labels such as `finance` are cohesive, but they have very few members (`\hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}}`{=latex}). Across the entire figure, the spaces occupied by each flagged subject matter span across the entire plot. In other words, evidence from benchmark correlations suggest that **capability in one task does not always generalize to another task of the same subject**. A semantically coherent generalization is probable but not guaranteed, which makes domain abilities difficult to isolate from a purely semantic and intuitive standpoint. This phenomenon, where same-domain benchmarks lack a tendency to cluster together, is observed in nearly all of our imputations, which we discuss further in `\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}.
 
-![[umaps_new/0_C_standard_msoftimpute.png| UMAP plot of benchmark distances from \textcolor{red}{C}, SoftImpute ($wR^2 = 0.586$). Domain-similar benchmarks are not guaranteed to cluster together. For results from all our other valid imputations, see `\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}]]
+![[umaps_new/0_C_standard_msoftimpute.png| UMAP plot of benchmark distances from C, SoftImpute ($wR^2 = 0.586$). Domain-similar benchmarks are not guaranteed to cluster together. For results from all our other valid imputations, see `\hyperref[common-subject-distances]{Appendix~\ref*{common-subject-distances}}`{=latex}]]
 
 
 ## Benchmarks' $G$-centrality
@@ -67,7 +67,7 @@ Another point of interest for the research question is which benchmarks act as a
 
 [^4]: We use rank order as factor loadings vary in range, and they are normalized as different datasets have different numbers of benchmarks.
 
-The top benchmarks are not dominated by common standard benchmarks. \textcolor{red}{The top proxies include factual question answering (\texttt{simpleqa}, FACTS), medical exams (\texttt{medqa}), Thai school exams, and bias and safety tests (\texttt{bbq}). Of the common reasoning benchmarks, only \texttt{pwc\_arc\_challenge} (rank 8) reaches the top 10.} To add to this, standard intelligence benchmarks like `mmlu` and `gpqa_diamond` are placed near the middle of the rankings \textcolor{red}{(ranks 46 and 75 of 124; \texttt{gsm} is 58), with \texttt{swe\_bench} and \texttt{hellaswag} further down (ranks 85 and 116)}. \textcolor{red}{The benchmarks that load most on $G$ are therefore not mainly abstract reasoning tasks.} **\textcolor{red}{In this corpus, reasoning, mathematics, and coding benchmarks are not the best proxies of the $G$ factor}**, \textcolor{red}{contrary to a common assumption}.
+The top benchmarks are not dominated by common standard benchmarks. The top proxies include factual question answering (\texttt{simpleqa}, FACTS), medical exams (\texttt{medqa}), Thai school exams, and bias and safety tests (\texttt{bbq}). Of the common reasoning benchmarks, only \texttt{pwc\_arc\_challenge} (rank 8) reaches the top 10. To add to this, standard intelligence benchmarks like `mmlu` and `gpqa_diamond` are placed near the middle of the rankings (ranks 46 and 75 of 124; \texttt{gsm} is 58), with \texttt{swe\_bench} and \texttt{hellaswag} further down (ranks 85 and 116). The benchmarks that load most on $G$ are therefore not mainly abstract reasoning tasks. **In this corpus, reasoning, mathematics, and coding benchmarks are not the best proxies of the $G$ factor**, contrary to a common assumption.
 
 ```{=latex}
 
@@ -94,10 +94,10 @@ No & Benchmark & ${\rho_\epsilon}^{\downarrow}$ & $\rho^{\downarrow}$ & 95\% CI 
 8 & pwc\_arc\_challenge & -0.186 & 0.351 & [0.083, 0.619] & 0.104 & 0.767 & 6 \\
 9 & thai\_exam\_a\_level & -0.175 & 0.354 & [0.020, 0.688] & 0.123 & 0.959 & 6 \\
 10 & bbq & -0.162 & 0.349 & [-0.013, 0.711] & 0.013 & 0.967 & 6 \\
-46 & mmlu & \textcolor{red}{-0.070} & \textcolor{red}{0.367} & \textcolor{red}{[0.027, 0.706]} & \textcolor{red}{0.039} & \textcolor{red}{0.829} & 6 \\
-58 & gsm & \textcolor{red}{-0.040} & \textcolor{red}{0.449} & \textcolor{red}{[0.022, 0.877]} & \textcolor{red}{0.000} & \textcolor{red}{0.935} & 6 \\
-75 & gpqa\_diamond & \textcolor{red}{0.019} & \textcolor{red}{0.548} & \textcolor{red}{[0.353, 0.743]} & \textcolor{red}{0.340} & \textcolor{red}{0.870} & 6 \\
-85 & swe\_bench & \textcolor{red}{0.043} & \textcolor{red}{0.535} & \textcolor{red}{[-0.512, 1.581]} & \textcolor{red}{0.084} & \textcolor{red}{0.919} & 3 \\
-116 & hellaswag & \textcolor{red}{0.162} & \textcolor{red}{0.599} & \textcolor{red}{[0.329, 0.870]} & \textcolor{red}{0.252} & \textcolor{red}{0.961} & 6 \\
+46 & mmlu & -0.070 & 0.367 & [0.027, 0.706] & 0.039 & 0.829 & 6 \\
+58 & gsm & -0.040 & 0.449 & [0.022, 0.877] & 0.000 & 0.935 & 6 \\
+75 & gpqa\_diamond & 0.019 & 0.548 & [0.353, 0.743] & 0.340 & 0.870 & 6 \\
+85 & swe\_bench & 0.043 & 0.535 & [-0.512, 1.581] & 0.084 & 0.919 & 3 \\
+116 & hellaswag & 0.162 & 0.599 & [0.329, 0.870] & 0.252 & 0.961 & 6 \\
 \end{longtable}
 ```

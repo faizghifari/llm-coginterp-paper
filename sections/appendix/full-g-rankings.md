@@ -1,11 +1,11 @@
 # Full $G$-rankings
 
-`\hyperref[tab:full-g-rankings]{Table~\ref*{tab:full-g-rankings}}`{=latex} lists all \textcolor{red}{124} benchmarks used across our analyses, sorted by their rank order as in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main text. The ranking method and its diagnostics are described in `\hyperref[benchmark-g-rankings]{Appendix~\ref*{benchmark-g-rankings}}`{=latex}. <!-- Moved here from the g-rankings appendix 2026-09-26, so the 380-row table sits at the end of the appendix. The intro read: Table 4 below shows benchmarks sorted by their rank order, similar to table 5 in the main content, but now including the entirety of 380 benchmarks useda cross our analyses. -->
+`\hyperref[tab:full-g-rankings]{Table~\ref*{tab:full-g-rankings}}`{=latex} lists all 124 benchmarks used across our analyses, sorted by their rank order as in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main text. The ranking method and its diagnostics are described in `\hyperref[benchmark-g-rankings]{Appendix~\ref*{benchmark-g-rankings}}`{=latex}. <!-- Moved here from the g-rankings appendix 2026-09-26, so the 380-row table sits at the end of the appendix. The intro read: Table 4 below shows benchmarks sorted by their rank order, similar to table 5 in the main content, but now including the entirety of 380 benchmarks useda cross our analyses. -->
 
 ```{=latex}
 \begingroup\normalsize\setlength{\tabcolsep}{3pt}
 \begin{longtable}{@{}r>{\raggedright\arraybackslash}p{0.21\textwidth}rrlrrr>{\raggedright\arraybackslash}p{0.25\textwidth}@{}}
-\caption{All used 124 benchmarks, sorted by their average normalized rank order (ANR) of their \textcolor{red}{$G$} factor loadings, residualized (RANR) against their frequency. The normalized rank order ranges from 0 to 1. 0 = ranked first, 1 = ranked last. $N$ cells = number of EFA solutions with that benchmark. CI and Best/Worst refers to ANR. Leading zeros are omitted. Reference is the paper introducing the benchmark; $^\dagger$ marks benchmarks without one, cited by the source of their scores.}\label{tab:full-g-rankings}\\
+\caption{All used 124 benchmarks, sorted by their average normalized rank order (ANR) of their $G$ factor loadings, residualized (RANR) against their frequency. The normalized rank order ranges from 0 to 1. 0 = ranked first, 1 = ranked last. $N$ cells = number of EFA solutions with that benchmark. CI and Best/Worst refers to ANR. Leading zeros are omitted. Reference is the paper introducing the benchmark; $^\dagger$ marks benchmarks without one, cited by the source of their scores.}\label{tab:full-g-rankings}\\
 \toprule
 No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ & Reference \\
 \midrule

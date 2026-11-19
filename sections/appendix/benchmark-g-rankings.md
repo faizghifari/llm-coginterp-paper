@@ -2,13 +2,13 @@
 
 ## Frequency and $G$-ranking correlations
 
-A pressing concern with regard to our findings on the top \textcolor{red}{$G$} benchmarks in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main content is to what degree a benchmark's \textcolor{red}{$G$} factor loading is correlated with its non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
+A pressing concern with regard to our findings on the top $G$ benchmarks in `\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} of the main content is to what degree a benchmark's $G$ factor loading is correlated with its non-missing frequency. This is important to know, as our datasets can possess higher or lower correlations introduced as artifacts by our imputation methods.
 
-Naively, as shown in `\hyperref[tab:g-rank-freq-corr]{Table~\ref*{tab:g-rank-freq-corr}}`{=latex} below, benchmark frequency *is* correlated with \textcolor{red}{$G$} loadings. Unsigned averages suggest this correlation is modest ($r = 0.2740$), but the correlations are quite dispersed, and some dataset-imputation combinations can be as high as ~0.5. Thus, identifying benchmarks which proxy a supposed latent \textcolor{red}{$G$} factor well requires adjusting the statistics with respect to their frequency.
+Naively, as shown in `\hyperref[tab:g-rank-freq-corr]{Table~\ref*{tab:g-rank-freq-corr}}`{=latex} below, benchmark frequency *is* correlated with $G$ loadings. Unsigned averages suggest this correlation is modest ($r = 0.2740$), but the correlations are quite dispersed, and some dataset-imputation combinations can be as high as ~0.5. Thus, identifying benchmarks which proxy a supposed latent $G$ factor well requires adjusting the statistics with respect to their frequency.
 
 ```{=latex}
 \begin{longtable}{@{}llrrr@{}}
-\caption{Correlations between benchmark frequency and their \textcolor{red}{$G$} loadings. $k$ = number of factors extracted. Only accepted imputations with $wR^2 > 0.4$ are shown.}\label{tab:g-rank-freq-corr}\\
+\caption{Correlations between benchmark frequency and their $G$ loadings. $k$ = number of factors extracted. Only accepted imputations with $wR^2 > 0.4$ are shown.}\label{tab:g-rank-freq-corr}\\
 \toprule
 Method & Dataset & $k$ & $r$ & $N$ \\
 \midrule
@@ -20,14 +20,14 @@ Method & Dataset & $k$ & $r$ & $N$ \\
 \endhead
 \bottomrule
 \endlastfoot
-\multicolumn{5}{@{}l}{\textcolor{red}{[$k = 2$ rows removed]}} \\
+\multicolumn{5}{@{}l}{[$k = 2$ rows removed]} \\
 k-NN & C Std. & 8 & +0.3447 & 78 \\
 missForest & C Std. & 4 & +0.3200 & 78 \\
 missForest & S Std. & 5 & +0.2845 & 124 \\
 SoftImpute & C Std. & 10 & +0.4880 & 78 \\
 SoftImpute & R Aggr. & 20 & -0.1257 & 310 \\
 SoftImpute & S Std. & 8 & -0.0813 & 124 \\
-\textbf{Average} & & & \textbf{+0.2050} & \textcolor{red}{6} (groups) \\
+\textbf{Average} & & & \textbf{+0.2050} & 6 (groups) \\
 \textbf{Average $\lvert r\lvert$} & & & \textbf{+0.2740} & \\
 \end{longtable}
 ```
@@ -47,7 +47,7 @@ $$f_i = \frac{\#\{\text{models with non-missing score for } i\}}{m}.$$
 
 Columns with fewer than two observations or zero variance are excluded before computing $f_i$. Where several datasets contribute, the benchmark's frequency is the mean of its per-dataset $f_i$.
 
-As shown in `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below, within most cells, frequently measured benchmarks obtain higher $|g_i|$ and lower (better) $a_i$. A benchmark may therefore rank highly partly because it is measured often rather than because it is a strong indicator of \textcolor{red}{$G$}.
+As shown in `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below, within most cells, frequently measured benchmarks obtain higher $|g_i|$ and lower (better) $a_i$. A benchmark may therefore rank highly partly because it is measured often rather than because it is a strong indicator of $G$.
 
 The adjustment is applied within each cell rather than to the pooled averages. Within cell $C$, the normalized ranks are regressed on the cell's own frequencies by ordinary least squares,
 
@@ -60,11 +60,11 @@ The adjusted score of benchmark $i$ is the mean of its residuals over the cells 
 
 ## Diagnostics
 
-We present two diagnostics that justify the method of adjustment. `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below reports, within each cell, the Pearson correlation $r(f_i, a_i)$, with the mean $r$, the mean $|r|$, and the counts of negative and positive cells. Negative $r$ indicates that more frequently measured benchmarks load higher on \textcolor{red}{$G$}.
+We present two diagnostics that justify the method of adjustment. `\hyperref[tab:g-rank-cellwise-corr]{Table~\ref*{tab:g-rank-cellwise-corr}}`{=latex} below reports, within each cell, the Pearson correlation $r(f_i, a_i)$, with the mean $r$, the mean $|r|$, and the counts of negative and positive cells. Negative $r$ indicates that more frequently measured benchmarks load higher on $G$.
 
 ```{=latex}
 \begin{longtable}{@{}llrr@{}}
-\caption{Correlations between benchmark frequency and their \textcolor{red}{$G$} rankings. Mean $r = \textcolor{red}{-0.151}$, mean $\lvert r \rvert = \textcolor{red}{0.306}$; \textcolor{red}{4} negative and \textcolor{red}{2} positive cells.}\label{tab:g-rank-cellwise-corr}\\
+\caption{Correlations between benchmark frequency and their $G$ rankings. Mean $r = -0.151$, mean $\lvert r \rvert = 0.306$; 4 negative and 2 positive cells.}\label{tab:g-rank-cellwise-corr}\\
 \toprule
 Method & Dataset & $N$ & $r$ \\
 \midrule
@@ -76,12 +76,12 @@ Method & Dataset & $N$ & $r$ \\
 \endhead
 \bottomrule
 \endlastfoot
-\textcolor{red}{k-NN} & \textcolor{red}{C Std.} & \textcolor{red}{78} & \textcolor{red}{-0.413} \\
-\textcolor{red}{missForest} & \textcolor{red}{C Std.} & \textcolor{red}{78} & \textcolor{red}{-0.234} \\
-\textcolor{red}{missForest} & \textcolor{red}{S Std.} & \textcolor{red}{124} & \textcolor{red}{-0.318} \\
-\textcolor{red}{SoftImpute} & \textcolor{red}{C Std.} & \textcolor{red}{78} & \textcolor{red}{-0.406} \\
-\textcolor{red}{SoftImpute} & \textcolor{red}{R Aggr.} & \textcolor{red}{310} & \textcolor{red}{+0.072} \\
-\textcolor{red}{SoftImpute} & \textcolor{red}{S Std.} & \textcolor{red}{124} & \textcolor{red}{+0.394} \\
+k-NN & C Std. & 78 & -0.413 \\
+missForest & C Std. & 78 & -0.234 \\
+missForest & S Std. & 124 & -0.318 \\
+SoftImpute & C Std. & 78 & -0.406 \\
+SoftImpute & R Aggr. & 310 & +0.072 \\
+SoftImpute & S Std. & 124 & +0.394 \\
 \end{longtable}
 ```
 
@@ -101,9 +101,9 @@ $N$ cells & $N$ benchmarks & $r$ raw & $r$ adjusted \\
 \endhead
 \bottomrule
 \endlastfoot
-\textcolor{red}{3} & \textcolor{red}{46} & \textcolor{red}{-0.290} & \textcolor{red}{-0.298} \\
-\textcolor{red}{6} & \textcolor{red}{78} & \textcolor{red}{-0.266} & \textcolor{red}{+0.113} \\
-\textcolor{red}{Pooled} & \textcolor{red}{124} & \textcolor{red}{-0.135} & \textcolor{red}{+0.095} \\
+3 & 46 & -0.290 & -0.298 \\
+6 & 78 & -0.266 & +0.113 \\
+Pooled & 124 & -0.135 & +0.095 \\
 \end{longtable}
 ```
 
@@ -111,6 +111,6 @@ $N$ cells & $N$ benchmarks & $r$ raw & $r$ adjusted \\
 
 For this reason, we report the cellwise-frequency-adjusted average normalized rank as the primary ordering of benchmarks (`\hyperref[tab:g-rankings]{Table~\ref*{tab:g-rankings}}`{=latex} in the main text). This ordering removes the linear component of the within-cell rank–frequency association, which reaches $|r| \approx 0.3$ in the average cell, before averaging across cells. The raw average normalized rank is retained alongside it for comparison, as the two orderings agree closely. The adjustment mainly matters for benchmarks measured across many cells, where the within-cell association is strongest and where the adjusted ranking reorders the raw ranking.
 
-The full ranking of all \textcolor{red}{124} benchmarks is given in `\hyperref[full-g-rankings]{Appendix~\ref*{full-g-rankings}}`{=latex}.
+The full ranking of all 124 benchmarks is given in `\hyperref[full-g-rankings]{Appendix~\ref*{full-g-rankings}}`{=latex}.
 
 <!-- The "Full g rankings" subsection and its Table 4 moved to full-g-rankings.md on 2026-09-26. -->

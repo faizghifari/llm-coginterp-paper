@@ -60,11 +60,11 @@ density_pair_n.png-->
 
 <!--## Imputation results-->
 
-The table below lists the weighted held-out $R^2$ ($wR^2$) of every dataset-imputer combination. Rows are sorted by $wR^2$. As described in the results, only 6 of the 18 combinations pass the $wR^2 \geq 0.4$ \textcolor{red}{quality filter}.
+The table below lists the weighted held-out $R^2$ ($wR^2$) of every dataset-imputer combination. Rows are sorted by $wR^2$. As described in the results, only 6 of the 18 combinations pass the $wR^2 \geq 0.4$ quality filter.
 
 ```{=latex}
 \begin{longtable}{@{}llr@{}}
-\caption{\textcolor{red}{Results of all imputation runs, sorted by $wR^2$.}}\label{tab:imputation-results-all}\\
+\caption{Results of all imputation runs, sorted by $wR^2$.}\label{tab:imputation-results-all}\\
 \toprule
 Dataset & Imputer & $wR^2$ \\
 \midrule
