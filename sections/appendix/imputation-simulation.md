@@ -25,7 +25,7 @@ $$\mathrm{logit}\, P(\mathrm{obs}_{ij}) = a_i + b_j + s_{ij},$$
 where $(a_i, b_j)$ are fit by damped iterated bisection so expected row and column observation counts match the real table's margins. The $s_{ij}$ term is the missingness mechanism:
 
 ```{=latex}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.50\textwidth}>rrrr@{}}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.50\textwidth}@{}}
 \caption{Description of the simulated data-generation processes}\\
 \toprule
 Mechanism & $s_{ij}$ & Interpretation  \\
