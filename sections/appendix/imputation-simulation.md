@@ -1,6 +1,6 @@
 # Imputation simulation
 
-Held-out evaluation measures recovery of the masked cells, but the analysis ultimately reports factor-analytic quantities. To validate the full pipeline—imputation, exploratory factor analysis, and the Schmid–Leiman bifactor transformation—we simulate corpora from a data-generating process calibrated to be a plausible model of the real data: a known correlation matrix and a known factor structure. The planted structure is not a recovery target and the pipeline is not expected to reproduce it; it fixes the simulation's composition so that pipeline behavior can be compared against full-data and generating-structure references.
+Held-out evaluation measures how well the masked cells are recovered, but the analysis reports factor-analytic quantities. To check the full pipeline (imputation, exploratory factor analysis and the Schmid–Leiman transformation), we simulate data with a known correlation matrix and factor structure, calibrated to resemble the real data. We do not expect the pipeline to recover the planted structure. Instead, we compare its output with the complete simulated data and with the generating structure.
 
 ## Synthetic data generation
 
@@ -10,13 +10,13 @@ For each table we simulate from a hybrid model: a dense cross-loading background
 
 $$z_{ij} = \sum_{f=1}^{F} \lambda_{jf}\,\eta_{i,f} \;+\; \lambda^{s}_{j}\,\zeta_{i,\mathrm{suite}(j)} \;+\; \sqrt{\psi_j}\,\epsilon_{ij}, \qquad R = L L^\top + S S^\top,$$
 
-with $F \in \{5, 10\}$ dense background factors whose loadings are drawn $U(0.1, 0.5)$ ("weak") or $U(0.5, 0.9)$ ("loud") and scaled down by factor rank; and $N_{\text{suites}}$ suite factors, each benchmark loading its own suite strongly, with a deterministic per-suite decay so the planted factors' eigenvalues decrease strictly by construction. All loadings are positive, so $R$ has only positive entries, matching the real tables. The planted suite membership is the benchmark's dominant factor.
+with $F \in \{5, 10\}$ dense background factors whose loadings are drawn $U(0.1, 0.5)$ ("weak") or $U(0.5, 0.9)$ ("loud") and scaled down by factor rank; and $N_{\text{suites}}$ suite factors, each benchmark loading its own suite strongly, with a fixed decay per suite, so that the eigenvalues of the planted factors strictly decrease. All loadings are positive, so $R$ has only positive entries, matching the real tables. The planted suite membership is the benchmark's dominant factor.
 
-The factor count the model fixes is $1 + N_{\text{suites}}$: one emergent dominant direction plus the suite factors. The dense background's $F$ factors sit below the suite eigenvalues by construction — they add weak dimensions that make imputation hard, not dimensions parallel analysis is meant to count. The weak/loud labels set the background loading range: weak ($U(0.1, 0.5)$) spreads each benchmark's variance thinly across many factors, loud ($U(0.5, 0.9)$) concentrates it in few. Crossing the two profiles with $F \in \{5, 10\}$ spans the plausible range of dimensionality and cross-loading strength; rankings are reported per truth cell so no method's inductive bias is favored.
+The model has $1 + N_{\text{suites}}$ factors: one emergent dominant direction plus the suite factors. The $F$ background factors have smaller eigenvalues than the suite factors. They make imputation harder, but parallel analysis is not meant to count them. The weak profile ($U(0.1, 0.5)$) spreads each benchmark's variance thinly across many factors, and the loud profile ($U(0.5, 0.9)$) concentrates it in a few. Crossing the two profiles with $F \in \{5, 10\}$ covers a plausible range of dimensionality and cross-loading strength, and we report results per truth cell so that no single structure favors one method.
 
 The truth contains no general-factor block and no $\omega_h$ target: the dominant common direction is emergent, and the only calibrated global quantity is the mean off-diagonal correlation, planted at $0.3$ or $0.5$ and realized exactly by two block scales. Truth cells are named accordingly: `f5_weak`, `f5_loud`, `f10_weak`, `f10_loud`, crossed with the mean-$r$ target (`r30`, `r50`), giving 8 planted truths per table.
 
-The planted model is a single fixed matrix per table, defined on the union of every density slice's source grid. This is what makes the hierarchical descent scoreable: the descent chains a denser slice's completions into sparser ones, so the complete matrix those completions are scored against must be one fixed matrix at every density.
+The planted model is one fixed matrix per table, defined over the union of all density slices. Since the sequential imputation passes each denser slice's completions on to the sparser ones, the completions at every density have to be scored against the same complete matrix.
 
 Observation probability follows
 
