@@ -24,11 +24,25 @@ $$\mathrm{logit}\, P(\mathrm{obs}_{ij}) = a_i + b_j + s_{ij},$$
 
 where $(a_i, b_j)$ are fit by damped iterated bisection so expected row and column observation counts match the real table's margins. The $s_{ij}$ term is the missingness mechanism:
 
-| Mechanism | $s_{ij}$ | Interpretation |
-|---|---|---|
-| mcar | $0$ | calibrated missing-completely-at-random control |
-| cell | $\gamma \cdot z_{ij}$ | good cells are more likely observed |
-| popularity | $\kappa \cdot \hat\rho_j \, g_i$ | observability tied to a benchmark's expected correlation, interacting with model ability |
+```{=latex}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.50\textwidth}>rrrr@{}}
+\caption{Description of the simulated data-generation processes}\\
+\toprule
+Mechanisim & $s_{ij}$ & Interpretation  \\
+\midrule
+\endfirsthead
+\caption[]{(continued)}\\
+\toprule
+Mechanisim & $s_{ij}$ & Interpretation  \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+mcar & $0$ & Calibrated missing-completely-at-random control \\*
+cell & $\gamma \cdot z_{ij}$ & Good cells are more likely observed \\*
+popularity & $\kappa \cdot \hat\rho_j \, g_i$ & Observability tied to a benchmark's expected correlation, interacting with model ability \\*
+\end{longtable}
+```
 
 When a mechanism is too strong for the real margins to be met, we halve its strength until calibration converges and record the final scale. We use a single mask seed, and for a given table the random draws behind the masks are the same across truth cells and mechanisms, so all comparisons between conditions are paired. In total the grid is 8 truths $\times$ 3 mechanisms $\times$ 2 tables = 48 masked datasets.
 
