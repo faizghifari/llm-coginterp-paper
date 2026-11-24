@@ -66,30 +66,30 @@ Let $\omega_{h}^{\text{full}}$ be the fullset arm's general-factor coefficient f
 \hyperref[tab:synth-factors]{Table~\ref*{tab:synth-factors}} lists the runs that pass the weighted $R^2 \geq 0.4$ quality filter on the hierarchical end result, sorted by weighted $R^2$.
 
 ```{=latex}
-\begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}rrrr@{}}
+\begin{longtable}{@{}llllrrrr@{}}
 \caption{Factor-level scoring on the synthetic corpus, hierarchical end result: runs with weighted $R^2 \geq 0.4$. $\Delta\omega_h$ is bias against the fullset arm.}\label{tab:synth-factors}\\
 \toprule
-Method & ds & Mask & Truth cell & $\omega_h^{\text{full}}$ & $\omega_h^{\text{est}}$ & $\Delta\omega_h$ & Weighted $R^2$ \\
+Method & Table & Mask & Truth cell & $\omega_h^{\text{full}}$ & $\omega_h^{\text{est}}$ & $\Delta\omega_h$ & $wR^2$ \\
 \midrule
 \endfirsthead
 \caption[]{(continued)}\\
 \toprule
-Method & ds & Mask & Truth cell & $\omega_h^{\text{full}}$ & $\omega_h^{\text{est}}$ & $\Delta\omega_h$ & Weighted $R^2$ \\
+Method & Table & Mask & Truth cell & $\omega_h^{\text{full}}$ & $\omega_h^{\text{est}}$ & $\Delta\omega_h$ & $wR^2$ \\
 \midrule
 \endhead
 \bottomrule
 \endlastfoot
-missForest & C\_all\_standard & popularity & f5\_weak\_r50 & 0.7397 & 0.8057 & 0.0660 & 0.4961 \\*
-missForest & S\_all\_standard & popularity & f10\_weak\_r50 & 0.7068 & 0.8484 & 0.1416 & 0.4563 \\*
-missForest & C\_all\_standard & popularity & f10\_weak\_r50 & 0.7302 & 0.8562 & 0.1260 & 0.4499 \\*
-SoftImpute & C\_all\_standard & mcar & f5\_weak\_r50 & 0.7397 & 0.7017 & $-$0.0380 & 0.4491 \\*
-missForest & S\_all\_standard & popularity & f5\_loud\_r50 & 0.7750 & 0.8622 & 0.0871 & 0.4477 \\*
-missForest & S\_all\_standard & mcar & f10\_weak\_r50 & 0.7068 & 0.8862 & 0.1794 & 0.4244 \\*
-missForest & S\_all\_standard & popularity & f5\_weak\_r50 & 0.6925 & 0.8036 & 0.1110 & 0.4145 \\*
-missForest & C\_all\_standard & popularity & f10\_loud\_r50 & 0.7748 & 0.8385 & 0.0637 & 0.4109 \\*
-missForest & C\_all\_standard & popularity & f5\_loud\_r50 & 0.7415 & 0.8353 & 0.0938 & 0.4091 \\*
-SoftImpute & C\_all\_standard & cell & f5\_weak\_r50 & 0.7397 & 0.7178 & $-$0.0219 & 0.4021 \\*
-missForest & C\_all\_standard & mcar & f5\_weak\_r50 & 0.7397 & 0.8359 & 0.0962 & 0.4006 \\
+missForest & C & popularity & f5\_weak\_r50 & 0.740 & 0.806 & +0.066 & 0.496 \\*
+missForest & S & popularity & f10\_weak\_r50 & 0.707 & 0.848 & +0.142 & 0.456 \\*
+missForest & C & popularity & f10\_weak\_r50 & 0.730 & 0.856 & +0.126 & 0.450 \\*
+SoftImpute & C & mcar & f5\_weak\_r50 & 0.740 & 0.702 & $-$0.038 & 0.449 \\*
+missForest & S & popularity & f5\_loud\_r50 & 0.775 & 0.862 & +0.087 & 0.448 \\*
+missForest & S & mcar & f10\_weak\_r50 & 0.707 & 0.886 & +0.179 & 0.424 \\*
+missForest & S & popularity & f5\_weak\_r50 & 0.693 & 0.804 & +0.111 & 0.415 \\*
+missForest & C & popularity & f10\_loud\_r50 & 0.775 & 0.839 & +0.064 & 0.411 \\*
+missForest & C & popularity & f5\_loud\_r50 & 0.741 & 0.835 & +0.094 & 0.409 \\*
+SoftImpute & C & cell & f5\_weak\_r50 & 0.740 & 0.718 & $-$0.022 & 0.402 \\*
+missForest & C & mcar & f5\_weak\_r50 & 0.740 & 0.836 & +0.096 & 0.401 \\
 \end{longtable}
 ```
 
