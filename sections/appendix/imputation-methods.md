@@ -22,4 +22,4 @@ missForest \citep{stekhoven2012} & Iterative random-forest imputation, nonparame
 \end{longtable}
 ```
 
-There were other methods that we used to impute the data, particularly those that worked with the correlation matrix instead of the full dataset. However, we omit them as we fail to obtain a result that pass the $wR^2$ quality filter.
+We also tried methods that complete the correlation matrix instead of the data matrix, including a correlation-level variant of SoftImpute. In a single-step imputation at 10\% density, none of them reached the quality filter (best held-out $R^2$ of 0.39), so we did not carry them into the sequential imputation and do not factor them.
