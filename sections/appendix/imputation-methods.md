@@ -1,6 +1,6 @@
 # Imputation methods
 
-Every method implemented in R shares one interface. It takes the sparse matrix in, and returns the completed matrix, the swept-parameter grid, and the held-out RMSE and $wR^2$ at each parameter value. None of them factor. This is what allows the factoring stage to be identical across methods. `\hyperref[tab:imputation-cell-methods]{Table~\ref*{tab:imputation-cell-methods}}`{=latex} shows the list of full-dataset missing data estimators.
+Every method implemented in R shares one interface: it takes the sparse matrix and returns the completed matrix, the swept parameter grid, and the held-out RMSE and $wR^2$ at each parameter value. None of the methods does any factoring itself, so the factoring stage is identical across methods. `\hyperref[tab:imputation-cell-methods]{Table~\ref*{tab:imputation-cell-methods}}`{=latex} lists the full-dataset missing-data estimators.
 
 ```{=latex}
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.30\textwidth}>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.26\textwidth}@{}}
