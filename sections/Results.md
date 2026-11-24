@@ -69,6 +69,7 @@ The top benchmarks are not dominated by common standard benchmarks. The top prox
 
 ```{=latex}
 
+\begingroup\small\setlength{\tabcolsep}{3pt}
 \begin{longtable}{@{}rlrrlrrr@{}}
 \caption{Benchmarks and their average normalized rank order ($\rho$) of their $G$ factor loadings. Sorted by frequency-residualized rank ($\rho_\epsilon$). $\rho$ ranges from 0 to 1, where 0 = ranked first, 1 = ranked last. $N$ = number of EFA estimations with that benchmark. CI and Best/Worst refer to $\rho$.}\label{tab:g-rankings}\\
 \toprule
@@ -98,4 +99,5 @@ No & Benchmark & ${\rho_\epsilon}^{\downarrow}$ & $\rho^{\downarrow}$ & 95\% CI 
 85 & swe\_bench & 0.043 & 0.535 & [-0.512, 1.581] & 0.084 & 0.919 & 3 \\
 116 & hellaswag & 0.162 & 0.599 & [0.329, 0.870] & 0.252 & 0.961 & 6 \\
 \end{longtable}
+\endgroup
 ```
