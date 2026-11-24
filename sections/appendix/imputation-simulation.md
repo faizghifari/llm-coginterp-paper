@@ -30,9 +30,9 @@ where $(a_i, b_j)$ are fit by damped iterated bisection so expected row and colu
 | cell | $\gamma \cdot z_{ij}$ | good cells are more likely observed |
 | popularity | $\kappa \cdot \hat\rho_j \, g_i$ | observability tied to a benchmark's expected correlation, interacting with model ability |
 
-When a mechanism is too strong for the real margins to be jointly feasible, it is halved until calibration converges; the surviving scale is recorded. A single mask seed is used, and the uniform behind the Bernoulli draw is identical across truth cells and masks for a fixed table, so every cross-condition comparison is paired by construction. In total the grid is 8 truths $\times$ 3 mechanisms $\times$ 2 tables = 48 masked datasets.
+When a mechanism is too strong for the real margins to be met, we halve its strength until calibration converges and record the final scale. We use a single mask seed, and for a given table the random draws behind the masks are the same across truth cells and mechanisms, so all comparisons between conditions are paired. In total the grid is 8 truths $\times$ 3 mechanisms $\times$ 2 tables = 48 masked datasets.
 
-As with the real corpus, the masks are nested across density slices by construction: each sparser slice carries the denser slice's observed cells and reveals additional ones in prioritized order until its own margins are met. A verification script walks every (mechanism, truth) chain densest-to-sparsest and asserts grid nesting, cell nesting, and that each planted correlation is symmetric, unit-diagonal, positive semi-definite, strictly spectrum-decreasing over the planted factors, and hits its mean-$r$ target.
+As in the real corpus, the masks are nested across density slices: each sparser slice keeps the observed cells of the denser slice and reveals more cells, in priority order, until its own margins are met. For every mechanism and truth, we check that the slices are nested (in both their rows and columns and their observed cells) and that each planted correlation matrix is symmetric, has a unit diagonal, is positive semi-definite, has strictly decreasing eigenvalues over the planted factors, and hits its mean-$r$ target.
 
 ## Protocol
 
