@@ -10,7 +10,7 @@ Target density $\tau = 0.10$. Let $\mathbf{M}$ be the boolean observation mask.
 
 **Minimum-observation floor.** After peeling, iterate to a fixed point, dropping any kept row or column with fewer observations than the floor *within the currently kept submatrix*. The loop is required because dropping a sparse row can starve a column and vice versa.
 
-**Degenerate-column guard.** Finally drop any column with fewer than 2 observed values or zero variance among its observed values, matching exactly what the downstream estimators would drop at runtime. This parity is deliberate: it keeps the reported matrix shape equal to the shape actually factored.
+**Degenerate-column guard.** Finally drop any column with fewer than 2 observed values or zero variance among its observed values. The downstream estimators would drop these columns anyway, so this keeps the reported matrix shape equal to the shape that is actually factored.
 
 The tables analyzed in this paper were generated with the floor set to 3 observations.<!-- The constant name MIN_OBS was removed here and above in pass 5. -->
 
