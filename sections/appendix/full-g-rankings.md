@@ -94,7 +94,7 @@ No & Benchmark & $\rho_\epsilon$ & $\rho$ & 95\% CI & Best & Worst & $N$ & Refer
 75 & gpqa\_diamond & .019 & .548 & [.353, .743] & .340 & .870 & 6 & \citealp{rein2023gpqa} \\
 76 & kaggle\_sjmikler\_livecodebench & .019 & .546 & [.304, .788] & .236 & .883 & 6 & \citealp{jain2024livecodebench} \\
 77 & pwc\_arc\_easy & .022 & .518 & [-.561, 1.597] & .016 & .773 & 3 & \citealp{clark2018think} \\
-78 & kaggle\_aminmohamedmohami\_browsecomp & .022 & .551 & [.221, .882] & .065 & .935 & 6 & \citealp{wei2025browsecomp} \\
+78 & kaggle\_aminmohamed\-mohami\_browsecomp & .022 & .551 & [.221, .882] & .065 & .935 & 6 & \citealp{wei2025browsecomp} \\
 79 & disinformation\_reiteration & .023 & .553 & [.249, .857] & .179 & .896 & 6 & \citealp{helm2023} \\
 80 & natural\_qa\_closedbook & .027 & .518 & [.186, .850] & .154 & .877 & 6 & \citealp{kwiatkowski2019natural} \\
 81 & alrage & .031 & .562 & [.186, .937] & .089 & .974 & 6 & \citealp{helm_arabic}$^\dagger$ \\
