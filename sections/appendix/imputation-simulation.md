@@ -28,12 +28,12 @@ where $(a_i, b_j)$ are fit by damped iterated bisection so expected row and colu
 \begin{longtable}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.50\textwidth}>rrrr@{}}
 \caption{Description of the simulated data-generation processes}\\
 \toprule
-Mechanisim & $s_{ij}$ & Interpretation  \\
+Mechanism & $s_{ij}$ & Interpretation  \\
 \midrule
 \endfirsthead
 \caption[]{(continued)}\\
 \toprule
-Mechanisim & $s_{ij}$ & Interpretation  \\
+Mechanism & $s_{ij}$ & Interpretation  \\
 \midrule
 \endhead
 \bottomrule
