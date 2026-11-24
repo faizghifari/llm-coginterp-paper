@@ -36,11 +36,11 @@ As in the real corpus, the masks are nested across density slices: each sparser 
 
 ## Protocol
 
-Each generated dataset directory is a drop-in data root containing only the C and S `all_standard` cells, and the hierarchical imputation descent of `\hyperref[imputation-evaluation]{Appendix~\ref*{imputation-evaluation}}`{=latex} runs over its density slices exactly as on the real corpus: seeded at the densest slice, descending to the sparsest, each step training on the union grid with observed cells taking precedence and holdouts restricted to the columns the step introduces.
+Each simulated dataset holds only the C and S tables (standard collapse), and we run the same sequential imputation as on the real corpus (`\hyperref[imputation-evaluation]{Appendix~\ref*{imputation-evaluation}}`{=latex}). Starting from the densest slice and descending to the sparsest, each step trains on its observed cells together with the previous step's completions, with observed cells taking precedence, and holds out cells only from the benchmarks the step introduces.
 
 Two levels of scoring follow:
 
-- **Cell level.** Each step's completions are scored against the simulation's complete matrix on the introduced columns' missing cells, column-balanced; the step's planted-truth $R^2$ replaces the held-out $R^2$, and the weighted $R^2$ is the introduced-column-weighted mean of those values — based on the simulated complete matrix rather than held-out cells.
+- **Cell level.** Each step's completions are scored against the complete simulated matrix on the missing cells of the introduced columns, balanced by column. This $R^2$ against the planted truth replaces the held-out $R^2$, and the weighted $R^2$ averages it over steps, weighted by the number of columns each step introduces.
 - **Factor level.** The exact factor-analysis recipe (parallel analysis factor count, minimum-residual/promax EFA, Schmid–Leiman transformation) runs on each completed matrix. A **fullset** arm runs the identical recipe on the complete, unmasked simulated matrix, which separates estimator bias from missingness damage. No quality filter is applied at factoring time; the filter is applied at scoring so that its effect can be reported.
 
 ## Metrics
