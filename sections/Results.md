@@ -38,10 +38,10 @@ S Std. & SoftImpute & 11.6\% & 0.044 & 0.114 & 0.041 & 0.428 \\
 \vspace{-2pt}
 \footnotesize\setlength{\tabcolsep}{3pt}
 \centering
-\caption{Cohesion of subject labels. Full cohesion results for every label can be seen in \hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}}.}\label{tab:cohesion-subset}
+\caption{Cohesion of subject labels. Sig. = number of cells in which the label is significant after Benjamini--Hochberg correction. Full cohesion results for every label can be seen in \hyperref[label-cohesion-results]{Appendix~\ref*{label-cohesion-results}}.}\label{tab:cohesion-subset}
 \begin{tabular}{@{}lrr@{}}
 \toprule
-Label & Median A & Significant \\
+Label & Median A & Sig. \\
 \midrule
 \texttt{reading\_comprehension} & +0.331 & 3/9 \\
 \texttt{commonsense} & +0.329 & 2/9 \\
